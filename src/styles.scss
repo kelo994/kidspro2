@@ -30,3 +30,6 @@ $kidspro-theme: mat-light-theme($kidspro-primary, $kidspro-accent, $kidspro-warn
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@import './assets/scss/header.component.scss';
+@import './assets/scss/button.component.scss';

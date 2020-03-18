@@ -1,0 +1,20 @@
+::ng-deep nz-header {
+    position: fixed !important;
+    top: 0 !important;
+    z-index: 1050 !important;
+    width: 100% !important;
+}
+
+.ant-layout-header,
+.ant-menu-dark {
+    background-color: #008c99 !important;
+}
+
+.ant-layout-header {
+    padding: 7px 50px !important;
+}
+
+.ant-menu-dark.ant-menu-horizontal>.ant-menu-item {
+    font-size: 18px;
+    padding: 0px 20px;
+}

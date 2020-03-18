@@ -1,7 +1,7 @@
 <!--main starts-->
 <div id="main">
     <!--slider starts-->
-    <nav id="navHeader" class="nav py-0">
+    <!-- <nav id="navHeader" class="nav py-0">
         <div class="container-fluid">
             <div class="logo">
                 <a href="/home" title="Kids Life"><img id="logoHeader" height="60" src="./assets/images/kids-logo.png"
@@ -30,7 +30,24 @@
                 <i></i>
             </span>
         </div>
-    </nav>
+    </nav> -->
+
+    <nz-header>
+        <div class="logo">
+            <img height="55" src="../../../assets/images/logo/kids-logo.png" alt="">
+        </div>
+        <ul nz-menu [nzTheme]="'dark'" [nzMode]="'horizontal'" class="header-menu text-right">
+          <li nz-menu-item>Inicio</li>
+          <li nz-menu-item nzSelected>Funcionalidades</li>
+          <li nz-menu-item>Organización Curricular</li>
+          <li nz-menu-item>Contacto</li>
+          <li nz-menu-item>
+              <button class="btn btn-login">
+                  Iniciar Sesión
+              </button>
+          </li>
+        </ul>
+      </nz-header>
 
     <div id="sidebarMenu">
         <ul class="sidebarMenuInner">
