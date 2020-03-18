@@ -1,0 +1,145 @@
+/* Botones */
+.btn-first {
+    border-radius: 15px !important;
+    background-color: #4cbcd4 !important;
+    color: #fff !important;
+}
+
+.btn-first:hover {
+    background-color: #2e9bb2 !important;
+}
+
+.btn-outline-first {
+    border: #4cbcd4 1px solid !important;
+    border-radius: 15px !important;
+    background-color: #fff !important;
+    color: #4cbcd4 !important;
+}
+
+.btn-outline-first:hover {
+    border: #4cbcd4 1px solid;
+    border-radius: 15px !important;
+    background-color: #4cbcd4 !important;
+    color: #fff !important;
+}
+
+.btn-second {
+    border: #acc158 1px solid;
+    border-radius: 15px !important;
+    background-color: #acc158 !important;
+    color: #fff !important;
+    font-size: 15px;
+    padding: 14px 18px !important;
+}
+
+.btn-second:hover {
+    background-color: #93A54A !important;
+}
+
+.btn-outline-second {
+    border: #25A8B4 1px solid !important;
+    border-radius: 15px !important;
+    background-color: #fff !important;
+    color: #25A8B4 !important;
+    font-size: 15px !important;
+}
+
+.btn-outline-second:hover {
+    background-color: #25A8B4 !important;
+    color: #fff !important;
+}
+
+.btn-third {
+    border: #ea9d5f 1px solid;
+    border-radius: 15px !important;
+    background-color: #ea9d5f !important;
+    color: #fff !important;
+    font-size: 15px;
+    padding: 14px 18px;
+}
+
+.btn-third:hover {
+    border: #ea9d5f 1px solid;
+    border-radius: 15px !important;
+    background-color: #bf7c45 !important;
+    color: #fff !important;
+    font-size: 15px;
+    padding: 14px 18px;
+}
+
+.btn-outline-third {
+    border: #bf7c45 1px solid !important;
+    border-radius: 15px !important;
+    background-color: #fff !important;
+    color: #bf7c45 !important;
+    font-size: 15px !important;
+    padding: 8px 8px !important;
+}
+
+.btn-outline-third:hover {
+    background-color: #bf7c45 !important;
+    color: #fff !important;
+}
+
+.btn-four {
+    border: #f27c7e 1px solid;
+    border-radius: 15px !important;
+    background-color: #f27c7e !important;
+    color: #fff !important;
+    font-size: 15px;
+    padding: 7px 9px;
+}
+
+.btn-four:hover {
+    border: #f27c7e 1px solid;
+    border-radius: 15px !important;
+    background-color: #CF6668 !important;
+    color: #fff !important;
+}
+
+.btn-outline-four {
+    border: #f27c7e 1px solid;
+    border-radius: 15px !important;
+    background-color: #fff !important;
+    color: #f27c7e !important;
+    font-size: 15px;
+    padding: 7px 9px;
+}
+
+.btn-outline-four:hover {
+    background-color: #f27c7e !important;
+    color: #fff !important;
+}
+
+.btn-secondary:hover {
+    background-color: #127780 !important;
+}
+
+.btn-floating {
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    right: 20px;
+    bottom: 0%;
+    position: fixed;
+    margin-left: 0px;
+    margin-bottom: 16px;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 36px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    transition: 0.3s;
+    z-index: 10;
+}
+
+.btn-back {
+    position: absolute;
+    margin-top: 10px;
+}
+
+.btn-print {
+    position: absolute;
+    margin-top: 10px;
+    right: 18px;
+}

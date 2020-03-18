@@ -10,12 +10,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import es from '@angular/common/locales/es';
+import { LandingComponent, DialogDataExampleDialog } from './components/landing/landing.component';
+import { MaterialModule } from './material.module';
 
 registerLocaleData(es);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LandingComponent,
+    DialogDataExampleDialog
   ],
   imports: [
     BrowserModule,
@@ -24,8 +28,10 @@ registerLocaleData(es);
     NgZorroAntdModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MaterialModule
   ],
+  entryComponents: [DialogDataExampleDialog],
   providers: [{ provide: NZ_I18N, useValue: es_ES }],
   bootstrap: [AppComponent]
 })
