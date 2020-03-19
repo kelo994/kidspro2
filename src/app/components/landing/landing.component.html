@@ -1,53 +1,20 @@
-<!--main starts-->
 <div id="main">
-    <!--slider starts-->
-    <!-- <nav id="navHeader" class="nav py-0">
-        <div class="container-fluid">
-            <div class="logo">
-                <a href="/home" title="Kids Life"><img id="logoHeader" height="60" src="./assets/images/kids-logo.png"
-                        alt="Kids Life" title="Kids Life"></a>
-            </div>
-            <div id="mainListDiv" class="main_list">
-                <ul class="navlinks">
-                    <li class="pointer"><a (click)="scroll('slider')" class="px-2 .topNav text-white"
-                            style="text-shadow: 2px 2px #000000;">Inicio</a></li>
-                    <li class="pointer"><a (click)="scroll('funcionalidad')" class="px-2 .topNav text-white"
-                            style="text-shadow: 2px 2px #000000;">Funcionalidades</a></li>
-                    <li class="pointer"><a (click)="scroll('curricular')" class="px-2 .topNav text-white"
-                            style="text-shadow: 2px 2px #000000;">Organización Curricular</a></li>
-                    <li class="pointer"><a (click)="scroll('contacto')" class="px-2 .topNav text-white"
-                            style="text-shadow: 2px 2px #000000;">Contacto</a></li>
-                    <li class="pointer">
-                        <a href="https://app.acamykids.cl" class="btn btn-first btnNav">
-                            Inicia Sesión
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <span class="navTrigger" (click)="toggleMenu()">
-                <i></i>
-                <i></i>
-                <i></i>
-            </span>
-        </div>
-    </nav> -->
-
     <nz-header>
         <div class="logo">
             <img height="55" src="../../../assets/images/logo/kids-logo.png" alt="">
         </div>
         <ul nz-menu [nzTheme]="'dark'" [nzMode]="'horizontal'" class="header-menu text-right">
-          <li nz-menu-item>Inicio</li>
-          <li nz-menu-item nzSelected>Funcionalidades</li>
-          <li nz-menu-item>Organización Curricular</li>
-          <li nz-menu-item>Contacto</li>
-          <li nz-menu-item>
-              <button class="btn btn-login">
-                  Iniciar Sesión
-              </button>
-          </li>
+            <li nz-menu-item>Inicio</li>
+            <li nz-menu-item nzSelected>Funcionalidades</li>
+            <li nz-menu-item>Organización Curricular</li>
+            <li nz-menu-item>Contacto</li>
+            <li nz-menu-item>
+                <button class="btn btn-login">
+                    Iniciar Sesión
+                </button>
+            </li>
         </ul>
-      </nz-header>
+    </nz-header>
 
     <div id="sidebarMenu">
         <ul class="sidebarMenuInner">
@@ -129,11 +96,11 @@
                 <img class="ls-l" style="top:78px;left:50px;white-space: nowrap;" data-ls="offsetxin:-200;delayin:2000;"
                     src="./assets/images/slider/slider2/comment.png" alt="">
                 <!--<img class="ls-l" style="top:78px;left:50px;white-space: nowrap;" data-ls="offsetxin:-200;delayin:2000;" src="./assets/images/layerslider-gallery/b-comment.png" alt="">
-                <img class="ls-l" style="top:137px;left:98px;white-space: nowrap;" data-ls="delayin:2500;rotateyin:30;" src="./assets/images/layerslider-gallery/welcome-text.png" alt="">
-                <img class="ls-l" style="top:222px;left:96px;white-space: nowrap;" data-ls="delayin:3000;rotateyin:30;" src="./assets/images/layerslider-gallery/text-desc.png" alt="">
-                <img class="ls-l" style="top:397px;left:105px;white-space: nowrap;" data-ls="offsetxin:0;offsetyin:200;delayin:3500;offsetxout:0;offsetyout:150;" src="./assets/images/layerslider-gallery/purchase-theme.png" alt="">
-                <img class="ls-l" style="top:395px;left:297px;white-space: nowrap;" data-ls="delayin:3700;" src="./assets/images/layerslider-gallery/b-tick.png" alt="">
-                <img class="ls-l" style="top:421px;left:100px;white-space: nowrap;" data-ls="offsetxin:0;offsetyin:200;delayin:4000;offsetxout:0;offsetyout:150;" src="./assets/images/layerslider-gallery/chalk-effect.png" alt="">-->
+                    <img class="ls-l" style="top:137px;left:98px;white-space: nowrap;" data-ls="delayin:2500;rotateyin:30;" src="./assets/images/layerslider-gallery/welcome-text.png" alt="">
+                    <img class="ls-l" style="top:222px;left:96px;white-space: nowrap;" data-ls="delayin:3000;rotateyin:30;" src="./assets/images/layerslider-gallery/text-desc.png" alt="">
+                    <img class="ls-l" style="top:397px;left:105px;white-space: nowrap;" data-ls="offsetxin:0;offsetyin:200;delayin:3500;offsetxout:0;offsetyout:150;" src="./assets/images/layerslider-gallery/purchase-theme.png" alt="">
+                    <img class="ls-l" style="top:395px;left:297px;white-space: nowrap;" data-ls="delayin:3700;" src="./assets/images/layerslider-gallery/b-tick.png" alt="">
+                    <img class="ls-l" style="top:421px;left:100px;white-space: nowrap;" data-ls="offsetxin:0;offsetyin:200;delayin:4000;offsetxout:0;offsetyout:150;" src="./assets/images/layerslider-gallery/chalk-effect.png" alt="">-->
                 <img class="ls-l" style="top:30px;left:2px;white-space: nowrap;"
                     data-ls="delayin:3100;rotateyin:90;parallaxlevel:3;"
                     src="./assets/images/layerslider-gallery/b-game.png" alt="">
@@ -212,10 +179,11 @@
     </div>
     <!--slider ends-->
     <!--primary starts-->
-    <section id="funcionalidad" class="content-full-width pt-5">
+    <section id="funcionalidad" class="content-full-width pt-section-principal">
         <!--container starts-->
-        <div class="container pt-5">
-            <div class="row">
+        <div class="container px-4">
+            <p class="c-green title-section text-center m-0">Funcionalidades</p>
+            <div class="row pt-section">
                 <div class="col-lg-3 col-md-6 col-xs-12 m-0 mb-2 column">
                     <div class="dt-sc-ico-content type1">
                         <div class="icon">
@@ -223,8 +191,9 @@
                                 <img src="./assets/images/gif/video.gif" alt="" title="">
                             </span>
                         </div>
-                        <h4><a>Videos</a></h4>
-                        <p>Videos explicativos de lecciones por asignaturas de Lenguaje y Matemáticas basados en el
+                        <p class="title-subSection c-green text-left pt-3">Videos</p>
+                        <p class="content-subSection">Videos explicativos de lecciones por asignaturas de Lenguaje y
+                            Matemáticas basados en el
                             programa curricular de Educación General de primer ciclo. Focalizado en Diseño Universal de
                             Aprendizajes (DUA).
                         </p>
@@ -237,8 +206,9 @@
                                 <img src="./assets/images/gif/actividad.gif" alt="" title="">
                             </span>
                         </div>
-                        <h4><a>Juegos</a></h4>
-                        <p>Juegos de videos divertidos y dinámicos, basados en cada lección por asignatura. Permite al
+                        <p class="title-subSection c-green text-left pt-3">Juegos</p>
+                        <p class="content-subSection">Juegos de videos divertidos y dinámicos, basados en cada lección
+                            por asignatura. Permite al
                             estudiantes practicar contenidos y al docente obtener reportabilidad del progreso del
                             estudiante.
                         </p>
@@ -251,8 +221,9 @@
                                 <img src="./assets/images/gif/reportabilidad.gif" alt="" title="">
                             </span>
                         </div>
-                        <h4><a>Reportabilidad</a></h4>
-                        <p>Reportabilidad gráfica de todo el progreso del estudiante por distintas variables, tales
+                        <p class="title-subSection c-green text-left pt-3">Reportabilidad</p>
+                        <p class="content-subSection">Reportabilidad gráfica de todo el progreso del estudiante por
+                            distintas variables, tales
                             como: cursos, asignaturas, estudiante, unidades, lecciones, objetivos de aprendizaje y más.
                             El profesor en tiempo real puede acceder a los reportes y sus análisis.</p>
                     </div>
@@ -264,416 +235,446 @@
                                 <img src="./assets/images/gif/rubrica.gif" alt="" title="">
                             </span>
                         </div>
-                        <h4><a>Evaluación Simce</a></h4>
-                        <p>Simulador de ensayos Simce, permite medir con anticipación Simce 4° básico de las asignaturas
+                        <p class="title-subSection c-green text-left pt-3">Evaluación Simce</p>
+                        <p class="content-subSection">Simulador de ensayos Simce, permite medir con anticipación Simce
+                            4° básico de las asignaturas
                             de Lenguaje y Matemáticas. El profesor podrá obtener reportes y análisis por curso y
                             estudiante en tiempo real</p>
                     </div>
                 </div>
             </div>
         </div>
-        <!--container ends-->
-        <div class="dt-sc-hr"></div>
-        <!--fullwidth-background starts-->
-        <section id="" class="fullwidth-background dt-sc-parallax-section orange-bg p-0 pt-2">
-            <!--container starts-->
-            <div class="container-fluid">
-                <h2 class="dt-sc-hr-white-title m-0 d-none">Video</h2>
-                <div class="row mx-2">
-                    <div class="col-xs-12 col-md-6 col-lg-4 py-5 p-1">
-                        <div class="videoFrame">
-                            <div class="contenedor">
-                                <img src="../../../assets/images/video1.png" height="300px" alt="Video Educativo"
-                                    style="width:100%">
-                                <button class="btn btnPlay" (click)="openDialog(1)"><i
-                                        class="far fa-play-circle"></i></button>
-                            </div>
-                            <h3 class="c-first-dark text-center mt-2">Video Educativo</h3>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-md-4 col-lg-4 py-5 p-1">
-                        <div class="videoFrame">
-                            <div class="contenedor">
-                                <img src="../../../assets/images/video2.png" height="300px" alt="Juegos Interactivos"
-                                    style="width:100%">
-                                <button class="btn btnPlay" (click)="openDialog(2)"><i
-                                        class="far fa-play-circle"></i></button>
-                            </div>
-                            <h3 class="c-first-dark text-center mt-2">Juegos Interactivos</h3>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-md-4 col-lg-4 py-5 p-1">
-                        <div class="videoFrame">
-                            <div class="contenedor">
-                                <img src="../../../assets/images/video3.png" height="300px" alt="Evaluación Simce"
-                                    style="width:100%">
-                                <button class="btn btnPlay" (click)="openDialog(3)"><i
-                                        class="far fa-play-circle"></i></button>
-                            </div>
-                            <h3 class="c-first-dark text-center mt-2">Evaluación Simce</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--container ends-->
-        </section>
-        <section id="about" class="fullwidth-background dt-sc-parallax-section turquoise-bg">
-            <!--container starts-->
-            <div class="container">
-                <!--dt-sc-one-half starts-->
-                <div class="col-lg-9 m-0 col-xs-12 mb-3 column first p-0">
-                    <h2 class="mb-4">¿Quiere lograr mejores resultados?</h2>
-                    <!--dt-sc-one-half starts-->
-                    <div class="dt-sc-one-half column first">
-                        <div class="dt-sc-ico-content type2 w-100">
-                            <div class="icon w-100">
-                                <div class="textResultados row m-0 w-100">
-                                    <div class="col-2 p-0">
-                                        <span class="fas fa-clipboard-list"></span>
-                                    </div>
-                                    <div class="col-10 h4 px-1 m-0 d-block my-auto">
-                                        Lecciones para Primer Ciclo de Educación.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="dt-sc-hr-very-small"></div>
-                        <div class="dt-sc-ico-content type2 w-100">
-                            <div class="icon w-100">
-                                <div class="textResultados row m-0 w-100">
-                                    <div class="col-2 p-0">
-                                        <span class="fas fa-pencil-alt"></span>
-                                    </div>
-                                    <div class="col-10 h4 px-1 m-0 d-block my-auto">
-                                        Matemáticas y Lenguaje, Comunicación y Literatura.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="dt-sc-hr-very-small"></div>
-                        <div class="dt-sc-ico-content type2 w-100">
-                            <div class="icon w-100">
-                                <div class="textResultados row m-0 w-100">
-                                    <div class="col-2 p-0">
-                                        <span class="fas fa-gamepad"></span>
-                                    </div>
-                                    <div class="col-10 h4 px-1 m-0 d-block my-auto">
-                                        Vídeos y juegos interactivos por lección.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="dt-sc-hr-very-small"></div>
-                        <div class="dt-sc-ico-content type2">
-                            <div class="icon w-100">
-                                <div class="textResultados row m-0">
-                                    <div class="col-2 p-0">
-                                        <span class="fas fa-clipboard-list"></span>
-                                    </div>
-                                    <div class="col-10 h4 px-1 m-0 d-block my-auto">
-                                        Reportabilidad y análisis por estudiante.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--dt-sc-one-half ends-->
-                    <!--dt-sc-one-half starts-->
-                    <div class="dt-sc-one-half column">
-                        <div class="dt-sc-ico-content type2 w-100">
-                            <div class="icon w-100">
-                                <div class="textResultados row m-0 w-100">
-                                    <div class="col-2 p-0">
-                                        <span class="fas fa-user-friends"></span>
-                                    </div>
-                                    <div class="col-10 h4 px-1 m-0 d-block my-auto">
-                                        Acceso a profesores, alumnos y asistentes.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="dt-sc-hr-very-small"></div>
-                        <div class="dt-sc-ico-content type2 w-100">
-                            <div class="icon w-100">
-                                <div class="textResultados row m-0 w-100">
-                                    <div class="col-2 p-0">
-                                        <span class="fas fa-paint-brush"></span>
-                                    </div>
-                                    <div class="col-10 h4 px-1 m-0 d-block my-auto">
-                                        Actividades DUA
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="dt-sc-hr-very-small"></div>
-                        <div class="dt-sc-ico-content type2 w-100">
-                            <div class="icon w-100">
-                                <div class="textResultados row m-0 w-100">
-                                    <div class="col-2 p-0">
-                                        <span class="fab fa-leanpub"></span>
-                                    </div>
-                                    <div class="col-10 h4 px-1 m-0 d-block my-auto">
-                                        Evaluaciones SIMCE
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="dt-sc-hr-very-small"></div>
-                        <div class="dt-sc-ico-content type2 w-100">
-                            <div class="icon w-100">
-                                <div class="textResultados row m-0 w-100">
-                                    <div class="col-2 p-0">
-                                        <span class="fas fa-wifi"></span>
-                                    </div>
-                                    <div class="col-10 h4 px-1 m-0 d-block my-auto">
-                                        Disponible online y offline
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--dt-sc-one-half ends-->
-                </div>
-                <!--dt-sc-one-half ends-->
-
-                <!--dt-sc-one-half starts-->
-                <div class="col-lg-3 m-0 col-sm-12 column text-center p-0">
-                    <img src="./assets/images/portafolio/super.png" height="300" title=""
-                        style="border-radius: 15px !important;">
-                    <h2 class="d-none">With Music4Kids, music is child's play!</h2>
-                    <div class="add-slider-wrapper d-none">
-                        <ul class="add-slider">
-                            <li> </li>
-                            <li> <img src="" alt="" title=""> </li>
-                            <li> <img src="" alt="" title=""> </li>
-                        </ul>
-                    </div>
-                </div>
-                <!--dt-sc-one-half ends-->
-            </div>
-            <!--container ends-->
-        </section>
-        <!--fullwidth-background ends-->
-        <!--fullwidth-background starts-->
-        <section id="curricular" class="fullwidth-background dt-sc-parallax-section product_bg pt-3">
-            <!--container starts-->
-            <div class="container pt-5">
-                <h2 class="dt-sc-hr-white-title" style="color: #2e9bb2;">Organización Curricular</h2>
-                <div class="row">
-                    <div class="col-lg-3 col-md-6 col-xs-12">
-                        <div class="product-thumb pointer">
-                            <a href="../../../assets/pdf/1Lenguaje.pdf" target="blank">
-                                <img src="./assets/pdf/images/1lenguaje.png" alt="" title="">
-                            </a>
-                            <div class="image-overlay">
-                                <div class="product-button">
-                                    <a href="../../../assets/pdf/1Lenguaje.pdf" target="blank" class="add-cart-btn"> Ver
-                                        Documento </a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-xs-12">
-                        <div class="product-thumb pointer">
-                            <a href="../../../assets/pdf/1Matematica.pdf" target="blank">
-                                <img src="./assets/pdf/images/1matematica.png" alt="" title="">
-                            </a>
-                            <div class="image-overlay">
-                                <div class="product-button">
-                                    <a href="../../../assets/pdf/1Matematica.pdf" target="blank" class="add-cart-btn">
-                                        Ver Documento </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-xs-12">
-                        <div class="product-thumb pointer">
-                            <a href="../../../assets/pdf/2Lenguaje.pdf" target="blank">
-                                <img src="./assets/pdf/images/2lenguaje.png" alt="" title="">
-                            </a>
-                            <div class="image-overlay">
-                                <div class="product-button">
-                                    <a href="../../../assets/pdf/2Lenguaje.pdf" target="blank" class="add-cart-btn"> Ver
-                                        Documento </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-xs-12">
-                        <div class="product-thumb pointer">
-                            <a href="../../../assets/pdf/2Matematica.pdf" target="blank">
-                                <img src="./assets/pdf/images/2matematica.png" alt="" title="">
-                            </a>
-                            <div class="image-overlay">
-                                <div class="product-button">
-                                    <a href="../../../assets/pdf/2Matematica.pdf" target="blank" class="add-cart-btn">
-                                        Ver Documento </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-lg-3 col-md-6 col-xs-12 first">
-                        <div class="product-thumb pointer">
-                            <a href="../../../assets/pdf/3Lenguaje.pdf" target="blank">
-                                <img src="./assets/pdf/images/3lenguaje.png" alt="" title="">
-                            </a>
-                            <div class="image-overlay">
-                                <div class="product-button">
-                                    <a href="../../../assets/pdf/3Lenguaje.pdf" target="blank" class="add-cart-btn"> Ver
-                                        Documento </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-xs-12">
-                        <div class="product-thumb pointer">
-                            <a href="../../../assets/pdf/3Matematica.pdf" target="blank">
-                                <img src="./assets/pdf/images/3matematica.png" alt="" title="">
-                            </a>
-                            <div class="image-overlay">
-                                <div class="product-button">
-                                    <a href="../../../assets/pdf/3Matematica.pdf" target="blank" class="add-cart-btn">
-                                        Ver Documento </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-xs-12">
-                        <div class="product-thumb pointer">
-                            <a href="../../../assets/pdf/4Lenguaje.pdf" target="blank">
-                                <img src="./assets/pdf/images/4lenguaje.png" alt="" title="">
-                            </a>
-                            <div class="image-overlay">
-                                <div class="product-button">
-                                    <a href="../../../assets/pdf/4Lenguaje.pdf" target="blank" class="add-cart-btn"> Ver
-                                        Documento </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-xs-12">
-                        <div class="product-thumb pointer">
-                            <a href="../../../assets/pdf/4Matematica.pdf" target="blank">
-                                <img src="./assets/pdf/images/4matematica.png" alt="" title="">
-                            </a>
-                            <div class="image-overlay">
-                                <div class="product-button">
-                                    <a href="../../../assets/pdf/4Matematica.pdf" target="blank" class="add-cart-btn">
-                                        Ver Documento </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--container ends-->
-        </section>
     </section>
-    <!--primary ends-->
-</div>
-<!--footer starts-->
-<footer>
-    <!--footer-widgets-wrapper starts-->
-    <div id="footer" class="footer-widgets-wrapper">
-        <div class="container">
-            <img id="logoHeader" height="80" src="./assets/images/kids-logo.png" alt="Kids Life" title="Kids Life">
-            <p class="pl-4 py-3">Plataforma educativa para mejorar los procesos de enseñanza aprendizaje en el primer
-                ciclo de educación básica</p>
+    <!--fullwidth-background starts-->
+    <section class="content-full-width  pt-section">
+        <!--container starts-->
+        <div class="container px-4">
+            <div class="row">
+                <div class="col-xs-12 col-md-6 col-lg-4">
+                    <div class="videoFrame">
+                        <div class="contenedor">
+                            <img src="../../../assets/images/video1.png" height="300px" alt="Video Educativo"
+                                style="width:100%">
+                            <button class="btn btnPlay" (click)="openDialog(1)"><i
+                                    class="far fa-play-circle"></i></button>
+                        </div>
+                        <h3 class="c-first-dark text-center m-0 p-2">Video Educativo</h3>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-4 col-lg-4">
+                    <div class="videoFrame">
+                        <div class="contenedor">
+                            <img src="../../../assets/images/video2.png" height="300px" alt="Juegos Interactivos"
+                                style="width:100%">
+                            <button class="btn btnPlay" (click)="openDialog(2)"><i
+                                    class="far fa-play-circle"></i></button>
+                        </div>
+                        <h3 class="c-first-dark text-center m-0 p-2">Juegos Interactivos</h3>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-4 col-lg-4">
+                    <div class="videoFrame">
+                        <div class="contenedor">
+                            <img src="../../../assets/images/video3.png" height="300px" alt="Evaluación Simce"
+                                style="width:100%">
+                            <button class="btn btnPlay" (click)="openDialog(3)"><i
+                                    class="far fa-play-circle"></i></button>
+                        </div>
+                        <h3 class="c-first-dark text-center m-0 p-2">Evaluación Simce</h3>
+                    </div>
+                </div>
+            </div>
         </div>
+        <!--container ends-->
+    </section>
+    <section id="about" class="fullwidth-background dt-sc-parallax-section turquoise-bg mt-section">
         <!--container starts-->
         <div class="container">
-            <div class="col-lg-4 col-sm-6 m-0 mb-3 column first d-none">
-                <aside class="widget widget_text">
-                    <h3 class="widgettitle red_sketch"> <a routerLink="/home/nosotros">Nosotros</a> </h3>
-                    <p class="d-none">Happy <a href=""><strong>Kids Life</strong></a> comes with powerful theme options,
-                        which
-                        empowers you to
-                        quickly and easily build incredible store.</p>
-                    <ul>
-                        <li class="pointer" routerLink="/home/nosotros"> Misión </li>
-                        <li class="pointer" routerLink="/home/nosotros"> Visión </li>
-                        <li class="pointer" routerLink="/home/nosotros"> Valores </li>
-                    </ul>
-                </aside>
-            </div>
-            <div class="column dt-sc-one-fourth d-none">
-                <aside class="widget widget_recent_entries">
-                    <h3 class="widgettitle green_sketch"> Latest Post </h3>
-                    <ul>
-                        <!-- <li>
-                            <a href="">
-                                <img src="./assets/images/products/p4.jpg" height="60" alt="" title="">
-                            </a>
-                            <h6><a href=""> Amazing post with all goodies </a></h6>
-                            <span> March 23, 2014 </span>
-                        </li>
-                        <li>
-                            <a href="">
-                                <img src="./assets/images/products/p3.jpg" height="60" alt="" title="">
-                            </a>
-                            <h6><a href=""> Amazing post with all goodies </a></h6>
-                            <span> March 23, 2014 </span>
-                        </li>
-                        <li>
-                            <a href="">
-                                <img src="./assets/images/products/p2.jpg" height="60" alt="" title="">
-                            </a>
-                            <h6><a href=""> Amazing post with all goodies </a></h6>
-                            <span> March 23, 2014 </span>
-                        </li> -->
-                    </ul>
-                </aside>
-            </div>
-            <div class="col-lg-6 col-sm-6 m-0 mb-3 column">
-                <aside class="widget widget_text">
-                    <h3 class="widgettitle steelblue_sketch">Contacto</h3>
-                    <div class="textwidget">
-                        <p class="dt-sc-contact-info"><span class="fa fa-map-marker"></span> Av. San Martín 01845
-                            oficina 3 - Temuco </p>
-                        <p class="dt-sc-contact-info">
-                            <span class="fa fa-phone"></span> 45 2 426984 <br>
-                            Lun-Vie 8:30am - 18:30pm
-                        </p>
-                        <p class="dt-sc-contact-info">
-                            <span class="fas fa-envelope"></span>contacto@nuevagestion.cl <br>
-                            Lun-Vie 8:30am - 18:30pm
-                        </p>
+            <!--dt-sc-one-half starts-->
+            <div class="col-lg-9 m-0 col-xs-12 mb-3 column first p-0">
+                <p class="title-section-results text-center text-white">¿Quiere lograr mejores resultados?</p>
+                <!--dt-sc-one-half starts-->
+                <div class="dt-sc-one-half column first">
+                    <div class="dt-sc-ico-content type2 w-100">
+                        <div class="icon w-100">
+                            <div class="textResultados row m-0 w-100">
+                                <div class="col-2 p-0">
+                                    <span class="fas fa-clipboard-list"></span>
+                                </div>
+                                <div class="col-10 h4 px-1 m-0 d-block my-auto">
+                                    Lecciones para Primer Ciclo de Educación.
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </aside>
+                    <div class="dt-sc-hr-very-small"></div>
+                    <div class="dt-sc-ico-content type2 w-100">
+                        <div class="icon w-100">
+                            <div class="textResultados row m-0 w-100">
+                                <div class="col-2 p-0">
+                                    <span class="fas fa-pencil-alt"></span>
+                                </div>
+                                <div class="col-10 h4 px-1 m-0 d-block my-auto">
+                                    Matemáticas y Lenguaje, Comunicación y Literatura.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dt-sc-hr-very-small"></div>
+                    <div class="dt-sc-ico-content type2 w-100">
+                        <div class="icon w-100">
+                            <div class="textResultados row m-0 w-100">
+                                <div class="col-2 p-0">
+                                    <span class="fas fa-gamepad"></span>
+                                </div>
+                                <div class="col-10 h4 px-1 m-0 d-block my-auto">
+                                    Vídeos y juegos interactivos por lección.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dt-sc-hr-very-small"></div>
+                    <div class="dt-sc-ico-content type2">
+                        <div class="icon w-100">
+                            <div class="textResultados row m-0">
+                                <div class="col-2 p-0">
+                                    <span class="fas fa-clipboard-list"></span>
+                                </div>
+                                <div class="col-10 h4 px-1 m-0 d-block my-auto">
+                                    Reportabilidad y análisis por estudiante.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--dt-sc-one-half ends-->
+                <!--dt-sc-one-half starts-->
+                <div class="dt-sc-one-half column">
+                    <div class="dt-sc-ico-content type2 w-100">
+                        <div class="icon w-100">
+                            <div class="textResultados row m-0 w-100">
+                                <div class="col-2 p-0">
+                                    <span class="fas fa-user-friends"></span>
+                                </div>
+                                <div class="col-10 h4 px-1 m-0 d-block my-auto">
+                                    Acceso a profesores, alumnos y asistentes.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dt-sc-hr-very-small"></div>
+                    <div class="dt-sc-ico-content type2 w-100">
+                        <div class="icon w-100">
+                            <div class="textResultados row m-0 w-100">
+                                <div class="col-2 p-0">
+                                    <span class="fas fa-paint-brush"></span>
+                                </div>
+                                <div class="col-10 h4 px-1 m-0 d-block my-auto">
+                                    Actividades DUA
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dt-sc-hr-very-small"></div>
+                    <div class="dt-sc-ico-content type2 w-100">
+                        <div class="icon w-100">
+                            <div class="textResultados row m-0 w-100">
+                                <div class="col-2 p-0">
+                                    <span class="fab fa-leanpub"></span>
+                                </div>
+                                <div class="col-10 h4 px-1 m-0 d-block my-auto">
+                                    Evaluaciones SIMCE
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dt-sc-hr-very-small"></div>
+                    <div class="dt-sc-ico-content type2 w-100">
+                        <div class="icon w-100">
+                            <div class="textResultados row m-0 w-100">
+                                <div class="col-2 p-0">
+                                    <span class="fas fa-wifi"></span>
+                                </div>
+                                <div class="col-10 h4 px-1 m-0 d-block my-auto">
+                                    Disponible online y offline
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--dt-sc-one-half ends-->
             </div>
-            <div class="col-lg-3 col-sm-3 m-0 mb-3 column">
-                <aside class="widget tweetbox py-5">
-                    <img class="ml-3" width="800" src="./assets/images/foot/AD.png" alt="">
-                </aside>
+            <!--dt-sc-one-half ends-->
+
+            <!--dt-sc-one-half starts-->
+            <div class="col-lg-3 m-0 col-sm-12 column text-center p-0">
+                <img src="./assets/images/portafolio/super.png" height="300" title=""
+                    style="border-radius: 15px !important;">
+                <h2 class="d-none">With Music4Kids, music is child's play!</h2>
+                <div class="add-slider-wrapper d-none">
+                    <ul class="add-slider">
+                        <li> </li>
+                        <li> <img src="" alt="" title=""> </li>
+                        <li> <img src="" alt="" title=""> </li>
+                    </ul>
+                </div>
             </div>
-            <div class="col-lg-3 col-sm-3 m-0 my-3 column">
-                <aside class="widget tweetbox py-5">
-                    <img class="ml-3" width="800" src="./assets/images/foot/compra.png" alt="">
-                </aside>
+            <!--dt-sc-one-half ends-->
+        </div>
+        <!--container ends-->
+    </section>
+    <!--fullwidth-background ends-->
+    <!--fullwidth-background starts-->
+    <section id="curricular" class="fullwidth-background dt-sc-parallax-section product_bg pt-3">
+        <!--container starts-->
+        <div class="container pt-5">
+            <h2 class="dt-sc-hr-white-title" style="color: #2e9bb2;">Organización Curricular</h2>
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-xs-12">
+                    <div class="product-thumb pointer">
+                        <a href="../../../assets/pdf/1Lenguaje.pdf" target="blank">
+                            <img src="./assets/pdf/images/1lenguaje.png" alt="" title="">
+                        </a>
+                        <div class="image-overlay">
+                            <div class="product-button">
+                                <a href="../../../assets/pdf/1Lenguaje.pdf" target="blank" class="add-cart-btn"> Ver
+                                    Documento </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-3 col-md-6 col-xs-12">
+                    <div class="product-thumb pointer">
+                        <a href="../../../assets/pdf/1Matematica.pdf" target="blank">
+                            <img src="./assets/pdf/images/1matematica.png" alt="" title="">
+                        </a>
+                        <div class="image-overlay">
+                            <div class="product-button">
+                                <a href="../../../assets/pdf/1Matematica.pdf" target="blank" class="add-cart-btn">
+                                    Ver Documento </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-xs-12">
+                    <div class="product-thumb pointer">
+                        <a href="../../../assets/pdf/2Lenguaje.pdf" target="blank">
+                            <img src="./assets/pdf/images/2lenguaje.png" alt="" title="">
+                        </a>
+                        <div class="image-overlay">
+                            <div class="product-button">
+                                <a href="../../../assets/pdf/2Lenguaje.pdf" target="blank" class="add-cart-btn"> Ver
+                                    Documento </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-xs-12">
+                    <div class="product-thumb pointer">
+                        <a href="../../../assets/pdf/2Matematica.pdf" target="blank">
+                            <img src="./assets/pdf/images/2matematica.png" alt="" title="">
+                        </a>
+                        <div class="image-overlay">
+                            <div class="product-button">
+                                <a href="../../../assets/pdf/2Matematica.pdf" target="blank" class="add-cart-btn">
+                                    Ver Documento </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-lg-3 col-md-6 col-xs-12 first">
+                    <div class="product-thumb pointer">
+                        <a href="../../../assets/pdf/3Lenguaje.pdf" target="blank">
+                            <img src="./assets/pdf/images/3lenguaje.png" alt="" title="">
+                        </a>
+                        <div class="image-overlay">
+                            <div class="product-button">
+                                <a href="../../../assets/pdf/3Lenguaje.pdf" target="blank" class="add-cart-btn"> Ver
+                                    Documento </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-xs-12">
+                    <div class="product-thumb pointer">
+                        <a href="../../../assets/pdf/3Matematica.pdf" target="blank">
+                            <img src="./assets/pdf/images/3matematica.png" alt="" title="">
+                        </a>
+                        <div class="image-overlay">
+                            <div class="product-button">
+                                <a href="../../../assets/pdf/3Matematica.pdf" target="blank" class="add-cart-btn">
+                                    Ver Documento </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-xs-12">
+                    <div class="product-thumb pointer">
+                        <a href="../../../assets/pdf/4Lenguaje.pdf" target="blank">
+                            <img src="./assets/pdf/images/4lenguaje.png" alt="" title="">
+                        </a>
+                        <div class="image-overlay">
+                            <div class="product-button">
+                                <a href="../../../assets/pdf/4Lenguaje.pdf" target="blank" class="add-cart-btn"> Ver
+                                    Documento </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-xs-12">
+                    <div class="product-thumb pointer">
+                        <a href="../../../assets/pdf/4Matematica.pdf" target="blank">
+                            <img src="./assets/pdf/images/4matematica.png" alt="" title="">
+                        </a>
+                        <div class="image-overlay">
+                            <div class="product-button">
+                                <a href="../../../assets/pdf/4Matematica.pdf" target="blank" class="add-cart-btn">
+                                    Ver Documento </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!--container ends-->
-    </div>
-    <!--footer-widgets-wrapper ends-->
-    <div class="copyright">
-        <div class="container">
-            <p class="copyright-info">© 2018 Acamy Kids. Todos los derechos reservados. <a class="d-none"
-                    href="http://themeforest.net/user/designthemes" title=""> Buddhathemes </a></p>
-            <div class="footer-links">
-                <p>Siguenos en</p>
-                <ul class="dt-sc-social-icons">
-                    <li class="facebook"><a href="https://www.facebook.com/ceosim.cl/" target="blank"><img
-                                src="./assets/images/facebook.png" alt="" title=""></a></li>
-                    <li class="twitter"><a href="https://twitter.com/CEOsim_Chile" target="blank"><img
-                                src="./assets/images/twitter.png" alt="" title=""></a></li>
-                    <li class="youtube"><a href="https://www.youtube.com/channel/UC1C8wXqh3Mx_8Jm4WHG6-Yg"
-                            target="blank"><i class="fab fa-youtube text-white"></i></a></li>
-                </ul>
+    </section>
+    <!--primary ends-->
+    <!--footer starts-->
+    <footer>
+        <!--footer-widgets-wrapper starts-->
+        <div id="footer" class="footer-widgets-wrapper">
+            <div class="container">
+                <img id="logoHeader" height="80" src="./assets/images/kids-logo.png" alt="Kids Life" title="Kids Life">
+                <p class="pl-4 py-3">Plataforma educativa para mejorar los procesos de enseñanza aprendizaje en el
+                    primer
+                    ciclo de educación básica</p>
+            </div>
+            <!--container starts-->
+            <div class="container">
+                <div class="col-lg-4 col-sm-6 m-0 mb-3 column first d-none">
+                    <aside class="widget widget_text">
+                        <h3 class="widgettitle red_sketch"> <a routerLink="/home/nosotros">Nosotros</a> </h3>
+                        <p class="d-none">Happy <a href=""><strong>Kids Life</strong></a> comes with powerful theme
+                            options,
+                            which
+                            empowers you to
+                            quickly and easily build incredible store.</p>
+                        <ul>
+                            <li class="pointer" routerLink="/home/nosotros"> Misión </li>
+                            <li class="pointer" routerLink="/home/nosotros"> Visión </li>
+                            <li class="pointer" routerLink="/home/nosotros"> Valores </li>
+                        </ul>
+                    </aside>
+                </div>
+                <div class="column dt-sc-one-fourth d-none">
+                    <aside class="widget widget_recent_entries">
+                        <h3 class="widgettitle green_sketch"> Latest Post </h3>
+                        <ul>
+                            <!-- <li>
+                                <a href="">
+                                    <img src="./assets/images/products/p4.jpg" height="60" alt="" title="">
+                                </a>
+                                <h6><a href=""> Amazing post with all goodies </a></h6>
+                                <span> March 23, 2014 </span>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <img src="./assets/images/products/p3.jpg" height="60" alt="" title="">
+                                </a>
+                                <h6><a href=""> Amazing post with all goodies </a></h6>
+                                <span> March 23, 2014 </span>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <img src="./assets/images/products/p2.jpg" height="60" alt="" title="">
+                                </a>
+                                <h6><a href=""> Amazing post with all goodies </a></h6>
+                                <span> March 23, 2014 </span>
+                            </li> -->
+                        </ul>
+                    </aside>
+                </div>
+                <div class="col-lg-6 col-sm-6 m-0 mb-3 column">
+                    <aside class="widget widget_text">
+                        <h3 class="widgettitle steelblue_sketch">Contacto</h3>
+                        <div class="textwidget">
+                            <p class="dt-sc-contact-info"><span class="fa fa-map-marker"></span> Av. San Martín 01845
+                                oficina 3 - Temuco </p>
+                            <p class="dt-sc-contact-info">
+                                <span class="fa fa-phone"></span> 45 2 426984 <br>
+                                Lun-Vie 8:30am - 18:30pm
+                            </p>
+                            <p class="dt-sc-contact-info">
+                                <span class="fas fa-envelope"></span>contacto@nuevagestion.cl <br>
+                                Lun-Vie 8:30am - 18:30pm
+                            </p>
+                        </div>
+                    </aside>
+                </div>
+                <div class="col-lg-3 col-sm-3 m-0 mb-3 column">
+                    <aside class="widget tweetbox py-5">
+                        <img class="ml-3" width="800" src="./assets/images/foot/AD.png" alt="">
+                    </aside>
+                </div>
+                <div class="col-lg-3 col-sm-3 m-0 my-3 column">
+                    <aside class="widget tweetbox py-5">
+                        <img class="ml-3" width="800" src="./assets/images/foot/compra.png" alt="">
+                    </aside>
+                </div>
+            </div>
+            <!--container ends-->
+        </div>
+        <!--footer-widgets-wrapper ends-->
+        <div class="copyright">
+            <div class="container">
+                <p class="copyright-info">© 2018 Acamy Kids. Todos los derechos reservados. <a class="d-none"
+                        href="http://themeforest.net/user/designthemes" title=""> Buddhathemes </a></p>
+                <div class="footer-links">
+                    <p>Siguenos en</p>
+                    <ul class="dt-sc-social-icons">
+                        <li class="facebook"><a href="https://www.facebook.com/ceosim.cl/" target="blank"><img
+                                    src="./assets/images/facebook.png" alt="" title=""></a></li>
+                        <li class="twitter"><a href="https://twitter.com/CEOsim_Chile" target="blank"><img
+                                    src="./assets/images/twitter.png" alt="" title=""></a></li>
+                        <li class="youtube"><a href="https://www.youtube.com/channel/UC1C8wXqh3Mx_8Jm4WHG6-Yg"
+                                target="blank"><i class="fab fa-youtube text-white"></i></a></li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
+</div>
 <!--footer ends-->
+<!-- <nav id="navHeader" class="nav py-0">
+        <div class="container-fluid">
+            <div class="logo">
+                <a href="/home" title="Kids Life"><img id="logoHeader" height="60" src="./assets/images/kids-logo.png"
+                        alt="Kids Life" title="Kids Life"></a>
+            </div>
+            <div id="mainListDiv" class="main_list">
+                <ul class="navlinks">
+                    <li class="pointer"><a (click)="scroll('slider')" class="px-2 .topNav text-white"
+                            style="text-shadow: 2px 2px #000000;">Inicio</a></li>
+                    <li class="pointer"><a (click)="scroll('funcionalidad')" class="px-2 .topNav text-white"
+                            style="text-shadow: 2px 2px #000000;">Funcionalidades</a></li>
+                    <li class="pointer"><a (click)="scroll('curricular')" class="px-2 .topNav text-white"
+                            style="text-shadow: 2px 2px #000000;">Organización Curricular</a></li>
+                    <li class="pointer"><a (click)="scroll('contacto')" class="px-2 .topNav text-white"
+                            style="text-shadow: 2px 2px #000000;">Contacto</a></li>
+                    <li class="pointer">
+                        <a href="https://app.acamykids.cl" class="btn btn-first btnNav">
+                            Inicia Sesión
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <span class="navTrigger" (click)="toggleMenu()">
+                <i></i>
+                <i></i>
+                <i></i>
+            </span>
+        </div>
+    </nav> -->

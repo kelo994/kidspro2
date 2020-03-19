@@ -19,9 +19,9 @@ export class LandingComponent implements OnInit {
   constructor(public dialog: MatDialog, public router: Router) { }
 
   ngOnInit(): void {
-    $('html, body').animate({
-      scrollTop: 0
-    }, 2000);
+    // $('html, body').animate({
+    //   scrollTop: 0
+    // }, 2000);
   }
 
   click(idx) {

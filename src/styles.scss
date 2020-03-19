@@ -28,8 +28,11 @@ $kidspro-theme: mat-light-theme($kidspro-primary, $kidspro-accent, $kidspro-warn
 
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
+html, body { height: 100%; width: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 @import './assets/scss/header.component.scss';
 @import './assets/scss/button.component.scss';
+@import './assets/scss/color.component.scss';
+@import './assets/scss/text.size.component.scss';
+@import './assets/scss/border.component.scss';
