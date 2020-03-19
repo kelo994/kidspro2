@@ -1716,6 +1716,17 @@ header #menu-container ul.dt-sc-social-icons {
   line-height: inherit;
 }
 
+#main .dt-sc-hr-green-title {
+  text-align: center;
+  color: #008c99;
+  width: 100%;
+  background: url(../images/green_title_bg.png) center bottom no-repeat;
+  display: inline-block;
+  padding: 0px 0px 30px;
+  margin: 0px 0px 30px;
+  line-height: inherit;
+}
+
 #main .dt-sc-hr-black-title {
   text-align: center;
   color: #4cbcd4;

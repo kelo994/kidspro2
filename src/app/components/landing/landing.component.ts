@@ -19,9 +19,9 @@ export class LandingComponent implements OnInit {
   constructor(public dialog: MatDialog, public router: Router) { }
 
   ngOnInit(): void {
-    // $('html, body').animate({
-    //   scrollTop: 0
-    // }, 2000);
+    $('html, body').animate({
+      scrollTop: 0
+    }, 2000);
   }
 
   click(idx) {
@@ -71,8 +71,10 @@ export class LandingComponent implements OnInit {
     el.scrollIntoView({behavior: 'smooth'});
   }
 
+  goToLogin() {
+    this.router.navigate(['/auth/login']);
+  }
 }
-
 
 @Component({
   selector: 'dialog-data-example-dialog',

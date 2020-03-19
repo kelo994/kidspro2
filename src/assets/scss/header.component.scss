@@ -12,6 +12,9 @@
 
 .ant-layout-header {
     padding: 7px 50px !important;
+    position: fixed;
+    z-index: 1050;
+    width: 100%;
 }
 
 .ant-menu-dark.ant-menu-horizontal>.ant-menu-item {

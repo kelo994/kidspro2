@@ -12,6 +12,8 @@ import { registerLocaleData } from '@angular/common';
 import es from '@angular/common/locales/es';
 import { LandingComponent, DialogDataExampleDialog } from './components/landing/landing.component';
 import { MaterialModule } from './material.module';
+import { AuthModule } from './components/auth/auth.module';
+import { PagesModule } from './components/pages/pages.module';
 
 registerLocaleData(es);
 
@@ -29,7 +31,9 @@ registerLocaleData(es);
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    AuthModule,
+    PagesModule
   ],
   entryComponents: [DialogDataExampleDialog],
   providers: [{ provide: NZ_I18N, useValue: es_ES }],
