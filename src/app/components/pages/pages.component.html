@@ -15,6 +15,20 @@
                     <li nz-menu-item>4° Básico</li>
                 </ul>
             </li>
+            <li nz-menu-item nz-tooltip nzPlacement="right" [nzTitle]="isCollapsed ? 'Reportes' : ''"
+                nzMatchRouter>
+                <a [routerLink]="['/pages/reportes']">
+                    <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
+                    <span>Reportes</span>
+                </a>
+            </li>
+            <li nz-menu-item nz-tooltip nzPlacement="right" [nzTitle]="isCollapsed ? 'Evaluación Simce' : ''"
+                nzMatchRouter>
+                <a [routerLink]="['/pages/simce']">
+                    <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
+                    <span>Evaluación Simce</span>
+                </a>
+            </li>
             <li nz-submenu nzTitle="subnav 2" nzIcon="laptop">
                 <ul>
                     <li nz-menu-item>option5</li>
