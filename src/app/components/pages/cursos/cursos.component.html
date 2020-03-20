@@ -15,3 +15,9 @@
     </nz-list-item>
   </ng-template>
 </nz-list>
+<ul nz-menu class="menu">
+  <li nz-menu-item *ngFor="let item of data">
+    <span class="title">{{ item.title }}</span>
+    <span class="descriptionMenu">{{ nivelSelected }}</span>
+  </li>
+</ul>

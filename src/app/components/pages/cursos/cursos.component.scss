@@ -1,4 +1,4 @@
-::ng-deep nz-list {
+::ng-deep nz-list, .menu {
     font-family: "Roboto";
     max-width: 200px;
 }
@@ -16,4 +16,13 @@
     font-style: italic;
     float: right;
     margin-top: -6px;
+}
+
+.descriptionMenu {
+    font-family: "Roboto";
+    font-size: 12px;
+    font-style: italic;
+    float: right;
+    margin-top: 10px;
+    color: rgba(0, 0, 0, 0.45);
 }
