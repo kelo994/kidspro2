@@ -7,31 +7,22 @@ import { registerLocaleData, CommonModule } from '@angular/common';
 import es from '@angular/common/locales/es';
 registerLocaleData(es);
 
-import { PAGES_ROUTES } from './pages.routes';
-import { PagesComponent } from './pages.component';
-import { HeaderComponent } from './shared/header/header.component';
-import { CursosComponent } from './cursos/cursos.component';
-import { UnidadComponent } from './unidad/unidad.component';
-
-import { SimceModule } from './simce/simce.module';
+import { SimceComponent } from './simce.component';
+import { SimceCreateComponent } from './create/create.component';
 
 @NgModule({
     imports: [
-        PAGES_ROUTES,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        NgZorroAntdModule,
-        SimceModule
+        NgZorroAntdModule
     ],
     declarations: [
-        PagesComponent,
-        HeaderComponent,
-        CursosComponent,
-        UnidadComponent
+        SimceComponent,
+        SimceCreateComponent
     ],
     providers: [{ provide: NZ_I18N, useValue: es_ES }, NzI18nService],
-    entryComponents: [ ]
+    entryComponents: [  ]
 })
-export class PagesModule { }
+export class SimceModule { }
 

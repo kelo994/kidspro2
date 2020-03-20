@@ -37,3 +37,24 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 @import './assets/scss/text.size.component.scss';
 @import './assets/scss/border.component.scss';
 @import './assets/scss/background.component.scss';
+
+.ant-tabs-nav div {
+    width: 100%;
+}
+
+.ant-tabs-tab-arrow-show {
+    display: none !important;
+}
+
+.ant-tabs-nav-container-scrolling {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.ant-tabs-tab {
+    width: 50% !important;
+}
+
+.anticon { 
+    vertical-align: 2.4px !important;
+}

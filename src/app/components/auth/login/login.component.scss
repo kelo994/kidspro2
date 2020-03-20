@@ -22,6 +22,8 @@ input[type=button], input[type=submit], input[type=reset]  {
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
   }
+
+
   
   input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
     background-color: #39ace7;
@@ -40,14 +42,13 @@ input[type=button], input[type=submit], input[type=reset]  {
     background-color: #f6f6f6;
     border: none;
     color: #0d0d0d;
-    padding: 15px 32px;
+    padding: 15px 20px;
     margin-bottom: 5px;
-    text-align: center;
+    text-align: left;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     width: 100%;
-    border: 2px solid #f6f6f6;
     -webkit-transition: all 0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;
     -ms-transition: all 0.5s ease-in-out;
@@ -71,7 +72,7 @@ input[type=button], input[type=submit], input[type=reset]  {
   }
 
   [nz-button] {
-    margin: 8px;
+    margin: 10px;
   }
 
   form {
@@ -81,8 +82,9 @@ input[type=button], input[type=submit], input[type=reset]  {
   label {
     display: block;
     text-align: left;
-    font-weight: 400;
+    font-weight: 500;
     font-size: 16px;
+    color: gray;
   }
 
   .form-icon {
@@ -90,9 +92,12 @@ input[type=button], input[type=submit], input[type=reset]  {
   }
 
   .inputs {
-    padding-left: 80px;
-    padding-right: 80px;
-    padding-bottom: 10px;
+    padding: 10px 60px;
+    padding-top: 0px;
+    min-height: 175px;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
   }
 
   @media (max-width: 800px) {
@@ -127,4 +132,15 @@ input[type=button], input[type=submit], input[type=reset]  {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  ::ng-deep .ant-tabs-nav {
+    display: flex!important;
+    width: 100%!important;
+  }
+
+  ::ng-deep .ant-tabs-tab {
+    flex: 1!important;
+    text-align: center!important;
+    font-size: 15.8px;
   }

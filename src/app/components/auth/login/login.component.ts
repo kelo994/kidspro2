@@ -16,7 +16,6 @@ export class LoginComponent implements OnInit {
 
   formaCode: FormGroup;
   codeIcon = 'login';
-  modalCode = false;
 
   constructor(private authService: AuthService, private router: Router) {
     // let userEmail = 'pitagoras@yopmail.com';
@@ -32,58 +31,13 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (localStorage.getItem('lastUser')) { this.formaLogin.controls.user_email.setValue(localStorage.getItem('lastUser')); }
+    // if (localStorage.getItem('lastUser')) { this.formaLogin.controls.user_email.setValue(localStorage.getItem('lastUser')); }
   }
 
-  openModal (modal) {
-    if (modal === 'code') {
-      this.modalCode = true
-    }
-  }
-
-  closeModal (modal) {
-    if (modal === 'code') {
-      this.modalCode = false
-    }
-  }
-
-  // login() {
-  //   this.loginIcon = 'loading';
-  //   this.loginError = false;
-  
-  //   if (this.formaLogin.valid) {
-  //     this.authService.login(this.formaLogin.getRawValue())
-  //       .subscribe(
-  //         (userData: any) => {
-  //           if (userData.user_account_type == 7) {
-  //             this.router.navigate(['/pages/administrador']);
-  //           } else {
-  //             this.authService.getLicenses().subscribe(
-  //               (licenseData: any) => {
-  //                 if (licenseData.length > 0) userData.rol_system = 2;
-  //                 else userData.rol_system = 1;
-  //                 localStorage.setItem('lastUser', this.formaLogin.controls.user_email.value);
-  //                 localStorage.setItem('user', JSON.stringify(userData));
-  //                 this.router.navigate(['/pages']);
-  //               },
-  //               (error) => { console.log(error) }
-  //             );
-  //           }
-  //         },
-  //         (error) => {
-  //           console.log(error)
-  //           this.formaLogin.controls['password'].setValue('');
-  //           if (error.status == 401 || error == 'Unauthorized') {
-  //             // this.toast.showToast('danger', 'Error en Acceso', 'Credenciales Inválidas');
-  //           } else {
-  //             // this.toast.showToast('danger', 'Error de Conexión', 'Ocurrió un error inesperado, intentelo más tarde');
-  //           }
-  //         }
-  //       )
-  //   }
-  // }
-  public login() {
-        this.loginError = false;
+  login() {
+    this.loginIcon = 'loading';
+    this.loginError = false;
+    /*
     if (this.formaLogin.valid) {
       this.loginIcon = 'loading';
       this.authService.login(this.formaLogin.getRawValue())
@@ -123,6 +77,8 @@ export class LoginComponent implements OnInit {
           }
         )
     }
+    */
+   this.router.navigate(['/pages']);
   }
 
   loginCode () {
