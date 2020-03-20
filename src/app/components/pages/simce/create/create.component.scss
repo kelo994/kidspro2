@@ -11,6 +11,7 @@
 
 label {
     margin-top: 5px;
+    font-weight: 600;
 }
 
 @media (max-width: 800px) {
@@ -18,4 +19,9 @@ label {
         margin-left: 10px!important;
         margin-right: 10px!important;
     }
+}
+
+[nz-row] {
+    margin: 5px;
+    font-size: 16px;
 }
