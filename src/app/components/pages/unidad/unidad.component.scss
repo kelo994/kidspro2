@@ -1,0 +1,14 @@
+p {
+  margin: 0;
+}
+
+::ng-deep nz-card div.ant-card-body {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+
+.borde-card
+{
+  border-left: yellow 5px solid;
+}

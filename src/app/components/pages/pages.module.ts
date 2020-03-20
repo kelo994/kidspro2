@@ -12,6 +12,7 @@ import { PagesComponent } from './pages.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { CursosComponent } from './cursos/cursos.component';
+import { UnidadComponent } from './unidad/unidad.component';
 
 @NgModule({
     imports: [
@@ -25,7 +26,8 @@ import { CursosComponent } from './cursos/cursos.component';
         PagesComponent,
         HeaderComponent,
         SidebarComponent,
-        CursosComponent
+        CursosComponent,
+        UnidadComponent
     ],
     providers: [{ provide: NZ_I18N, useValue: es_ES }, NzI18nService],
     entryComponents: [ ]
