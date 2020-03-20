@@ -6,12 +6,18 @@
         [nzDescription]="nzDescription"
       >
         <ng-template #nzTitle>
-          <span class="title">{{ item.title }}</span>
+          <span class="title"> {{ item.title }}</span>
         </ng-template>
         <ng-template #nzDescription>
-          <span class="description">{{ nivelSelected }}</span>
+          <span class="description"> {{ nivelSelected }}</span>
         </ng-template>
       </nz-list-item-meta>
     </nz-list-item>
   </ng-template>
 </nz-list>
+<ul nz-menu class="menu">
+  <li nz-menu-item *ngFor="let item of data">
+    <span class="title">{{ item.title }}</span>
+    <span class="descriptionMenu">{{ nivelSelected }}</span>
+  </li>
+</ul>
