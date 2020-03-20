@@ -1,0 +1,21 @@
+[nz-icon] {
+    vertical-align: 2px!important;
+}
+
+.modal-container {
+    margin-top: 10px!important;
+    margin-bottom: 10px!important;
+    margin-left: 50px!important;
+    margin-right: 50px!important;
+}
+
+label {
+    margin-top: 5px;
+}
+
+@media (max-width: 800px) {
+    .modal-container {
+        margin-left: 10px!important;
+        margin-right: 10px!important;
+    }
+}

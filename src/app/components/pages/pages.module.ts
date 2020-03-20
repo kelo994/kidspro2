@@ -12,6 +12,10 @@ import { PagesComponent } from './pages.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { CursosComponent } from './cursos/cursos.component';
+import { SimceComponent } from './simce/simce.component';
+import { SimceCreateComponent } from './simce/create/create.component';
+
+import { SimceModule } from './simce/simce.module';
 
 @NgModule({
     imports: [
@@ -19,13 +23,14 @@ import { CursosComponent } from './cursos/cursos.component';
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        NgZorroAntdModule
+        NgZorroAntdModule,
+        SimceModule
     ],
     declarations: [
         PagesComponent,
         HeaderComponent,
         SidebarComponent,
-        CursosComponent
+        CursosComponent,
     ],
     providers: [{ provide: NZ_I18N, useValue: es_ES }, NzI18nService],
     entryComponents: [ ]

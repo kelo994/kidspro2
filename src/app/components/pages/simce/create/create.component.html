@@ -1,0 +1,119 @@
+<button type="button" nz-button nzSize="large" nzType="primary" (click)="openModal('create')">
+  <i nz-icon nzType="plus" nzTheme="outline"></i>
+  Generar Evaluación
+</button>
+
+<nz-modal [(nzVisible)]="modalCreate" nzWrapClassName="vertical-center-modal" nzTitle="Nueva Evaluación SIMCE"
+  nzOkText="Enviar" nzCancelText="Cancelar" [nzContent]="modalContent" [nzFooter]="modalFooter" nzWidth="700"
+  (nzOnCancel)="closeModal('create')">
+  <form (ngSubmit)="createEvaluation()" [formGroup]="createForm" autocomplete="off">
+    <ng-template #modalContent>
+      <div class="modal-container">
+        <div nz-row>
+          <div nz-col nzSpan="8">
+            <label>Tipo de SIMCE</label>
+          </div>
+          <div nz-col nzSpan="16">
+            <nz-select formControlName="tipo" class="w-100" nzAllowClear
+              nzPlaceHolder="Seleccione Tipo SIMCE">
+              <nz-option *ngFor="let simce of simceTypes; let i = index" [nzValue]="simce.simce_id"
+                [nzLabel]="simce.simce_name" (click)="changeTypeSIMCE(simce)">
+              </nz-option>
+            </nz-select>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col nzSpan="8">
+            <label>Curso</label>
+          </div>
+          <div nz-col nzSpan="16">
+            <nz-select formControlName="curso" class="w-100" nzAllowClear
+              nzPlaceHolder="Seleccione un Curso">
+              <nz-option *ngFor="let curso of cursos; let i = index" [nzValue]="curso.id"
+                [nzLabel]="curso.curso_nombre">
+              </nz-option>
+            </nz-select>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col nzSpan="8">
+            <label>Nota mínima</label>
+          </div>
+          <div nz-col nzSpan="16">
+            <nz-select formControlName="nota_minima" class="w-100" nzAllowClear
+              nzPlaceHolder="Nota mínima">
+              <nz-option *ngFor="let nota of notasMinimas; let i = index" [nzValue]="nota"
+                [nzLabel]="nota">
+              </nz-option>
+            </nz-select>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col nzSpan="8">
+            <label>Exigencia</label>
+          </div>
+          <div nz-col nzSpan="16">
+            <nz-slider formControlName="exigencia"></nz-slider>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #modalFooter>
+      <button nz-button nzSize="large" (click)="closeModal('create')">Cancelar</button>
+      <button type="submit" nz-button nzSize="large" nzType="primary" [disabled]="createForm.invalid">
+        Generar
+      </button>
+    </ng-template>
+  </form>
+</nz-modal>
+
+<!--  <nb-card class="example-container">
+              <div class="col-lg-12 col-md-12 col-xs-12">
+                <div class="form-group row">
+                  <label class="label col-sm-3 col-form-label">Exigencia</label>
+                  <div class="col-sm-9">
+                    <div class="row">
+                      <nb-actions size="small">
+                        <nb-action icon="minus-outline" (click)="setValue(value - 5)"></nb-action>
+                      </nb-actions>
+                      <nb-progress-bar formControlName="exigencia" name="exigencia" ngDefaultControl [value]="value"
+                        status="success" [displayValue]="true" [(ngModel)]="value"></nb-progress-bar>
+                      <nb-actions size="small">
+                        <nb-action icon="plus-outline" (click)="setValue(value + 5)"></nb-action>
+                      </nb-actions>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 text-right">
+              <button type="submit" class="btn btn-first ml-auto mr-2"
+                [disabled]="formularioAgregar.invalid">Generar</button>
+              <button type="button" ngbAutofocus class="btn btn-outline-four" (click)="clean()">Limpiar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</div>-->
+
+<!--<ng-template id="modales" #newSimce let-c="close" let-d="dismiss">
+  <div class="modal-header bg-first-clear">
+    <h4 class="modal-title c-white">Detalles Evaluación</h4>
+    <button type="button" class="close c-white" data-dismiss="modal" aria-label="Close" (click)="c('Close click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <h4>Evaluación ID: {{ evaluacion.prueba_id }}</h4>
+    <h4>Curso: {{ evaluacion.curso_nombre }}</h4>
+    <h4>Tipo: {{ evaluacion.simce_descripcion }}</h4>
+    <h4>Número de Preguntas: {{ evaluacion.numero_preguntas }}</h4>
+    <h4>Código de acceso: {{ evaluacion.codigo }}</h4>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-first" status="success" (click)="verPrueba(evaluacion)">Ver Prueba</button>
+    <button type="button" class="btn btn-outline-four" (click)="c('Close click')">Cerrar</button>
+  </div>
+</ng-template>-->

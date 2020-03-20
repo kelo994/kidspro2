@@ -16,7 +16,6 @@ export class LoginComponent implements OnInit {
 
   formaCode: FormGroup;
   codeIcon = 'login';
-  modalCode = false;
 
   constructor(private authService: AuthService, private router: Router) {
     // let userEmail = 'pitagoras@yopmail.com';
@@ -33,18 +32,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (localStorage.getItem('lastUser')) { this.formaLogin.controls.user_email.setValue(localStorage.getItem('lastUser')); }
-  }
-
-  openModal (modal) {
-    if (modal === 'code') {
-      this.modalCode = true
-    }
-  }
-
-  closeModal (modal) {
-    if (modal === 'code') {
-      this.modalCode = false
-    }
   }
 
   login() {
@@ -82,6 +69,7 @@ export class LoginComponent implements OnInit {
         )
     }
     */
+   this.router.navigate(['/pages']);
   }
 
   loginCode () {

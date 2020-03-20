@@ -26,14 +26,25 @@ h2 {
 /* STRUCTURE */
 
 .wrapper {
-    background-color: #56baed;
+  background-color: #56baed;
   display: flex;
   align-items: center;
   flex-direction: column; 
-  justify-content: center;
+  //justify-content: center;
   width: -webkit-fill-available;
   min-height: -webkit-fill-available;
   padding: 20px;
+}
+
+#loginContent {
+  padding: 30px;
+  width: 80%;
+  max-width: 530px;
+  min-width: 450px;
+  position: relative;
+  padding: 0px;
+  text-align: center;
+  top: 100px;
 }
 
 #formContent {
@@ -42,7 +53,7 @@ h2 {
   background: #fff;
   padding: 30px;
   width: 90%;
-  max-width: 700px;
+  margin: 0px auto;
   position: relative;
   padding: 0px;
   -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
@@ -59,8 +70,8 @@ h2 {
 }
 
 #kidsLogo {
-  width: 75%!important;
-  margin-top: 1rem;
+  width: 67.5%!important;
+  margin-bottom: 15px;
 }
 
 @media (max-width: 800px) {
