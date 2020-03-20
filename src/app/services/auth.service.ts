@@ -7,7 +7,7 @@ import { timeout } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { retry } from 'rxjs/operators';
-import { map } from 'rxjs/operators';
+import { map } from "rxjs/operators";
 
 import { environment } from '../../environments/environment';
 
@@ -21,7 +21,7 @@ export class AuthService {
 
   private isLogged$ = new BehaviorSubject(false);
   private url = `${environment.apiBaseUrl}`;
-  public user = { username: 'Lukes', email: 'Luke@skywalker.com' }; // some data about user
+  public user = { userName: 'Lukes', email: 'Luke@skywalker.com' }; // some data about user
 
   constructor(private http: HttpClient) { }
 
@@ -33,22 +33,33 @@ export class AuthService {
     }
   }
 
-  public registrar(dataSend): Observable<any> {
-    return this.http.post(`${this.url}/register`, dataSend)
+  public login(data): Observable<any> {
+    return this.http.post(`${this.url}/login`, data)
       .pipe(
         map(data => {
-          // login successful if there's a jwt token in the response
-          return data;
+          localStorage.clear();
+          let user: any = data;
+          if (user.user && user.token) {
+            let nombre = user.user.persona_nombre.split(' ');
+            let apellido = user.user.persona_apellido.split(' ');
+            localStorage.setItem('nombreCompleto', nombre[0] + ' ' + apellido[0]);
+            user.userName = nombre[0] + ' ' + apellido[0];
+            user.email = user.user.persona_email;
+            localStorage.setItem('user', JSON.stringify(user.user));
+            localStorage.setItem('idFuncionario', JSON.stringify(user.user.id));
+            localStorage.setItem('token', user.token);
+            this.isLogged$.next(true);
+          }
+          return user;
         }))
-      .pipe(timeout(5000),
-        retry(3),
-        catchError((error, c) => throwError(error)),
-        switchMap(f =>  /*console.log('do something with '+JSON.stringify(f));*/ of(f)),
+      .pipe(
+        catchError((error, c) => { return throwError(error) }),
+        switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
         finalize(() => { /*console.log('finilize')*/ }));
   }
 
-  public login(data): Observable<any> {
-    return this.http.post(`${this.url}/login`, data)
+  public loginAdmin(data): Observable<any> {
+    return this.http.post(`${this.url}/login/admin`, data)
       .pipe(
         map(data => {
           // login successful if there's a jwt token in the response
@@ -60,24 +71,38 @@ export class AuthService {
             let nombre = user.user.persona_nombre.split(' ');
             let apellido = user.user.persona_apellido.split(' ');
             localStorage.setItem('nombreCompleto', nombre[0] + ' ' + apellido[0]);
-            user.username = nombre[0] + ' ' + apellido[0];
+            user.userName = nombre[0] + ' ' + apellido[0];
             user.email = user.user.persona_email;
             localStorage.setItem('user', JSON.stringify(user.user));
-            localStorage.setItem('idFuncionario', JSON.stringify(user.user.id));
             localStorage.setItem('token', user.token);
             this.isLogged$.next(true);
           }
           return user;
         }))
       .pipe(timeout(5000),
-        retry(1),
+        retry(3),
         catchError((error, c) => { return throwError(error) }),
         switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
         finalize(() => { /*console.log('finilize')*/ }));;
   }
 
-  public activeAccount(dataSend, token) {
-    return this.http.put<any>(`${this.url}/verificarUsuario/${token}`, { password: dataSend.password1, password_repeated: dataSend.password2 })
+  public loginCode(data): Observable<any> {
+    //console.log("codigo enviado " + data + " " + data.codigo);
+    return this.http.post<any>(this.url + '/verificarCodigo', { codigo: data.codigo })
+      .pipe(map(data => {
+        // login successful if there's a jwt token in the response
+        localStorage.clear();
+        this.isLogged$.next(true);
+        return data;
+      }))
+      .pipe(
+        catchError((error, c) => { return throwError(error) }),
+        switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+        finalize(() => { /*console.log('finilize')*/ }));
+  }
+
+  public activeAccount(data, token) {
+    return this.http.put<any>(`${this.url}/verificarUsuario/${token}`, { password: data.password1, password_repeated: data.password2 })
       .pipe(map(data => {
         // login successful if there's a jwt token in the response
         this.isLogged$.next(true);
@@ -85,8 +110,8 @@ export class AuthService {
       }))
       .pipe(timeout(5000),
         retry(3),
-        catchError((error, c) => throwError(error)),
-        switchMap(f =>  /*console.log('do something with '+JSON.stringify(f));*/ of(f)),
+        catchError((error, c) => { return throwError(error) }),
+        switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
         finalize(() => { /*console.log('finilize')*/ }));
   }
 
@@ -97,7 +122,7 @@ export class AuthService {
           this.user = res.user;
           localStorage.setItem(tokenName, res.token);
           // only for example
-          localStorage.setItem('username', res.user.username);
+          localStorage.setItem('userName', res.user.userName);
           localStorage.setItem('email', res.user.email);
           this.isLogged$.next(true);
           return this.user;
@@ -116,25 +141,19 @@ export class AuthService {
   private loadUser(): Observable<any> {
     // use request to load user data with token
     // it's fake and useing only for example
-    if (localStorage.getItem('username') && localStorage.getItem('email')) {
+    if (localStorage.getItem('userName') && localStorage.getItem('email')) {
       this.user = {
-        username: localStorage.getItem('username'),
+        userName: localStorage.getItem('userName'),
         email: localStorage.getItem('email'),
       };
     }
     return of(this.user);
   }
 
-  getLicenses() {
-    return this.http.get(`${this.url}/teachers/licenses`, this.getToken())
-      .pipe(timeout(5000),
-        retry(1),
-        catchError((error, c) => {
-          console.log(error)
-          return throwError(error);
-        }),
-        switchMap(f =>  /* console.log('do something with '+JSON.stringify(f));*/ of(f)),
-        finalize(() => { /* console.log('finilize')*/ }));
+  //obtiene los datos principales del rol
+  detalleInicial(idx: any) {
+    //this.userOpen = JSON.parse(this.storage.get('user'));
+    return this.http.get(`${this.url}/detalleInicial/${idx}`, this.getToken());
   }
 
   getToken() {
@@ -146,13 +165,40 @@ export class AuthService {
     };
   }
 
-  // cambiar Estudiante
+  //cambiar Estudiante
   comprobarPasswordProfesor(data: any) {
     return this.http.post(this.url + '/obtener-estudiantes-curso-codigo-acceso', { password: data.pass }, this.getToken())
       .pipe(timeout(5000),
         retry(0),
-        catchError((error, c) => throwError(error)),
-        switchMap(f =>  /* console.log('do something with '+JSON.stringify(f));*/ of(f)),
-        finalize(() => { /* console.log('finilize')*/ }));
+        catchError((error, c) => { return throwError(error) }),
+        switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+        finalize(() => { /*console.log('finilize')*/ }));
+  }
+
+  requestPass(rut) {
+    return this.http.get(this.url + '/enlaces/' + rut)
+      .pipe(timeout(5000),
+        retry(0),
+        catchError((error, c) => { return throwError(error) }),
+        switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+        finalize(() => { /*console.log('finilize')*/ }));
+  }
+
+  requestCodigo(codigo) {
+    return this.http.get(this.url + '/verificar/codigos/' + codigo)
+      .pipe(timeout(5000),
+        retry(0),
+        catchError((error, c) => { return throwError(error) }),
+        switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+        finalize(() => { /*console.log('finilize')*/ }));
+  }
+
+  requestNewPass(credencial_id, data) {
+    return this.http.put(this.url + '/cambiar/contrasenas/' + credencial_id, data)
+      .pipe(timeout(5000),
+        retry(0),
+        catchError((error, c) => { return throwError(error) }),
+        switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+        finalize(() => { /*console.log('finilize')*/ }));
   }
 }

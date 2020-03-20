@@ -1,3 +1,30 @@
 ::ng-deep .ant-page-header-ghost {
-    background-color: rgb(128, 128, 128, .5);
+    background-color: rgb(128, 128, 128, .15);
+}
+
+::ng-deep .ant-page-header {
+    padding: 20px 55px;
+}
+
+::ng-deep .ant-card {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+::ng-deep .ant-card-body {
+    padding: 0px;
+}
+
+::ng-deep .ant-table {
+    font-size: 12px;
+}
+
+.left-card {
+    padding-left: 30px;
+}
+
+th {
+    text-align: center!important;
+    text-transform: none;
+    font-weight: 600!important;
 }
