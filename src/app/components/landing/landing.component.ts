@@ -19,9 +19,7 @@ export class LandingComponent implements OnInit {
   constructor(public dialog: MatDialog, public router: Router) { }
 
   ngOnInit(): void {
-    $('html, body').animate({
-      scrollTop: 0
-    }, 2000);
+    // this.upPage();
   }
 
   click(idx) {
@@ -63,6 +61,12 @@ export class LandingComponent implements OnInit {
     $('#sidebarMenu').toggleClass('toggleSideBar');
 
     // $(".topNav").css({'margin-bottom': '10px'});
+  }
+
+  upPage() {
+    $('html, body').animate({
+      scrollTop: 0
+    }, 2000);
   }
 
   scroll(id) {

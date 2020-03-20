@@ -520,32 +520,36 @@
             </div>
             <!--container starts-->
             <div class="container">
-                <div class="col-lg-6 col-sm-6 m-0 mb-3 column">
-                    <aside class="widget widget_text">
-                        <h3 class="title-section">Contacto</h3>
-                        <div class="textwidget">
-                            <p class="dt-sc-contact-info"><span class="fa fa-map-marker"></span> Av. San Martín 01845
+                <div class="row">
+                    <div class="ml-auto col-lg-5 col-sm-6 m-0 mb-3 column">
+                        <aside class="widget widget_text pl-4">
+                            <h3 class="title-section c-green">Contacto</h3>
+                            <p class="p-footer-icon">
+                                <i class="fa fa-map-marker-alt c-green pr-icon"></i> Av. San Martín
+                                01845
                                 oficina 3 - Temuco </p>
-                            <p class="dt-sc-contact-info">
-                                <span class="fa fa-phone"></span> 45 2 426984 <br>
+                            <p class="p-footer-icon">
+                                <i class="fa fa-phone c-green pr-icon"></i> 45 2 426984
+                            </p>
+                            <p class="p-footer-icon">
+                                <i class="fas fa-envelope c-green pr-icon"></i>contacto@nuevagestion.cl
+                            </p>
+                            <p class="p-footer-icon">
+                                <i class="far fa-calendar-alt c-green pr-icon"></i> 
                                 Lun-Vie 8:30am - 18:30pm
                             </p>
-                            <p class="dt-sc-contact-info">
-                                <span class="fas fa-envelope"></span>contacto@nuevagestion.cl <br>
-                                Lun-Vie 8:30am - 18:30pm
-                            </p>
-                        </div>
-                    </aside>
-                </div>
-                <div class="col-lg-3 col-sm-3 m-0 mb-3 column">
-                    <aside class="widget tweetbox py-5">
-                        <img class="ml-3" width="800" src="./assets/images/foot/AD.png" alt="">
-                    </aside>
-                </div>
-                <div class="col-lg-3 col-sm-3 m-0 my-3 column">
-                    <aside class="widget tweetbox py-5">
-                        <img class="ml-3" width="800" src="./assets/images/foot/compra.png" alt="">
-                    </aside>
+                        </aside>
+                    </div>
+                    <div class="col-lg-3 col-sm-3 m-0 mb-3 column">
+                        <aside class="widget tweetbox py-5">
+                            <img class="ml-3" width="800" src="./assets/images/foot/AD.png" alt="">
+                        </aside>
+                    </div>
+                    <div class="col-lg-3 col-sm-3 m-0 my-3 column">
+                        <aside class="widget tweetbox py-5">
+                            <img class="ml-3" width="800" src="./assets/images/foot/compra.png" alt="">
+                        </aside>
+                    </div>
                 </div>
             </div>
             <!--container ends-->
@@ -570,34 +574,7 @@
         </div>
     </footer>
 </div>
-<!--footer ends-->
-<!-- <nav id="navHeader" class="nav py-0">
-        <div class="container-fluid">
-            <div class="logo">
-                <a href="/home" title="Kids Life"><img id="logoHeader" height="60" src="./assets/images/kids-logo.png"
-                        alt="Kids Life" title="Kids Life"></a>
-            </div>
-            <div id="mainListDiv" class="main_list">
-                <ul class="navlinks">
-                    <li class="pointer"><a (click)="scroll('slider')" class="px-2 .topNav text-white"
-                            style="text-shadow: 2px 2px #000000;">Inicio</a></li>
-                    <li class="pointer"><a (click)="scroll('funcionalidad')" class="px-2 .topNav text-white"
-                            style="text-shadow: 2px 2px #000000;">Funcionalidades</a></li>
-                    <li class="pointer"><a (click)="scroll('curricular')" class="px-2 .topNav text-white"
-                            style="text-shadow: 2px 2px #000000;">Organización Curricular</a></li>
-                    <li class="pointer"><a (click)="scroll('contacto')" class="px-2 .topNav text-white"
-                            style="text-shadow: 2px 2px #000000;">Contacto</a></li>
-                    <li class="pointer">
-                        <a href="https://app.acamykids.cl" class="btn btn-first btnNav">
-                            Inicia Sesión
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <span class="navTrigger" (click)="toggleMenu()">
-                <i></i>
-                <i></i>
-                <i></i>
-            </span>
-        </div>
-    </nav> -->
+
+<button class="btn btn-flotante-up bg-green" (click)="upPage()">
+    <i class="fas fa-chevron-up"></i>
+</button>

@@ -8,3 +8,17 @@
     color: #ffffff;
     border: #ffffff solid 1px;
 }
+
+.btn-flotante-up {
+    display: scroll;
+    position: fixed;
+    bottom: 35px;
+    right: 50px;
+    color: #ffffff;
+    font-size: 32px;
+    border-radius: 50%;
+    padding: -1px;
+    width: 80px;
+    height: 80px;
+    box-shadow: 2px 2px 8px #888888;
+}
