@@ -3,10 +3,10 @@
         <form nz-form [formGroup]="formaLogin" (ngSubmit)="login()" autocomplete="off">
             <div class="inputs">
                 <label>RUT</label>
-                <input type="text" nz-input formControlName="user_rut" placeholder="RUT" />
+                <input type="text" nz-input formControlName="rut" placeholder="RUT" />
                 <label>Contraseña</label>
                 <input type="password" nz-input formControlName="password" placeholder="Contraseña" />
-                <nz-alert *ngIf="loginError" class="error" nzType="error" nzMessage="Error" nzShowIcon></nz-alert>
+                <nz-alert *ngIf="loginError" class="error" nzType="error" [nzMessage]="errorMessage" nzShowIcon></nz-alert>
             </div>
             <button type="submit" nz-button nzSize="large" nzType="primary">
                 <i class="icon-login" nz-icon [nzType]="loginIcon" nzTheme="outline"></i>

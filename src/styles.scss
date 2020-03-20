@@ -53,8 +53,20 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .ant-tabs-tab {
     width: 50% !important;
+    font-size: 15.8px;
 }
 
 .anticon { 
     vertical-align: 2.4px !important;
+}
+
+.ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab {
+    margin-right: 0px;
+    background-color: #2f80ed;
+    color: #fff;
+}
+
+.ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active {
+    background-color: #fff;
+    color: #2f80ed;
 }

@@ -5,38 +5,98 @@
     </nz-page-header-extra>
 </nz-page-header>
 <nz-layout class="inner-layout">
-    <h1>Evaluaciones Activas</h1>
+    <h5>Evaluaciones Activas</h5>
     <div nz-row>
         <div nz-col nzSpan="14">
-            <nz-table #basicTable [nzData]="listOfData">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Age</th>
-                        <th>Address</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let data of basicTable.data">
-                        <td>{{ data.name }}</td>
-                        <td>{{ data.age }}</td>
-                        <td>{{ data.address }}</td>
-                        <td>
-                            <a>Action 一 {{ data.name }}</a>
-                            <nz-divider nzType="vertical"></nz-divider>
-                            <a>Delete</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </nz-table>
+            <nz-card [nzExtra]="searchTemplate">
+                <nz-table #basicTable [nzData]="listOfData">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tipo</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of basicTable.data">
+                            <td>{{ data.name }}</td>
+                            <td>{{ data.age }}</td>
+                            <td>{{ data.address }}</td>
+                            <td>
+                                <a>Action 一 {{ data.name }}</a>
+                                <nz-divider nzType="vertical"></nz-divider>
+                                <a>Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+            </nz-card>
+            <ng-template #searchTemplate>
+                <!-- <label>Buscar:</label> -->
+                <input nz-input placeholder="" />
+            </ng-template>
         </div>
-        <div nz-col nzSpan="10">
-            <nz-card nzTitle="Card title">
+        <div class="left-card" nz-col nzSpan="10">
+            <nz-card>
                 <p>Card content</p>
                 <p>Card content</p>
                 <p>Card content</p>
-              </nz-card>
+            </nz-card>
+            <nz-card>
+                <p>Card content</p>
+                <p>Card content</p>
+                <p>Card content</p>
+            </nz-card>
+        </div>
+    </div>
+    <div nz-row>
+    </div>
+</nz-layout>
+<nz-layout class="inner-layout">
+    <h5>Evaluaciones Activas</h5>
+    <div nz-row>
+        <div nz-col nzSpan="18">
+            <nz-card [nzExtra]="searchTemplate">
+                <nz-table #basicTable [nzData]="listOfData">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tipo</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of basicTable.data">
+                            <td>{{ data.name }}</td>
+                            <td>{{ data.age }}</td>
+                            <td>{{ data.address }}</td>
+                            <td>
+                                <a>Action 一 {{ data.name }}</a>
+                                <nz-divider nzType="vertical"></nz-divider>
+                                <a>Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+            </nz-card>
+            <ng-template #searchTemplate>
+                <!-- <label>Buscar:</label> -->
+                <input nz-input placeholder="" />
+            </ng-template>
+        </div>
+        <div class="left-card" nz-col nzSpan="6">
+            <nz-card>
+                <p>Card content</p>
+                <p>Card content</p>
+                <p>Card content</p>
+            </nz-card>
+            <nz-card>
+                <p>Card content</p>
+                <p>Card content</p>
+                <p>Card content</p>
+            </nz-card>
         </div>
     </div>
     <div nz-row>

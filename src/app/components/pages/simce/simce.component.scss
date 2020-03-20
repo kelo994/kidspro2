@@ -7,6 +7,24 @@
 }
 
 ::ng-deep .ant-card {
-    margin-left: 30px;
+    margin-top: 20px;
     margin-bottom: 20px;
+}
+
+::ng-deep .ant-card-body {
+    padding: 0px;
+}
+
+::ng-deep .ant-table {
+    font-size: 12px;
+}
+
+.left-card {
+    padding-left: 30px;
+}
+
+th {
+    text-align: center!important;
+    text-transform: none;
+    font-weight: 600!important;
 }
