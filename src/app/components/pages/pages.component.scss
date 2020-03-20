@@ -41,3 +41,28 @@
 .anticon {
     vertical-align: 1.5px!important;
 }
+
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+    background-color: #D8D8D8 !important;
+}
+
+.ant-menu-inline .ant-menu-item::after {
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    border-right: 0px solid #1890ff;
+    border-left: 4px solid #1890ff;
+}
+.ant-menu-inline .ant-menu-item::before {
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    border-right: 0px solid #1890ff;
+    border-left: 4px solid #1890ff;
+    border-radius: 50%;
+}
+
+.ant-layout-sider { background: #ffffff !important; }
+.ant-layout { background: #f4f4f4 !important;}
