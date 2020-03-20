@@ -1,10 +1,43 @@
 <nz-header>
-    <div class="logo">
-        <img height="55" src="../../../../../assets/images/logo/kids-logo.png" alt="">
+    <div class="row">
+        <div class="col-4">
+            <div class="row">
+                <div class="col-1 px-0">
+                    <button class="btn btn-invisible" (click)="collapseMenu()">
+                        <i nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+                    </button>
+                </div>
+                <div class="col pl-0 d-block my-auto">
+                    <div class="logo">
+                        <img height="50" src="../../../../../assets/images/logo/kids-logo.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-8 d-block my-auto">
+            <div class="user-container btn-group">
+                <div class="user-picture initials ml-auto">
+                    JD
+                </div>
+                <div class="info-container dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <div class="user-name">
+                        <a>
+                            John Wayne
+                            <i nz-icon nzType="down"></i>
+                        </a>
+                    </div>
+                    <div class="user-title">Engineer</div>
+                </div>
+
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Cambiar Rol</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Cambiar Establecimiento</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Cerrar Sesión</a>
+                </div>
+            </div>
+        </div>
     </div>
-    <ul nz-menu nzTheme="dark" nzMode="horizontal">
-        <li nz-menu-item>nav 1</li>
-        <li nz-menu-item>nav 2</li>
-        <li nz-menu-item>nav 3</li>
-    </ul>
 </nz-header>

@@ -10,10 +10,7 @@ registerLocaleData(es);
 import { PAGES_ROUTES } from './pages.routes';
 import { PagesComponent } from './pages.component';
 import { HeaderComponent } from './shared/header/header.component';
-import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { CursosComponent } from './cursos/cursos.component';
-import { SimceComponent } from './simce/simce.component';
-import { SimceCreateComponent } from './simce/create/create.component';
 
 import { SimceModule } from './simce/simce.module';
 
@@ -29,8 +26,7 @@ import { SimceModule } from './simce/simce.module';
     declarations: [
         PagesComponent,
         HeaderComponent,
-        SidebarComponent,
-        CursosComponent,
+        CursosComponent
     ],
     providers: [{ provide: NZ_I18N, useValue: es_ES }, NzI18nService],
     entryComponents: [ ]

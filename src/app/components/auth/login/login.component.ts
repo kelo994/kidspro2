@@ -39,25 +39,34 @@ export class LoginComponent implements OnInit {
     this.loginError = false;
     /*
     if (this.formaLogin.valid) {
+      this.loginIcon = 'loading';
       this.authService.login(this.formaLogin.getRawValue())
         .subscribe(
-          (userData: any) => {
-            if (userData.user_account_type == 7) {
-              this.router.navigate(['/pages/administrador']);
+          (data) => {
+            if (data.establecimientos.length > 0) {
+              // this.colegios = data.establecimientos;
+              localStorage.setItem('perfil', JSON.stringify(data.user));
+              localStorage.setItem('establecimientos', JSON.stringify(data.establecimientos));
+              // this.toast.showToast('success', 'Bienvenido', 'Has Iniciado Sesión Satisfactoriamente');
+
+              // if (this.colegios.length == 1) {
+              //   this.openCollege(this.colegios[0].id);
+              // } else {
+              //   this.modalService.open(this.modalUser,
+              //     {
+              //       size: 'xl', backdropClass: 'light-blue-backdrop',
+              //       windowClass: 'animated fadeInDown', centered: true, scrollable: true
+              //     });
+              //   this.load = false;
+              // }
             } else {
-              this.authService.getLicenses().subscribe(
-                (licenseData: any) => {
-                  if (licenseData.length > 0) userData.rol_system = 2;
-                  else userData.rol_system = 1;
-                  localStorage.setItem('lastUser', this.formaLogin.controls.user_email.value);
-                  localStorage.setItem('user', JSON.stringify(userData));
-                  this.router.navigate(['/pages']);
-                },
-                (error) => { console.log(error) }
-              );
+              //this.toast.showToast('warning', 'Usuario sin Establecimiento', 'Lo sentimos, su usuario no cuenta con ningun establecimiento asociado');
+              // this.load = false;
             }
+
           },
           (error) => {
+            this.loginIcon = '';
             console.log(error)
             this.formaLogin.controls['password'].setValue('');
             if (error.status == 401 || error == 'Unauthorized') {

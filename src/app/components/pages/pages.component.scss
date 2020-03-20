@@ -12,19 +12,28 @@
     padding-top: 64px;
 }
 
-.inner-layout {
+.menu-sidebar {
+    position: relative !important;
+    z-index: 10 !important;
+    min-height: 100vh !important;
+    box-shadow: 2px 0 6px rgba(0,21,41,.35) !important;
+    background-color: #ffffff;
+    margin-top: 62px;
+  }
+
+.content-layout {
     //padding: 0 24px 24px;
-    padding: 0px;
-    margin-top: 68px;
+    padding: 0 24px;
+    margin-top: 64px;
 }
 
 ::ng-deep nz-breadcrumb {
-    margin: 16px 0;
+    margin: 20px 0;
 }
 
 ::ng-deep nz-content {
-    background: #fff;
-    padding: 24px;
+    background: #f4f4f4;
+    padding: 35px;
     padding-left: 0px;
     min-height: 280px;
 }
