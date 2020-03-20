@@ -8,12 +8,15 @@ import { RegisterComponent } from './register/register.component';
 import { AUTH_ROUTES } from './auth.routing.module';
 import { CommonModule } from '@angular/common';
 
+import { NgZorroAntdModule } from 'ng-zorro-antd';
+
 @NgModule({
     imports: [
         AUTH_ROUTES,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
+        NgZorroAntdModule,
     ],
     declarations: [
         AuthComponent, LoginComponent, ValidateComponent, RegisterComponent

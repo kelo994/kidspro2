@@ -11,14 +11,23 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent implements OnInit {
 
   formaLogin: FormGroup;
+  loginIcon = 'login';
+  loginError = false;
+
+  formaCode: FormGroup;
+  codeIcon = 'login';
+  modalCode = false;
 
   constructor(private authService: AuthService, private router: Router) {
     // let userEmail = 'pitagoras@yopmail.com';
     // let userEmail = 'jorge@yopmail.com';
-    let userEmail = 'josecamposh95@gmail.com';
+    let userRut = '19.195.225-1';
     this.formaLogin = new FormGroup({
-      'password': new FormControl('123456', [Validators.required, Validators.minLength(3)]),
-      'user_email': new FormControl(userEmail, [Validators.required, Validators.minLength(3)]),
+      'user_rut': new FormControl(userRut, [Validators.required, Validators.minLength(3)]),
+      'password': new FormControl('123456', [Validators.required, Validators.minLength(3)])
+    })
+    this.formaCode = new FormGroup({
+      'code': new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]),
     })
   }
 
@@ -26,7 +35,21 @@ export class LoginComponent implements OnInit {
     if (localStorage.getItem('lastUser')) { this.formaLogin.controls.user_email.setValue(localStorage.getItem('lastUser')); }
   }
 
+  openModal (modal) {
+    if (modal === 'code') {
+      this.modalCode = true
+    }
+  }
+
+  closeModal (modal) {
+    if (modal === 'code') {
+      this.modalCode = false
+    }
+  }
+
   login() {
+    this.loginIcon = 'loading';
+    this.loginError = false;
     /*
     if (this.formaLogin.valid) {
       this.authService.login(this.formaLogin.getRawValue())
@@ -59,7 +82,14 @@ export class LoginComponent implements OnInit {
         )
     }
     */
-   this.router.navigate(['/pages']);
+  }
+
+  loginCode () {
+    this.codeIcon = 'loading';
+  }
+
+  setUpperCase(event: any) {
+    event.target.value = event.target.value.toUpperCase();
   }
 
   goToRegister() { this.router.navigate(['/auth/register']); }

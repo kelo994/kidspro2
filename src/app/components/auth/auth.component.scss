@@ -42,7 +42,7 @@ h2 {
   background: #fff;
   padding: 30px;
   width: 90%;
-  max-width: 450px;
+  max-width: 700px;
   position: relative;
   padding: 0px;
   -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
@@ -51,12 +51,22 @@ h2 {
 }
 
 #formFooter {
-  background-color: #f6f6f6;
   border-top: 1px solid #dce8f1;
-  padding: 25px;
+  padding: 24px;
   text-align: center;
   -webkit-border-radius: 0 0 10px 10px;
   border-radius: 0 0 10px 10px;
+}
+
+#kidsLogo {
+  width: 75%!important;
+  margin-top: 1rem;
+}
+
+@media (max-width: 800px) {
+  #kidsLogo {
+    width: 85%!important;
+  }
 }
 
 
@@ -180,10 +190,6 @@ h2.active {
 
 *:focus {
     outline: none;
-} 
-
-#icon {
-  width:60%;
 }
 
 * {

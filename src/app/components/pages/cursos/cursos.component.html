@@ -1,0 +1,17 @@
+<nz-list [nzDataSource]="data" [nzRenderItem]="item" [nzItemLayout]="'horizontal'" [nzLoading]="loading">
+  <ng-template #item let-item>
+    <nz-list-item>
+      <nz-list-item-meta
+        [nzTitle]="nzTitle"
+        [nzDescription]="nzDescription"
+      >
+        <ng-template #nzTitle>
+          <span class="title">{{ item.title }}</span>
+        </ng-template>
+        <ng-template #nzDescription>
+          <span class="description">{{ nivelSelected }}</span>
+        </ng-template>
+      </nz-list-item-meta>
+    </nz-list-item>
+  </ng-template>
+</nz-list>

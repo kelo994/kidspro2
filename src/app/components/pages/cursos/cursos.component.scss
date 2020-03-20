@@ -1,0 +1,19 @@
+::ng-deep nz-list {
+    font-family: "Roboto";
+    max-width: 200px;
+}
+
+::ng-deep nz-list-item {
+    padding-bottom: 0px!important;
+}
+
+.title {
+    font-family: "Roboto";
+}
+.description {
+    font-family: "Roboto";
+    font-size: 12px;
+    font-style: italic;
+    float: right;
+    margin-top: -6px;
+}

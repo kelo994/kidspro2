@@ -1,7 +1,57 @@
-<!-- Login Form -->
+<!-- Old Login Form
 <form (ngSubmit)="login()" [formGroup]="formaLogin" autocomplete="off">
-    <input type="text" id="login" class="fadeIn second" name="login" placeholder="login" formControlName="user_email">
-    <input type="text" id="password" class="fadeIn third" name="login" placeholder="password" formControlName="password">
+    <input type="text" id="login" class="fadeIn second" name="login" placeholder="Rut" formControlName="user_email">
+    <input type="text" id="password" class="fadeIn third" name="login" placeholder="Contraseña" formControlName="password">
     <input type="submit" class="fadeIn fourth" value="Log In">
     <input type="button" class="fadeIn fourth" value="Register" (click)="goToRegister()">
+    <button type="submit" nz-button nzSize="large" nzType="primary">
+        <i class="icon-login" nz-icon [nzType]="loginIcon" nzTheme="outline"></i>
+        Iniciar Sesión
+    </button>
+    <button type="button" nz-button nzSize="large" nzType="primary" (click)="loginCode()">
+        <i class="icon-login" nz-icon [nzType]="codeIcon" nzTheme="outline"></i>
+        Tengo un Código
+    </button>
 </form>
+-->
+<form nz-form [formGroup]="formaLogin" (ngSubmit)="login()" autocomplete="off">
+    <div class="inputs">
+        <label><i class="form-icon" nz-icon nzType="user" nzTheme="outline"></i> RUT</label>
+        <input type="text" nz-input formControlName="user_rut" placeholder="RUT" />
+        <label><i class="form-icon" nz-icon nzType="lock" nzTheme="outline"></i> Contraseña</label>
+        <input type="password" nz-input formControlName="password" placeholder="Contraseña" />
+        <nz-alert *ngIf="loginError" class="error" nzType="error" nzMessage="Error" nzShowIcon></nz-alert>
+    </div>
+    <button type="submit" nz-button nzSize="large" nzType="primary">
+        <i class="icon-login" nz-icon [nzType]="loginIcon" nzTheme="outline"></i>
+        Iniciar Sesión
+    </button>
+    <button type="button" nz-button nzSize="large" nzType="primary" (click)="openModal('code')">
+        <i class="icon-login" nz-icon nzType="lock" nzTheme="outline"></i>
+        Tengo un Código
+    </button>
+</form>
+<nz-modal
+    [(nzVisible)]="modalCode"
+    nzWrapClassName="vertical-center-modal"
+    nzTitle="Inicio de Sesión para Estudiantes"
+    nzOkText="Enviar"
+    nzCancelText="Cancelar"
+    [nzContent]="modalContent"
+    [nzFooter]="modalFooter"
+    (nzOnCancel)="closeModal('code')"
+>
+    <form (ngSubmit)="loginCode()" [formGroup]="formaCode" autocomplete="off">
+        <ng-template #modalContent>
+            <label><i class="form-icon" nz-icon nzType="lock" nzTheme="outline"></i> Código de Acceso</label>
+            <input type="text" nz-input formControlName="code" placeholder="Código" (keyup)="setUpperCase($event)" />
+        </ng-template>
+        <ng-template #modalFooter>
+            <button nz-button nzSize="large" (click)="closeModal('code')">Cancelar</button>
+            <button type="submit" nz-button nzSize="large" nzType="primary" (click)="loginCode()" [disabled]="formaCode.invalid" >
+                <i class="icon-login" nz-icon [nzType]="codeIcon" nzTheme="outline"></i>
+                Iniciar Sesión
+            </button>
+        </ng-template>
+    </form>
+</nz-modal>
