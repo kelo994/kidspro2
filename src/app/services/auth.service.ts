@@ -47,24 +47,33 @@ export class AuthService {
         finalize(() => { /*console.log('finilize')*/ }));
   }
 
-  public login(dataSend): Observable<any> {
-    return this.http.post(`${this.url}/login`, dataSend)
+  public login(data): Observable<any> {
+    return this.http.post(`${this.url}/login`, data)
       .pipe(
         map(data => {
           // login successful if there's a jwt token in the response
-          console.log('data login: ' + data);
+          //console.log("data login: " + data);
           localStorage.clear();
-          const user: any = data;
-          localStorage.setItem('token', user.token);
-          localStorage.setItem('user', JSON.stringify(user.user));
-          this.isLogged$.next(true);
-          return user.user;
+          let user: any = data;
+          if (user.user && user.token) {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            let nombre = user.user.persona_nombre.split(' ');
+            let apellido = user.user.persona_apellido.split(' ');
+            localStorage.setItem('nombreCompleto', nombre[0] + ' ' + apellido[0]);
+            user.username = nombre[0] + ' ' + apellido[0];
+            user.email = user.user.persona_email;
+            localStorage.setItem('user', JSON.stringify(user.user));
+            localStorage.setItem('idFuncionario', JSON.stringify(user.user.id));
+            localStorage.setItem('token', user.token);
+            this.isLogged$.next(true);
+          }
+          return user;
         }))
       .pipe(timeout(5000),
-        retry(3),
-        catchError((error, c) => throwError(error)),
-        switchMap(f =>  /*console.log('do something with '+JSON.stringify(f));*/ of(f)),
-        finalize(() => { /*console.log('finilize')*/ }));
+        retry(1),
+        catchError((error, c) => { return throwError(error) }),
+        switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+        finalize(() => { /*console.log('finilize')*/ }));;
   }
 
   public activeAccount(dataSend, token) {
