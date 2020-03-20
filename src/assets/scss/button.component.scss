@@ -22,3 +22,12 @@
     height: 80px;
     box-shadow: 2px 2px 8px #888888;
 }
+
+.btn-invisible {
+    color: #ffffff;
+    background-color: transparent;
+}
+
+.btn-invisible:hover {
+    color: #ffffff;
+}
