@@ -82,7 +82,8 @@ display: none !important;
 }
 
 .dropdown-menu {
-    transform: translate3d(857px, 51px, 0px) !important;
+    //transform: translate3d(857px, 51px, 0px) !important;
+    margin-top: 12px;
 }
 
 .dropdown-item {
