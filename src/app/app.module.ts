@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { IconsProviderModule } from './icons-provider.module';
-import { NgZorroAntdModule, NZ_I18N, es_ES } from 'ng-zorro-antd';
+import { NgZorroAntdModule, NzConfig, NZ_CONFIG, NZ_I18N, es_ES } from 'ng-zorro-antd';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,6 +16,11 @@ import { AuthModule } from './components/auth/auth.module';
 import { PagesModule } from './components/pages/pages.module';
 
 registerLocaleData(es);
+
+// Configuraciones sglobales ngZorro
+const ngZorroConfig: NzConfig = {
+  notification: { nzPlacement: "bottomRight" }
+};
 
 @NgModule({
   declarations: [
@@ -36,7 +41,7 @@ registerLocaleData(es);
     PagesModule
   ],
   entryComponents: [DialogDataExampleDialog],
-  providers: [{ provide: NZ_I18N, useValue: es_ES }],
+  providers: [{ provide: NZ_I18N, useValue: es_ES }, { provide: NZ_CONFIG, useValue: ngZorroConfig }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
