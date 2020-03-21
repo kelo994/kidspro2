@@ -10,9 +10,13 @@ registerLocaleData(es);
 import { PAGES_ROUTES } from './pages.routes';
 import { PagesComponent } from './pages.component';
 import { HeaderComponent } from './shared/header/header.component';
-import { CursosComponent } from './cursos/cursos.component';
+import { CursoComponent } from './curso/curso.component';
 
 import { SimceModule } from './simce/simce.module';
+import { AsignaturasComponent } from './asignaturas/asignaturas.component';
+import { MaterialModule } from 'src/app/material.module';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 
 @NgModule({
     imports: [
@@ -21,12 +25,15 @@ import { SimceModule } from './simce/simce.module';
         FormsModule,
         ReactiveFormsModule,
         NgZorroAntdModule,
-        SimceModule
+        SimceModule,
+        MaterialModule,
+        Ng2SearchPipeModule
     ],
     declarations: [
         PagesComponent,
         HeaderComponent,
-        CursosComponent
+        CursoComponent,
+        AsignaturasComponent
     ],
     providers: [{ provide: NZ_I18N, useValue: es_ES }, NzI18nService],
     entryComponents: [ ]

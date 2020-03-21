@@ -82,7 +82,7 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('roles', JSON.stringify(data.roles));
       localStorage.setItem('rolId', data.roles[0].rol_codigo);
       localStorage.setItem('idEstablecimiento', establecimiento.id);
-      this.router.navigate(['/pages/cursos']);
+      this.router.navigate(['/pages/curso/0']);
     }, (error) => {
       console.log(error)
     });
