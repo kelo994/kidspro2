@@ -67,4 +67,92 @@ p {
 #cardVideo { height: 90%; max-height: 538px;}
 .pointer { cursor: pointer !important; }
 
+.video{
+  height: 450px;
+}
 
+@media only screen and (min-width: 200px) {
+  .video{
+    height: 450px;
+  }
+}
+
+@media only screen and (min-width: 400px) {
+  .video{
+    height: 450px;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .video{
+    height: 450px;
+  }
+}
+
+@media only screen and (min-width: 800px) {
+  .video{
+    height: 450px;
+  }
+}
+
+@media only screen and (min-width: 1001px) {
+  .video{
+    height: 450px;
+  }
+}
+
+@media only screen and (min-width: 1201px) {
+  .video{
+    height: 300px;
+  }
+}
+
+@media only screen and (min-width: 1401px) {
+  .video{
+    height: 370px;
+  }
+}
+
+@media only screen and (min-width: 1601px) {
+  .video{
+    height: 400px;
+  }
+}
+
+@media only screen and (min-width: 1901px) {
+  .video{
+    height: 500px;
+  }
+}
+@media only screen and (min-width: 2101px) {
+  .video{
+    height: 600px;
+  }
+}
+
+
+
+.datos-bloque{
+  padding-top: 40px;
+}
+
+.cursiva{
+  font-style: italic;
+}
+
+
+::ng-deep ul li .ant-menu-item.ant-menu-item-selected {
+  color: red;
+}
+
+li .ant-menu-item{
+  margin: 0;
+}
+.ant-menu-item{
+  margin:0;
+}
+
+
+.truncar-texto {
+  overflow:hidden;white-space:nowrap;; text-overflow: ellipsis;
+}

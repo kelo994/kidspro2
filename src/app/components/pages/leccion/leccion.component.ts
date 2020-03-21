@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EmbedVideoService } from 'ngx-embed-video';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { LeccionService } from '../../../services/leccion.service';
+import { BloqueService } from '../../../services/bloque.service';
 
 @Component({
   selector: 'app-leccion',
@@ -15,12 +16,13 @@ export class LeccionComponent implements OnInit {
   isCollapsed = false;
   asignaturaId;
   cursoId;
+  grupoId;
   showSection = 0;
   playleccion = 'matemáticas/1/1/Build/1.json';
   iframeHtml: any;
 
   constructor(public router: Router, private route: ActivatedRoute,  private embedService: EmbedVideoService,
-              public leccionService: LeccionService) { }
+              public leccionService: LeccionService, public bloqueService: BloqueService) { }
 
 /*
   openXl(content) {
@@ -39,7 +41,10 @@ export class LeccionComponent implements OnInit {
       this.leccionId = params.leccion;
       this.asignaturaId = 1;
       this.cursoId = 1;
+      this.grupoId = 28;
       this.loadContent();
+      this.obtenerBloques();
+      //this.obtenerBloquesActivos();
     });
   }
 
@@ -55,8 +60,8 @@ export class LeccionComponent implements OnInit {
         (data: any) => { // Success
           this.leccion = data.data;
           this.showSection = 2;
-        //  this.playleccion = this.leccion.ruta_actividad;
-        //  this.loadVideo(this.leccion.recursos[0].url);
+          this.playleccion = this.leccion.ruta_actividad;
+          this.loadVideo(this.leccion.recursos[0].url);
         },
         (error) => {
           console.log(error);
@@ -67,6 +72,29 @@ export class LeccionComponent implements OnInit {
         }
     );
   }
+
+    obtenerBloquesActivos() {
+        this.leccionService.getBloquesActivos(this.cursoId, this.asignaturaId).subscribe(
+            (data: any) => {
+                console.log(data);
+                this.lecciones = data.data;
+            },
+            (error) => {
+                if (error.status === 401) {
+                    this.router.navigate(['/auth/login']);
+                }
+            }
+        );
+    }
+
+    obtenerBloques() {
+        console.log(this.grupoId);
+        this.bloqueService.getBloquesGrupo(this.grupoId).subscribe( (data: any) => { // Success
+            this.lecciones = data;
+        }, (error) => {
+            if (error.status === 401) { this.router.navigate(['/auth/login']); }
+        });
+    }
 
      loadVideo(url: any) {
        let urlGet = url.split('https://player.vimeo.com/video/');
@@ -108,26 +136,7 @@ export class LeccionComponent implements OnInit {
        );
      }
 
-     obtenerBloquesActivos() {
-       let idAsignatura = localStorage.getItem('asignatureOpen');
-       let idCurso = localStorage.getItem('CursoId');
-       this.dashboard.getBloquesActivos(idCurso, idAsignatura).subscribe(
-           (data: any) => { // Success
-             console.log(data)
-             data.forEach(e => {
-               let a = { id: e.bloque_id, estado: true }
-               this.bloquesSave.push(a);
-             });
-             //this.bloquesSave = data;
 
-
-           },
-           (error) => {
-             if (error.status == 401) {
-               this.router.navigate(['/auth/login']);
-             }
-           })
-     }
 
      addSelectBloque(idx: any, item) {
        if (this.bloquesSave.find(item => item.id === idx)) {
