@@ -1,0 +1,65 @@
+<nz-layout class="layout">
+  <nz-sider
+    nzCollapsible
+    [(nzCollapsed)]="isCollapsed"
+    [nzBreakpoint]="'lg'"
+    [nzCollapsedWidth]="0"
+    nzTheme="light"
+  >
+    <ul nz-menu nzTheme="light" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-menu-item>
+        <span>nav 1</span>
+      </li>
+      <li nz-menu-item>
+        <span>nav 2</span>
+      </li>
+      <li nz-menu-item>
+        <span>nav 3</span>
+      </li>
+      <li nz-menu-item>
+        <span>nav 4</span>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-content>
+      <div class="inner-content" nz-row >
+        <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="16" nzXl="17" nzXXl="18" style="padding-left: 20px; padding-right: 20px">
+          <div class="video h-100" [innerHtml]="iframeHtml"></div>
+        </div>
+        <div class="inner-content-right border-full" nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="8" nzXl="7" nzXXl="6" >
+          <div class="border-bottom padding-title" >
+            <p class="negrita">Vista previa del juego</p>
+          </div>
+          <div class="border-bottom vista-previa-image" >
+            <img alt="image" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
+          </div>
+          <div class="border-bottom padding-title" >
+            <p class="negrita">Repositorio del Sistema</p>
+          </div>
+          <div class=" lista-repositorio-sistema" >
+            <ul>
+              <li>
+                <div nz-row nzType="flex" nzJustify="space-between" nzAlign="middle">
+                  <div nz-col nzSpan="4">
+                    <i class="fas fa-file-pdf" style="color: red; font-size: 32px"></i>
+                  </div>
+                  <div nz-col nzSpan="16">
+                    <p class="negrita">Nombre del documento</p>
+                    <p class="descripcion-documento">Nombre del documento</p>
+                  </div>
+                  <div nz-col nzSpan="3">
+                    <button  style="color: blue; float: right; " nz-button nzType="link" nzSize="large">
+                      <i nz-icon nzType="vertical-align-bottom" nzTheme="outline"></i>
+                    </button>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
+

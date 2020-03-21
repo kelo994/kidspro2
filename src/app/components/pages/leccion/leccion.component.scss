@@ -1,0 +1,70 @@
+.layout {
+  height: 100vh;
+}
+
+.logo {
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px;
+}
+
+nz-header {
+  background: #fff;
+  padding: 0;
+}
+
+nz-content {
+
+}
+
+.inner-content {
+  margin: 40px 15px 0 15px ;
+}
+
+nz-footer {
+  text-align: center;
+}
+
+.inner-content-right{
+  background-color: #fff;
+}
+
+
+.negrita{
+  font-weight: bold;
+}
+
+
+p {
+  margin: 0;
+}
+
+.border-full {
+  border: rgba(0,0,0,0.3) 0.4px solid;
+}
+
+.border-bottom {
+  border-bottom: rgba(0,0,0,0.3) 0.4px solid;
+}
+
+.padding-title{
+  padding: 10px 30px;
+}
+
+.vista-previa-image{
+  padding: 30px 40px;
+}
+
+.lista-repositorio-sistema{
+  padding: 20px 10px 0 35px;
+}
+
+.descripcion-documento{
+  font-size: 10px;
+}
+
+
+#cardVideo { height: 90%; max-height: 538px;}
+.pointer { cursor: pointer !important; }
+
+

@@ -14,6 +14,7 @@ import { CursosComponent } from './cursos/cursos.component';
 import { UnidadComponent } from './unidad/unidad.component';
 
 import { SimceModule } from './simce/simce.module';
+import { LeccionComponent } from './leccion/leccion.component';
 
 @NgModule({
     imports: [
@@ -28,7 +29,8 @@ import { SimceModule } from './simce/simce.module';
         PagesComponent,
         HeaderComponent,
         CursosComponent,
-        UnidadComponent
+        UnidadComponent,
+        LeccionComponent
     ],
     providers: [{ provide: NZ_I18N, useValue: es_ES }, NzI18nService],
     entryComponents: [ ]

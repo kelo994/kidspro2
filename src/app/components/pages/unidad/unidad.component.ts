@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BloqueService } from '../../../services/bloque.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+
 
 @Component({
   selector: 'app-unidad',
@@ -9,20 +10,40 @@ import { Router } from '@angular/router';
 })
 export class UnidadComponent implements OnInit {
   bloques = [];
-  funcionario = 2;
-  asignatura  = 1;
-  curso = 1;
+  funcionario;
+  asignatura;
+  curso;
   grupos = [];
-  grupoId = 7;
+  grupoId;
+  isCollapsed = false;
 
-  constructor(public bloqueService: BloqueService, public router: Router) { }
+  constructor(
+      public bloqueService: BloqueService, public router: Router, private route: ActivatedRoute) {
+    console.log(this.router.getCurrentNavigation().extras.state);
+  }
 
   ngOnInit(): void {
-    this.obtenerBloques();
-    this.obtenerGrupos();
+
+    this.route.params.subscribe(params => {
+      console.log(params);
+      console.log(history.state);
+      this.grupoId = params.unidad;
+     // this.funcionario = history.state.func;
+      this.funcionario = 2;
+     // this.asignatura = history.state.asig;
+      this.asignatura = 1;
+      // this.curso = history.state.cur;
+      this.curso = 1;
+      this.obtenerBloques();
+      this.obtenerGrupos();
+    });
+
+
+
   }
 
   obtenerBloques() {
+    console.log(this.grupoId);
     this.bloqueService.getBloquesGrupo(this.grupoId).subscribe( (data: any) => { // Success
       this.bloques = data;
     }, (error) => {
@@ -58,5 +79,15 @@ export class UnidadComponent implements OnInit {
         });
   }
 
+  goToUnidad(grupoId): void {
+    console.log(grupoId);
+    this.router
+        .navigateByUrl('pages/cursos/unidades/' + grupoId, {state: {func: this.funcionario,  asig: this.asignatura, cur: this.curso}});
+  }
 
+  goToLeccion(leccionId): void {
+    console.log(leccionId);
+    this.router
+        .navigateByUrl('pages/cursos/unidades/lecciones/' + leccionId, {state: {}});
+  }
 }
