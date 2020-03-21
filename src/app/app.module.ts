@@ -14,7 +14,8 @@ import { LandingComponent, DialogDataExampleDialog } from './components/landing/
 import { MaterialModule } from './material.module';
 import { AuthModule } from './components/auth/auth.module';
 import { PagesModule } from './components/pages/pages.module';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { EmbedVideo } from 'ngx-embed-video';
 registerLocaleData(es);
 
 // Configuraciones sglobales ngZorro
@@ -38,8 +39,11 @@ const ngZorroConfig: NzConfig = {
     BrowserAnimationsModule,
     MaterialModule,
     AuthModule,
-    PagesModule
+    PagesModule,
+    Ng2SearchPipeModule,
+    EmbedVideo.forRoot()
   ],
+  exports: [Ng2SearchPipeModule],
   entryComponents: [DialogDataExampleDialog],
   providers: [{ provide: NZ_I18N, useValue: es_ES }, { provide: NZ_CONFIG, useValue: ngZorroConfig }],
   bootstrap: [AppComponent]

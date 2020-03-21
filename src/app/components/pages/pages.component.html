@@ -9,10 +9,30 @@
             <li nz-menu-group nzTitle="Principal"></li>
             <li nz-submenu nzOpen nzIcon="user" nzTitle="Cursos">
                 <ul>
-                    <li nz-menu-item nzSelected>1° Básico</li>
-                    <li nz-menu-item>2° Básico</li>
-                    <li nz-menu-item>3° Básico</li>
-                    <li nz-menu-item>4° Básico</li>
+                    <li nz-menu-item nzMatchRouter (click)="changeRoute(1)">
+                        <a [routerLink]="['/pages/curso/1']">
+                            <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
+                            <span>1° Básico</span>
+                        </a>
+                    </li>
+                    <li nz-menu-item nzMatchRouter (click)="changeRoute(2)">
+                        <a [routerLink]="['/pages/curso/2']">
+                            <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
+                            <span>2° Básico</span>
+                        </a>
+                    </li>
+                    <li nz-menu-item nzMatchRouter (click)="changeRoute(3)">
+                        <a [routerLink]="['/pages/curso/3']">
+                            <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
+                            <span>3° Básico</span>
+                        </a>
+                    </li>
+                    <li nz-menu-item nzMatchRouter (click)="changeRoute(4)">
+                        <a [routerLink]="['/pages/curso/4']">
+                            <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
+                            <span>4° Básico</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li nz-menu-item nz-tooltip nzPlacement="right" [nzTitle]="isCollapsed ? 'Reportes Analíticos' : ''"

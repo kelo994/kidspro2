@@ -1,0 +1,21 @@
+<a id="changeRoute" class="d-none" (click)="destruir()"> a</a>
+<div class="side-asignatura">
+    <nz-input-group [nzSuffix]="suffixIcon">
+        <input type="text" nz-input placeholder="Buscar Asignatura" [(ngModel)]="searchValue" />
+    </nz-input-group>
+    <ng-template #suffixIcon>
+        <i nz-icon nzType="search"></i>
+    </ng-template>
+    <ul nz-menu nzMode="inline">
+        <li nz-menu-item nzMatchRouter *ngFor="let asign of asignaturas | filter:searchValue" (click)="openAsignatura(asign)">
+            <a >
+                {{ asign.title }}
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div [innerHtml]="yt_iframe_html"></div>
+<div [innerHtml]="vimeo_iframe_html"></div>
+<div [innerHtml]="dm_iframe_html"></div>
+<!-- <p>{{ selectAsginatura }}</p> -->
