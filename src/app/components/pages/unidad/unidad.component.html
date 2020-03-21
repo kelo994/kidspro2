@@ -1,15 +1,22 @@
 <div nz-row>
 
 
-  <div class="content-left" nz-col nzXs="24" nzSm="24" nzMd="18" nzLg="18" nzXl="18" style="padding-left:50px;padding-right: 50px;padding-bottom: 18px">
+  <div class="content-left" nz-col nzXs="24" nzSm="24" nzMd="16" nzLg="18" nzXl="18" >
 
-    <div >
-      <p class="negrita">Unidad 1</p>
+    <div nz-row >
+
+      <div nz-col nzXs="16" nzSm="12" nzMd="16" nzLg="20" nzXl="20" nzXXl="20">
+        <h6 class="negrita">Unidad 1</h6>
+      </div>
+      <div nz-col nzXs="8" nzSm="12" nzMd="8" nzLg="4" nzXl="4" nzXXl="4">
+        <button  style="color: black; float: right " nz-button nzType="link" nzSize="small"><i nz-icon nzType="left"></i> Volver al panel</button>
+      </div>
+
     </div>
 
-    <div class="content-left-bottom" nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32, xl: 32, xxl: 32 }">
-      <div nz-col nzXs="24" nzSm="12" nzMd="8" nzLg="6" nzXl="6" nzXXl="4" *ngFor="let bloque of bloques; let i = index">
-        <nz-card nzHoverable  [nzCover]="coverTemplate" >
+    <div class="content-left-bottom" nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 24, xl: 24, xxl: 24 }">
+      <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="6" nzXXl="6" *ngFor="let bloque of bloques; let i = index">
+        <nz-card nzHoverable  [nzCover]="coverTemplate" style="margin-bottom: 18px">
           <nz-card-meta
             [nzTitle]="bloque.bloque_titulo"
           ></nz-card-meta>
@@ -18,7 +25,7 @@
               <p style="margin: 0; font-size: 12px;">Activar/Desactivar</p>
             </div>
             <div nz-col nzXs="4" nzSm="4" nzMd="4" nzLg="4" nzXl="4" nzXXl="4">
-              <nz-switch nzSize="small" [ngModel]="bloque.estado" ></nz-switch>
+              <nz-switch nzSize="small" [ngModel]="bloque.estado" (click)="cambiarEstadoBloqueGrupo(bloque)"></nz-switch>
             </div>
           </div>
         </nz-card>
@@ -30,11 +37,13 @@
   </div>
 
 
-  <div class="content-right" nz-col nzXs="24" nzSm="24" nzMd="6" nzLg="6" nzXl="6" >
-    <p>Otras Unidades</p>
-    <div class="content-right-bottom">
-      <nz-card class="borde-card" >
-        <p class="negrita" >Unidad 1</p>
+  <div class="content-right" nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="6" nzXl="6" >
+    <div style="padding-top: 5px">
+      <p>Otras Unidades</p>
+    </div>
+    <div class="content-right-bottom" >
+      <nz-card class="borde-card"  *ngFor="let grupo of grupos; let i = index">
+        <p class="negrita" >{{ grupo.grupo_nombre }}</p>
         <p class="cursiva" >6 Lecciones asignadas</p>
       </nz-card>
     </div>

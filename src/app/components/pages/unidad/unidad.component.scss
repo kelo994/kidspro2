@@ -1,11 +1,14 @@
 .content-left{
-  padding-top: 50px;
+  padding-top: 40px;
+  padding-left:50px;
+  padding-right: 50px;
+  padding-bottom: 18px
 }
 
 .content-right{
   padding-left: 24px;
   padding-right: 24px;
-  padding-top: 50px;
+  padding-top: 40px;
   background-color: white
 }
 
@@ -15,6 +18,9 @@
 
 .content-left-bottom{
   padding-top: 24px;
+}
+
+.content-left-top{
 
 }
 
@@ -31,6 +37,7 @@ p {
 .borde-card
 {
   border-left: #f2c94c 5px solid;
+  margin-bottom: 18px
 }
 
 
@@ -40,4 +47,11 @@ p {
 
 .cursiva{
   font-style: italic;
+}
+
+.card{
+   margin-bottom: 18px;
+ }
+h6 {
+  margin: 0;
 }

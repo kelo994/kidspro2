@@ -43,6 +43,31 @@ export class BloqueService {
                 finalize(() => { /*console.log('finilize')*/ }));
     }
 
+
+    getGrupos(funcId, asignId, cursoId) {
+        return this.http.get(`${this.url}/funcionarios/${funcId}/asignaturas/${asignId}/cursos/${cursoId}/grupos`, this.getToken())
+            .pipe(timeout(5000),
+                retry(1),
+                catchError((error, c) => {
+                    this.errorTime();
+                    return throwError(error);
+                }),
+                switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+                finalize(() => { /*console.log('finilize')*/ }));
+    }
+
+    cambiarEstadoBloqueGrupo(param, idBloque) {
+        return this.http.put(`${this.url}/bloque/activar/${idBloque}`, param, this.getToken())
+            .pipe(timeout(5000),
+                retry(1),
+                catchError((error, c) => {
+                    return throwError(error);
+                }),
+                switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+                finalize(() => { /*console.log('finilize')*/ }));
+    }
+
+
     errorTime() {
         // this.toast.eternalToast('danger', 'Error Inesperado', 'Lo sentimos, no se ha podido realizar la solicitud, intentelo más tarde');
     }
