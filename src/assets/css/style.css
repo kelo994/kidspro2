@@ -292,14 +292,14 @@ th {
   padding: 15px;
   line-height: normal;
   text-transform: uppercase;
-  text-align: center;
+  text-align: left;
 }
 
 td {
   border-bottom: 1px solid #f0f0f0;
   background: #f9f9f9;
   line-height: normal;
-  text-align: center;
+  text-align: left;
   padding: 13px 15px;
 }
 

@@ -9,7 +9,7 @@
     <div nz-row>
         <div nz-col nzSpan="14">
             <nz-card [nzExtra]="searchTemplate">
-                <nz-table #basicTable [nzData]="listOfData">
+                <nz-table #pruebasTable [nzData]="pruebas">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -19,14 +19,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let data of basicTable.data">
-                            <td>{{ data.name }}</td>
-                            <td>{{ data.age }}</td>
-                            <td>{{ data.address }}</td>
+                        <tr *ngFor="let data of pruebasTable.data">
+                            <td>{{ data.prueba_id }}</td>
+                            <td>{{ data.simce_descripcion }}</td>
+                            <td>{{ data.estado_prueba }}</td>
                             <td>
-                                <a>Action 一 {{ data.name }}</a>
                                 <nz-divider nzType="vertical"></nz-divider>
-                                <a>Delete</a>
                             </td>
                         </tr>
                     </tbody>
@@ -54,28 +52,30 @@
     </div>
 </nz-layout>
 <nz-layout class="inner-layout">
-    <h5>Evaluaciones Activas</h5>
+    <h5>Historial de resultados</h5>
     <div nz-row>
         <div nz-col nzSpan="18">
             <nz-card [nzExtra]="searchTemplate">
-                <nz-table #basicTable [nzData]="listOfData">
+                <nz-table #pruebasFinalizadasTable [nzData]="pruebasFinalizadas">
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Tipo</th>
-                            <th>Estado</th>
+                            <th>Puntaje</th>
+                            <th>Inicio</th>
+                            <th>Termino</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let data of basicTable.data">
-                            <td>{{ data.name }}</td>
-                            <td>{{ data.age }}</td>
-                            <td>{{ data.address }}</td>
+                        <tr *ngFor="let data of pruebasFinalizadasTable.data">
+                            <td>{{ data.prueba_id }}</td>
+                            <td>{{ data.simce_descripcion }}</td>
+                            <td>{{ data.puntaje_simce }}</td>
+                            <td>{{ data.inicio }}</td>
+                            <td>{{ data.fin }}</td>
                             <td>
-                                <a>Action 一 {{ data.name }}</a>
                                 <nz-divider nzType="vertical"></nz-divider>
-                                <a>Delete</a>
                             </td>
                         </tr>
                     </tbody>

@@ -41,7 +41,8 @@
 .user-picture {
     border-radius: 50%;
     border: 1px solid #ffffff;
-    width: 50px;
+    width: 35px;
+    height: 35px;
 }
 
 .user-picture.initials {
@@ -81,7 +82,8 @@ display: none !important;
 }
 
 .dropdown-menu {
-    transform: translate3d(857px, 51px, 0px) !important;
+    //transform: translate3d(857px, 51px, 0px) !important;
+    margin-top: 12px;
 }
 
 .dropdown-item {
