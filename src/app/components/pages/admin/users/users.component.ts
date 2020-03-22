@@ -11,12 +11,20 @@ export class UsersAdminComponent implements OnInit {
 
   loading = false;
 
+  users;
+
   constructor(
     private notification: NzNotificationService,
     private router: Router) {
   }
 
   ngOnInit(): void {
+  }
+
+  openModal (modal) {
+    if (modal === 'create') {
+
+    }
   }
   
 }
