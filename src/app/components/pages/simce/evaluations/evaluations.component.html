@@ -7,8 +7,14 @@
 <nz-layout class="inner-layout">
     <h5>Evaluaciones Activas</h5>
     <div nz-row>
-        <div nz-col nzMd="14" nzXs="24">
-            <nz-card style="min-height: 360px;" nzShowPagination [nzExtra]="searchTemplate">
+        <div nz-col nzMd="14" nzXs="24" class="bg-blue">
+            <nz-card style="min-height: 360px;" nzShowPagination>
+                <div class="offset-6 col-6 pt-3">
+                    <div class="input-group input-group-sm mb-3">
+                        <label class="pr-3 m-0 py-2"><strong>Buscar</strong></label>
+                        <input type="text" class="form-control" [(ngModel)]="searchEvaluaciones">
+                      </div>
+                </div>
                 <nz-table style="width: 100%;" #pruebasTable [nzData]="pruebas" nzPageSize="5" [nzLoading]="pruebasLoading">
                     <thead>
                         <tr>
@@ -20,7 +26,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let data of pruebasTable.data">
+                        <tr *ngFor="let data of pruebasTable.data | filter:searchEvaluaciones">
                             <td class="first-td">{{ data.prueba_id }}</td>
                             <td>{{ data.simce_descripcion }}</td>
                             <td>{{ data.curso_nombre }}</td>
@@ -36,10 +42,6 @@
                     </tbody>
                 </nz-table>
             </nz-card>
-            <ng-template #searchTemplate>
-                <!-- <label>Buscar:</label> -->
-                <input nz-input placeholder="" />
-            </ng-template>
         </div>
         <div class="pl-4" nz-col nzMd="10" nzXs="24">
             <nz-card style="min-height: 234px; text-align: center;" >
@@ -56,8 +58,14 @@
     </div>
     <h5>Historial de resultados</h5>
     <div nz-row>
-        <div nz-col nzSpan="18">
-            <nz-card [nzExtra]="searchTemplate">
+        <div nz-col nzSpan="18" class="bg-blue">
+            <nz-card>
+                <div class="offset-6 col-6 pt-3">
+                    <div class="input-group input-group-sm mb-3">
+                        <label class="pr-3 m-0 py-2"><strong>Buscar</strong></label>
+                        <input type="text" class="form-control" [(ngModel)]="searchHistorial">
+                      </div>
+                </div>
                 <nz-table #pruebasFinalizadasTable [nzData]="pruebasFinalizadas" nzPageSize="9" [nzLoading]="pruebasFinalizadasLoading">
                     <thead>
                         <tr>
@@ -67,19 +75,21 @@
                             <th>Puntaje</th>
                             <th>Inicio</th>
                             <th>Termino</th>
-                            <th>Acciones</th>
+                            <th colspan="2">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let data of pruebasFinalizadasTable.data">
+                        <tr *ngFor="let data of pruebasFinalizadasTable.data | filter:searchHistorial">
                             <td class="first-td">{{ data.prueba_id }}</td>
                             <td>{{ data.simce_descripcion }}</td>
                             <td>{{ data.curso_nombre }}</td>
                             <td>{{ data.puntaje_simce }}</td>
                             <td>{{ data.inicio }}</td>
                             <td>{{ data.fin }}</td>
-                            <td>
-                                <i nz-icon nzType="file-search" class="vertical-line"></i>
+                            <td class="p-0 text-center vertical-line">
+                                <i nz-icon nzType="file-search"></i>
+                            </td>
+                            <td class="p-0 text-center">
                                 <i nz-icon nzType="bar-chart" nzTheme="outline" (click)="verPrueba(data, 'resultados')"></i>
                             </td>
                         </tr>

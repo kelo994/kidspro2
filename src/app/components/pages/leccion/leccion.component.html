@@ -1,15 +1,15 @@
 <nz-layout class="layout">
   <nz-sider
+    class="submenu-sidebar"
     nzCollapsible
     [(nzCollapsed)]="isCollapsed"
     [nzBreakpoint]="'lg'"
     [nzCollapsedWidth]="0"
     nzTheme="light"
-    style="background-color:  rgba(0, 0, 0, 0.04); padding-top: 40px"
+    style="background-color:  rgba(0, 0, 0, 0.04); padding-top: 40px; margin-top: 0px !important;"
   >
     <p class="cursiva pl-4 pb-3">Unidad 1</p>
-    <ul nz-menu  nzMode="inline" [nzInlineCollapsed]="isCollapsed" style="background-color: transparent" >
-
+    <ul nz-menu  nzMode="inline" [nzInlineCollapsed]="isCollapsed" style="background-color: transparent">
       <li nz-menu-item *ngFor="let leccion of lecciones; let i = index">
         <a [routerLink]="['/pages/cursos/unidades/lecciones/', leccion.bloque_id]"  routerLinkActive="activo"
            [state]="{state: {asignatura_id: asignaturaId, cursoId: cursoId, grupoId: grupoId}}">
@@ -19,12 +19,11 @@
           </div>
         </a>
       </li>
-
     </ul>
   </nz-sider>
   <nz-layout>
     <nz-content>
-      <div class="inner-content" nz-row >
+      <div  class="right-layout pt-3" nz-row >
         <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="17" nzXXl="18" style="padding-left: 20px; padding-right: 20px; " >
           <div class="video" [innerHtml]="iframeHtml" ></div>
           <div class="datos-bloque">

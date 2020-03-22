@@ -10,7 +10,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./evaluations.component.scss']
 })
 export class SimceEvaluationsComponent implements OnInit {
-
+  searchEvaluaciones = '';
+  searchHistorial = '';
   constructor(
     public simceService: SimceService,
     private highcharts: HighchartsService,

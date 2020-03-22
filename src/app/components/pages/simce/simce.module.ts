@@ -12,13 +12,15 @@ import { SimceCreateComponent } from './create/create.component';
 import { SimceEvaluationsComponent } from './evaluations/evaluations.component';
 import { EvaluationResultsComponent } from './results/results.component';
 import { PreguntasChartComponent } from './results/charts/preguntas.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        NgZorroAntdModule
+        NgZorroAntdModule,
+        Ng2SearchPipeModule
     ],
     declarations: [
         SimceComponent,

@@ -1,4 +1,59 @@
-<nz-tabset nzTabPosition="top" nzType="card" >
+<div class="content">
+    <!-- Nav pills -->
+    <ul class="nav nav-pills" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="pill" href="#profesor">Profesor</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="pill" href="#estudiante">Estudiante</a>
+      </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div id="profesor" class="container tab-pane active">
+        <form nz-form [formGroup]="formaLogin" (ngSubmit)="login()" autocomplete="off">
+            <div class="inputs">
+                <label>RUT</label>
+                <input type="text" nz-input formControlName="rut" placeholder="RUT" (keyup)="formateaRut()" />
+                <label>Contraseña</label>
+                <input type="password" nz-input formControlName="password" placeholder="Contraseña"/>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <button class="w-100" type="submit" nz-button nzSize="large" nzType="primary">
+                        <i class="icon-login" nz-icon [nzType]="loginIcon" nzTheme="outline"></i>
+                        Iniciar Sesión
+                    </button>
+                </div>
+                <div class="col-6 d-block my-auto">
+                    <a class="underlineHover" href="#">¿Olvidaste tu Contraseña?</a>
+                </div>
+            </div>
+        </form>
+      </div>
+      <div id="estudiante" class="container tab-pane fade">
+        <form (ngSubmit)="loginCode()" [formGroup]="formaCode" autocomplete="off">
+            <div class="inputs">
+                <label>Ingrese el código de acceso</label>
+                <input type="text" nz-input formControlName="code" placeholder="Código" (keyup)="setUpperCase($event)" />
+            </div>
+            <div class="row">
+                <div class="offset-6 col-6 text-right">
+                    <button class="w-100" type="submit" nz-button nzSize="large" nzType="primary" (click)="loginCode()"
+                    [disabled]="formaCode.invalid">
+                    <i class="icon-login" nz-icon [nzType]="codeIcon" nzTheme="outline"></i>
+                    Iniciar sesión
+                </button>
+                </div>
+            </div>
+            
+        </form>
+      </div>
+    </div>
+  </div>
+
+<!-- <nz-tabset nzTabPosition="top" nzType="card" >
     <nz-tab nzTitle="Profesor">
         <form nz-form [formGroup]="formaLogin" (ngSubmit)="login()" autocomplete="off">
             <div class="inputs">
@@ -27,4 +82,4 @@
             </button>
         </form>
     </nz-tab>
-</nz-tabset>
+</nz-tabset> -->
