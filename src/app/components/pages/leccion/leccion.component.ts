@@ -11,7 +11,21 @@ import { BloqueService } from '../../../services/bloque.service';
 })
 export class LeccionComponent implements OnInit {
   leccionId;
-  leccion = {};
+  leccion = {
+      bloque_titulo: '',
+      leccion_titulo: '',
+      bloque_imagen: '',
+      ruta_actividad: '',
+      lecciones: {
+          leccion_titulo: ''
+      },
+      objetivos: {
+          objetivo_descripcion: ''
+      },
+      habilidades: {
+          habilidad_nombre: ''
+      }
+  };
   lecciones = [];
   isCollapsed = false;
   asignaturaId;
@@ -61,7 +75,6 @@ export class LeccionComponent implements OnInit {
         (data: any) => { // Success
           this.leccion = data.data;
           this.showSection = 2;
-          // @ts-ignore
           this.playleccion = this.leccion.ruta_actividad;
             // @ts-ignore
           this.loadVideo(this.leccion.recursos[0].url);
