@@ -53,3 +53,15 @@
 
 .ant-layout-sider { background: #ffffff !important; }
 .ant-layout { background: #f4f4f4 !important;}
+
+.sub-menu-route {
+    padding-left: 40px!important;
+}
+
+::ng-deep .ant-menu-inline, .ant-menu-vertical, .ant-menu-vertical-left {
+    border-right: none; 
+}
+
+::ng-deep .ant-menu-item-selected, ::ng-deep .ant-menu-item-selected > a {
+    color: rgba(0, 0, 0, 0.65)!important;
+}

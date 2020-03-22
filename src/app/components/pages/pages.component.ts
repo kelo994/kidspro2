@@ -11,6 +11,13 @@ export class PagesComponent implements OnInit {
 
   cursos;
 
+  admin = [
+    { path: 'cursos', name: 'Cursos', icon: 'bank', nzIcon: true },
+    { path: 'estudiantes', name: 'Estudiantes', icon :'smile', nzIcon: true },
+    { path: 'profesores', name: 'Profesores', icon: 'fa fa-graduation-cap' },
+    { path: 'usuarios', name: 'Usuarios', icon: 'team', nzIcon: true }
+  ]
+
   toggleCollapsed(): void {
     this.isCollapsed = !this.isCollapsed;
   }
@@ -23,6 +30,10 @@ export class PagesComponent implements OnInit {
   changeRoute(item) {
     localStorage.setItem('CursoName', item.curso_nombre);
     this.router.navigate(['/pages/curso', item.curso_id]);
+  }
+
+  adminRoute(route) {
+    this.router.navigate(['/pages/administrar/' + route]);
   }
 
 }

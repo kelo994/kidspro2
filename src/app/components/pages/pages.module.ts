@@ -13,6 +13,7 @@ import { HeaderComponent } from './shared/header/header.component';
 
 import { CursoComponent } from './curso/curso.component';
 
+import { AdminModule } from './admin/admin.module';
 import { SimceModule } from './simce/simce.module';
 import { LeccionComponent } from './leccion/leccion.component';
 import { UnidadComponent} from './unidad/unidad.component';
@@ -28,6 +29,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
         FormsModule,
         ReactiveFormsModule,
         NgZorroAntdModule,
+        AdminModule,
         SimceModule,
         MaterialModule,
         Ng2SearchPipeModule
