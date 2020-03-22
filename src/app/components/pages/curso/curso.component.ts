@@ -12,6 +12,7 @@ export class CursoComponent implements OnInit {
   searchValue = '';
   selectedValue;
 
+  cursoId;
   asignaturas = [
     {
       title: 'Lenguaje, Comunicación y Literatura',
@@ -57,6 +58,7 @@ export class CursoComponent implements OnInit {
   ngOnInit(): void {
     this.parametersObservable = this.routeActive.params.subscribe(params => {
       console.log(params);
+      this.cursoId = params.idCurso;
       if (this.routeActive.snapshot.params.idCurso == '1') {
         this.selectAsginatura = this.asignaturasList.asign1[0];
       } else if (this.routeActive.snapshot.params.idCurso == '2') {
@@ -72,7 +74,7 @@ export class CursoComponent implements OnInit {
   nzEvent(event: NzFormatEmitEvent): void {
     console.log(event);
   }
-  
+
   destruir() {
     this.ngOnDestroy();
   }
@@ -88,7 +90,7 @@ export class CursoComponent implements OnInit {
     // $('#closeModalAsignatura').click();
     // localStorage.setItem('asignatureOpen', element.asignatura_id);
     // localStorage.setItem('titleAsignature', element.materia_descripcion);
-    // 
+    //
   }
 
   openCurso(item) {
@@ -113,8 +115,7 @@ export class CursoComponent implements OnInit {
           }
         }
       )*/
-  }  
-
+  }
   change(): void {
     this.loading = true;
     if (this.data.length > 0) {
@@ -141,5 +142,13 @@ export class CursoComponent implements OnInit {
         this.loading = false;
       }, 1000);
     }
+  }
+
+  goToUnidad(grupoId): void {
+    console.log(grupoId);
+    this.router
+        .navigateByUrl(
+            'pages/cursos/unidades/' + grupoId, {state: {func: localStorage.getItem('idFuncionario')
+                , asig: this.selectAsginatura, cur: this.cursoId}});
   }
 }
