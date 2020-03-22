@@ -14,9 +14,9 @@ import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
-export class SimceService {
+export class GeneroService {
 
-  private url = `${environment.apiBaseUrl}`;
+  private url = `${environment.apiBaseUrl}/generos`;
 
   constructor(private http: HttpClient, public router: Router) { }
 
@@ -29,13 +29,16 @@ export class SimceService {
     };
   }
 
-  getTokenStudent() {
-    return {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('tokenStudent')
-      })
-    };
+  query() {
+    return this.http.get(`${this.url}`, this.getToken())
+      .pipe(timeout(5000),
+        retry(1),
+        catchError((error, c) => {
+          this.errorTime();
+          return throwError(error);
+        }),
+        switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+        finalize(() => { /*console.log('finilize')*/ }));
   }
 
   errorTime() {

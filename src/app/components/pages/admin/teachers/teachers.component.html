@@ -1,5 +1,47 @@
 <nz-page-header>
-    <nz-page-header-title>Profesores</nz-page-header-title>
-    <nz-page-header-extra>
-    </nz-page-header-extra>
+    <nz-page-header-title>Listado de Profesores</nz-page-header-title>
 </nz-page-header>
+<nz-layout class="inner-layout">
+    <nz-card [nzExtra]="searchTemplate">
+        <nz-table nzShowPagination="false" #teachersTable [nzFooter]="tableFooter" [nzData]="teachers" [nzLoading]="loading">
+            <thead>
+                <tr>
+                    <th class="first-th">ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>RUT</th>
+                    <th>Correo electrónico</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of teachersTable.data">
+                    <td class="first-td">{{ data.funcionario_id }}</td>
+                    <td>{{ data.persona_nombre }}</td>
+                    <td>{{ data.persona_apellido }}</td>
+                    <td>{{ data.persona_rut }}</td>
+                    <td>{{ data.persona_email }}</td>
+                    <td>
+                        <i nz-icon nzType="unlock" nzTheme="outline"></i>
+                        <i nz-icon nzType="delete" nzTheme="outline"></i>
+                    </td>
+                </tr>
+            </tbody>
+            <ng-template #tableFooter>
+                <ng-template [ngIf]="teachersData.length === 0" >
+                    No hay profesores activos
+                </ng-template>
+                <ng-template [ngIf]="teachersData.length === 1" >
+                    1 Profesor activo
+                </ng-template>
+                <ng-template [ngIf]="teachersData.length > 1" >
+                    {{ teachersData.length  }} Profesores activos
+                </ng-template>
+            </ng-template>
+        </nz-table>
+        <ng-template #searchTemplate>
+            <label>Buscar:</label>
+            <input nz-input [(ngModel)]="inputSearch" placeholder="" (ngModelChange)="search()" />
+        </ng-template>
+    </nz-card>
+</nz-layout>
