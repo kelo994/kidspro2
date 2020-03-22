@@ -199,6 +199,10 @@ export class UsersAdminComponent implements OnInit {
     this.userForm.controls['direccion'].setValue(user.persona_direccion)
     this.userForm.controls['genero'].setValue(user.genero_id)
     this.userForm.controls['nacionalidad'].setValue(user.persona_nacionalidad)
+    let roles = user.roles.map(rol => {
+      return rol.rol_id
+    })
+    this.userForm.controls['roles'].setValue(roles)
   }
 
   clearForm () {
@@ -209,7 +213,7 @@ export class UsersAdminComponent implements OnInit {
     this.userForm.controls['email'].setValue('')
     this.userForm.controls['telefono'].setValue('')
     this.userForm.controls['direccion'].setValue('')
-    this.userForm.controls['genero'].setValue([])
+    this.userForm.controls['genero'].setValue('')
     this.userForm.controls['nacionalidad'].setValue('')
     this.userForm.controls['roles'].setValue([])
   }
