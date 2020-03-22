@@ -1,0 +1,34 @@
+::ng-deep .ant-card-body {
+    padding: 0px;
+}
+
+.first-th, .first-td {
+    padding-left: 30px;
+}
+
+.form-label {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.search-label {
+    width: 25%;
+    font-weight: 600;
+}
+
+.search-input {
+    width: 75%;
+}
+
+[nz-row] {
+    margin-bottom: 15px;
+}
+
+::ng-deep .ant-modal-body {
+    padding-bottom: 15px;
+}
+
+::ng-deep .ant-modal {
+    top: 60px;
+}

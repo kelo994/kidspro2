@@ -1,13 +1,13 @@
 <div id="main">
     <nz-header>
-        <div class="logo">
+        <div class="logo my-1">
             <img height="55" src="../../../assets/images/logo/kids-logo.png" alt="">
         </div>
-        <ul nz-menu [nzTheme]="'dark'" [nzMode]="'horizontal'" class="header-menu text-right">
-            <li nz-menu-item>Inicio</li>
-            <li nz-menu-item nzSelected>Funcionalidades</li>
-            <li nz-menu-item>Organización Curricular</li>
-            <li nz-menu-item>Contacto</li>
+        <ul nz-menu [nzTheme]="'dark'" [nzMode]="'horizontal'" class="header-menu text-right my-1 mt-2">
+            <li nz-menu-item (click)="click('main')">Inicio</li>
+            <li nz-menu-item nzSelected (click)="click('funcionalidad')">Funcionalidades</li>
+            <li nz-menu-item (click)="click('curricular')">Organización Curricular</li>
+            <li nz-menu-item (click)="click('contacto')">Contacto</li>
             <li nz-menu-item>
                 <button class="btn btn-login" (click)="goToLogin()">
                     Iniciar Sesión
@@ -16,7 +16,7 @@
         </ul>
     </nz-header>
 
-    <div id="sidebarMenu">
+    <div id="sidebarMenu" class="mt-2">
         <ul class="sidebarMenuInner">
             <li routerLink="/home" routerLinkActive="active" class="nologin pointer">
                 <a (click)="click('slider')"> Inicio </a>
@@ -36,7 +36,7 @@
             </li>
         </ul>
     </div>
-    <div id="slider" class="home">
+    <div id="slider" class="home mt-5">
         <div id="layerslider_4" class="ls-wp-container"
             style="width:100%;height:610px;max-width:1920px;margin:0 auto;margin-bottom: 0px;">
             <div class="ls-slide" data-ls="slidedelay:7000; transition2d: all;">
@@ -177,7 +177,7 @@
             </div>
         </div>
     </div>
-    <section id="funcionalidad" class="content-full-width pt-section-principal">
+    <section id="funcionalidad" class="content-full-width pt-section">
         <!--container starts-->
         <div class="container px-5">
             <p class="c-green title-section text-center m-0">Funcionalidades</p>
@@ -509,7 +509,7 @@
         <!--container ends-->
     </section>
     <footer>
-        <div id="footer" class="footer-widgets-wrapper">
+        <div id="contacto" class="footer-widgets-wrapper">
             <div class="container">
                 <img id="logoHeader" height="80" src="../../../assets/images/logo/kids-logo.png" alt="Kids Life"
                     title="Kids Life">
