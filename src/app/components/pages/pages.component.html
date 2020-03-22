@@ -9,7 +9,7 @@
             <li nz-menu-group nzTitle="Principal"></li>
             <li nz-submenu nzOpen nzIcon="user" nzTitle="Cursos">
                 <ul>
-                    <li *ngFor="let curso of cursos" nz-menu-item nzMatchRouter (click)="changeRoute(curso.curso_id)">
+                    <li *ngFor="let curso of cursos" nz-menu-item nzMatchRouter (click)="changeRoute(curso)">
                         <a [routerLink]="['/pages/curso/' + curso.curso_id]">
                             <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
                             <span>{{ curso.curso_nombre }}</span>

@@ -55,3 +55,22 @@ nz-input-group {
     font-size: 57px;
     text-align: center;
 }
+
+.col-step {
+    font-family: initial;
+    font-size: 130px;
+    z-index: 50;
+    color: #2f80ed;
+    text-shadow: 6px -2px #bbb9b9;
+}
+
+.col-step-content {
+    height: 85px;
+    margin-top: 56px;
+    right: 15px;
+    border-radius: 15px;
+
+    p {
+        font-size: 20px;
+    }
+}
