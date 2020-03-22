@@ -9,9 +9,9 @@ import { CursoComponent } from './curso/curso.component';
 import { AsignaturasComponent } from './asignaturas/asignaturas.component';
 
 import { CoursesAdminComponent } from './admin/courses/courses.component';
-import { StudentsAdminComponent } from './admin/students/students.component'
-import { TeachersAdminComponent } from './admin/teachers/teachers.component'
-import { UsersAdminComponent } from './admin/users/users.component'
+import { StudentsAdminComponent } from './admin/students/students.component';
+import { TeachersAdminComponent } from './admin/teachers/teachers.component';
+import { UsersAdminComponent } from './admin/users/users.component';
 
 const pagesroutes: Routes = [{
   path: 'pages',
