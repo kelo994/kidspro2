@@ -2,6 +2,10 @@
     color: #008c99 !important; 
 }
 
+.c-black {
+    color: #000000;
+}
+
 .icon-result {
     color: #5c5c5c;
     background-color: #ffffff;
@@ -13,4 +17,8 @@
 .icon-text {
     font-size: 20px;
     color: #ffffff;
+}
+
+.ant-switch-checked {
+    background-color: #27ae60 !important;
 }

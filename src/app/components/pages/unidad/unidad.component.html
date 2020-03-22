@@ -1,0 +1,100 @@
+<nz-layout>
+  <nz-layout>
+    <nz-content class="content-left">
+      <div nz-row >
+        <div nz-col nzXs="16" nzSm="12" nzMd="16" nzLg="18" nzXl="20" nzXXl="20">
+          <h6 class="negrita">Unidad 1</h6>
+        </div>
+        <div nz-col nzXs="8" nzSm="12" nzMd="8" nzLg="4" nzXl="4" nzXXl="4">
+          <button  style="color: rgba(0,0,0,0.5); float: right; " nz-button nzType="link" nzSize="small">
+            <i nz-icon nzType="left"></i> Volver al panel
+          </button>
+        </div>
+      </div>
+
+      <div class="content-left-bottom" nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 24, xl: 24, xxl: 24 }">
+        <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="6" nzXXl="6" *ngFor="let bloque of bloques; let i = index" >
+          <nz-card   [nzCover]="coverTemplate" style="margin-bottom: 18px" >
+            <p class="truncar-texto" style="margin-top: 5px;">{{ bloque.bloque_titulo }}  </p>
+            <div nz-row style="margin-top: 16px">
+              <div nz-col nzXs="20" nzSm="20" nzMd="20" nzLg="20" nzXl="20" nzXXl="20">
+                <p style=" font-size: 10px; color: rgba(0,0,0,0.35)">Activar/Desactivar</p>
+              </div>
+              <div nz-col nzXs="4" nzSm="4" nzMd="4" nzLg="4" nzXl="4" nzXXl="4">
+                <nz-switch nzSize="small" [ngModel]="bloque.estado" (click)="cambiarEstadoBloqueGrupo(bloque)"></nz-switch>
+              </div>
+            </div>
+          </nz-card>
+          <ng-template #coverTemplate>
+            <img alt="example" [src]="bloque.bloque_imagen" (click)="goToLeccion(bloque.bloque_id)" style="cursor: pointer" />
+          </ng-template>
+        </div>
+      </div>
+    </nz-content>
+  </nz-layout>
+  <nz-sider nzCollapsible  [(nzCollapsed)]="isCollapsed" [nzBreakpoint]="'lg'" [nzCollapsedWidth]="0"
+            nzTheme="light" nzWidth="250px" style="border-left: rgba(0,0,0,0.5) 0.5px solid;">
+    <div class="content-right" >
+      <div style="padding-top: 5px">
+        <p>Otras Unidades</p>
+      </div>
+      <div class="content-right-bottom" >
+        <nz-card nzHoverable class="borde-card"  *ngFor="let grupo of grupos; let i = index" (click)="goToUnidad(grupo.grupo_id)" >
+          <p class="negrita" >{{ grupo.grupo_nombre }}</p>
+          <p class="cursiva" >{{ grupo.cant_bloques }} Lecciones asignadas</p>
+        </nz-card>
+      </div>
+    </div>
+  </nz-sider>
+</nz-layout>
+
+<!--
+
+<div nz-row>
+  <div class="content-left" nz-col nzXs="24" nzSm="24" nzMd="16" nzLg="16" nzXl="19" nzXXl="20">
+
+    <div nz-row >
+
+      <div nz-col nzXs="16" nzSm="12" nzMd="16" nzLg="18" nzXl="20" nzXXl="20">
+        <h6 class="negrita">Unidad 1</h6>
+      </div>
+      <div nz-col nzXs="8" nzSm="12" nzMd="8" nzLg="4" nzXl="4" nzXXl="4">
+        <button  style="color: rgba(0,0,0,0.5); float: right; " nz-button nzType="link" nzSize="small"><i nz-icon nzType="left"></i> Volver al panel</button>
+      </div>
+
+    </div>
+
+    <div class="content-left-bottom" nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 24, xl: 24, xxl: 24 }">
+      <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="6" nzXXl="6" *ngFor="let bloque of bloques; let i = index">
+        <nz-card nzHoverable  [nzCover]="coverTemplate" style="margin-bottom: 18px">
+          <p class="truncar-texto" style="margin-top: 5px;">{{ bloque.bloque_titulo }}  </p>
+          <div nz-row style="margin-top: 16px">
+            <div nz-col nzXs="20" nzSm="20" nzMd="20" nzLg="20" nzXl="20" nzXXl="20">
+              <p style=" font-size: 10px; color: rgba(0,0,0,0.35)">Activar/Desactivar</p>
+            </div>
+            <div nz-col nzXs="4" nzSm="4" nzMd="4" nzLg="4" nzXl="4" nzXXl="4">
+              <nz-switch nzSize="small" [ngModel]="bloque.estado" (click)="cambiarEstadoBloqueGrupo(bloque)"></nz-switch>
+            </div>
+          </div>
+        </nz-card>
+        <ng-template #coverTemplate>
+          <img alt="example" [src]="bloque.bloque_imagen" />
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+
+ <div class="content-right" nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" nzXl="5" nzXXl="4">
+    <div style="padding-top: 5px">
+      <p>Otras Unidades</p>
+    </div>
+    <div class="content-right-bottom" >
+      <nz-card nzHoverable class="borde-card"  *ngFor="let grupo of grupos; let i = index" (click)="goToUnidad(grupo.grupo_id)" >
+        <p class="negrita" >{{ grupo.grupo_nombre }}</p>
+        <p class="cursiva" >{{ grupo.cant_bloques }} Lecciones asignadas</p>
+      </nz-card>
+    </div>
+  </div>
+</div>
+-->

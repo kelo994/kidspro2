@@ -131,5 +131,8 @@
       }
     }
   },
-  "defaultProject": "kidspro"
+  "defaultProject": "kidspro",
+  "cli": {
+    "analytics": "81c3c0a8-5631-40d4-8d50-441f987ef65e"
+  }
 }

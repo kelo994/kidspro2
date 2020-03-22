@@ -1,0 +1,131 @@
+<a id="changeRoute" class="d-none" (click)="destruir()"> a</a>
+<nz-layout class="left-layout">
+    <nz-sider class="submenu-sidebar mt-0">
+        <nz-input-group [nzSuffix]="suffixIcon">
+            <input type="text" nz-input placeholder="Buscar Asignatura" [(ngModel)]="searchValue" />
+        </nz-input-group>
+        <ng-template #suffixIcon>
+            <i nz-icon nzType="search"></i>
+        </ng-template>
+        <ul nz-menu nzMode="inline">
+            <li class="item-submenu d-block my-auto" nz-menu-item nzMatchRouter
+                *ngFor="let asign of asignaturas | filter:searchValue" (click)="openAsignatura(asign)">
+                <p class="m-0">{{ asign.title }}</p>
+            </li>
+        </ul>
+    </nz-sider>
+    <nz-layout class="right-layout ">
+        <div class="header bg-subheader p-3">
+            <div class="row m-0">
+                <div class="col-6">
+                    <div>
+                        <span class="text-subheader bd-invisible"><strong>Asignatura</strong></span>
+                        <small class="px-3">4° básico </small><i class="fas fa-arrow-right"></i>
+                        <nz-select class="pl-4 w-50" [(ngModel)]="selectedValue" nzAllowClear
+                            nzPlaceHolder="Escoja una Sección">
+                            <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+                            <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+                            <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+                        </nz-select>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-unidad mr-3">
+                        <i class="fas fa-cog bd-invisible"></i> Editar Unidades
+                    </button>
+                    <button class="btn btn-unidad">
+                        <i class="fas fa-qrcode bd-invisible"></i> Código de Acceso
+                    </button>
+                </div>
+                <div class="col-12">
+                    <span>6 Unidades</span>
+                </div>
+            </div>
+        </div>
+        <div class="unidades pt-5">
+            <div class="row m-0">
+                <div class="col-3 mb-3">
+                    <div class="card-content bg-gray p-0">
+                        <p class="c-black py-1 pl-3 m-0 t-12">Unidad 1</p>
+                        <div class="content-card-unidad bg-white">
+                            <ul class="list-group px-0">
+                                <li class="list-group-item p-0">
+                                    <div class="row m-0">
+                                        <div class="col-10 px-0 pl-1 t-12">
+                                            Nombre muy extenso de la lección
+                                        </div>
+                                        <div class="col-2 p-0 d-block my-auto">
+                                            <nz-switch nzSize="small" [ngModel]="true"></nz-switch>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item p-0">
+                                    <div class="row m-0">
+                                        <div class="col-10 px-0 pl-1 t-12">
+                                            Nombre muy extenso de la lección
+                                        </div>
+                                        <div class="col-2 p-0 d-block my-auto">
+                                            <nz-switch nzSize="small" [ngModel]="true"></nz-switch>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item p-0">
+                                    <div class="row m-0">
+                                        <div class="col-10 px-0 pl-1 t-12">
+                                            Nombre muy extenso de la lección
+                                        </div>
+                                        <div class="col-2 p-0 d-block my-auto">
+                                            <nz-switch nzSize="small" [ngModel]="true"></nz-switch>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item p-0">
+                                    <div class="row m-0">
+                                        <div class="col-10 px-0 pl-1 t-12">
+                                            Nombre muy extenso de la lección
+                                        </div>
+                                        <div class="col-2 p-0 d-block my-auto">
+                                            <nz-switch nzSize="small" [ngModel]="true"></nz-switch>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item p-0">
+                                    <div class="row m-0">
+                                        <div class="col-10 px-0 pl-1 t-12">
+                                            Nombre muy extenso de la lección
+                                        </div>
+                                        <div class="col-2 p-0 d-block my-auto">
+                                            <nz-switch nzSize="small" [ngModel]="true"></nz-switch>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item p-0">
+                                    <div class="row m-0">
+                                        <div class="col-10 px-0 pl-1 t-12">
+                                            Nombre muy extenso de la lección
+                                        </div>
+                                        <div class="col-2 p-0 d-block my-auto">
+                                            <nz-switch nzSize="small" [ngModel]="true"></nz-switch>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="row m-0 p-2">
+                                <div class="col text-center px-1">
+                                    <button class="btn btn-unidad btn-sm w-100 t-12 py-2b" (click)="goToUnidad(1)" >
+                                        Entrar
+                                    </button>
+                                </div>
+                                <div class="col text-center px-1">
+                                    <button class="btn btn-out-unidad btn-sm w-100 t-12 py-2b">
+                                        Eliminar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nz-layout>
+</nz-layout>

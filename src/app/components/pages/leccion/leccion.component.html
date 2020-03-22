@@ -1,0 +1,93 @@
+<nz-layout class="layout">
+  <nz-sider
+    nzCollapsible
+    [(nzCollapsed)]="isCollapsed"
+    [nzBreakpoint]="'lg'"
+    [nzCollapsedWidth]="0"
+    nzTheme="light"
+    style="background-color:  rgba(0, 0, 0, 0.04); padding-top: 40px"
+  >
+    <p class="cursiva pl-4 pb-3">Unidad 1</p>
+    <ul nz-menu  nzMode="inline" [nzInlineCollapsed]="isCollapsed" style="background-color: transparent" >
+
+      <li nz-menu-item *ngFor="let leccion of lecciones; let i = index">
+        <a [routerLink]="['/pages/cursos/unidades/lecciones/', leccion.bloque_id]"  routerLinkActive="activo"
+           [state]="{state: {asignatura_id: asignaturaId, cursoId: cursoId, grupoId: grupoId}}">
+          <div nz-row nzAlign="middle">
+            <div nz-col nzSpan="5"><i class="far fa-play-circle" style="font-size: 18px"></i></div>
+            <div nz-col nzSpan="19"><p class="truncar-texto" style="font-size: 10px">{{leccion.bloque_titulo}}</p></div>
+          </div>
+        </a>
+      </li>
+
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-content>
+      <div class="inner-content" nz-row >
+        <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="17" nzXXl="18" style="padding-left: 20px; padding-right: 20px; " >
+          <div class="video" [innerHtml]="iframeHtml" ></div>
+          <div class="datos-bloque">
+            <h5 class="pb-2">{{leccion.bloque_titulo}}</h5>
+            <div class="datos-lecciones pl-2">
+              <p class="negrita pb-2 pt-2">Lecciones</p>
+              <ul>
+                <li *ngFor="let leccion of leccion.lecciones; let i = index">
+                  <p class="descripcion-documento pl-1">{{leccion.leccion_titulo}}</p>
+                </li>
+              </ul>
+            </div>
+            <div class="datos-objetivos pl-2 pt-2">
+              <p class="negrita pb-2">Objetivos de Aprendizaje</p>
+              <ul>
+                <li *ngFor="let objetivo of leccion.objetivos; let i = index">
+                  <p class="descripcion-documento pl-1">{{objetivo.objetivo_descripcion}}</p>
+                </li>
+              </ul>
+            </div>
+            <div class="datos-habilidades pl-2 pt-2">
+              <p class="negrita pb-2">Habilidades</p>
+              <ul>
+                <li *ngFor="let habilidad of leccion.habilidades; let i = index">
+                  <p class="descripcion-documento pl-1">{{habilidad.habilidad_nombre}}</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="inner-content-right border-full" nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="7" nzXXl="6" >
+          <div class="border-bottom padding-title" >
+            <p class="negrita">Vista previa del juego</p>
+          </div>
+          <div class="border-bottom vista-previa-image" >
+            <img alt="image" [src]="leccion.bloque_imagen" />
+          </div>
+          <div class="border-bottom padding-title" >
+            <p class="negrita">Repositorio del Sistema</p>
+          </div>
+          <div class=" lista-repositorio-sistema" >
+            <ul>
+              <li>
+                <div nz-row nzType="flex" nzJustify="space-between" nzAlign="middle">
+                  <div nz-col nzSpan="4">
+                    <i class="fas fa-file-pdf" style="color: red; font-size: 32px"></i>
+                  </div>
+                  <div nz-col nzSpan="16">
+                    <p class="negrita">Nombre del documento</p>
+                    <p class="descripcion-documento">Nombre del documento</p>
+                  </div>
+                  <div nz-col nzSpan="3">
+                    <button  style="color: blue; float: right; " nz-button nzType="link" nzSize="large">
+                      <i nz-icon nzType="vertical-align-bottom" nzTheme="outline"></i>
+                    </button>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
+

@@ -1,15 +1,32 @@
-::ng-deep nz-list, .menu {
+nz-input-group {
+    padding: 10px 0;
+}
+
+.side-asignatura {
+    max-width: 200px;
+    border: solid 1px #000000;
+    min-height: 100%;
+    overflow: hidden;
+}
+
+::ng-deep nz-menu-item {
+    content: unquote($string: "");
+}
+
+::ng-deep nz-list,
+.menu {
     font-family: "Roboto";
     max-width: 200px;
 }
 
 ::ng-deep nz-list-item {
-    padding-bottom: 0px!important;
+    padding-bottom: 0px !important;
 }
 
 .title {
     font-family: "Roboto";
 }
+
 .description {
     font-family: "Roboto";
     font-size: 12px;

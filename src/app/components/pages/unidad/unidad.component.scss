@@ -1,0 +1,66 @@
+.content-left{
+  padding: 35px 50px 18px 50px;
+}
+
+.content-right{
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 35px;
+  background-color: white;
+}
+
+.content-right-bottom{
+  padding-top: 20px;
+}
+
+.content-left-bottom{
+  padding-top: 20px;
+}
+
+.content-left-top{
+
+}
+
+p {
+  margin: 0;
+}
+
+::ng-deep nz-card div.ant-card-body {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+
+.borde-card
+{
+  border-left: #f2c94c 5px solid;
+  margin-bottom: 18px
+}
+
+
+.negrita{
+  font-weight: bold;
+}
+
+.cursiva{
+  font-style: italic;
+}
+
+.card{
+   margin-bottom: 18px;
+ }
+
+h6 {
+  margin: 0;
+}
+
+.truncar-texto {
+  overflow:hidden;white-space:nowrap;; text-overflow: ellipsis;
+}
+
+
+::ng-deep nz-switch button.ant-switch.ant-switch-small.ant-switch-checked {
+  background-color: #27ae60;
+}
+
+
