@@ -1,7 +1,9 @@
 import { Component, OnInit, } from '@angular/core';
 import { SimceService } from '../../../../services/simce.service';
 import { Router } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { NzMarks } from 'ng-zorro-antd/slider';
 
 @Component({
   selector: 'app-simce-create',
@@ -12,6 +14,7 @@ export class SimceCreateComponent implements OnInit {
   createForm: FormGroup;
 
   modalCreate = false;
+  modalEvaluationDetail = false;
   createIcon = "plus";
 
   idFuncionario;
@@ -19,17 +22,24 @@ export class SimceCreateComponent implements OnInit {
   idCurso;
 
   simceTypes = [];
-  simceSelected;
   cursos = [];
-  cursoSelected;
 
-  evaluacion;
+  evaluation;
 
   notasMinimas = [1, 2]
   value = 50;
 
-  constructor(public simceService: SimceService, public router: Router)
-  {
+  marks: NzMarks = {
+    0: '0',
+    50: '50',
+    100: '100'
+  };
+
+  constructor(
+    public simceService: SimceService,
+    private notification: NzNotificationService,
+    public router: Router
+  ) {
     this.createForm = new FormGroup({
       'tipo': new FormControl('', [Validators.required]),
       'curso': new FormControl('', [Validators.required]),
@@ -42,43 +52,52 @@ export class SimceCreateComponent implements OnInit {
     this.idFuncionario = localStorage.getItem('idFuncionario');
     this.idCurso = localStorage.getItem('CursoId');
     this.idAsignatura = localStorage.getItem('asignatureOpen');
-    //this.getSimceTypes()
+    this.getSimceTypes()
   }
 
   getSimceTypes() {
     this.simceService.getSimce().subscribe( (data: any) => { // Success
       this.simceTypes = data;
-      this.simceSelected = this.simceTypes[0];
+      if (this.simceTypes.length) {
+        //this.createForm.controls['tipo'].setValue(this.simceTypes[0]);
+        //this.getValidCourses()
+      }
     }, (error) => {
       if (error.status == 401) this.router.navigate(['/auth/login']);
     })
   }
 
   createEvaluation () {
-    let data = {
+    console.log('asd')
+    this.closeModal('create')
+    this.openModal('detail')
+    /*let data = {
       simce_id: this.createForm.controls.tipo.value,
       curso_especifico_id: this.createForm.controls.curso.value,
       exigencia: this.createForm.controls.exigencia.value,
       nota_minima: this.createForm.controls.nota_minima.value
     }
     this.simceService.agregarPrueba(data).subscribe( (data: any) => { // Success
-      this.evaluacion = data
+      this.evaluation = data
     },(error) => {
       console.log(error.response)
       if (error.status == 401) this.router.navigate(['/auth/login'])
-    })
+    })*/
   }
 
-  changeTypeSIMCE(simce: any) {
-    this.cursos = [];
-    this.simceService.getCursosFuncionarioAsignatura(this.idFuncionario, simce.asignatura_id).subscribe( (data: any) => { // Success
-      this.cursos = data
-      if (this.cursos.length === 0) {
-        //this.toast.showToast('danger', 'Error', 'No posee cursos que cumplan las condiciones del SIMCE seleccionado.');
-      }
-    },(error) => {
-      if (error.status == 401) this.router.navigate(['/auth/login'])
-    })
+  getValidCourses () {
+    let asignaturaId = this.createForm.controls.tipo.value.asignatura_id;
+    if (asignaturaId != 0) {
+      this.cursos = [];
+      this.simceService.getCursosFuncionarioAsignatura(this.idFuncionario, asignaturaId).subscribe( (data: any) => { // Success
+        this.cursos = data
+        if (this.cursos.length === 0) {
+          this.notification.error('Error', 'No posee cursos que cumplan las condiciones del SIMCE seleccionado');
+        }
+      },(error) => {
+        if (error.status == 401) this.router.navigate(['/auth/login'])
+      })
+    }
 
     this.createForm.controls['curso'].setValue('');
   }
@@ -102,12 +121,41 @@ export class SimceCreateComponent implements OnInit {
     if (modal === 'create') {
       this.modalCreate = true
     }
+    if (modal === 'detail') {
+      this.modalEvaluationDetail = true
+    }
   }
 
   closeModal (modal) {
     if (modal === 'create') {
       this.modalCreate = false
     }
+    if (modal === 'detail') {
+      this.modalEvaluationDetail = false
+    }
+  }
+
+  setMarks () {
+    let value = this.createForm.controls.exigencia.value;
+    let marks: NzMarks = {
+      
+    }
+    marks[value] = value;
+    if (value <= 5) {
+      marks['50'] = 50;
+      marks['100'] = 100;
+    } else if (value >= 95) {
+      marks['0'] = 0;
+      marks['50'] = 50;
+    } else if (value >= 45 && value <= 55) {
+      marks['0'] = 0;
+      marks['100'] = 100;
+    } else {
+      marks['0'] = 0;
+      marks['50'] = 50;
+      marks['100'] = 100;
+    }
+    this.marks = marks
   }
 
 }

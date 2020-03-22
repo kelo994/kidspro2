@@ -2,7 +2,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { PagesComponent } from './pages.component';
 import { UnidadComponent } from './unidad/unidad.component';
-import { SimceComponent } from './simce/simce.component';
+import { SimceEvaluationsComponent } from './simce/evaluations/evaluations.component';
+import { EvaluationResultsComponent } from './simce/results/results.component';
 import { LeccionComponent } from './leccion/leccion.component';
 import { CursoComponent } from './curso/curso.component';
 import { AsignaturasComponent } from './asignaturas/asignaturas.component';
@@ -29,7 +30,11 @@ const pagesroutes: Routes = [{
     },
     {
       path: 'simce',
-      component: SimceComponent,
+      component: SimceEvaluationsComponent
+    },
+    {
+      path: 'simce/resultados',
+      component: EvaluationResultsComponent,
     }
   ]
 }];

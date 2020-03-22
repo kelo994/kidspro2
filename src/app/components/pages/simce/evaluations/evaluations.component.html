@@ -1,0 +1,113 @@
+<nz-page-header>
+    <nz-page-header-title>Evaluaciones SIMCE</nz-page-header-title>
+    <nz-page-header-extra>
+        <app-simce-create></app-simce-create>
+    </nz-page-header-extra>
+</nz-page-header>
+<nz-layout class="inner-layout">
+    <h5>Evaluaciones Activas</h5>
+    <div nz-row>
+        <div nz-col nzMd="14" nzXs="24">
+            <nz-card style="min-height: 360px;" nzShowPagination [nzExtra]="searchTemplate">
+                <nz-table style="width: 100%;" #pruebasTable [nzData]="pruebas" nzPageSize="5" [nzLoading]="pruebasLoading">
+                    <thead>
+                        <tr>
+                            <th class="first-th">ID</th>
+                            <th>Tipo</th>
+                            <th>Curso</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of pruebasTable.data">
+                            <td class="first-td">{{ data.prueba_id }}</td>
+                            <td>{{ data.simce_descripcion }}</td>
+                            <td>{{ data.curso_nombre }}</td>
+                            <td>{{ data.estado_prueba }}</td>
+                            <td>
+                                <i *ngIf="data.estado_id === 1" class="fa fa-play vertical-line" style="color: rgba(65, 156, 85, 0.911)"></i>
+                                <i *ngIf="data.estado_id === 2" class="fa fa-stop vertical-line" style="color: rgba(255, 101, 91, 0.911);"></i>
+                                <i nz-icon nzType="file-search" class="vertical-line"></i>
+                                <i nz-icon nzType="unlock" nzTheme="outline" class="vertical-line" style="color: rgba(202, 175, 18, 0.89)"></i>
+                                <i nz-icon nzType="delete" nzTheme="outline"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+            </nz-card>
+            <ng-template #searchTemplate>
+                <!-- <label>Buscar:</label> -->
+                <input nz-input placeholder="" />
+            </ng-template>
+        </div>
+        <div class="pl-4" nz-col nzMd="10" nzXs="24">
+            <nz-card style="min-height: 234px;" >
+                <p>Card content</p>
+                <p>Card content</p>
+                <p>Card content</p>
+            </nz-card>
+            <nz-card style="min-height: 78px;" >
+                <p>Card content</p>
+                <p>Card content</p>
+                <p>Card content</p>
+            </nz-card>
+        </div>
+    </div>
+    <div nz-row>
+    </div>
+</nz-layout>
+<nz-layout class="inner-layout">
+    <h5>Historial de resultados</h5>
+    <div nz-row>
+        <div nz-col nzSpan="18">
+            <nz-card [nzExtra]="searchTemplate">
+                <nz-table #pruebasFinalizadasTable [nzData]="pruebasFinalizadas" nzPageSize="9" [nzLoading]="pruebasFinalizadasLoading">
+                    <thead>
+                        <tr>
+                            <th class="first-th">ID</th>
+                            <th>Tipo</th>
+                            <th>Curso</th>
+                            <th>Puntaje</th>
+                            <th>Inicio</th>
+                            <th>Termino</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of pruebasFinalizadasTable.data">
+                            <td class="first-td">{{ data.prueba_id }}</td>
+                            <td>{{ data.simce_descripcion }}</td>
+                            <td>{{ data.curso_nombre }}</td>
+                            <td>{{ data.puntaje_simce }}</td>
+                            <td>{{ data.inicio }}</td>
+                            <td>{{ data.fin }}</td>
+                            <td>
+                                <i nz-icon nzType="file-search" class="vertical-line"></i>
+                                <i nz-icon nzType="bar-chart" nzTheme="outline" (click)="verPrueba(data, 'resultados')"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+            </nz-card>
+            <ng-template #searchTemplate>
+                <!-- <label>Buscar:</label> -->
+                <input nz-input placeholder="" />
+            </ng-template>
+        </div>
+        <div class="pl-4" nz-col nzSpan="6">
+            <nz-card>
+                <p>Card content</p>
+                <p>Card content</p>
+                <p>Card content</p>
+            </nz-card>
+            <nz-card>
+                <p>Card content</p>
+                <p>Card content</p>
+                <p>Card content</p>
+            </nz-card>
+        </div>
+    </div>
+    <div nz-row>
+    </div>
+</nz-layout>

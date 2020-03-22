@@ -84,8 +84,6 @@ export class CursoComponent implements OnInit {
     this.parametersObservable.unsubscribe();
   }
 
-  
-
   openCurso(item) {
     localStorage.setItem('CursoName', item.curso_nombre);
     localStorage.setItem('CursoId', item.curso_id);
@@ -110,4 +108,10 @@ export class CursoComponent implements OnInit {
       )*/
   }
 
+  goToUnidad(grupoId): void {
+    console.log(grupoId);
+    this.router.navigateByUrl('pages/cursos/unidades/' + grupoId,
+     {state: {func: localStorage.getItem('idFuncionario'),
+     asig: this.selectAsginatura, cur: localStorage.getItem('cursoId')}});
+  }
 }

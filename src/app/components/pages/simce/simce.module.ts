@@ -9,6 +9,8 @@ registerLocaleData(es);
 
 import { SimceComponent } from './simce.component';
 import { SimceCreateComponent } from './create/create.component';
+import { SimceEvaluationsComponent } from './evaluations/evaluations.component';
+import { EvaluationResultsComponent } from './results/results.component';
 
 @NgModule({
     imports: [
@@ -19,7 +21,9 @@ import { SimceCreateComponent } from './create/create.component';
     ],
     declarations: [
         SimceComponent,
-        SimceCreateComponent
+        SimceCreateComponent,
+        SimceEvaluationsComponent,
+        EvaluationResultsComponent
     ],
     providers: [{ provide: NZ_I18N, useValue: es_ES }, NzI18nService],
     entryComponents: [  ]

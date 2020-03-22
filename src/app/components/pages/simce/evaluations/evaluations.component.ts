@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { SimceService } from '../../../services/simce.service';
+import { SimceService } from '../../../../services/simce.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-simce',
-  templateUrl: './simce.component.html',
-  styleUrls: ['./simce.component.scss']
+  selector: 'app-simce-evaluations',
+  templateUrl: './evaluations.component.html',
+  styleUrls: ['./evaluations.component.scss']
 })
-export class SimceComponent implements OnInit {
+export class SimceEvaluationsComponent implements OnInit {
 
   constructor(public simceService: SimceService,  public router: Router) { }
 
@@ -67,6 +67,11 @@ export class SimceComponent implements OnInit {
     }, (error) => {
       if (error.status == 401) this.router.navigate(['/auth/login'])
     })*/
+  }
+
+  verPrueba (element, tipo) {
+    if (tipo === 'ver') this.router.navigate(['/pages/simce/prueba'], {state: {idPrueba: element.prueba_id, simce: element}})
+    if (tipo === 'resultados') this.router.navigate(['/pages/simce/resultados'], {state: {idPrueba: element.prueba_id, simce: element}})
   }
 
 }
