@@ -27,8 +27,9 @@ export class PagesComponent implements OnInit {
     this.cursos = JSON.parse(localStorage.getItem('cursos'));
   }
 
-  changeRoute(idx) {
-    this.router.navigate(['/pages/curso', idx]);
+  changeRoute(item) {
+    localStorage.setItem('CursoName', item.curso_nombre);
+    this.router.navigate(['/pages/curso', item.curso_id]);
   }
 
   adminRoute(route) {
