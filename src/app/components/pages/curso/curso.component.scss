@@ -43,3 +43,15 @@ nz-input-group {
     margin-top: 10px;
     color: rgba(0, 0, 0, 0.45);
 }
+
+@media (max-width: 800px) {
+    .modal-container {
+        margin-left: 10px!important;
+        margin-right: 10px!important;
+    }
+}
+
+.c-code p {
+    font-size: 57px;
+    text-align: center;
+}

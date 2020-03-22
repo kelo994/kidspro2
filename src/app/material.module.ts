@@ -13,7 +13,7 @@ import {MatListModule,MatDialogModule, MatBottomSheetModule, MatButtonModule, Ma
 import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
-  imports: [ MatListModule, MatTooltipModule, MatBottomSheetModule, MatButtonModule, MatSlideToggleModule, MatTableModule, MatIconModule, MatExpansionModule, MatCheckboxModule],
-  exports: [ CdkStepperModule, CdkTableModule, CdkTreeModule, DragDropModule, MatDialogModule, MatListModule, MatTooltipModule, MatBottomSheetModule, MatButtonModule, MatSlideToggleModule, MatTableModule, MatIconModule, MatExpansionModule, MatCheckboxModule],
+  imports: [ DragDropModule, MatListModule, MatTooltipModule, MatBottomSheetModule, MatButtonModule, MatSlideToggleModule, MatTableModule, MatIconModule, MatExpansionModule, MatCheckboxModule],
+  exports: [ DragDropModule, CdkStepperModule, CdkTableModule, CdkTreeModule, DragDropModule, MatDialogModule, MatListModule, MatTooltipModule, MatBottomSheetModule, MatButtonModule, MatSlideToggleModule, MatTableModule, MatIconModule, MatExpansionModule, MatCheckboxModule],
 })
 export class MaterialModule { }

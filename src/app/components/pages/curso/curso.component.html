@@ -21,19 +21,15 @@
                     <div>
                         <span class="text-subheader bd-invisible"><strong>Asignatura</strong></span>
                         <span class="px-3">4° básico </span><i class="fas fa-arrow-right"></i>
-                        <!-- <nz-select class="pl-4 w-50" [(ngModel)]="selectedValue" nzAllowClear
-                            nzPlaceHolder="Escoja una Sección">
-                            <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
-                            <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
-                            <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
-                        </nz-select> -->
                     </div>
                 </div>
-                <div class="col-6">
-                    <button class="btn btn-unidad mr-3">
-                        <i class="fas fa-cog bd-invisible"></i> Editar Unidades
+                <div *ngIf="unidades?.length > 0" class="col-6">
+                    <button class="btn btn-unidad mr-3" (click)="editarUnidades()">
+                        <i class="fas fa-cog bd-invisible pr-1"></i>
+                        <span class="pl-1" *ngIf="!editUnidades">Editar Unidades</span>
+                        <span class="pl-1" *ngIf="editUnidades">Guardar Cambios</span>
                     </button>
-                    <button class="btn btn-unidad">
+                    <button class="btn btn-unidad" (click)="showModal()">
                         <i class="fas fa-qrcode bd-invisible"></i> Código de Acceso
                     </button>
                 </div>
@@ -43,26 +39,28 @@
             </div>
         </div>
         <div class="unidades pt-5">
-            <div class="row m-0">
-                <div *ngFor="let u of unidades" class="col-3 mb-3">
+            <div cdkDropListGroup class="row m-0">
+                <div *ngFor="let u of unidades; let i = index" class="col-3 mb-3">
                     <div class="card-content bg-gray p-0">
                         <p class="c-black py-1 pl-3 m-0 t-12">{{ u.grupo_nombre }}</p>
                         <div class="content-card-unidad bg-white">
-                            <ul class="list-group px-0">
-                                <li *ngFor="let b of u.bloques" class="list-group-item p-0">
+                            <ul class="list-group px-0" *ngIf="u.bloques" cdkDropList [cdkDropListData]="u.bloques"
+                                (cdkDropListDropped)="drop($event)">
+                                <li *ngFor="let b of u.bloques; let j = index" class="list-group-item p-1" cdkDrag
+                                    [cdkDragDisabled]="!editUnidades">
                                     <div class="row m-0">
-                                        <div class="col-10 px-0 pl-1 t-12">
+                                        <div class="col px-0 pl-1 t-12">
                                             {{ b.bloque_titulo }}
                                         </div>
                                         <div class="col-2 p-0 d-block my-auto">
-                                            <nz-switch nzSize="small" [ngModel]="b.bloque_estado"></nz-switch>
+                                            <nz-switch disabled nzSize="small" [ngModel]="b.bloque_estado"></nz-switch>
                                         </div>
                                     </div>
                                 </li>
                             </ul>
                             <div class="row m-0 p-2">
                                 <div class="col text-center px-1">
-                                    <button class="btn btn-unidad btn-sm w-100 t-12 py-2b" (click)="goToUnidad(u.id)" >
+                                    <button class="btn btn-unidad btn-sm w-100 t-12 py-2b" (click)="goToUnidad(u.id)">
                                         Entrar
                                     </button>
                                 </div>
@@ -79,3 +77,11 @@
         </div>
     </nz-layout>
 </nz-layout>
+
+<nz-modal [(nzVisible)]="modalGetCode" nzTitle="Código de Acceso" (nzOnOk)="handleOk()">
+    <div class="card c-code p-3">
+        <p class="c-blue m-0">
+            {{ codigo }}
+        </p>
+    </div>
+</nz-modal>
