@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 //import { DashService } from '../../services/dash.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NzFormatEmitEvent } from 'ng-zorro-antd';
-import { EmbedVideoService } from 'ngx-embed-video';
 
 @Component({
   selector: 'ngx-curso',
@@ -11,6 +10,7 @@ import { EmbedVideoService } from 'ngx-embed-video';
 })
 export class CursoComponent implements OnInit {
   searchValue = '';
+  selectedValue;
 
   asignaturas = [
     {
@@ -23,11 +23,6 @@ export class CursoComponent implements OnInit {
       key: 'matematicas',
       isLeaf: true
     },
-    {
-      title: '0-2',
-      key: '0-2',
-      isLeaf: true
-    }
   ];
 
   loading = false;
@@ -56,19 +51,7 @@ export class CursoComponent implements OnInit {
 
   name = 'Angular 6';
 
-  yt_iframe_html: any;
-  vimeo_iframe_html: any;
-  dm_iframe_html: any;
-  
-  vimeoUrl = "https://vimeo.com/197933516";
-  youtubeUrl = "https://www.youtube.com/watch?v=iHhcHTlGtRs";
-  dailymotionUrl = "https://www.dailymotion.com/video/x20qnej_red-bull-presents-wild-ride-bmx-mtb-dirt_sport";
-
-  constructor(private routeActive: ActivatedRoute, private router: Router, private embedService: EmbedVideoService
-  ) {
-    this.yt_iframe_html = this.embedService.embed(this.youtubeUrl);
-    this.vimeo_iframe_html = this.embedService.embed(this.vimeoUrl);
-    this.dm_iframe_html = this.embedService.embed(this.dailymotionUrl);
+  constructor(private routeActive: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -100,10 +83,12 @@ export class CursoComponent implements OnInit {
   }
 
   openAsignatura(element) {
+    // this.router.navigate(['/pages/cursos/unidades']);
+
     // $('#closeModalAsignatura').click();
     // localStorage.setItem('asignatureOpen', element.asignatura_id);
     // localStorage.setItem('titleAsignature', element.materia_descripcion);
-    // this.router.navigate(['/pages/cursos/unidades']);
+    // 
   }
 
   openCurso(item) {
@@ -128,9 +113,7 @@ export class CursoComponent implements OnInit {
           }
         }
       )*/
-  }
-
-  
+  }  
 
   change(): void {
     this.loading = true;

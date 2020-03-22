@@ -9,6 +9,10 @@ nz-input-group {
     overflow: hidden;
 }
 
+::ng-deep nz-menu-item {
+    content: unquote($string: "");
+}
+
 ::ng-deep nz-list,
 .menu {
     font-family: "Roboto";
