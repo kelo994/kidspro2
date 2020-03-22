@@ -20,8 +20,9 @@ export class CursoComponent implements OnInit {
   searchValue = '';
   selectedValue;
 
+  cursoNombre = '';
   asignaturas;
-  selectAsginatura = '';
+  selectAsginatura = 'Sin asignatura Seleccionada';
   unidades;
 
   loading = false;
@@ -33,21 +34,22 @@ export class CursoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    
     this.parametersObservable = this.routeActive.params.subscribe(params => {
      // console.log(params);
 
-      // localStorage.setItem('CursoName', item.curso_nombre);
+     this.cursoNombre = localStorage.getItem('CursoName');
       localStorage.setItem('CursoId', this.routeActive.snapshot.params.idCurso);
       this.cService.getAsignaturas(this.routeActive.snapshot.params.idCurso)
         .subscribe(
           (data: any) => { // Success
             this.asignaturas = data;
+            this.unidades = [];
             // console.log(data);
             if (this.asignaturas.length === 0) {
               this.notification.warning('Error', 'No tienes asignaturas asociadas a este curso.');
             } else if (this.asignaturas.length === 1) {
-              this.openAsignatura(this.asignaturas[0].asignatura_id)
+              this.openAsignatura(this.asignaturas[0])
               // this.notification.success('Error', 'No tienes asignaturas asociadas a este curso.');
             } else {
               $('#btnmodalAsignature').click();
@@ -63,8 +65,10 @@ export class CursoComponent implements OnInit {
   }
 
   openAsignatura(element) {
-    localStorage.setItem('AsignaturaId', element);
-    this.cService.openAsignatura(localStorage.getItem('CursoId'), element)
+    localStorage.setItem('AsignaturaId', element.asignatura_id);
+    localStorage.setItem('AsignaturaNombre', element.materia_descripcion);
+    this.selectAsginatura =  element.materia_descripcion;
+    this.cService.openAsignatura(localStorage.getItem('CursoId'), element.asignatura_id)
       .subscribe(
         (data: any) => { // Success
           this.unidades = data;
