@@ -1,25 +1,43 @@
-.content-left{
+.content-left {
   padding: 35px 50px 18px 50px;
 }
 
-.content-right{
+.content-right {
   padding-left: 24px;
   padding-right: 24px;
   padding-top: 35px;
   background-color: white;
 }
 
-.content-right-bottom{
+.content-right-bottom {
   padding-top: 20px;
 }
 
-.content-left-bottom{
+.content-left-bottom {
   padding-top: 20px;
 }
 
-.content-left-top{
-
+.ant-card-cover img {
+  width: 100%;
+  border-radius: 15px 15px 0px 0px;
+  height: auto;
 }
+
+
+.btnPlay-leccion {
+  transform: translate(-50%, -50%) !important;
+  -ms-transform: translate(-50%, -50%) !important;
+  background-color: #5050505e !important;
+  border-radius: 50% !important;
+  position: absolute !important;
+  top: 30% !important;
+  left: 50% !important;
+  width: 80px !important;
+  height: 80px !important;
+  color: #ffffff !important;
+  font-size: 46px !important;
+}
+
 
 p {
   margin: 0;
@@ -31,36 +49,36 @@ p {
 }
 
 
-.borde-card
-{
+.borde-card {
   border-left: #f2c94c 5px solid;
   margin-bottom: 18px
 }
 
 
-.negrita{
+.negrita {
   font-weight: bold;
 }
 
-.cursiva{
+.cursiva {
   font-style: italic;
 }
 
-.card{
-   margin-bottom: 18px;
- }
+.card {
+  margin-bottom: 18px;
+}
 
 h6 {
   margin: 0;
 }
 
 .truncar-texto {
-  overflow:hidden;white-space:nowrap;; text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  ;
+  text-overflow: ellipsis;
 }
 
 
 ::ng-deep nz-switch button.ant-switch.ant-switch-small.ant-switch-checked {
   background-color: #27ae60;
 }
-
-
