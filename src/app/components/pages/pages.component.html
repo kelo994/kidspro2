@@ -9,13 +9,13 @@
             <li nz-menu-group nzTitle="Principal"></li>
             <li nz-submenu nzOpen nzIcon="user" nzTitle="Cursos">
                 <ul>
-                    <li nz-menu-item nzMatchRouter (click)="changeRoute(1)">
-                        <a [routerLink]="['/pages/curso/1']">
+                    <li *ngFor="let curso of cursos" nz-menu-item nzMatchRouter (click)="changeRoute(curso.curso_id)">
+                        <a [routerLink]="['/pages/curso/' + curso.curso_id]">
                             <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
-                            <span>1° Básico</span>
+                            <span>{{ curso.curso_nombre }}</span>
                         </a>
                     </li>
-                    <li nz-menu-item nzMatchRouter (click)="changeRoute(2)">
+                    <!-- <li nz-menu-item nzMatchRouter (click)="changeRoute(2)">
                         <a [routerLink]="['/pages/curso/2']">
                             <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
                             <span>2° Básico</span>
@@ -32,7 +32,7 @@
                             <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
                             <span>4° Básico</span>
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </li>
             <li nz-menu-item nz-tooltip nzPlacement="right" [nzTitle]="isCollapsed ? 'Reportes Analíticos' : ''"
@@ -48,22 +48,6 @@
                     <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
                     <span>Evaluación SIMCE</span>
                 </a>
-            </li>
-            <li nz-submenu nzTitle="subnav 2" nzIcon="laptop">
-                <ul>
-                    <li nz-menu-item>option5</li>
-                    <li nz-menu-item>option6</li>
-                    <li nz-menu-item>option7</li>
-                    <li nz-menu-item>option8</li>
-                </ul>
-            </li>
-            <li nz-submenu nzTitle="subnav 3" nzIcon="notification">
-                <ul>
-                    <li nz-menu-item>option9</li>
-                    <li nz-menu-item>option10</li>
-                    <li nz-menu-item>option11</li>
-                    <li nz-menu-item>option12</li>
-                </ul>
             </li>
         </ul>
     </nz-sider>

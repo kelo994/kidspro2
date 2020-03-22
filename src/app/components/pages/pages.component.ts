@@ -9,16 +9,19 @@ import { Router } from '@angular/router';
 export class PagesComponent implements OnInit {
   isCollapsed = false;
 
+  cursos;
+
   toggleCollapsed(): void {
     this.isCollapsed = !this.isCollapsed;
   }
   constructor(public router: Router) { }
 
   ngOnInit(): void {
+    this.cursos = JSON.parse(localStorage.getItem('cursos'));
   }
 
   changeRoute(idx) {
-    this.router.navigate(['/pages/asignaturas', idx]);
+    this.router.navigate(['/pages/curso', idx]);
   }
 
 }
