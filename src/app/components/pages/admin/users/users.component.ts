@@ -20,5 +20,11 @@ export class UsersAdminComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  openModal (modal) {
+    if (modal === 'create') {
+
+    }
+  }
   
 }
