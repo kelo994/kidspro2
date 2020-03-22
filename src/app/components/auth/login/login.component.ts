@@ -81,6 +81,7 @@ export class LoginComponent implements OnInit {
     this.authService.detalleInicial(establecimiento.id).subscribe( (data: any) => { // Success
       localStorage.setItem('roles', JSON.stringify(data.roles));
       localStorage.setItem('rolId', data.roles[0].rol_codigo);
+      localStorage.setItem('cursos', JSON.stringify(data.data));
       localStorage.setItem('idEstablecimiento', establecimiento.id);
       this.router.navigate(['/pages/curso/0']);
     }, (error) => {

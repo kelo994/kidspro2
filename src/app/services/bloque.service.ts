@@ -29,8 +29,6 @@ export class BloqueService {
         };
     }
 
-
-
     getBloquesGrupo(grupoId) {
         return this.http.get(`${this.url}/grupos/${grupoId}/bloques`, this.getToken())
             .pipe(timeout(5000),

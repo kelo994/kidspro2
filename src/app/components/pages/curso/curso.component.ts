@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 //import { DashService } from '../../services/dash.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { NzFormatEmitEvent } from 'ng-zorro-antd';
+import { NzFormatEmitEvent, NzNotificationService } from 'ng-zorro-antd';
+import { CursoService } from 'src/app/services/cursos.service';
 
 @Component({
   selector: 'ngx-curso',
@@ -12,67 +13,68 @@ export class CursoComponent implements OnInit {
   searchValue = '';
   selectedValue;
 
-  asignaturas = [
-    {
-      title: 'Lenguaje, Comunicación y Literatura',
-      key: 'lenguaje',
-      isLeaf: true
-    },
-    {
-      title: 'Matemáticas',
-      key: 'matematicas',
-      isLeaf: true
-    },
-  ];
+  asignaturas;
+  selectAsginatura = '';
+  unidades;
 
   loading = false;
-  data = [
-    {
-      title: '1° Básico A'
-    },
-    {
-      title: '1° Básico B'
-    },
-    {
-      title: '1° Básico C'
-    }
-  ];
 
   private parametersObservable: any;
 
-  asignaturasList = {
-    asign1: ['Lenguaje'],
-    asign2: ['Matemática'],
-    asign3: ['Inglés'],
-    asign4: ['Ciencia'],
-  }
-
-  selectAsginatura = '';
-
-  name = 'Angular 6';
-
-  constructor(private routeActive: ActivatedRoute, private router: Router) {
+  constructor(private routeActive: ActivatedRoute,
+    private notification: NzNotificationService, private router: Router, public cService: CursoService) {
   }
 
   ngOnInit(): void {
+
     this.parametersObservable = this.routeActive.params.subscribe(params => {
       console.log(params);
-      if (this.routeActive.snapshot.params.idCurso == '1') {
-        this.selectAsginatura = this.asignaturasList.asign1[0];
-      } else if (this.routeActive.snapshot.params.idCurso == '2') {
-        this.selectAsginatura = this.asignaturasList.asign2[0];
-      } else if (this.routeActive.snapshot.params.idCurso == '3') {
-        this.selectAsginatura = this.asignaturasList.asign3[0];
-      } else if (this.routeActive.snapshot.params.idCurso == '4') {
-        this.selectAsginatura = this.asignaturasList.asign4[0];
-      }
+
+      // localStorage.setItem('CursoName', item.curso_nombre);
+      localStorage.setItem('CursoId', this.routeActive.snapshot.params.idCurso);
+      this.cService.getAsignaturas(this.routeActive.snapshot.params.idCurso)
+        .subscribe(
+          (data: any) => { // Success
+            this.asignaturas = data;
+            console.log(data);
+            if (this.asignaturas.length === 0) {
+              this.notification.warning('Error', 'No tienes asignaturas asociadas a este curso.');
+            } else if (this.asignaturas.length === 1) {
+              this.openAsignatura(this.asignaturas[0].asignatura_id)
+              // this.notification.success('Error', 'No tienes asignaturas asociadas a este curso.');
+            } else {
+              $('#btnmodalAsignature').click();
+            }
+          },
+          (error) => {
+            if (error.status == 401) {
+              this.router.navigate(['/auth/login']);
+            }
+          }
+        )
     });
+  }
+
+  openAsignatura(element) {
+    localStorage.setItem('AsignaturaId', element);
+    this.cService.openAsignatura(localStorage.getItem('CursoId'), element)
+        .subscribe(
+          (data: any) => { // Success
+            this.unidades = data;
+            console.log(data);
+          },
+          (error) => {
+            if (error.status == 401) {
+              this.router.navigate(['/auth/login']);
+            }
+          }
+        )
   }
 
   nzEvent(event: NzFormatEmitEvent): void {
     console.log(event);
   }
-  
+
   destruir() {
     this.ngOnDestroy();
   }
@@ -82,14 +84,7 @@ export class CursoComponent implements OnInit {
     this.parametersObservable.unsubscribe();
   }
 
-  openAsignatura(element) {
-    // this.router.navigate(['/pages/cursos/unidades']);
-
-    // $('#closeModalAsignatura').click();
-    // localStorage.setItem('asignatureOpen', element.asignatura_id);
-    // localStorage.setItem('titleAsignature', element.materia_descripcion);
-    // 
-  }
+  
 
   openCurso(item) {
     localStorage.setItem('CursoName', item.curso_nombre);
@@ -113,33 +108,6 @@ export class CursoComponent implements OnInit {
           }
         }
       )*/
-  }  
-
-  change(): void {
-    this.loading = true;
-    if (this.data.length > 0) {
-      setTimeout(() => {
-        this.data = [];
-        this.loading = false;
-      }, 1000);
-    } else {
-      setTimeout(() => {
-        this.data = [
-          {
-            title: 'Ant Design Title 1'
-          },
-          {
-            title: 'Ant Design Title 2'
-          },
-          {
-            title: 'Ant Design Title 3'
-          },
-          {
-            title: 'Ant Design Title 4'
-          }
-        ];
-        this.loading = false;
-      }, 1000);
-    }
   }
+
 }
