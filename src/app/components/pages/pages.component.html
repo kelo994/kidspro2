@@ -3,7 +3,7 @@
     <i nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
 </button>
 <nz-layout class="app-layout">
-    <nz-sider class="menu-sidebar" nzCollapsible nzWidth="190px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
+    <nz-sider class="menu-sidebar" nzCollapsible nzWidth="179px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
         [nzTrigger]="null">
         <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
             <li nz-menu-group nzTitle="Principal"></li>
@@ -48,6 +48,15 @@
                     <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
                     <span>Evaluación SIMCE</span>
                 </a>
+            </li>
+            <li nz-submenu nzOpen nzIcon="setting" nzTitle="Administrador">
+                <ul>
+                    <li class="sub-menu-route" *ngFor="let route of admin" nz-menu-item nzMatchRouter (click)="adminRoute(route.path)">
+                        <i *ngIf="route.nzIcon" class="trigger" nz-icon [nzType]="route.icon"></i>
+                        <i *ngIf="!route.nzIcon" [class]="route.icon" style="margin-right: 10px;"></i>
+                        <span>{{ route.name }}</span>
+                    </li>
+                </ul>
             </li>
         </ul>
     </nz-sider>

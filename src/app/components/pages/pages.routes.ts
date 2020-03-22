@@ -8,6 +8,11 @@ import { LeccionComponent } from './leccion/leccion.component';
 import { CursoComponent } from './curso/curso.component';
 import { AsignaturasComponent } from './asignaturas/asignaturas.component';
 
+import { CoursesAdminComponent } from './admin/courses/courses.component';
+import { StudentsAdminComponent } from './admin/students/students.component'
+import { TeachersAdminComponent } from './admin/teachers/teachers.component'
+import { UsersAdminComponent } from './admin/users/users.component'
+
 const pagesroutes: Routes = [{
   path: 'pages',
   component: PagesComponent,
@@ -35,6 +40,23 @@ const pagesroutes: Routes = [{
     {
       path: 'simce/resultados',
       component: EvaluationResultsComponent,
+    },
+    // administrar
+    {
+      path: 'administrar/cursos',
+      component: CoursesAdminComponent,
+    },
+    {
+      path: 'administrar/profesores',
+      component: TeachersAdminComponent,
+    },
+    {
+      path: 'administrar/estudiantes',
+      component: StudentsAdminComponent,
+    },
+    {
+      path: 'administrar/usuarios',
+      component: UsersAdminComponent,
     }
   ]
 }];
