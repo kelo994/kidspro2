@@ -7,53 +7,6 @@
     padding: 0px;
 }
 
-// table
-::ng-deep .ant-table, ::ng-deep .ant-pagination {
-    font-size: 12px;
-    overflow-x: auto;
-}
-
-::ng-deep .ant-table-pagination.ant-pagination {
-    margin-top: 0px;
-    margin-right: 64px;
-}
-
-::ng-deep .ant-table-thead > tr > th, ::ng-deep .ant-table-tbody > tr > td {
-    padding: 12px 16px;
-}
-
-// pagination
-::ng-deep .ant-pagination-item {
-    min-width: 25px;
-    height: 22px;
-    margin-right: 0px;
-    line-height: 20px;
-    border-radius: 0px;
-}
-
-::ng-deep .ant-pagination-prev,
-::ng-deep .ant-pagination-next,
-::ng-deep .ant-pagination-prev .ant-pagination-item-link,
-::ng-deep .ant-pagination-next .ant-pagination-item-link
-{
-    font-size: 8px;
-    min-width: 25px;
-    height: 22px;
-    margin-right: 0px;
-    line-height: 20px;
-    border-radius: 0px;
-}
-
-::ng-deep .ant-pagination-item-active {
-    background: #1890ff;
-    color: white;
-}
-
-th {
-    text-transform: none;
-    font-weight: 600!important;
-}
-
 .first-th, .first-td {
     padding-left: 30px;
 }
