@@ -16,6 +16,9 @@ import { AuthModule } from './components/auth/auth.module';
 import { PagesModule } from './components/pages/pages.module';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { EmbedVideo } from 'ngx-embed-video';
+// Charts
+import { ChartModule } from 'angular-highcharts';
+import { HighchartsService } from './services/highcharts.service';
 registerLocaleData(es);
 
 // Configuraciones sglobales ngZorro
@@ -41,11 +44,12 @@ const ngZorroConfig: NzConfig = {
     AuthModule,
     PagesModule,
     Ng2SearchPipeModule,
-    EmbedVideo.forRoot()
+    EmbedVideo.forRoot(),
+    ChartModule,
   ],
   exports: [Ng2SearchPipeModule],
   entryComponents: [DialogDataExampleDialog],
-  providers: [{ provide: NZ_I18N, useValue: es_ES }, { provide: NZ_CONFIG, useValue: ngZorroConfig }],
+  providers: [{ provide: NZ_I18N, useValue: es_ES }, { provide: NZ_CONFIG, useValue: ngZorroConfig }, HighchartsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
