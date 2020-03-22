@@ -1,0 +1,46 @@
+<nz-page-header>
+  <nz-page-header-title>Administración de cursos</nz-page-header-title>
+</nz-page-header>
+
+<nz-layout class="inner-layout">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          1º Básico
+        </mat-panel-title>
+        <mat-panel-description>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <nz-table #borderedTable nzBordered nzFooter="" nzSize="middle"  [nzData]="dataSet" nzShowPagination="false">
+        <thead>
+        <tr>
+          <th>Asignaturas / Secciones</th>
+          <th>Age</th>
+          <th>Address</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of borderedTable.data">
+          <td> Matematicas </td>
+          <td>{{ data.age }}</td>
+          <td>{{ data.address }}</td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Self aware panel
+        </mat-panel-title>
+        <mat-panel-description>
+          Currently I am {{panelOpenState ? 'open' : 'closed'}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>I'm visible because I am open</p>
+    </mat-expansion-panel>
+  </mat-accordion>
+</nz-layout>

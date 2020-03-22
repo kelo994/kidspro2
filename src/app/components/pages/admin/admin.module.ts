@@ -5,6 +5,7 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { NZ_I18N, es_ES, NzI18nService } from 'ng-zorro-antd/i18n';
 import { registerLocaleData, CommonModule } from '@angular/common';
 import es from '@angular/common/locales/es';
+import { MaterialModule } from '../../../material.module';
 registerLocaleData(es);
 
 import { CoursesAdminComponent } from './courses/courses.component';
@@ -17,7 +18,8 @@ import { UsersAdminComponent } from './users/users.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    NgZorroAntdModule
+    NgZorroAntdModule,
+    MaterialModule
   ],
   declarations: [
     CoursesAdminComponent,

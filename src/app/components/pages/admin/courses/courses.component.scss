@@ -1,0 +1,15 @@
+.mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}
+
+.inner-layout{
+  padding: 40px 40px;
+}
+
+.mat-expansion-panel{
+  background: transparent;
+}
+
+.mat-expansion-panel:not([class*=mat-elevation-z]) {
+  box-shadow: none;
+}
