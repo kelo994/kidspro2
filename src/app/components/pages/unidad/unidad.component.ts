@@ -88,6 +88,7 @@ export class UnidadComponent implements OnInit {
   goToLeccion(leccionId): void {
     console.log(leccionId);
     this.router
-        .navigateByUrl('pages/cursos/unidades/lecciones/' + leccionId, {state: {}});
+        .navigateByUrl('pages/cursos/unidades/lecciones/' + leccionId, {state: {asignatura_id: this.asignatura,
+            cursoId: this.curso, grupoId: this.grupoId}});
   }
 }

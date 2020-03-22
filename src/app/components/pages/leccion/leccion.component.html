@@ -7,14 +7,17 @@
     nzTheme="light"
     style="background-color:  rgba(0, 0, 0, 0.04); padding-top: 40px"
   >
-
     <p class="cursiva pl-4 pb-3">Unidad 1</p>
-    <ul nz-menu  nzMode="inline" [nzInlineCollapsed]="isCollapsed" style="background-color: transparent">
+    <ul nz-menu  nzMode="inline" [nzInlineCollapsed]="isCollapsed" style="background-color: transparent" >
+
       <li nz-menu-item *ngFor="let leccion of lecciones; let i = index">
-        <div nz-row nzAlign="middle">
-          <div nz-col nzSpan="5"><i class="far fa-play-circle" style="font-size: 18px"></i></div>
-          <div nz-col nzSpan="19"><p class="truncar-texto" style="font-size: 10px">{{leccion.bloque_titulo}}</p></div>
-        </div>
+        <a [routerLink]="['/pages/cursos/unidades/lecciones/', leccion.bloque_id]"  routerLinkActive="activo"
+           [state]="{state: {asignatura_id: asignaturaId, cursoId: cursoId, grupoId: grupoId}}">
+          <div nz-row nzAlign="middle">
+            <div nz-col nzSpan="5"><i class="far fa-play-circle" style="font-size: 18px"></i></div>
+            <div nz-col nzSpan="19"><p class="truncar-texto" style="font-size: 10px">{{leccion.bloque_titulo}}</p></div>
+          </div>
+        </a>
       </li>
 
     </ul>

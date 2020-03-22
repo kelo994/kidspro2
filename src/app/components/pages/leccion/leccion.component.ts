@@ -39,19 +39,20 @@ export class LeccionComponent implements OnInit {
       console.log(params);
       console.log(history.state);
       this.leccionId = params.leccion;
-      this.asignaturaId = 1;
-      this.cursoId = 1;
-      this.grupoId = 28;
+      this.cursoId = history.state.cursoId;
+      this.asignaturaId = history.state.asignaturaId;
+      this.grupoId = history.state.grupoId;
       this.loadContent();
       this.obtenerBloques();
-      //this.obtenerBloquesActivos();
+      // this.obtenerBloquesActivos();
     });
   }
 
   goToLeccion(leccionId): void {
     console.log(leccionId);
     this.router
-        .navigateByUrl('cursos/unidades/lecciones/' + leccionId, {state: {}});
+        .navigateByUrl('pages/cursos/unidades/lecciones/' + leccionId, {state: {asignatura_id: this.asignaturaId,
+            cursoId: this.cursoId, grupoId: this.grupoId}});
   }
 
 
@@ -60,7 +61,9 @@ export class LeccionComponent implements OnInit {
         (data: any) => { // Success
           this.leccion = data.data;
           this.showSection = 2;
+          // @ts-ignore
           this.playleccion = this.leccion.ruta_actividad;
+            // @ts-ignore
           this.loadVideo(this.leccion.recursos[0].url);
         },
         (error) => {
