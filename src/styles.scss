@@ -57,7 +57,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .anticon { 
-    vertical-align: 2.4px !important;
+    vertical-align: 2px !important;
 }
 
 .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab {
@@ -69,4 +69,31 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active {
     background-color: #fff;
     color: #2f80ed;
+}
+
+
+
+.ant-modal-header {
+    background-color: #2f80ed;
+    color: #fff;
+}
+
+.ant-modal-body {
+    padding: 36px;
+}
+  
+.ant-modal-footer {
+    background-color: #e8e8e8;
+    padding: 20px;
+}
+  
+.ant-modal-title {
+    color: #fff;
+    margin-left: 10px;
+}
+
+.ant-modal-close-x {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
 }
