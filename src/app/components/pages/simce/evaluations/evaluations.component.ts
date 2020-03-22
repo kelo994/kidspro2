@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {  Component, OnInit, ElementRef, ViewChild} from '@angular/core';
+import { Chart } from 'angular-highcharts';
+import { HighchartsService } from '../../../../services/highcharts.service';
 import { SimceService } from '../../../../services/simce.service';
 import { Router } from '@angular/router';
 
@@ -9,7 +11,11 @@ import { Router } from '@angular/router';
 })
 export class SimceEvaluationsComponent implements OnInit {
 
-  constructor(public simceService: SimceService,  public router: Router) { }
+  constructor(
+    public simceService: SimceService,
+    private highcharts: HighchartsService,
+    public router: Router
+  ) { }
 
   idFuncionario;
   idAsignatura;
@@ -20,12 +26,18 @@ export class SimceEvaluationsComponent implements OnInit {
   pruebasFinalizadas = [];
   pruebasFinalizadasLoading = true;
 
+  @ViewChild('charts') public chartEl: ElementRef;
+
   ngOnInit(): void {
     this.idFuncionario = localStorage.getItem('idFuncionario')
     this.idCurso = localStorage.getItem('CursoId')
     this.idAsignatura = localStorage.getItem('asignatureOpen')
     this.getPruebasFuncionario()
     this.getPruebasFinalizadasFuncionario()
+  }
+
+  ngAfterViewInit() {
+    this.highcharts.createChart(this.chartEl.nativeElement, this.myOptions);
   }
 
   getPruebasFuncionario() {
@@ -73,5 +85,39 @@ export class SimceEvaluationsComponent implements OnInit {
     if (tipo === 'ver') this.router.navigate(['/pages/simce/prueba'], {state: {idPrueba: element.prueba_id, simce: element}})
     if (tipo === 'resultados') this.router.navigate(['/pages/simce/resultados'], {state: {idPrueba: element.prueba_id, simce: element}})
   }
+
+  myOptions = {
+    chart: {
+      plotBackgroundColor: null,
+      plotBorderWidth: null,
+      plotShadow: false,
+      type: 'pie'
+    },
+    title: {
+      text: 'Cantidad de Evaluaciones'
+    },
+    legend: {
+      reversed: true
+    },
+    plotOptions : {
+       pie: {
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+            enabled: false
+        },
+        showInLegend: true
+    }
+    },
+    series : [{
+       type: 'pie',
+       name: 'Evaluaciones activas',
+       keys: ['name', 'y', 'selected', 'sliced'],
+       data: [
+        ['En espera', 7, false],
+        ['Ejecución', 30, true, true],
+       ]
+    }]
+  };
 
 }

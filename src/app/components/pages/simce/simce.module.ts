@@ -11,6 +11,7 @@ import { SimceComponent } from './simce.component';
 import { SimceCreateComponent } from './create/create.component';
 import { SimceEvaluationsComponent } from './evaluations/evaluations.component';
 import { EvaluationResultsComponent } from './results/results.component';
+import { PreguntasChartComponent } from './results/charts/preguntas.component';
 
 @NgModule({
     imports: [
@@ -23,7 +24,8 @@ import { EvaluationResultsComponent } from './results/results.component';
         SimceComponent,
         SimceCreateComponent,
         SimceEvaluationsComponent,
-        EvaluationResultsComponent
+        EvaluationResultsComponent,
+        PreguntasChartComponent
     ],
     providers: [{ provide: NZ_I18N, useValue: es_ES }, NzI18nService],
     entryComponents: [  ]
