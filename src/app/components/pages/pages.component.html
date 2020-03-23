@@ -15,24 +15,6 @@
                             <span>{{ curso.curso_nombre }}</span>
                         </a>
                     </li>
-                    <!-- <li nz-menu-item nzMatchRouter (click)="changeRoute(2)">
-                        <a [routerLink]="['/pages/curso/2']">
-                            <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
-                            <span>2° Básico</span>
-                        </a>
-                    </li>
-                    <li nz-menu-item nzMatchRouter (click)="changeRoute(3)">
-                        <a [routerLink]="['/pages/curso/3']">
-                            <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
-                            <span>3° Básico</span>
-                        </a>
-                    </li>
-                    <li nz-menu-item nzMatchRouter (click)="changeRoute(4)">
-                        <a [routerLink]="['/pages/curso/4']">
-                            <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
-                            <span>4° Básico</span>
-                        </a>
-                    </li> -->
                 </ul>
             </li>
             <li nz-menu-item nz-tooltip nzPlacement="right" [nzTitle]="isCollapsed ? 'Reportes Analíticos' : ''"
@@ -62,13 +44,6 @@
     </nz-sider>
     <nz-layout class="content-layout">
         <nz-content>
-            <!-- <nz-breadcrumb>
-                <nz-breadcrumb-item>Home</nz-breadcrumb-item>
-                <nz-breadcrumb-item>List</nz-breadcrumb-item>
-                <nz-breadcrumb-item>App</nz-breadcrumb-item>
-            </nz-breadcrumb>
-            Example single danger button -->
-
             <router-outlet></router-outlet>
         </nz-content>
     </nz-layout>
