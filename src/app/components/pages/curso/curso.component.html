@@ -7,7 +7,7 @@
         <ng-template #suffixIcon>
             <i nz-icon nzType="search"></i>
         </ng-template>
-        <ul nz-menu nzMode="inline">
+        <ul nz-menu nzMode="inline" class="bd-top">
             <li class="item-submenu d-block my-auto" nz-menu-item nzMatchRouter
                 *ngFor="let asign of asignaturas | filter:searchValue" (click)="openAsignatura(asign)">
                 <p class="m-0">{{ asign.materia_descripcion }}</p>
@@ -27,13 +27,13 @@
                         <!-- <i class="fas fa-arrow-right"></i> -->
                     </div>
                 </div>
-                <div *ngIf="unidades?.length > 0" class="col-6">
+                <div *ngIf="unidades?.length > 0" class="col-6 text-right">
                     <button class="btn btn-unidad mr-3" (click)="editarUnidades()">
                         <i class="fas fa-cog bd-invisible pr-1"></i>
                         <span class="pl-1" *ngIf="!editUnidades">Editar Unidades</span>
                         <span class="pl-1" *ngIf="editUnidades">Guardar Cambios</span>
                     </button>
-                    <button class="btn btn-unidad" (click)="showModal()">
+                    <button class="btn btn-unidad mr-5" (click)="showModal()">
                         <i class="fas fa-qrcode bd-invisible"></i> Código de Acceso
                     </button>
                 </div>

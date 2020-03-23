@@ -3,13 +3,14 @@
     <i nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
 </button>
 <nz-layout class="app-layout">
-    <nz-sider class="menu-sidebar" nzCollapsible nzWidth="200px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
+    <nz-sider class="menu-sidebar" nzCollapsible nzWidth="180px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
         [nzTrigger]="null">
         <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-            <li nz-menu-group nzTitle="Principal"></li>
-            <li nz-submenu nzOpen nzIcon="user" nzTitle="Cursos">
+            <li nz-menu-group nzTitle="Módulos"></li>
+            <li nz-submenu nzOpen nzIcon="user" nzTitle="Cursos"
+            [(nzOpen)]="openMap.sub1" (nzOpenChange)="openHandler('sub1')">
                 <ul>
-                    <li *ngFor="let curso of cursos" nz-menu-item nzMatchRouter (click)="changeRoute(curso)">
+                    <li *ngFor="let curso of cursos" nz-menu-item nzMatchRouter (click)="changeRoute(curso)" style="padding-left: 10px !important;">
                         <a [routerLink]="['/pages/curso/' + curso.curso_id]">
                             <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
                             <span>{{ curso.curso_nombre }}</span>
@@ -17,21 +18,31 @@
                     </li>
                 </ul>
             </li>
-            <li nz-menu-item nz-tooltip nzPlacement="right" [nzTitle]="isCollapsed ? 'Reportes Analíticos' : ''"
-                nzMatchRouter>
-                <a [routerLink]="['/pages/reportes']">
-                    <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
-                    <span>Reportes Analíticos</span>
-                </a>
+            <li nz-submenu nzOpen nzIcon="user" nzTitle="Reportes Analíticos"
+            [(nzOpen)]="openMap.sub2" (nzOpenChange)="openHandler('sub2')">
+                <ul>
+                    <li nz-menu-item nzMatchRouter style="padding-left: 10px !important;">
+                        <a [routerLink]="['/pages/reportes/objetivos-de-aprendizaje']">
+                            <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
+                            <span>Objetivos de Aprendizaje</span>
+                        </a>
+                    </li>
+                    <li nz-menu-item nzMatchRouter style="padding-left: 10px !important;">
+                        <a [routerLink]="['/pages/reportes/actividades']">
+                            <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
+                            <span>Actividades</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
             <li nz-menu-item nz-tooltip nzPlacement="right" [nzTitle]="isCollapsed ? 'Evaluación SIMCE' : ''"
-                nzMatchRouter (click)="goToSimce()">
+                nzMatchRouter (click)="goToSimce()" [(nzOpen)]="openMap.sub3" (nzOpenChange)="openHandler('sub3')">
                 <a [routerLink]="['/pages/simce']">
                     <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
                     <span>Evaluación SIMCE</span>
                 </a>
             </li>
-            <li nz-submenu nzOpen nzIcon="setting" nzTitle="Administrador">
+            <li nz-submenu nzOpen nzIcon="setting" nzTitle="Administrador" [(nzOpen)]="openMap.sub4" (nzOpenChange)="openHandler('sub4')">
                 <ul>
                     <li class="sub-menu-route" *ngFor="let route of admin" nz-menu-item nzMatchRouter (click)="adminRoute(route.path)">
                         <i *ngIf="route.nzIcon" class="trigger" nz-icon [nzType]="route.icon"></i>

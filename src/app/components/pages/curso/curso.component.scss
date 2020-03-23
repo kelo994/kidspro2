@@ -74,3 +74,16 @@ nz-input-group {
         font-size: 20px;
     }
 }
+
+.bd-top {
+    border-top: 1px solid gray;
+}
+
+.ant-menu-item-selected {
+    background-color: #e2e4e4 !important;
+    border-left: 3px solid #1890ff !important;
+}
+
+.ant-menu-inline .ant-menu-item::after {
+    border-right: 0px solid #1890ff !important;
+}
