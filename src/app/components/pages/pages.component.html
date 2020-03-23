@@ -3,53 +3,46 @@
     <i nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
 </button>
 <nz-layout class="app-layout">
-    <nz-sider class="menu-sidebar" nzCollapsible nzWidth="200px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
+    <nz-sider class="menu-sidebar" nzCollapsible nzWidth="180px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
         [nzTrigger]="null">
         <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-            <li nz-menu-group nzTitle="Principal"></li>
-            <li nz-submenu nzOpen nzIcon="user" nzTitle="Cursos">
+            <li nz-menu-group nzTitle="Módulos"></li>
+            <li nz-submenu nzOpen nzIcon="user" nzTitle="Cursos"
+            [(nzOpen)]="openMap.sub1" (nzOpenChange)="openHandler('sub1')">
                 <ul>
-                    <li *ngFor="let curso of cursos" nz-menu-item nzMatchRouter (click)="changeRoute(curso)">
+                    <li *ngFor="let curso of cursos" nz-menu-item nzMatchRouter (click)="changeRoute(curso)" style="padding-left: 10px !important;">
                         <a [routerLink]="['/pages/curso/' + curso.curso_id]">
                             <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
                             <span>{{ curso.curso_nombre }}</span>
                         </a>
                     </li>
-                    <!-- <li nz-menu-item nzMatchRouter (click)="changeRoute(2)">
-                        <a [routerLink]="['/pages/curso/2']">
-                            <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
-                            <span>2° Básico</span>
-                        </a>
-                    </li>
-                    <li nz-menu-item nzMatchRouter (click)="changeRoute(3)">
-                        <a [routerLink]="['/pages/curso/3']">
-                            <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
-                            <span>3° Básico</span>
-                        </a>
-                    </li>
-                    <li nz-menu-item nzMatchRouter (click)="changeRoute(4)">
-                        <a [routerLink]="['/pages/curso/4']">
-                            <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
-                            <span>4° Básico</span>
-                        </a>
-                    </li> -->
                 </ul>
             </li>
-            <li nz-menu-item nz-tooltip nzPlacement="right" [nzTitle]="isCollapsed ? 'Reportes Analíticos' : ''"
-                nzMatchRouter>
-                <a [routerLink]="['/pages/reportes']">
-                    <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
-                    <span>Reportes Analíticos</span>
-                </a>
+            <li nz-submenu nzOpen nzIcon="user" nzTitle="Reportes Analíticos"
+            [(nzOpen)]="openMap.sub2" (nzOpenChange)="openHandler('sub2')">
+                <ul>
+                    <li nz-menu-item nzMatchRouter style="padding-left: 10px !important;">
+                        <a [routerLink]="['/pages/reportes/objetivos-de-aprendizaje']">
+                            <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
+                            <span>Objetivos de Aprendizaje</span>
+                        </a>
+                    </li>
+                    <li nz-menu-item nzMatchRouter style="padding-left: 10px !important;">
+                        <a [routerLink]="['/pages/reportes/actividades']">
+                            <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
+                            <span>Actividades</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
             <li nz-menu-item nz-tooltip nzPlacement="right" [nzTitle]="isCollapsed ? 'Evaluación SIMCE' : ''"
-                nzMatchRouter (click)="goToSimce()">
+                nzMatchRouter (click)="goToSimce()" [(nzOpen)]="openMap.sub3" (nzOpenChange)="openHandler('sub3')">
                 <a [routerLink]="['/pages/simce']">
                     <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
                     <span>Evaluación SIMCE</span>
                 </a>
             </li>
-            <li nz-submenu nzOpen nzIcon="setting" nzTitle="Administrador">
+            <li nz-submenu nzOpen nzIcon="setting" nzTitle="Administrador" [(nzOpen)]="openMap.sub4" (nzOpenChange)="openHandler('sub4')">
                 <ul>
                     <li class="sub-menu-route" *ngFor="let route of admin" nz-menu-item nzMatchRouter (click)="adminRoute(route.path)">
                         <i *ngIf="route.nzIcon" class="trigger" nz-icon [nzType]="route.icon"></i>
@@ -62,13 +55,6 @@
     </nz-sider>
     <nz-layout class="content-layout">
         <nz-content>
-            <!-- <nz-breadcrumb>
-                <nz-breadcrumb-item>Home</nz-breadcrumb-item>
-                <nz-breadcrumb-item>List</nz-breadcrumb-item>
-                <nz-breadcrumb-item>App</nz-breadcrumb-item>
-            </nz-breadcrumb>
-            Example single danger button -->
-
             <router-outlet></router-outlet>
         </nz-content>
     </nz-layout>

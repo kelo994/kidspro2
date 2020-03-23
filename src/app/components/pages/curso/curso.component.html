@@ -7,7 +7,7 @@
         <ng-template #suffixIcon>
             <i nz-icon nzType="search"></i>
         </ng-template>
-        <ul nz-menu nzMode="inline">
+        <ul nz-menu nzMode="inline" class="bd-top">
             <li class="item-submenu d-block my-auto" nz-menu-item nzMatchRouter
                 *ngFor="let asign of asignaturas | filter:searchValue" (click)="openAsignatura(asign)">
                 <p class="m-0">{{ asign.materia_descripcion }}</p>
@@ -24,16 +24,15 @@
                     <div>
                         <span class="text-subheader bd-invisible"><strong>{{ selectAsginatura }}</strong></span>
                         <span class="px-3">{{ cursoNombre }}</span>
-                        <!-- <i class="fas fa-arrow-right"></i> -->
                     </div>
                 </div>
-                <div *ngIf="unidades?.length > 0" class="col-6">
+                <div *ngIf="unidades?.length > 0" class="col-6 text-right">
                     <button class="btn btn-unidad mr-3" (click)="editarUnidades()">
                         <i class="fas fa-cog bd-invisible pr-1"></i>
                         <span class="pl-1" *ngIf="!editUnidades">Editar Unidades</span>
                         <span class="pl-1" *ngIf="editUnidades">Guardar Cambios</span>
                     </button>
-                    <button class="btn btn-unidad" (click)="showModal()">
+                    <button class="btn btn-unidad mr-5" (click)="showModal()">
                         <i class="fas fa-qrcode bd-invisible"></i> Código de Acceso
                     </button>
                 </div>
@@ -62,7 +61,7 @@
                                     </div>
                                 </li>
                             </ul>
-                            <div class="row m-0 p-2">
+                            <div class="row m-0 p-2 footerUnity">
                                 <div class="col text-center px-1">
                                     <button class="btn btn-unidad btn-sm w-100 t-12 py-2b" (click)="goToUnidad(u.id)">
                                         Entrar
@@ -80,33 +79,54 @@
             </div>
 
             <div *ngIf="!unidades || unidades?.length == 0" class="">
-                <div class="row m-0 mx-5">
-                    <div class="col">
-                        <div class="row m-0 mx-5">
+                <div class="w-75 row m-0 mx-auto">
+                    <div class="col-4">
+                        <div class="row m-0 mx-2">
                             <div class="col-2 px-0 text-right col-step">
-                                1
+                                <p id="firstStep" class="active">1</p>
                             </div>
-                            <div class="col-10 card-content col-step-content">
-                                <p class="pl-3">Elige un Curso</p>
+                            <div class="col-10 card-content-steps col-step-content">
+                                <p class="pl-4 desactive">Elige un Curso</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="row m-0 mx-5">
+                    <div class="col-4">
+                        <div class="row m-0 mx-1">
                             <div class="col-2 px-0 text-right col-step">
-                                2
+                                <p id="secondStep" class="desactive">2</p>
                             </div>
-                            <div class="col-10 card-content col-step-content">
-                                <p class="pl-3">Elige una Asignatura</p>
+                            <div class="col-10 card-content-steps col-step-content">
+                                <p class="pl-4 desactive">Elige una Asignatura</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12">
-                        <nz-steps [nzCurrent]="1" nzProgressDot>
-                            <nz-step nzTitle="" nzDescription=""></nz-step>
-                            <nz-step nzTitle="" nzDescription=""></nz-step>
-                            <nz-step nzTitle="" nzDescription=""></nz-step>
-                          </nz-steps>
+                    <div class="col-4">
+                        <div class="row m-0 mx-1">
+                            <div class="col-2 px-0 text-right col-step">
+                                <p id="secondStep" class="desactive">3</p>
+                            </div>
+                            <div class="col-10 card-content-steps col-step-content">
+                                <p class="pl-4 desactive">Administre las unidades</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 row mt-4 p-0">
+                        <div class="col p-0" style="left: -20px; width: 4%;">
+                            <div class="point-blue ml-auto"></div>
+                        </div>
+                        <div class="col d-block my-auto pl-0" style="left: -29px;min-width: 95%;">
+                            <div class="progress">
+                                <div id="progressBar" class="progress-bar" role="progressbar" aria-valuenow="12" aria-valuemin="12"
+                                style="width: 12%" aria-valuemax="100">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col p-0" style="left: -516px;max-width: 4%;">
+                            <div id="pointTwo"  class="point-blank mr-auto"></div>
+                        </div>
+                        <div class="col p-0" style="left: -278px;">
+                            <div class="point-blank mr-auto"></div>
+                        </div>
                     </div>
                 </div>
             </div>
