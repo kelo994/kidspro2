@@ -38,15 +38,7 @@ export class LeccionComponent implements OnInit {
   constructor(public router: Router, private route: ActivatedRoute,  private embedService: EmbedVideoService,
               public leccionService: LeccionService, public bloqueService: BloqueService) { }
 
-/*
-  openXl(content) {
-    this.modalService.open(content, { size: 'xl', centered: true, windowClass: 'animated fadeInDown' }).result.then((result) => {
-      document.getElementById("gamecontainer").outerHTML = "";
-    }, (reason) => {
-      document.getElementById("gamecontainer").outerHTML = "";
-    });
-  }
-*/
+
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -58,7 +50,6 @@ export class LeccionComponent implements OnInit {
       this.grupoId = history.state.grupoId;
       this.loadContent();
       this.obtenerBloques();
-      // this.obtenerBloquesActivos();
     });
   }
 
@@ -89,19 +80,6 @@ export class LeccionComponent implements OnInit {
     );
   }
 
-    obtenerBloquesActivos() {
-        this.leccionService.getBloquesActivos(this.cursoId, this.asignaturaId).subscribe(
-            (data: any) => {
-                console.log(data);
-                this.lecciones = data.data;
-            },
-            (error) => {
-                if (error.status === 401) {
-                    this.router.navigate(['/auth/login']);
-                }
-            }
-        );
-    }
 
     obtenerBloques() {
         console.log(this.grupoId);
@@ -121,109 +99,5 @@ export class LeccionComponent implements OnInit {
              attr: { width: '100%', height: '100%' }
            });
      }
-  /*
-     @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
-       //console.log("presionaste Escape te piller");
-       this.unity.exitFullScreen();
-     }
 
-     setFull(title): void {
-       this.unity.send();
-     }
-
-     obtenerBloques(content) {
-       let idAsignatura = localStorage.getItem('asignatureOpen');
-       let idCurso = localStorage.getItem('CursoId');
-       this.getCode = false;
-       this.dashboard.openAsignatura(idCurso, idAsignatura).subscribe(
-           (data: any) => { // Success
-             console.log(data);
-             this.unidades = data;
-             //this.openSaveRuta(data, true);
-             this.modalService.open(content, { size: 'xl', centered: true, windowClass: 'animated fadeInDown' });
-           },
-           (error) => {
-             if (error.status == 401) {
-               console.log("error token")
-               this.router.navigate(['/auth/login']);
-               console.log("error token")
-             }
-           }
-       );
-     }
-
-
-
-     addSelectBloque(idx: any, item) {
-       if (this.bloquesSave.find(item => item.id === idx)) {
-         this.bloquesSave.some(function (obj) {
-           if (obj.id == idx) {
-             //change the value here
-             obj.estado = !obj.estado;
-             return true;    //breaks out of he loop
-           }
-         });
-       } else {
-         let a = { id: idx, estado: true }
-         this.bloquesSave.push(a);
-       }
-       console.log(this.bloquesSave)
-     }
-
-     sendBloques() {
-       if (this.bloquesSave.find(item => item.estado === true)) {
-         console.log("curso: " + localStorage.getItem('CursoId'))
-         let data = {
-           //url: 'mis-cursos/unidades/leccion/' + localStorage.getItem('leccionOpen'),
-           curso_id: localStorage.getItem('CursoId'),
-           asignatura_id: localStorage.getItem('asignatureOpen'),
-           //bloque_id: localStorage.getItem('leccionOpen'),
-           bloques: this.bloquesSave
-         }
-         this.dashboard.activarBloques(data).subscribe( (data: any) => { // Success
-           this.codigo = data.codigo;
-           this.getCode = true;
-           this.modalService.dismissAll();
-           this.modalService.open(this.studentCode, {
-             size: 'lg', backdropClass: 'light-blue-backdrop', windowClass: 'animated fadeInDown', centered: true, scrollable: true
-           });
-         }, (error) => {
-           if (error.status == 401) this.router.navigate(['/pages/login']);
-         });
-       } else {
-         this.toast.showToast('warning', 'Error al Activar Lecciones', 'No ha seleccionado ningúna lección.');
-       }
-     }
-
-     hideBloques() {
-       let data = {
-         curso_id: localStorage.getItem('CursoId'),
-         asignatura_id: localStorage.getItem('asignatureOpen'),
-       }
-       this.dashboard.desactivarBloques(data).subscribe( (data: any) => { // Success
-         this.toast.showToast('success', data, '');
-       }, (error) => {
-         this.toast.showToast('warning', 'Error al Desactivar Lecciones', error.error);
-         if (error.status == 401) this.router.navigate(['/pages/login']);
-       });
-     }
-
-
-
-     openSaveRuta(object: any, hasScroll: boolean) {
-       this.dialognbService.open(DialogRutaComponent, {
-         context: {
-           body: object
-         },
-         hasScroll
-       });
-     }
-
-     closeActivity() {
-       this.modalService.dismissAll();
-       window.location.reload();
-     }
-
-
-   */
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { NzFormatEmitEvent, NzNotificationService } from 'ng-zorro-antd';
 import {CoursesService} from '../../../../services/courses.service';
 
@@ -12,6 +13,10 @@ export class CoursesAdminComponent implements OnInit {
 
   loading = false;
   panelOpenState = false;
+  curso: {
+    nivel_id: any,
+    cantidad_secciones: any,
+  };
   cursos = [
     {
       curso_id: '',
@@ -33,31 +38,18 @@ export class CoursesAdminComponent implements OnInit {
   nivelesSCrear = [];
   asignaturas = [];
   establecimientoId;
-  dataSet = [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park'
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park'
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park'
-    }
-  ];
+  modalCrearCurso = false;
+  cursoForm: FormGroup;
 
   constructor(
     private notification: NzNotificationService,
     private router: Router,
+    private route: ActivatedRoute,
     public coursesService: CoursesService) {
+    this.cursoForm = new FormGroup({
+      nivel: new FormControl('', [Validators.required, Validators.minLength(1)]),
+      numeroSecciones: new FormControl('', [Validators.required, Validators.minLength(1)]),
+    });
   }
 
   ngOnInit(): void {
@@ -83,4 +75,49 @@ export class CoursesAdminComponent implements OnInit {
   }
 
 
+
+  saveCurso() {
+    if (this.cursoForm.valid) {
+      const data = {
+        establecimiento_id: this.establecimientoId,
+        cantidad_secciones: this.cursoForm.controls.numeroSecciones.value,
+        nivel_id: this.cursoForm.controls.nivel.value,
+      };
+      this.closeModal('curso');
+      this.notification.info('Curso', 'Estamos procesando su solicitud');
+      this.coursesService.crearCursos(data).subscribe((response: any) => {
+        console.log(response);
+        this.niveles = response;
+        this.notification.success('Curso Creado con Éxito', 'Se le ha enviado un correo al funcionario');
+      }, (error) => {
+        if (error.status === 401) {
+          this.router.navigate(['/auth/login']);
+        } else if (error.status === 400 || error.status === 500) {
+          this.notification.error('Error al Agregar Usuario', error.error.Warning);
+        }
+      });
+    } else {
+       this.validarForma();
+    }
+  }
+
+  openModal(modal) {
+    this.modalCrearCurso = true;
+  }
+
+  closeModal(modal) {
+    this.modalCrearCurso = false;
+  }
+
+  validarForma() {
+    if (this.cursoForm.controls.nivel.status !== 'VALID') {
+      if (this.cursoForm.controls.nivel.value == null) {
+        this.notification.warning('Usuario', 'Por favor seleccione un nivel.');
+      }
+    } else if (this.cursoForm.controls.numeroSecciones.status !== 'VALID') {
+      if (this.cursoForm.controls.numeroSecciones.value == null) {
+        this.notification.warning('Curso', 'Por favor ingrese una la cantidad de secciones');
+      }
+    }
+  }
 }
