@@ -34,26 +34,32 @@ export class CursoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
-    this.parametersObservable = this.routeActive.params.subscribe(params => {
-     // console.log(params);
 
-     this.cursoNombre = localStorage.getItem('CursoName');
+    this.parametersObservable = this.routeActive.params.subscribe(params => {
+      // console.log(params);
+      this.cursoNombre = localStorage.getItem('CursoName');
       localStorage.setItem('CursoId', this.routeActive.snapshot.params.idCurso);
       this.cService.getAsignaturas(this.routeActive.snapshot.params.idCurso)
         .subscribe(
           (data: any) => { // Success
             this.asignaturas = data;
             this.unidades = [];
-            // console.log(data);
+            console.log(this.asignaturas.length);
             if (this.asignaturas.length === 0) {
               this.notification.warning('Error', 'No tienes asignaturas asociadas a este curso.');
-            } else if (this.asignaturas.length === 1) {
-              this.openAsignatura(this.asignaturas[0])
-              // this.notification.success('Error', 'No tienes asignaturas asociadas a este curso.');
-            } else {
-              $('#btnmodalAsignature').click();
-            }
+            } else if (this.asignaturas.length > 0) {
+              $('#firstStep').removeClass('active').addClass('afterActive');
+              $('#secondStep').removeClass('desactive').addClass('active');
+              $('#progressBar').css('width', 48 + '%').attr('aria-valuenow', 48);
+              $('#pointTwo').removeClass('point-blank').addClass('point-blue');
+              
+              if (this.asignaturas.length === 1) {
+                this.openAsignatura(this.asignaturas[0])
+                // this.notification.success('Error', 'No tienes asignaturas asociadas a este curso.');
+              } else {
+                $('#btnmodalAsignature').click();
+              }
+            }            
           },
           (error) => {
             if (error.status == 401) {
@@ -67,7 +73,7 @@ export class CursoComponent implements OnInit {
   openAsignatura(element) {
     localStorage.setItem('AsignaturaId', element.asignatura_id);
     localStorage.setItem('AsignaturaNombre', element.materia_descripcion);
-    this.selectAsginatura =  element.materia_descripcion;
+    this.selectAsginatura = element.materia_descripcion;
     this.cService.openAsignatura(localStorage.getItem('CursoId'), element.asignatura_id)
       .subscribe(
         (data: any) => { // Success
@@ -142,7 +148,7 @@ export class CursoComponent implements OnInit {
         event.currentIndex);
     }
   }
-  
+
   openCurso(item) {
     localStorage.setItem('CursoName', item.curso_nombre);
     localStorage.setItem('CursoId', item.curso_id);
@@ -179,15 +185,15 @@ export class CursoComponent implements OnInit {
   }
 
   showModal(): void {
-      let idAsignatura = localStorage.getItem('AsignaturaId');
-      let idCurso = localStorage.getItem('CursoId');
-      this.cService.obtenerCodigoCursoAsignatura(idCurso, idAsignatura).subscribe( (data: any) => { // Success
-        this.codigo = data.codigo;
-        this.modalGetCode = true;
-      }, (error) => {
-        if (error.status == 401) this.router.navigate(['/pages/login']);
-      });
-    
+    let idAsignatura = localStorage.getItem('AsignaturaId');
+    let idCurso = localStorage.getItem('CursoId');
+    this.cService.obtenerCodigoCursoAsignatura(idCurso, idAsignatura).subscribe((data: any) => { // Success
+      this.codigo = data.codigo;
+      this.modalGetCode = true;
+    }, (error) => {
+      if (error.status == 401) this.router.navigate(['/pages/login']);
+    });
+
   }
 
   handleOk(): void {
