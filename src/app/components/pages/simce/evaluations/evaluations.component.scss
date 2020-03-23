@@ -7,10 +7,6 @@
     padding: 0px;
 }
 
-.first-th, .first-td {
-    padding-left: 30px;
-}
-
 .vertical-line {
     border-right: 1px solid #e8e8e8;
 }
@@ -20,4 +16,95 @@ i {
     padding-left: 5px;
     padding-right: 5px;
     cursor: pointer;
+}
+
+.finish-evaluations {
+    margin-top: 20px;
+}
+
+.second-row {
+    padding-left: 0px;
+    margin-top: 15px;
+}
+
+.second-row-bottom {
+    padding-left: 0px;
+    margin-top: 15px;
+}
+
+@media only screen and (min-width: 768px) {
+    .second-row {
+        padding-left: 24px;
+        margin-top: 0px;
+    }
+
+    .subtitle-card-evaluations {
+        font-size: 14px;
+        color: rgba(255, 166, 0, 1);
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .second-row-bottom {
+        padding-left: 24px;
+        margin-top: 0px;
+    }
+
+    .finish-evaluations {
+        margin-top: 40px;
+    }
+
+    .subtitle-card-evaluations {
+        font-size: 16px;
+        color: rgba(255, 166, 0, 1);
+    }
+}
+
+.icon-file {
+    font-size: 18px;
+    color: white;
+    background-color: #46e1ff;
+    padding: 16px;
+    border-radius: 100%;
+    margin: auto;
+    cursor: auto;
+}
+
+.card-evaluations {
+    padding: 12px 30px;
+}
+
+.title-card-evaluations {
+    font-size: 20px;
+}
+
+.subtitle-card-evaluations {
+    font-size: 16px;
+    color: rgba(255, 166, 0, 1);
+}
+
+.card-finish-evaluations {
+    background-color: #2fd1f0;
+    padding: 40px 30px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.title-card-finish-evaluations {
+    font-size: 26px;
+    color: #fff;
+}
+
+.subtitle-card-finish-evaluations {
+    font-size: 14px;
+}
+
+::ng-deep .modal-confirm-activar > .ant-modal-content > .ant-modal-body > .ant-modal-confirm-body-wrapper > .ant-modal-confirm-btns > .ant-btn-primary {
+    background-color: #419c55;
+    border-color: #419c55;
+}
+
+::ng-deep .modal-confirm-finalizar > .ant-modal-content > .ant-modal-body > .ant-modal-confirm-body-wrapper > .ant-modal-confirm-btns > .ant-btn-primary {
+    background-color: #ff655b;
+    border-color: #ff655b;
 }

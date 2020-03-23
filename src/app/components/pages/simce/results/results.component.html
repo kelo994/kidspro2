@@ -47,14 +47,13 @@
     </div>
     <div class="results" nz-row style="margin-bottom: 25px;">
         <span class="note">Nota: Seleccione un alumno para una vista más detallada</span>
-        <nz-table #results [nzData]="data" nzSize="small" nzShowPagination="false" [nzLoading]="dataLoading" style="margin-top: 10px;">
+        <nz-table #results [nzData]="data" nzSize="small" nzShowPagination="false" [nzLoading]="dataLoading"
+            style="margin-top: 10px;">
             <thead>
                 <tr *ngIf="vistaCompleta">
                     <th style="width: 14%; font-size: 14px;">Alumnos</th>
-                    <th
-                        *ngFor="let pregunta of preguntas"
-                        [style]="pregunta.pregunta_numero % 2 === 0 ? 'background-color: #f0f2f5' : 'background-color: #ccc'"
-                    >
+                    <th *ngFor="let pregunta of preguntas"
+                        [style]="pregunta.pregunta_numero % 2 === 0 ? 'background-color: #f0f2f5' : 'background-color: #ccc'">
                         {{ pregunta.pregunta_numero < 10 ? '0' + pregunta.pregunta_numero : pregunta.pregunta_numero }}
                     </th>
                 </tr>
@@ -68,7 +67,7 @@
             </thead>
             <tbody *ngIf="vistaCompleta">
                 <tr *ngFor="let item of results.data">
-                    <td (click)="detalleAlumno(item)" class="alumno" >
+                    <td (click)="detalleAlumno(item)" class="alumno">
                         {{item.persona_nombre}} {{item.persona_apellido}}
                     </td>
                     <td *ngFor="let respuesta of item.respuestas"
@@ -78,52 +77,56 @@
             </tbody>
             <tbody *ngIf="!vistaCompleta">
                 <tr *ngFor="let item of rowsVistaAlumno; let i = index">
-                    <td *ngIf="i < results.data.length && alumnoSelected == item" (click)="detalleAlumno(item)" class="alumno alumno-active" rowspan="1">
+                    <td *ngIf="i < results.data.length && alumnoSelected == item" (click)="detalleAlumno(item)"
+                        class="alumno alumno-active" rowspan="1">
                         {{item.persona_nombre}} {{item.persona_apellido}}
                     </td>
-                    <td *ngIf="i < results.data.length && alumnoSelected != item" (click)="detalleAlumno(item)" class="alumno" rowspan="1">
+                    <td *ngIf="i < results.data.length && alumnoSelected != item" (click)="detalleAlumno(item)"
+                        class="alumno" rowspan="1">
                         {{item.persona_nombre}} {{item.persona_apellido}}
                     </td>
-                    <td *ngIf="i >= results.data.length" class="not-alumno" >
+                    <td *ngIf="i >= results.data.length" class="not-alumno">
                     </td>
                     <ng-template [ngIf]="i % 4 === 0">
                         <td *ngFor="let pregunta of vistaAlumno[i / 4]" style="width: 14.33333333333333%" rowspan="4"
                             [style]="pregunta.estado === 0 ? 'background-color: #eb5757' : 'background-color: #6fcf97'">
                             <label>{{pregunta.pregunta.pregunta_numero}}</label>
-                            <p>{{ pregunta.pregunta.primer_parrafo === "" ? pregunta.pregunta.tercer_parrafo : pregunta.pregunta.primer_parrafo }}</p>
+                            <p>{{ pregunta.pregunta.primer_parrafo === "" ? pregunta.pregunta.tercer_parrafo : pregunta.pregunta.primer_parrafo }}
+                            </p>
                         </td>
                     </ng-template>
                 </tr>
             </tbody>
         </nz-table>
     </div>
-    <div class="porcentajes">
+    <div *ngIf="dataChart != null" class="porcentajes">
         Porcentaje general por preguntas
-        <app-simce-preguntas-chart [preguntas]="preguntas" ></app-simce-preguntas-chart>
+        <app-simce-preguntas-chart [data]="dataChart"></app-simce-preguntas-chart>
     </div>
     <div nz-row>
-        <div nz-col nzMd="12" nzXs="24"> 
+        <div nz-col nzMd="12" nzXs="24">
             <div nz-row>
                 <div nz-col nzSpan="4">
                     Pregunta:
                 </div>
                 <div nz-col nzSpan="8">
                     <nz-select [(ngModel)]="preguntaSelected" class="w-100" nzAllowClear
-                      nzPlaceHolder="Seleccione una Pregunta">
-                      <nz-option *ngFor="let pregunta of preguntas; let i = index" [nzValue]="pregunta"
-                        [nzLabel]="pregunta.pregunta_numero">
-                      </nz-option>
+                        nzPlaceHolder="Seleccione una Pregunta">
+                        <nz-option *ngFor="let pregunta of preguntas; let i = index" [nzValue]="pregunta"
+                            [nzLabel]="pregunta.pregunta_numero">
+                        </nz-option>
                     </nz-select>
                 </div>
             </div>
-            <div nz-row *ngIf="preguntaSelected != null" >
+            <div nz-row *ngIf="preguntaSelected != null">
                 <div class="px-2 pt-2">
                     <p>{{ preguntaSelected.primer_parrafo }}</p>
                     <p>{{ preguntaSelected.segundo_parrafo }}</p>
                     <img [height]="preguntaSelected.multimedia_height" [src]="preguntaSelected.multimedia">
                     <p>{{ preguntaSelected.tercer_parrafo }}</p>
                     <nz-radio-group [(ngModel)]="preguntaSelected.respuesta_id">
-                        <label nz-radio *ngFor="let option of preguntaSelected.alternativas" nzValue="option.respuesta_id">
+                        <label nz-radio *ngFor="let option of preguntaSelected.alternativas"
+                            nzValue="option.respuesta_id">
                             {{ option.respuesta }}
                         </label>
                     </nz-radio-group>

@@ -25,7 +25,7 @@
                 </a>
             </li>
             <li nz-menu-item nz-tooltip nzPlacement="right" [nzTitle]="isCollapsed ? 'Evaluación SIMCE' : ''"
-                nzMatchRouter>
+                nzMatchRouter (click)="goToSimce()">
                 <a [routerLink]="['/pages/simce']">
                     <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
                     <span>Evaluación SIMCE</span>
