@@ -2,10 +2,6 @@
     padding: 0px;
 }
 
-.first-th, .first-td {
-    padding-left: 30px;
-}
-
 .form-label {
     display: block;
     font-size: 16px;
@@ -31,4 +27,11 @@
 
 ::ng-deep .ant-modal {
     top: 60px;
+}
+
+i {
+    font-size: 15px;
+    padding-left: 5px;
+    padding-right: 5px;
+    cursor: pointer;
 }

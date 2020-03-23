@@ -10,38 +10,44 @@ export class PreguntasChartComponent implements OnInit {
 
     constructor(private highcharts: HighchartsService) { }
 
-    @Input() preguntas: any;
-    @Input() data: any;
-    categories = []
+    @Input() data = {
+        labels: [],
+        correctas: [],
+        incorrectas: []
+    };    
 
     @ViewChild('charts') public chartEl: ElementRef;
 
     ngOnInit(): void {
-        this.setCategories()
+        this.setData()
     }
 
     ngAfterViewInit() {
-        this.highcharts.createChart(this.chartEl.nativeElement, this.myOptions);
+        console.log(this.data)
+        console.log(this.options)
+        this.highcharts.createChart(this.chartEl.nativeElement, this.options);
     }
 
-    setCategories () {
-        let array = []
-        for (let i = 0; i < this.preguntas.length; i++) {
-            array.push(this.preguntas[i].pregunta_numero);
-        }
-        this.categories = array;
-        console.log(this.categories)
+    setData () {
+        this.options.xAxis.categories = this.data.labels
+        this.options.series[0].data = this.data.correctas
+        this.options.series[1].data = this.data.incorrectas
     }
 
-    myOptions = {
+    options = {
         chart: {
-            type: 'column'
+            type: 'column',
+            backgroundColor: "#f0f2f5",
+            style: {
+                width: '100%'
+            }
         },
         title: {
-            text: 'Porcentaje general por preguntas'
+            text: '<strong>Porcentaje general por preguntas</strong>',
+            align: 'left',
         },
         xAxis: {
-            categories: this.preguntas,
+            categories: this.data.labels,
             crosshair: true,
             title: {
                 text: 'Preguntas por evaluación'
@@ -49,6 +55,7 @@ export class PreguntasChartComponent implements OnInit {
         },
         yAxis: {
             min: 0,
+            max: 100,
             title: {
                 text: 'Porcentajes'
             }
@@ -56,7 +63,7 @@ export class PreguntasChartComponent implements OnInit {
         tooltip: {
             headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
             pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                '<td style="padding:0"><b>{point.y:.1f}%</b></td></tr>',
             footerFormat: '</table>',
             shared: true,
             useHTML: true
@@ -70,12 +77,17 @@ export class PreguntasChartComponent implements OnInit {
         series: [
             {
                 name: 'Respuestas correctas',
-                data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+                data: this.data.correctas,
+                color: '#6fcf97'
             },
             {
                 name: 'Respuestas incorrectas',
-                data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
+                data: this.data.incorrectas,
+                color: '#eb5757'
             }
-        ]
+        ],
+        credits: {
+            enabled: false
+        }
     }
 }

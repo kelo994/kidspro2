@@ -24,6 +24,8 @@ export class EvaluationResultsComponent implements OnInit {
   rowsVistaAlumno;
   alumnoSelected;
 
+  dataChart: object;
+
   ngOnInit(): void {
     window.scrollTo({ top: 0, behavior: 'auto' });
     this.evaluation = history.state.simce
@@ -39,6 +41,7 @@ export class EvaluationResultsComponent implements OnInit {
         this.preguntaSelected = this.preguntas[0];
         this.puntajes = data.dash_puntajes_simce
         this.niveles = data.levels
+        this.dataChart = data
         /*this.preguntas = data.preguntas
         this.question = this.preguntas[0]
         this.correctas = data.correctas
@@ -48,9 +51,6 @@ export class EvaluationResultsComponent implements OnInit {
         this.dash_puntajes = data.dash_puntajes
         this.dash_puntajes_simce = data.dash_puntajes_simce
         this.levels = data.levels
-        this.displayedColumns = data.columns;
-        var ELEMENT_DATA: PeriodicElement[] = data.data
-        this.dataSource = new MatTableDataSource(ELEMENT_DATA)
         this.data = data.stats
         this.levels_stats = data.levels_stats
         this.stats_puntajes_simce = data.stats_puntajes_simce*/

@@ -11,7 +11,7 @@
 
     <!-- Tab panes -->
     <div class="tab-content">
-      <div id="profesor" class="container tab-pane active">
+      <div id="profesor" class="tab-pane active">
         <form nz-form [formGroup]="formaLogin" (ngSubmit)="login()" autocomplete="off">
             <div class="inputs">
                 <label>RUT</label>
@@ -32,7 +32,7 @@
             </div>
         </form>
       </div>
-      <div id="estudiante" class="container tab-pane fade">
+      <div id="estudiante" class="tab-pane fade">
         <form (ngSubmit)="loginCode()" [formGroup]="formaCode" autocomplete="off">
             <div class="inputs">
                 <label>Ingrese el código de acceso</label>

@@ -32,6 +32,10 @@ export class PagesComponent implements OnInit {
     this.router.navigate(['/pages/curso', item.curso_id]);
   }
 
+  goToSimce () {
+    this.router.navigate(['//pages/simce']);
+  }
+
   adminRoute(route) {
     this.router.navigate(['/pages/administrar/' + route]);
   }
