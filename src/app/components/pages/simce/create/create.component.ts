@@ -1,4 +1,4 @@
-import { Component, OnInit, } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SimceService } from '../../../../services/simce.service';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -11,6 +11,9 @@ import { NzMarks } from 'ng-zorro-antd/slider';
   styleUrls: ['./create.component.scss']
 })
 export class SimceCreateComponent implements OnInit {
+
+  @Output() newEvaluation = new EventEmitter();
+
   createForm: FormGroup;
 
   modalCreate = false;
@@ -68,21 +71,23 @@ export class SimceCreateComponent implements OnInit {
   }
 
   createEvaluation () {
-    console.log('asd')
     this.closeModal('create')
-    this.openModal('detail')
-    /*let data = {
-      simce_id: this.createForm.controls.tipo.value,
+    this.notification.info('Generar Evaluación', 'Estamos procesando su solicitud')
+    let data = {
+      simce_id: this.createForm.controls.tipo.value.simce_id,
       curso_especifico_id: this.createForm.controls.curso.value,
       exigencia: this.createForm.controls.exigencia.value,
       nota_minima: this.createForm.controls.nota_minima.value
     }
-    this.simceService.agregarPrueba(data).subscribe( (data: any) => { // Success
+    this.simceService.agregarPrueba(data).subscribe( (data: any) => {
       this.evaluation = data
+      this.newEvaluation.emit(data);
+      this.openModal('detail')
     },(error) => {
       console.log(error.response)
+      this.notification.error('Error Inesperado', 'Ha ocurrido un error al generar la evaluación')
       if (error.status == 401) this.router.navigate(['/auth/login'])
-    })*/
+    })
   }
 
   getValidCourses () {
@@ -109,7 +114,6 @@ export class SimceCreateComponent implements OnInit {
   }
 
   verPrueba (element) {
-    //this.modalService.dismissAll();
     this.router.navigate(['/pages/simce/prueba'], {state: {idPrueba: element.prueba_id, simce: element}})
   }
 

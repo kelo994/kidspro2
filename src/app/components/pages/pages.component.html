@@ -3,7 +3,7 @@
     <i nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
 </button>
 <nz-layout class="app-layout">
-    <nz-sider class="menu-sidebar" nzCollapsible nzWidth="179px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
+    <nz-sider class="menu-sidebar" nzCollapsible nzWidth="200px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
         [nzTrigger]="null">
         <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
             <li nz-menu-group nzTitle="Principal"></li>
@@ -43,7 +43,7 @@
                 </a>
             </li>
             <li nz-menu-item nz-tooltip nzPlacement="right" [nzTitle]="isCollapsed ? 'Evaluación SIMCE' : ''"
-                nzMatchRouter>
+                nzMatchRouter (click)="goToSimce()">
                 <a [routerLink]="['/pages/simce']">
                     <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
                     <span>Evaluación SIMCE</span>

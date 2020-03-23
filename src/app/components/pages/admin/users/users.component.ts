@@ -23,8 +23,10 @@ export class UsersAdminComponent implements OnInit {
   roles = [];
   generos = [];
 
-  modalUser = false;
+  formType = 'Agregar';
+  userModal = false;
   userForm: FormGroup;
+  userId;
 
   inputSearch = "";
 
@@ -45,7 +47,7 @@ export class UsersAdminComponent implements OnInit {
       'email': new FormControl('', [Validators.required, Validators.minLength(3), this.emailService.validarEmail]),
       'direccion': new FormControl(''),
       'nacionalidad': new FormControl(''),
-      'genero': new FormControl([], [Validators.required, Validators.minLength(1)]),
+      'genero': new FormControl('', [Validators.required, Validators.minLength(1)]),
       'roles': new FormControl([], [Validators.required, Validators.minLength(1)])
     })
   }
@@ -111,18 +113,43 @@ export class UsersAdminComponent implements OnInit {
         persona_direccion: this.userForm.controls.direccion.value,
         roles: this.userForm.controls.roles.value
       }
-      this.userService.save(data).subscribe((response: any) => {
-        this.users = response
-        this.usersData = response
-        this.notification.success('Funcionario Creado con Éxito', 'Se le ha enviado un correo al funcionario');
-      }, (error) => {
-        if (error.status == 401) {
-          this.router.navigate(['/auth/login']);
-        } else if (error.status == 400 || error.status == 500) {
-          this.notification.error('Error al Agregar Funcionario', error.error.Warning);
-          this.userForm.patchValue({ rut: '' });
-        }
-      });
+      this.closeModal('user')
+      if (this.formType === 'Agregar') {
+        this.notification.info('Agregar Usuario', 'Estamos procesando su solicitud')
+        this.userService.save(data).subscribe((response: any) => {
+          this.users = response
+          this.usersData = response
+          this.notification.success('Usuario Creado con Éxito', 'Se le ha enviado un correo al funcionario');
+        }, (error) => {
+          if (error.status == 401) {
+            this.router.navigate(['/auth/login']);
+          } else if (error.status == 400 || error.status == 500) {
+            this.notification.error('Error al Agregar Usuario', error.error.Warning);
+            this.userForm.patchValue({ rut: '' });
+          } else if (error.status == 422) {
+            console.log(error)
+            if (error.error.errors.persona_rut) {
+              this.notification.error('Error al Agregar Usuario', error.error.errors.persona_rut[0]);
+            }
+          }
+        });
+      } else if (this.formType === 'Editar') {
+        this.notification.info('Editar Usuario', 'Estamos procesando su solicitud')
+        this.userService.update(this.userId, data).subscribe((data: any) => {
+          this.usersData = data
+          this.search()
+          this.notification.success('Funcionario Editado con Éxito', '');
+        }, (error) => {
+          if (error.status == 401) {
+            this.router.navigate(['/auth/login']);
+          } else if (error.status == 400 || error.status == 500) {
+            this.notification.error('Error al Editar Funcionario', error.error.Warning);
+            this.userForm.patchValue({ rut: '' });
+          } else if (error.status == 403) {
+            this.notification.error('Error al Editar Funcionario', error.error.Error);
+          }
+        })
+      }
     } else {
       this.validarForma();
     }
@@ -144,53 +171,64 @@ export class UsersAdminComponent implements OnInit {
 
   openModal(modal) {
     if (modal === 'create') {
-      this.modalUser = true
+      this.userModal = true
+      this.formType = 'Agregar'
+    }
+    if (modal === 'edit') {
+      this.userModal = true
+      this.formType = 'Editar'
     }
   }
 
   closeModal(modal) {
-    if (modal === 'create') {
-      this.modalUser = false
+    if (modal === 'user') {
+      this.userModal = false
     }
   }
 
   validarForma() {
     if (this.userForm.controls.rut.status != 'VALID') {
       if (this.userForm.controls.rut.value == null) {
-        this.notification.warning('Funcionario', 'Por favor ingrese rut del nuevo funcionario.');
+        this.notification.warning('Usuario', 'Por favor ingrese rut del nuevo funcionario.');
       } else if (this.userForm.controls.rut.errors.validaRut) {
-        this.notification.warning('Funcionario', 'Por favor ingrese un rut válido.');
+        this.notification.warning('Usuario', 'Por favor ingrese un rut válido.');
       }
     } else if (this.userForm.controls.nombre.status != 'VALID') {
       if (this.userForm.controls.nombre.value == null) {
-        this.notification.warning('Funcionario', 'Por favor ingrese nombre del nuevo funcionario.');
+        this.notification.warning('Usuario', 'Por favor ingrese nombre del nuevo funcionario.');
       } else if (this.userForm.controls.nombre.value.length < 3) {
-        this.notification.warning('Funcionario', 'Por favor ingrese un nombre válido, de mínimo 3 carácteres');
+        this.notification.warning('Usuario', 'Por favor ingrese un nombre válido, de mínimo 3 carácteres');
       }
     } else if (this.userForm.controls.apellido.status != 'VALID') {
       if (this.userForm.controls.apellido.value == null) {
-        this.notification.warning('Funcionario', 'Por favor ingrese apellido del nuevo funcionario.');
+        this.notification.warning('Usuario', 'Por favor ingrese apellido del nuevo funcionario.');
       } else if (this.userForm.controls.apellido.value.length < 3) {
-        this.notification.warning('Funcionario', 'Por favor ingrese un apellido válido, de mínimo 3 carácteres');
+        this.notification.warning('Usuario', 'Por favor ingrese un apellido válido, de mínimo 3 carácteres');
       }
     } else if (this.userForm.controls.email.status != 'VALID') {
       if (this.userForm.controls.email.value == null) {
-        this.notification.warning('Funcionario', 'Por favor ingrese email del nuevo funcionario.');
+        this.notification.warning('Usuario', 'Por favor ingrese email del nuevo funcionario.');
       } else if (!this.userForm.controls.email.errors.validarEmail) {
-        this.notification.warning('Funcionario', 'Por favor ingrese un email válido');
+        this.notification.warning('Usuario', 'Por favor ingrese un email válido');
       }
     } else if (this.userForm.controls.genero.status != 'VALID') {
       if (this.userForm.controls.genero.value == null) {
-        this.notification.warning('Funcionario', 'Por favor seleccione genero del funcionario');
+        this.notification.warning('Usuario', 'Por favor seleccione genero del funcionario');
       }
     } else if (this.userForm.controls.roles.status != 'VALID') {
       if (this.userForm.controls.roles.value == null) {
-        this.notification.warning('Funcionario', 'Por favor seleccione al menos un rol para el funcionario');
+        this.notification.warning('Usuario', 'Por favor seleccione al menos un rol para el funcionario');
       }
     }
   }
 
-  setForm (user) {
+  formateaRut() {
+    let rutFormat = this.rutService.formateaRut(this.userForm.controls['rut'].value);
+    this.userForm.controls['rut'].setValue(rutFormat);
+  }
+
+  setUser(user) {
+    console.log(user)
     this.userForm.controls['rut'].setValue(user.persona_rut)
     this.userForm.controls['nombre'].setValue(user.persona_nombre)
     this.userForm.controls['apellido'].setValue(user.persona_apellido)
@@ -199,19 +237,25 @@ export class UsersAdminComponent implements OnInit {
     this.userForm.controls['direccion'].setValue(user.persona_direccion)
     this.userForm.controls['genero'].setValue(user.genero_id)
     this.userForm.controls['nacionalidad'].setValue(user.persona_nacionalidad)
+    let roles = user.roles.map(rol => {
+      return rol.id
+    })
+    this.userForm.controls['roles'].setValue(roles)
+    this.userId = user.funcionario_id
+    this.openModal('edit')
   }
 
-  clearForm () {
-    this.userForm.reset()
+  clearForm() {
     this.userForm.controls['rut'].setValue('')
     this.userForm.controls['nombre'].setValue('')
     this.userForm.controls['apellido'].setValue('')
     this.userForm.controls['email'].setValue('')
     this.userForm.controls['telefono'].setValue('')
     this.userForm.controls['direccion'].setValue('')
-    this.userForm.controls['genero'].setValue([])
     this.userForm.controls['nacionalidad'].setValue('')
+    this.userForm.controls['genero'].setValue('')
     this.userForm.controls['roles'].setValue([])
+    this.userForm.reset()
   }
 
 

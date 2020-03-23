@@ -12,7 +12,7 @@
         <nz-table nzShowPagination="false" #usersTable [nzFooter]="tableFooter" [nzData]="users" [nzLoading]="loading">
             <thead>
                 <tr>
-                    <th class="first-th">ID</th>
+                    <th>ID</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>RUT</th>
@@ -23,7 +23,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let data of usersTable.data">
-                    <td class="first-td">{{ data.funcionario_id }}</td>
+                    <td>{{ data.funcionario_id }}</td>
                     <td>{{ data.persona_nombre }}</td>
                     <td>{{ data.persona_apellido }}</td>
                     <td>{{ data.persona_rut }}</td>
@@ -35,7 +35,7 @@
                         </span>
                     </td>
                     <td>
-                        <i nz-icon nzType="unlock" nzTheme="outline"></i>
+                        <i nz-icon nzType="edit" nzTheme="outline" (click)="setUser(data)"></i>
                         <i nz-icon nzType="delete" nzTheme="outline"></i>
                     </td>
                 </tr>
@@ -59,9 +59,9 @@
     </nz-card>
 </nz-layout>
 
-<nz-modal [(nzVisible)]="modalUser" nzWrapClassName="vertical-center-modal" nzTitle="Nuevo Usuario" nzOkText="Enviar"
+<nz-modal [(nzVisible)]="userModal" nzWrapClassName="vertical-center-modal" nzTitle="Nuevo Usuario" nzOkText="Enviar"
     nzCancelText="Cancelar" [nzContent]="modalContent" [nzFooter]="modalFooter" nzWidth="600"
-    (nzOnCancel)="closeModal('create')">
+    (nzOnCancel)="closeModal('user')">
     <ng-template #modalContent>
         <form [formGroup]="userForm" autocomplete="off">
             <div class="modal-container">
@@ -70,7 +70,7 @@
                         <label class="form-label">RUT</label>
                     </div>
                     <div nz-col nzMd="16">
-                        <input nz-input formControlName="rut" placeholder="RUT" />
+                        <input nz-input formControlName="rut" placeholder="RUT" (keyup)="formateaRut()"/>
                     </div>
                 </div>
                 <div nz-row>
@@ -94,9 +94,8 @@
                         <label class="form-label">Género</label>
                     </div>
                     <div nz-col nzMd="16">
-                        <nz-select formControlName="genero" class="w-100" nzAllowClear
-                            nzPlaceHolder="Generos">
-                            <nz-option *ngFor="let genero of generos; let i = index" [nzValue]="genero"
+                        <nz-select formControlName="genero" class="w-100" nzAllowClear nzPlaceHolder="Generos">
+                            <nz-option *ngFor="let genero of generos; let i = index" [nzValue]="genero.id"
                                 [nzLabel]="genero.descripcion">
                             </nz-option>
                         </nz-select>
@@ -152,9 +151,11 @@
     </ng-template>
     <ng-template #modalFooter>
         <button nz-button nzSize="large" style="background-color: #e8e8e8;"
-            (click)="closeModal('create')">Cancelar</button>
+            (click)="closeModal('user')">Cancelar</button>
+        <button nz-button nzSize="large" style="background-color: #e8e8e8;"
+            (click)="clearForm()">Limpiar</button>
         <button nz-button nzSize="large" nzType="primary" (click)="saveUser()" [disabled]="userForm.invalid">
-            Generar
+            {{formType}}
         </button>
     </ng-template>
 </nz-modal>

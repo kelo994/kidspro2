@@ -1,14 +1,14 @@
 <nz-page-header>
     <nz-page-header-title>Evaluaciones SIMCE</nz-page-header-title>
     <nz-page-header-extra>
-        <app-simce-create></app-simce-create>
+        <app-simce-create (newEvaluation)=newEvaluation($event)></app-simce-create>
     </nz-page-header-extra>
 </nz-page-header>
 <nz-layout class="inner-layout">
     <h5>Evaluaciones Activas</h5>
     <div nz-row>
         <div nz-col nzMd="14" nzXs="24" class="bg-blue">
-            <nz-card style="min-height: 360px;" nzShowPagination>
+            <nz-card style="min-height: 375.2px;" nzShowPagination>
                 <div class="offset-6 col-6 pt-3">
                     <div class="input-group input-group-sm mb-3">
                         <label class="pr-3 m-0 py-2"><strong>Buscar</strong></label>
@@ -18,7 +18,7 @@
                 <nz-table style="width: 100%;" #pruebasTable [nzData]="pruebas" nzPageSize="5" [nzLoading]="pruebasLoading">
                     <thead>
                         <tr>
-                            <th class="first-th">ID</th>
+                            <th>ID</th>
                             <th>Tipo</th>
                             <th>Curso</th>
                             <th>Estado</th>
@@ -27,13 +27,13 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let data of pruebasTable.data | filter:searchEvaluaciones">
-                            <td class="first-td">{{ data.prueba_id }}</td>
+                            <td>{{ data.prueba_id }}</td>
                             <td>{{ data.simce_descripcion }}</td>
                             <td>{{ data.curso_nombre }}</td>
                             <td>{{ data.estado_prueba }}</td>
                             <td>
-                                <i *ngIf="data.estado_id === 1" class="fa fa-play vertical-line" style="color: rgba(65, 156, 85, 0.911)"></i>
-                                <i *ngIf="data.estado_id === 2" class="fa fa-stop vertical-line" style="color: rgba(255, 101, 91, 0.911);"></i>
+                                <i *ngIf="data.estado_id === 1" class="fa fa-play vertical-line" style="color: rgba(65, 156, 85, 0.911)" (click)="showConfirm('activar', data)"></i>
+                                <i *ngIf="data.estado_id === 2" class="fa fa-stop vertical-line" style="color: rgba(255, 101, 91, 0.911);" (click)="showConfirm('finalizar', data)"></i>
                                 <i nz-icon nzType="file-search" class="vertical-line"></i>
                                 <i nz-icon nzType="unlock" nzTheme="outline" class="vertical-line" style="color: rgba(202, 175, 18, 0.89)"></i>
                                 <i nz-icon nzType="delete" nzTheme="outline"></i>
@@ -43,23 +43,31 @@
                 </nz-table>
             </nz-card>
         </div>
-        <div class="pl-4" nz-col nzMd="10" nzXs="24">
+        <div class="second-row" nz-col nzMd="10" nzXs="24">
             <nz-card style="min-height: 234px; text-align: center;" >
-                <div style="width: 100%;" #charts></div>
+                <div #chartActivas></div>
             </nz-card>
-            <nz-card style="min-height: 78px;" >
-                <p>Card content</p>
-                <p>Card content</p>
-                <p>Card content</p>
+            <nz-card class="card-evaluations">
+                <div nz-row>
+                    <div nz-col nzXs="6" nzSm="6" nzMd="24" nzLg="6">
+                        <i nz-icon nzType="file" nzTheme="outline" class="icon-file"></i>
+                    </div>
+                    <div nz-col nzXs="18" nzSm="18" nzMd="24" nzLg="18">
+                        <div class="title-card-evaluations">
+                            <span style="font-weight: bold;">{{ pruebas.length }}</span> evaluaciones activas
+                        </div>
+                        <div class="subtitle-card-evaluations">
+                            <span class="subtitle-number-card-evaluations">7</span> evaluaciones en espera
+                        </div>
+                    </div>
+                </div>
             </nz-card>
         </div>
     </div>
-    <div nz-row>
-    </div>
-    <h5>Historial de resultados</h5>
-    <div nz-row>
-        <div nz-col nzSpan="18" class="bg-blue">
-            <nz-card>
+    <div nz-row class="finish-evaluations">
+        <h5>Historial de resultados</h5>
+        <div nz-col nzMd="24" nzLg="17" nzXl="18" class="bg-blue">
+            <nz-card style="min-height: 520px;">
                 <div class="offset-6 col-6 pt-3">
                     <div class="input-group input-group-sm mb-3">
                         <label class="pr-3 m-0 py-2"><strong>Buscar</strong></label>
@@ -69,7 +77,7 @@
                 <nz-table #pruebasFinalizadasTable [nzData]="pruebasFinalizadas" nzPageSize="9" [nzLoading]="pruebasFinalizadasLoading">
                     <thead>
                         <tr>
-                            <th class="first-th">ID</th>
+                            <th>ID</th>
                             <th>Tipo</th>
                             <th>Curso</th>
                             <th>Puntaje</th>
@@ -80,7 +88,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let data of pruebasFinalizadasTable.data | filter:searchHistorial">
-                            <td class="first-td">{{ data.prueba_id }}</td>
+                            <td>{{ data.prueba_id }}</td>
                             <td>{{ data.simce_descripcion }}</td>
                             <td>{{ data.curso_nombre }}</td>
                             <td>{{ data.puntaje_simce }}</td>
@@ -101,16 +109,17 @@
                 <input nz-input placeholder="" />
             </ng-template>
         </div>
-        <div class="pl-4" nz-col nzSpan="6">
+        <div nz-col nzMd="24" nzLg="7" nzXl="6" class="second-row-bottom">
             <nz-card>
-                <p>Card content</p>
-                <p>Card content</p>
-                <p>Card content</p>
+                <div #chartResultados></div>
             </nz-card>
-            <nz-card>
-                <p>Card content</p>
-                <p>Card content</p>
-                <p>Card content</p>
+            <nz-card class="card-finish-evaluations">
+                <div class="title-card-finish-evaluations">
+                    <span style="font-weight: bold;">{{ pruebasFinalizadas.length }}</span> evaluaciones
+                </div>
+                <div class="subtitle-card-finish-evaluations">
+                    15% de alumnos aprobados
+                </div>
             </nz-card>
         </div>
     </div>

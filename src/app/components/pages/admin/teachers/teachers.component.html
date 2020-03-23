@@ -6,7 +6,7 @@
         <nz-table nzShowPagination="false" #teachersTable [nzFooter]="tableFooter" [nzData]="teachers" [nzLoading]="loading">
             <thead>
                 <tr>
-                    <th class="first-th">ID</th>
+                    <th>ID</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>RUT</th>
@@ -16,7 +16,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let data of teachersTable.data">
-                    <td class="first-td">{{ data.funcionario_id }}</td>
+                    <td>{{ data.funcionario_id }}</td>
                     <td>{{ data.persona_nombre }}</td>
                     <td>{{ data.persona_apellido }}</td>
                     <td>{{ data.persona_rut }}</td>

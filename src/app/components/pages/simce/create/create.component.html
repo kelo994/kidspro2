@@ -90,8 +90,8 @@
   </ng-template>
   <ng-template #modalDetailFooter>
     <button nz-button nzSize="large" (click)="closeModal('detail')">Ver Preguntas</button>
-    <button nz-button nzSize="large" nzType="primary" [disabled]="createForm.invalid">
-      Generar
+    <button nz-button nzSize="large" (click)="closeModal('detail')" nzType="primary">
+      Cerrar
     </button>
   </ng-template>
 </nz-modal>
