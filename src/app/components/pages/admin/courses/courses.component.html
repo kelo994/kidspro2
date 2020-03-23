@@ -4,43 +4,30 @@
 
 <nz-layout class="inner-layout">
   <mat-accordion>
-    <mat-expansion-panel>
+    <mat-expansion-panel *ngFor="let nivel of niveles; let i = index">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          1º Básico
+          {{ nivel.nivel_descripcion }}
         </mat-panel-title>
         <mat-panel-description>
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <nz-table #borderedTable nzBordered nzFooter="" nzSize="middle"  [nzData]="dataSet" nzShowPagination="false">
+      <nz-table #borderedTable nzBordered nzFooter="" nzSize="middle"  [nzData]="nivel.asignaturas" nzShowPagination="false">
         <thead>
         <tr>
           <th>Asignaturas / Secciones</th>
-          <th>Age</th>
-          <th>Address</th>
+          <th *ngFor="let curso of nivel.cursos; let i = index">{{ curso.seccion_nombre }}</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let data of borderedTable.data">
-          <td> Matematicas </td>
-          <td>{{ data.age }}</td>
-          <td>{{ data.address }}</td>
+        <tr *ngFor="let asignaturas of borderedTable.data">
+          <td>{{ asignaturas.asignatura_nombre }}</td>
+          <td *ngFor="let curso of asignaturas.cursos"> {{ curso.seccion_nombre }}</td>
         </tr>
         </tbody>
       </nz-table>
     </mat-expansion-panel>
 
-    <mat-expansion-panel (opened)="panelOpenState = true"
-                         (closed)="panelOpenState = false">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Self aware panel
-        </mat-panel-title>
-        <mat-panel-description>
-          Currently I am {{panelOpenState ? 'open' : 'closed'}}
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <p>I'm visible because I am open</p>
-    </mat-expansion-panel>
+
   </mat-accordion>
 </nz-layout>
