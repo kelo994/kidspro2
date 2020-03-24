@@ -9,18 +9,12 @@ import { CursoComponent } from './curso/curso.component';
 import { AsignaturasComponent } from './asignaturas/asignaturas.component';
 
 import { CoursesAdminComponent } from './admin/courses/courses.component';
-<<<<<<< HEAD
 import { StudentsAdminComponent } from './admin/students/students.component'
 import { TeachersAdminComponent } from './admin/teachers/teachers.component'
 import { UsersAdminComponent } from './admin/users/users.component'
 import { ReportesComponent } from './reportes/reportes.component';
 import { ObjetivosComponent } from './reportes/objetivos/objetivos.component';
 import { ActividadesComponent } from './reportes/actividades/actividades.component';
-=======
-import { StudentsAdminComponent } from './admin/students/students.component';
-import { TeachersAdminComponent } from './admin/teachers/teachers.component';
-import { UsersAdminComponent } from './admin/users/users.component';
->>>>>>> 4e1eb7e5be952c30e26ac4e3cb4e17a46f96d13a
 
 const pagesroutes: Routes = [{
   path: 'pages',
