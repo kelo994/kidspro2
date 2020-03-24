@@ -20,6 +20,11 @@ import { UnidadComponent} from './unidad/unidad.component';
 import { AsignaturasComponent } from './asignaturas/asignaturas.component';
 import { MaterialModule } from 'src/app/material.module';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { ReportesComponent } from './reportes/reportes.component';
+import { ObjetivosComponent } from './reportes/objetivos/objetivos.component';
+import { ActividadesComponent } from './reportes/actividades/actividades.component';
+import { ChartModule } from 'angular-highcharts';
+import { ChartsModule } from 'ng2-charts';
 
 
 @NgModule({
@@ -32,7 +37,9 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
         AdminModule,
         SimceModule,
         MaterialModule,
-        Ng2SearchPipeModule
+        Ng2SearchPipeModule,
+        ChartModule,
+        ChartsModule
     ],
     declarations: [
         PagesComponent,
@@ -40,7 +47,10 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
         CursoComponent,
         AsignaturasComponent,
         LeccionComponent,
-        UnidadComponent
+        UnidadComponent,
+        ReportesComponent,
+        ObjetivosComponent,
+        ActividadesComponent
     ],
     providers: [{ provide: NZ_I18N, useValue: es_ES }, NzI18nService],
     entryComponents: [ ]

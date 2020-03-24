@@ -18,6 +18,22 @@ export class PagesComponent implements OnInit {
     { path: 'usuarios', name: 'Usuarios', icon: 'team', nzIcon: true }
   ]
 
+  // Collapse one submenu
+  openMap: { [name: string]: boolean } = {
+    sub1: false,
+    sub2: false,
+    sub3: false,
+    sub4: false
+  };
+
+  openHandler(value: string): void {
+    for (const key in this.openMap) {
+      if (key !== value) {
+        this.openMap[key] = false;
+      }
+    }
+  }
+
   toggleCollapsed(): void {
     this.isCollapsed = !this.isCollapsed;
   }
@@ -30,6 +46,10 @@ export class PagesComponent implements OnInit {
   changeRoute(item) {
     localStorage.setItem('CursoName', item.curso_nombre);
     this.router.navigate(['/pages/curso', item.curso_id]);
+  }
+
+  gotoReportes(text) {
+    this.router.navigate(['//pages/reportes/' + text]);
   }
 
   goToSimce () {

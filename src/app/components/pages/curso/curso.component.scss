@@ -46,8 +46,8 @@ nz-input-group {
 
 @media (max-width: 800px) {
     .modal-container {
-        margin-left: 10px!important;
-        margin-right: 10px!important;
+        margin-left: 10px !important;
+        margin-right: 10px !important;
     }
 }
 
@@ -62,6 +62,25 @@ nz-input-group {
     z-index: 50;
     color: #2f80ed;
     text-shadow: 6px -2px #bbb9b9;
+    line-height: 0px;
+    position: absolute;
+    top: 100px;
+    left: -26px;
+
+    .desactive {
+        font-family: initial !important;
+        color: #bdbdbd !important;
+    }
+
+    .active {
+        font-family: initial !important;
+        color: #1890ff !important;
+    }
+
+    .afterActive {
+        font-family: initial !important;
+        color: #f2c94c !important;
+    }
 }
 
 .col-step-content {
@@ -69,8 +88,53 @@ nz-input-group {
     margin-top: 56px;
     right: 15px;
     border-radius: 15px;
+    z-index: 40;
 
     p {
         font-size: 20px;
     }
+}
+
+.bd-top {
+    border-top: 1px solid gray;
+}
+
+.ant-menu-item-selected {
+    background-color: #e2e4e4 !important;
+    border-left: 3px solid #1890ff !important;
+}
+
+.ant-menu-inline .ant-menu-item::after {
+    border-right: 0px solid #1890ff !important;
+}
+
+.progress {
+    height: 6px !important;
+    background-color: #bdbdbd;
+    left: -27px !important;
+
+    .progress-bar {
+        background-color: #1890ff;
+    }
+}
+
+.point-blue {
+    height: 25px;
+    width: 25px;
+    background-color: #1890ff;
+    border-radius: 50%;
+    z-index: 150;
+    position: absolute;
+    top: -10px;
+}
+
+.point-blank {
+    background-color: #fff;
+    height: 25px;
+    width: 25px;
+    border: 2px solid #bdbdbd;
+    border-radius: 50%;
+    z-index: 150;
+    position: absolute;
+    top: -10px;
 }

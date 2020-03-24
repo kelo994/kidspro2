@@ -18,6 +18,7 @@ import { StudentModule } from './components/student/student.module';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { EmbedVideo } from 'ngx-embed-video';
 // Charts
+import { ChartsModule } from 'ng2-charts';
 import { ChartModule } from 'angular-highcharts';
 import { HighchartsService } from './services/highcharts.service';
 registerLocaleData(es);
@@ -48,6 +49,7 @@ const ngZorroConfig: NzConfig = {
     Ng2SearchPipeModule,
     EmbedVideo.forRoot(),
     ChartModule,
+    ChartsModule
   ],
   exports: [Ng2SearchPipeModule],
   entryComponents: [DialogDataExampleDialog],

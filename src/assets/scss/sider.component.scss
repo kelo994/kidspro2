@@ -9,7 +9,7 @@
 
 .menu-sidebar .ant-layout-sider-children {
   position: fixed;
-  width: 190px;
+  width: 180px;
 }
 
 .submenu-sidebar {
@@ -26,4 +26,40 @@
   width: inherit;
   padding-left: 4px;
   padding-right: 4px;
+}
+
+.submenu-sidebar-reportes {
+  position: relative !important;
+  z-index: 10 !important;
+  min-height: 100vh !important;
+  background-color: #e0e0e0;
+  margin-top: 48px;
+  height: auto !important;
+}
+
+.ant-menu-item-group-title {
+  font-size: 10px !important;
+  padding-left: 42px;
+  padding-top: 35px;
+}
+
+.ant-menu-item {
+  padding-left: 10px !important;
+}
+
+.ant-menu-submenu-title {
+  padding-left: 10px !important;
+  font-size: 12px !important;
+}
+
+.ant-menu-submenu-selected {
+  color: #000000;
+  border: 1px solid black !important;
+}
+
+.ant-menu-inline .ant-menu-item {
+  height: 30px !important;
+  line-height: 30px !important; 
+  font-size: 10px !important;
+  margin-top: 0px !important;
 }

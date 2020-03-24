@@ -1,0 +1,86 @@
+<nz-page-header >
+  <nz-page-header-title>Administración de cursos</nz-page-header-title>
+  <nz-page-header-extra >
+    <button style="font-size: 12px; font-weight: bold; background-color: #009dee; color: white" nz-button  (click)="openModal('create')">
+      <i nz-icon nzType="plus"></i>
+      <nz-divider [nzType]="'vertical'" style="margin-left: 0px"></nz-divider>
+      Crear curso
+    </button>
+  </nz-page-header-extra>
+</nz-page-header>
+
+<nz-layout class="inner-layout">
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let nivel of niveles; let i = index">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <strong>{{ nivel.nivel_descripcion }}</strong>
+        </mat-panel-title>
+        <mat-panel-description>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <nz-table class="content-table" #borderedTable  nzFooter="" nzSize="middle"  [nzData]="nivel.asignaturas" nzShowPagination="false">
+        <thead>
+        <tr>
+          <th>Asignaturas / Secciones</th>
+          <th class="content-celda" *ngFor="let curso of nivel.cursos; let i = index">{{ curso.seccion_nombre }}</th>
+        </tr>
+        </thead>
+        <tbody >
+        <tr *ngFor="let asignaturas of borderedTable.data">
+          <td>{{ asignaturas.asignatura_nombre }}</td>
+          <td class="content-celda" *ngFor="let curso of asignaturas.cursos">
+            <a [routerLink]="['/pages/cursos/unidades/lecciones/']"
+               [state]="{}">
+              <i nz-icon nzType="file-add" nzTheme="outline"></i>
+            </a>
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </mat-expansion-panel>
+
+
+  </mat-accordion>
+</nz-layout>
+
+<nz-modal [(nzVisible)]="modalCrearCurso" nzWrapClassName="vertical-center-modal" nzTitle="Crear curso nuevo" nzOkText="Crear"
+          nzCancelText="Cancelar" [nzContent]="modalContent" [nzFooter]="modalFooter" nzWidth="600"
+          (nzOnCancel)="closeModal('curso')" >
+  <ng-template #modalContent>
+    <form [formGroup]="cursoForm" autocomplete="off">
+      <div class="modal-container">
+        <div nz-row>
+          <div nz-col nzMd="8">
+            <label class="form-label">Nivel curso:</label>
+          </div>
+          <div nz-col nzMd="16">
+            <nz-select formControlName="nivel" class="w-100" nzAllowClear nzPlaceHolder="Seleccione un nivel disponible">
+              <nz-option *ngFor="let nivel of nivelesSCrear; let i = index" [nzValue]="nivel.nivel_id"
+                         [nzLabel]="nivel.nivel_descripcion">
+              </nz-option>
+            </nz-select>
+          </div>
+        </div>
+        <nz-divider ></nz-divider>
+        <div nz-row>
+          <div nz-col nzMd="8">
+            <label class="form-label">Cantidad de secciones:</label>
+          </div>
+          <div nz-col nzMd="16">
+            <nz-input-number formControlName="numeroSecciones" nzPlaceHolder="1"
+                             [nzSize]="'small'" [nzMin]="1" [nzMax]="26" [nzStep]="1"></nz-input-number>
+            ¿Cuantas secciones va a habilitar?
+          </div>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+  <ng-template #modalFooter style="border-bottom: 4px solid #009dee;">
+    <button nz-button nzSize="large" style="background-color: #e8e8e8;"
+            (click)="closeModal('curso')">Cancelar</button>
+    <button nz-button nzSize="large" nzType="primary" (click)="saveCurso()" [disabled]="cursoForm.invalid">
+      Guardar
+    </button>
+  </ng-template>
+</nz-modal>
