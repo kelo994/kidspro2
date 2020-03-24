@@ -87,7 +87,6 @@ export class AuthService {
   }
 
   public loginCode(data): Observable<any> {
-    //console.log("codigo enviado " + data + " " + data.codigo);
     return this.http.post<any>(this.url + '/verificarCodigo', { codigo: data.codigo })
       .pipe(map(data => {
         // login successful if there's a jwt token in the response

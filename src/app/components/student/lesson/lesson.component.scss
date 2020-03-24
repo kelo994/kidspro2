@@ -1,0 +1,261 @@
+  .lesson-sidebar {
+    background-color:  rgba(0, 0, 0, 0.04);
+    background-image: url('../../../../assets/images/student/fondo.png');
+    margin-top: 0px !important;
+    padding-top: 80px;
+  }
+
+  .lesson-sidebar-sm {
+    background-color:  rgba(0, 0, 0, 0.04);
+    background-image: url('../../../../assets/images/student/fondo.png');
+    margin-top: 0px !important;
+    padding-top: 10px;
+  }
+
+  ::ng-deep .ant-layout-sider {
+    overflow: auto;
+  }
+
+  .drawer-button {
+    background-image: url('../../../../assets/images/student/fondo.png');
+  }
+
+  ::ng-deep .ant-drawer-content {
+    background-image: url('../../../../assets/images/student/fondo.png');
+  }
+
+  ::ng-deep .ant-drawer-body {
+    padding: 0px;
+  }
+
+  .lessons {
+    margin: auto;
+    padding: 20px;
+    margin-bottom: 20px;
+    font-family: "Luckiest Guy";
+    font-size: 46px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    line-height: 1;
+    color: #fff;
+    letter-spacing: 1.2px;
+    text-align: center;
+  }
+
+  .container-lessons-videos {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .lesson-title {
+    padding-left: 40px;
+    padding-top: 30px;
+  }
+  
+  nz-header {
+    background: #fff;
+    padding: 0;
+  }
+  
+  nz-content {
+    margin-bottom: 40px;
+  }
+  
+  .inner-content {
+    margin: 40px 15px 0 15px ;
+  }
+  
+  nz-footer {
+    text-align: center;
+  }
+  
+  .inner-content-right{
+    background-color: #fff;
+    padding-top: 10px;
+  }
+  
+  
+  .negrita{
+    font-weight: bold;
+  }
+  
+  
+  p {
+    margin: 0;
+  }
+  
+  .border-full {
+    border: rgba(0,0,0,0.3) 0.4px solid;
+  }
+  
+  .border-bottom {
+    border-bottom: rgba(0,0,0,0.3) 0.4px solid;
+  }
+  
+  .layout-right-title{
+    margin-top: 0px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  .vista-previa-image{
+    padding: 30px 40px;
+  }
+  
+  .layout-right-content{
+    padding: 10px 20px;
+  }
+
+  .layout-play {
+    padding: 20px 40px;
+    margin: auto;
+  }
+
+  .button-play {
+    cursor: pointer;
+  }
+  
+  .descripcion-documento{
+    font-size: 10px;
+  }
+  
+  #cardVideo { height: 90%; max-height: 538px;}
+  .pointer { cursor: pointer !important; }
+  
+  .video{
+    width: 100%;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+  
+  @media only screen and (min-width: 200px) {
+    .video{
+      height: 250px;
+    }
+  }
+  
+  @media only screen and (min-width: 400px) {
+    .video{
+      height: 280px;
+    }
+  }
+  
+  @media only screen and (min-width: 600px) {
+    .video{
+      height: 400px;
+    }
+  }
+  
+  @media only screen and (min-width: 800px) {
+    .video{
+      height: 370px;
+    }
+    .container-lessons-videos {
+      padding-left: 35px;
+      padding-right: 35px;
+    }
+  }
+  
+  @media only screen and (min-width: 993px) {
+    .video{
+      height: 350px;
+    }
+  }
+  
+  @media only screen and (min-width: 1201px) {
+    .video{
+      height: 350px;
+    }
+    .layout-right-title {
+      margin-top: 60px;
+    }
+    .inner-content-right{
+      padding-top: 60px;
+    }
+  }
+
+  @media only screen and (min-width: 1301px) {
+    .video{
+      height: 400px;
+    }
+  }
+  
+  @media only screen and (min-width: 1401px) {
+    .video{
+      height: 440px;
+    }
+  }
+
+  @media only screen and (min-width: 1440px) {
+    .video{
+      height: 460px;
+    }
+    .lesson-title {
+      padding-left: 50px;
+    }
+  }
+  
+  @media only screen and (min-width: 1601px) {
+    .video{
+      height: 560px;
+    }
+  }
+
+  @media only screen and (min-width: 1751px) {
+    .video{
+      height: 600px;
+    }
+  }
+  
+  @media only screen and (min-width: 1901px) {
+    .video{
+      height: 700px;
+    }
+  }
+  @media only screen and (min-width: 2101px) {
+    .video{
+      height: 850px;
+    }
+  }
+  
+  ::ng-deep ul li .ant-menu-item.ant-menu-item-selected {
+    color: red;
+  }
+  
+  li .ant-menu-item{
+    margin: 0;
+  }
+  .ant-menu-item{
+    margin:0;
+  }
+  
+  .truncar-texto {
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+  }
+  
+  .btnPlay-leccion {
+    transform: translate(-50%, -50%) !important;
+    -ms-transform: translate(-50%, -50%) !important;
+    background-color: #5050505e !important;
+    border-radius: 50% !important;
+    position: absolute !important;
+    top: 37.5% !important;
+    left: 50% !important;
+    width: 80px !important;
+    height: 80px !important;
+    color: #ffffff !important;
+    font-size: 46px !important;
+  }
+
+  ::ng-deep .ant-card > .ant-card-body {
+    padding-top: 8px;
+    padding-bottom: 12px;
+    padding-right: 20px;
+    padding-left: 20px;
+    text-align: center;
+    font-weight: 500;
+  }

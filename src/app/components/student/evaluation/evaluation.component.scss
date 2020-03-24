@@ -1,0 +1,84 @@
+::ng-deep .ant-layout-sider {
+    overflow: auto;
+}
+
+::ng-deep .ant-card-body {
+    padding: 15px;
+}
+
+.evaluation-subheader {
+    background-color: #ea8925e0;
+}
+
+.evaluation-subheader-title {
+    font-size: 18px;
+    color: #fff;
+    font-weight: 500;
+    text-align: center;
+    float: inherit;
+}
+
+.evaluation-subheader-subtitle {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    float: inherit;
+}
+
+[nz-radio] {
+    display: block;
+    margin: 5px auto;
+}
+
+.question-container {
+    margin: 30px 10px
+}
+
+.card-img {
+    background-color: #80808060!important;
+}
+
+.question-img {
+    display:block; margin:auto;
+}
+
+.question {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+@media only screen and (min-width: 600px) {
+    .question {
+        padding-left: 50px;
+    }
+    .question-container {
+        margin: 30px 40px
+    }
+    .evaluation-subheader-title {
+        font-size: 24px;
+    }
+}
+
+.question-option {
+    display: 'block';
+}
+
+.overflow-visible {
+    overflow: hidden;
+    white-space: initial;
+    font-weight: 500;
+}
+
+.bold {
+    font-weight: 600;
+}
+
+.sidebar-evaluation-title {
+    text-align: center;
+    font-weight: 400;
+    font-size: 14px;
+    color: #000000;
+}

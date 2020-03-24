@@ -1,0 +1,28 @@
+<nz-header>
+    <div class="row">
+        <div class="col">
+            <div class="row">
+                <div class="col d-block my-auto">
+                    <div class="logo">
+                        <img class="logo-imagen" src="../../../../../assets/images/logo/kids-logo.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col d-block my-auto">
+            <div class="btn-container btn-group">
+                <div class="info-container dropdown-toggle ml-auto" type="button" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <img class="logo-opcion" src="../../../../../assets/images/student/opcion.png" alt="">
+                </div>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Cambiar estudiante</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" (click)="logout()">Cerrar sesión</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nz-header>
+
+<router-outlet></router-outlet>

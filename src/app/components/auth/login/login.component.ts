@@ -18,7 +18,10 @@ export class LoginComponent implements OnInit {
   formaCode: FormGroup;
   codeIcon = 'login';
 
-  constructor (
+  estudiantes: any;
+  tokenStudent;
+
+  constructor(
     private authService: AuthService,
     private rutService: RutService,
     private notification: NzNotificationService,
@@ -32,7 +35,7 @@ export class LoginComponent implements OnInit {
       'password': new FormControl('123456', [Validators.required, Validators.minLength(3)])
     })
     this.formaCode = new FormGroup({
-      'code': new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]),
+      'codigo': new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]),
     })
   }
 
@@ -42,43 +45,39 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.formaLogin.valid) {
-        this.loginIcon = 'loading';
-        this.authService.login(this.formaLogin.getRawValue()).subscribe( (data) => {
-          if (data.establecimientos.length > 0) {
-            localStorage.setItem('perfil', JSON.stringify(data.user));
-            localStorage.setItem('establecimientos', JSON.stringify(data.establecimientos));
-            this.notification.create('success', 'Bienvenido', 'Has Iniciado Sesión Satisfactoriamente');
+      this.loginIcon = 'loading';
+      this.authService.login(this.formaLogin.getRawValue()).subscribe((data) => {
+        if (data.establecimientos.length > 0) {
+          localStorage.setItem('perfil', JSON.stringify(data.user));
+          localStorage.setItem('establecimientos', JSON.stringify(data.establecimientos));
+          this.notification.create('success', 'Bienvenido', 'Has Iniciado Sesión Satisfactoriamente');
 
-            if (data.establecimientos.length == 1) {
-              this.openCollege(data.establecimientos[0]);
-            } else {
-              //MODAL
-            }
+          if (data.establecimientos.length == 1) {
+            this.openCollege(data.establecimientos[0]);
           } else {
-            this.notification.warning('Usuario sin Establecimiento', 'Lo sentimos, su usuario no cuenta con ningun establecimiento asociado.');
+            //MODAL
           }
-          this.loginIcon = 'login';
-        }, (error) => {
-          this.loginIcon = 'login';
-          this.formaLogin.controls['password'].setValue('');
-          if (error.status == 401 || error == 'Unauthorized') {
-            this.notification.error('Error en Acceso', 'Credenciales Inválidas');
-          } else {
-            this.notification.error('Error de Conexión', 'Ocurrió un error inesperado, intentelo más tarde');
-          }
-        })
+        } else {
+          this.notification.warning('Usuario sin Establecimiento', 'Lo sentimos, su usuario no cuenta con ningun establecimiento asociado.');
+        }
+        this.loginIcon = 'login';
+      }, (error) => {
+        this.loginIcon = 'login';
+        this.formaLogin.controls['password'].setValue('');
+        if (error.status == 401 || error == 'Unauthorized') {
+          this.notification.error('Error en Acceso', 'Credenciales Inválidas');
+        } else {
+          this.notification.error('Error de Conexión', 'Ocurrió un error inesperado, intentelo más tarde');
+        }
+      })
     } else {
       this.notification.error('RUT Invalido', '');
     }
   }
 
-  loginCode () {
-    this.codeIcon = 'loading';
-  }
-
-  openCollege (establecimiento) {
+  openCollege(establecimiento) {
     localStorage.setItem('nameEstablecimiento', establecimiento.establecimiento_nombre)
-    this.authService.detalleInicial(establecimiento.id).subscribe( (data: any) => { // Success
+    this.authService.detalleInicial(establecimiento.id).subscribe((data: any) => { // Success
       localStorage.setItem('roles', JSON.stringify(data.roles));
       localStorage.setItem('rolId', data.roles[0].rol_codigo);
       localStorage.setItem('cursos', JSON.stringify(data.data));
@@ -89,7 +88,60 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  formateaRut () {
+  loginCode() {
+    this.codeIcon = 'loading';
+    if (this.formaCode.valid) {
+      this.authService.loginCode(this.formaCode.getRawValue()).subscribe((data) => {
+        this.codeIcon = 'login';
+        this.estudiantes = data.estudiantes;
+        //this.info = data;
+        //this.simceState = data.verificar_simce
+        if (this.estudiantes.length > 0) {
+          // abrir modal
+          this.tokenStudent = data.token;
+          
+          localStorage.setItem('idEstudiante', this.estudiantes[0].id);
+          localStorage.setItem('tokenStudent', this.tokenStudent); // se debe borrar
+          localStorage.setItem('nameEstablecimiento', data.establecimiento);
+          localStorage.setItem('rolId', '11');
+          localStorage.setItem('cursoNombre', data.curso);
+          localStorage.setItem('idCurso', data.curso_especifico.curso_id);
+          localStorage.setItem('idAsignatura', data.curso_especifico.asignatura_id);
+          localStorage.setItem('idCursoEspecifico', data.curso_especifico.curso_especifico_id);
+          this.notification.success('Inicio Rápido', 'Código de acceso válido');
+        } else {
+          this.notification.error('Error', 'El curso no tiene estudiantes');
+        }
+      }, (error) => {
+        this.codeIcon = 'login';
+        this.formaCode.controls['codigo'].setValue('');
+        if (error.status == 401 || error == 'Unauthorized') {
+          this.notification.error('Error en Acceso', 'Credenciales Inválidas');
+        } else {
+          this.notification.error('Error de Conexión', 'Ocurrió un error inesperado, intentelo más tarde');
+        }
+      })
+    }
+  }
+
+  openLeccion(idEstudiante, type) {
+    localStorage.setItem('idEstudiante', idEstudiante);
+    this.estudiantes.forEach(element => {
+      if (element.id == idEstudiante) {
+        localStorage.setItem('alumnoFast', element.persona_nombre + " " + element.persona_apellido);
+        localStorage.setItem('tokenStudent', this.tokenStudent);
+        this.notification.success('Inicio de Sesión Exitoso', '');
+        if (type === 'Leccion') {
+          this.router.navigate(['/student/lesson']);
+        }
+        if (type === 'Evaluacion') {
+          this.router.navigate(['/student/evaluation']);
+        }
+      }
+    });
+  }
+
+  formateaRut() {
     let rutFormat = this.rutService.formateaRut(this.formaLogin.controls['rut'].value);
     this.formaLogin.controls['rut'].setValue(rutFormat);
   }

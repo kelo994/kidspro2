@@ -14,6 +14,7 @@ import { LandingComponent, DialogDataExampleDialog } from './components/landing/
 import { MaterialModule } from './material.module';
 import { AuthModule } from './components/auth/auth.module';
 import { PagesModule } from './components/pages/pages.module';
+import { StudentModule } from './components/student/student.module';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { EmbedVideo } from 'ngx-embed-video';
 // Charts
@@ -43,6 +44,7 @@ const ngZorroConfig: NzConfig = {
     MaterialModule,
     AuthModule,
     PagesModule,
+    StudentModule,
     Ng2SearchPipeModule,
     EmbedVideo.forRoot(),
     ChartModule,

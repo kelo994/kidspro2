@@ -1,0 +1,43 @@
+<nz-layout style="height: 100vh; padding-top: 64px;">
+    <nz-sider class="lesson-sidebar" [nzWidth]="siderWidth" nzTheme="light">
+        <nz-card class="sidebar-evaluation-title">
+            Preg<ng-template [ngIf]="siderWidth === 200">untas</ng-template>
+        </nz-card>
+        <ul nz-menu nzMode="inline" class="sider-menu" *ngFor="let q of questions; let i = index">
+            <li nz-menu-item [nzSelected]="q === question ? true : false" (click)="setQuestion(q)">
+                <ng-template [ngIf]="siderWidth === 200">Pregunta </ng-template>{{ q.pregunta_numero }}
+            </li>
+        </ul>
+    </nz-sider>
+
+    <nz-layout>
+        <nz-content>
+            <nz-page-header class="evaluation-subheader">
+                <nz-page-header-title *ngIf="evaluation != null" class="evaluation-subheader-title">Evaluación
+                    #{{ evaluation.prueba_id }} {{ evaluation.simce_descripcion }}</nz-page-header-title>
+                <nz-page-header-content class="evaluation-subheader-subtitle">
+                    Pregunta {{ question.pregunta_numero }} de {{ questions.length }}
+                </nz-page-header-content>
+            </nz-page-header>
+            <div class="question-container" nz-row *ngIf="question != null">
+                <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="17" nzXl="17" nzXXl="16">
+                    <nz-card class="card-img">
+                        <img class="question-img" [src]="question.multimedia" [height]="question.multimedia_height">
+                    </nz-card>
+                </div>
+                <div class="question" nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="7" nzXl="7" nzXXl="8">
+                    <p class="bold">{{ question.primer_parrafo }}</p>
+                    <p class="bold">{{ question.segundo_parrafo }}</p>
+                    <p class="bold">{{ question.tercer_parrafo }}</p>
+                    <nz-radio-group [(ngModel)]="question.respuesta_id">
+                        <label *ngFor="let option of question.alternativas" class="question-option" nz-radio
+                            [nzValue]="option.respuesta_id"
+                            (click)="guardarRespuesta(question.pregunta_id, option.respuesta_id)">
+                            <span class="overflow-visible">{{ option.respuesta }}</span>
+                        </label>
+                    </nz-radio-group>
+                </div>
+            </div>
+        </nz-content>
+    </nz-layout>
+</nz-layout>
