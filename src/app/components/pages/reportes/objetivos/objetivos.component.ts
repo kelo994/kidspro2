@@ -129,8 +129,5 @@ export class ObjetivosComponent implements OnInit {
     pointHoverBackgroundColor: '#56ccf2',
     pointHoverBorderColor: '#56ccf2'
   }];
-
-
-
   public ChartType = 'bar';
 }
