@@ -21,13 +21,13 @@
             <li nz-submenu nzOpen nzIcon="user" nzTitle="Reportes Analíticos"
             [(nzOpen)]="openMap.sub2" (nzOpenChange)="openHandler('sub2')">
                 <ul>
-                    <li nz-menu-item nzMatchRouter style="padding-left: 10px !important;">
-                        <a [routerLink]="['/pages/reportes/objetivos-de-aprendizaje']">
+                    <li nz-menu-item nzMatchRouter style="padding-left: 10px !important;" (click)="gotoReportes('objetivos')">
+                        <a [routerLink]="['/pages/reportes/objetivos']">
                             <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
                             <span>Objetivos de Aprendizaje</span>
                         </a>
                     </li>
-                    <li nz-menu-item nzMatchRouter style="padding-left: 10px !important;">
+                    <li nz-menu-item nzMatchRouter style="padding-left: 10px !important;" (click)="gotoReportes('actividades')">
                         <a [routerLink]="['/pages/reportes/actividades']">
                             <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
                             <span>Actividades</span>
@@ -36,7 +36,7 @@
                 </ul>
             </li>
             <li nz-menu-item nz-tooltip nzPlacement="right" [nzTitle]="isCollapsed ? 'Evaluación SIMCE' : ''"
-                nzMatchRouter (click)="goToSimce()" [(nzOpen)]="openMap.sub3" (nzOpenChange)="openHandler('sub3')">
+                nzMatchRouter (click)="goToSimce()">
                 <a [routerLink]="['/pages/simce']">
                     <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
                     <span>Evaluación SIMCE</span>

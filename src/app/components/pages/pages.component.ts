@@ -48,6 +48,10 @@ export class PagesComponent implements OnInit {
     this.router.navigate(['/pages/curso', item.curso_id]);
   }
 
+  gotoReportes(text) {
+    this.router.navigate(['//pages/reportes/' + text]);
+  }
+
   goToSimce () {
     this.router.navigate(['//pages/simce']);
   }

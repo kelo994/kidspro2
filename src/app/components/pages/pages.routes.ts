@@ -12,6 +12,9 @@ import { CoursesAdminComponent } from './admin/courses/courses.component';
 import { StudentsAdminComponent } from './admin/students/students.component'
 import { TeachersAdminComponent } from './admin/teachers/teachers.component'
 import { UsersAdminComponent } from './admin/users/users.component'
+import { ReportesComponent } from './reportes/reportes.component';
+import { ObjetivosComponent } from './reportes/objetivos/objetivos.component';
+import { ActividadesComponent } from './reportes/actividades/actividades.component';
 
 const pagesroutes: Routes = [{
   path: 'pages',
@@ -32,6 +35,20 @@ const pagesroutes: Routes = [{
     {
       path: 'cursos/unidades/lecciones/:leccion',
       component: LeccionComponent,
+    },
+    {
+      path: 'reportes',
+      component: ReportesComponent,
+      children: [
+        {
+          path: 'objetivos',
+          component: ObjetivosComponent
+        },
+        {
+          path: 'actividades',
+          component: ActividadesComponent
+        }
+      ]
     },
     {
       path: 'simce',

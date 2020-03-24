@@ -28,6 +28,15 @@
   padding-right: 4px;
 }
 
+.submenu-sidebar-reportes {
+  position: relative !important;
+  z-index: 10 !important;
+  min-height: 100vh !important;
+  background-color: #e0e0e0;
+  margin-top: 48px;
+  height: auto !important;
+}
+
 .ant-menu-item-group-title {
   font-size: 10px !important;
   padding-left: 42px;

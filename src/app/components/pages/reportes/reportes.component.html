@@ -1,0 +1,27 @@
+<nz-layout class="left-layout">
+    <nz-sider class="submenu-sidebar-reportes mt-0 pt-3 pl-0 sidebar-repo-r">
+        <p class="title-sider-repo">Filtros Globales</p>
+        <p class="title-filter-repo ml-3">Cursos</p>
+        <ul class="menureport" nz-menu nzMode="inline">
+            <li nz-menu-item nzMatchRouter (click)="selectCourse(1)" style="padding-left: 30px !important;">
+                <span>Nombre Curso</span>
+            </li>
+            <li nz-menu-item nzMatchRouter (click)="selectCourse(1)" style="padding-left: 30px !important;">
+                <span>Nombre Curso</span>
+            </li>
+            <li nz-menu-item nzMatchRouter (click)="selectCourse(1)" style="padding-left: 30px !important;">
+                <span>Nombre Curso</span>
+            </li>
+        </ul>
+        <p class="title-filter-repo ml-3">Asignatura</p>
+        <ul class="menureport" nz-menu nzMode="inline">
+            <li nz-menu-item nzMatchRouter (click)="selectAsignature(1)" style="padding-left: 30px !important;">
+                <span>Lenguaje Comunicación y Literatura</span>
+            </li>
+            <li nz-menu-item nzMatchRouter (click)="selectAsignature(1)" style="padding-left: 30px !important;">
+                <span>MAtemáticas</span>
+            </li>
+        </ul>
+    </nz-sider>
+    <router-outlet></router-outlet>
+</nz-layout>
