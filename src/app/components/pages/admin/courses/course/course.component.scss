@@ -1,0 +1,40 @@
+.content{
+  padding: 30px 30px;
+}
+
+.content-student
+{
+  padding: 10px 20px 20px;
+}
+.boton-retro{
+  font-size: 12px; font-weight: bold; background-color: #009dee; color: white
+}
+
+.student-title{
+  margin-bottom: 30px;
+}
+
+.content-table{
+  padding-bottom: 10px;
+  background-color: white;
+  border-bottom: 4px solid #009dee;
+  border-left: 1px solid rgba(0,0,0,0.3);
+  border-top: 1px solid rgba(0,0,0,0.3);
+  border-right: 1px solid rgba(0,0,0,0.3);
+  border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 5px 10px 1px rgba(0,0,0,.14), 0 3px 10px 2px rgba(0,0,0,.12);
+}
+
+.content-celda{
+  border-left: 1px solid rgba(0,0,0,0.1); text-align: center
+}
+
+
+::ng-deep nz-divider .ant-divider-horizontal {
+  margin: 12px;
+}
+.ant-divider-horizontal {
+  margin: 12px 0;
+}

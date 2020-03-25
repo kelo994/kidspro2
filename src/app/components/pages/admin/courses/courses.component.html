@@ -30,7 +30,7 @@
         <tr *ngFor="let asignaturas of borderedTable.data">
           <td>{{ asignaturas.asignatura_nombre }}</td>
           <td class="content-celda" *ngFor="let curso of asignaturas.cursos">
-            <a [routerLink]="['/pages/cursos/unidades/lecciones/']"
+            <a [routerLink]="['/pages/administrar/cursos/', curso.curso_id , 'asignaturas', asignaturas.asignatura_id]"
                [state]="{}">
               <i nz-icon nzType="file-add" nzTheme="outline"></i>
             </a>

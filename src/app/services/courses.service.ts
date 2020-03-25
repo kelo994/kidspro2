@@ -64,8 +64,81 @@ export class CoursesService {
                 finalize(() => { /*console.log('finilize')*/ }));
     }
 
+    obtenerCurso(cursoId) {
+        return this.http.get(`${this.url}/curso/${cursoId}`, this.getToken())
+            .pipe(timeout(5000),
+                retry(1),
+                catchError((error, c) => {
+                    this.errorTime();
+                    return throwError(error);
+                }),
+                switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+                finalize(() => { /*console.log('finilize')*/ }));
+    }
+
+    estudiantesCursoEstudianteSCurso(cursoId, establecimientoId) {
+        return this.http.get(`${this.url}/estudiantesCurso/${cursoId}/${establecimientoId}`, this.getToken())
+            .pipe(timeout(5000),
+                retry(1),
+                catchError((error, c) => {
+                    this.errorTime();
+                    return throwError(error);
+                }),
+                switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+                finalize(() => { /*console.log('finilize')*/ }));
+    }
+
+    obtenerAsignatura(asignaturaId) {
+        return this.http.get(`${this.url}/asignaturas/${asignaturaId}`, this.getToken())
+            .pipe(timeout(5000),
+                retry(1),
+                catchError((error, c) => {
+                    this.errorTime();
+                    return throwError(error);
+                }),
+                switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+                finalize(() => { /*console.log('finilize')*/ }));
+    }
+
+    obtenerProfesoresCursoAsignatura(asignaturaId, cursoId) {
+        return this.http.get(`${this.url}/asignaturas/${asignaturaId}/curso/${cursoId}/profesores`, this.getToken())
+            .pipe(timeout(5000),
+                retry(1),
+                catchError((error, c) => {
+                    this.errorTime();
+                    return throwError(error);
+                }),
+                switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+                finalize(() => { /*console.log('finilize')*/ }));
+    }
+
+    obtenerProfesoresEstablecimiento(establecimientoId) {
+        return this.http.get(`${this.url}/establecimientos/${establecimientoId}/profesores`, this.getToken())
+            .pipe(timeout(5000),
+                retry(1),
+                catchError((error, c) => {
+                    this.errorTime();
+                    return throwError(error);
+                }),
+                switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+                finalize(() => { /*console.log('finilize')*/ }));
+    }
+
+    agregarFuncionarioCurso(data: any) {
+        return this.http.post(`${this.url}/gestionarCursoEspecifico`, data, this.getToken())
+            .pipe(timeout(5000),
+                retry(1),
+                catchError((error, c) => {
+                    this.errorTime();
+                    return throwError(error);
+                }),
+                switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+                finalize(() => { /*console.log('finilize')*/ }));
+    }
+
+
+
     errorTime() {
         // this.toast.eternalToast('danger', 'Error Inesperado', 'Lo sentimos, no se ha podido realizar la solicitud, intentelo más tarde');
     }
-
 }

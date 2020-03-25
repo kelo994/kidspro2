@@ -9,9 +9,10 @@ import { CursoComponent } from './curso/curso.component';
 import { AsignaturasComponent } from './asignaturas/asignaturas.component';
 
 import { CoursesAdminComponent } from './admin/courses/courses.component';
-import { StudentsAdminComponent } from './admin/students/students.component'
-import { TeachersAdminComponent } from './admin/teachers/teachers.component'
-import { UsersAdminComponent } from './admin/users/users.component'
+import { CourseComponent } from './admin/courses/course/course.component';
+import { StudentsAdminComponent } from './admin/students/students.component';
+import { TeachersAdminComponent } from './admin/teachers/teachers.component';
+import { UsersAdminComponent } from './admin/users/users.component';
 import { ReportesComponent } from './reportes/reportes.component';
 import { ObjetivosComponent } from './reportes/objetivos/objetivos.component';
 import { ActividadesComponent } from './reportes/actividades/actividades.component';
@@ -74,7 +75,11 @@ const pagesroutes: Routes = [{
     {
       path: 'administrar/usuarios',
       component: UsersAdminComponent,
-    }
+    },
+    {
+      path: 'administrar/cursos/:curso/asignaturas/:asignatura',
+      component: CourseComponent,
+    },
   ]
 }];
 
