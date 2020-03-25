@@ -40,63 +40,87 @@
         <h6>Profesores</h6>
       </div>
       <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12" nzXl="10" nzXXl="8">
-        <button class="boton-retro" nz-button data-toggle="modal" data-target="#exampleModalCenter">
+        <button class="boton-retro" nz-button  (click)="openModalProfesor()">
           <i nz-icon nzType="plus"></i>
           <nz-divider [nzType]="'vertical'" style="margin-left: 0px"></nz-divider>
           Agregar Profesor
         </button>
       </div>
     </div>
-    <nz-card style="box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 5px 10px 1px rgba(0,0,0,.14), 0 3px 10px 2px rgba(0,0,0,.12);  border: 1px solid rgba(0,0,0,0.3);">
-      <div nz-row class="" >
-        <div nz-col nzXs="8" nzSm="8" nzMd="8" nzLg="8" nzXl="8" nzXXl="8" class="">
-          <nz-avatar [nzSize]="80"   nzIcon="user" ></nz-avatar>
+    <div  *ngFor="let profesor of profesores">
+      <h6>{{ profesor.tipo }}</h6>
+      <nz-card class="card-profesor" >
+        <div nz-row class="" >
+          <div nz-col nzXs="8" nzSm="8" nzMd="8" nzLg="8" nzXl="8" nzXXl="8" class="">
+            <nz-avatar [nzSize]="80"   nzIcon="user" ></nz-avatar>
+          </div>
+          <div nz-col nzXs="16" nzSm="16" nzMd="16" nzLg="16" nzXl="16" nzXXl="16" class="">
+            <h6>{{profesor.persona_nombre}} {{profesor.persona_apellido}}</h6>
+            <span>{{profesor.persona_rut}}</span>
+            <nz-divider></nz-divider>
+            <button nz-button nzType="default" style="float: right"><i nz-icon nzType="delete"></i>Quitar</button>
+          </div>
         </div>
-        <div nz-col nzXs="16" nzSm="16" nzMd="16" nzLg="16" nzXl="16" nzXXl="16" class="">
-          <h6>Edgardo Ruiz</h6>
-          <span>26.210.372-2</span>
-          <nz-divider></nz-divider>
-          <button nz-button nzType="default" style="float: right"><i nz-icon nzType="delete"></i>Quitar</button>
-        </div>
-      </div>
-    </nz-card>
+      </nz-card>
+    </div>
   </div>
 </div>
 
 
 <!-- Modal -->
-<div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
+<nz-modal [(nzVisible)]="modalProfesor" nzTitle="Profesor" nzFooter="*permite agregar profesor a un curso" (nzOnCancel)="closeModalProfesor()">
+  <nz-steps [nzCurrent]="current" nzSize="small">
+    <nz-step nzTitle="Seleccionar Profesor" nzDescription=""></nz-step>
+    <nz-step nzTitle="Seleccionar Tipo de Profesor" nzSubtitle="" nzDescription=""> </nz-step>
+    <nz-step nzTitle="completado" nzSubtitle="" nzDescription=""> </nz-step>
+  </nz-steps>
 
-      <nz-table class="content-table" #ProfesorTable  nzFooter="" nzSize="middle"  [nzData]="profesoresEstablecimiento" nzShowPagination="false">
-        <thead>
-        <tr>
-          <th class="" >Nombre</th>
-          <th class="" >Apellido</th>
-          <th class="" >RUT</th>
-          <th class="" >Tipo de Profesor</th>
-          <th class="" >Agregar</th>
-        </tr>
-        </thead>
-        <tbody >
-        <tr *ngFor="let profesor of ProfesorTable.data">
-          <td class="" >{{ profesor.persona_nombre }}</td>
-          <td class="" >{{ profesor.persona_apellido }}</td>
-          <td class="" >{{ profesor.persona_rut }}</td>
-          <td class="" >
-            <nz-select formControlName="nivel" class="w-100" nzAllowClear nzPlaceHolder="Tipo sdasdasds">
-            <nz-option *ngFor="let tipo of tipoProfesores; let i = index" [nzValue]="tipo.id"
-                       [nzLabel]="tipo.tipo">
-            </nz-option>
-            </nz-select>
-          </td>
-          <td class="" ><button nz-button nzType="default" nzShape="circle" (click)="agregarProfesor(profesor.funcionario_id,)">
-            <i nz-icon nzType="user-add"></i></button></td>
-        </tr>
-        </tbody>
-      </nz-table>
-
-    </div>
+  <div class="steps-content" *ngIf="current == 0">
+    <nz-table class="" #ProfesorTable  nzFooter="" nzSize="middle"  [nzData]="profesoresEstablecimiento" nzShowPagination="false">
+      <thead>
+      <tr>
+        <th class="" >Nombre</th>
+        <th class="" >Apellido</th>
+        <th class="" >RUT</th>
+        <th class="" >Agregar</th>
+      </tr>
+      </thead>
+      <tbody >
+      <tr *ngFor="let profesor of ProfesorTable.data">
+        <td class="" >{{ profesor.persona_nombre }}</td>
+        <td class="" >{{ profesor.persona_apellido }}</td>
+        <td class="" >{{ profesor.persona_rut }}</td>
+        <td class="" ><button nz-button nzType="default" nzShape="circle"
+                              (click)="seleccionarProfesor(profesor.funcionario_id, profesor.persona_nombre, profesor.persona_apellido)">
+          <i nz-icon nzType="user-add"></i></button></td>
+      </tr>
+      </tbody>
+    </nz-table>
   </div>
-</div>
+  <div class="steps-content" *ngIf="current == 1">
+    <nz-select  class="w-100" [(ngModel)]="selectedValue" (ngModelChange)="seleccionarTipoProfesor($event)" nzAllowClear>
+      <nz-option *ngFor="let tipo of tipoProfesores; let i = index" [nzValue]="tipo"
+                 [nzLabel]="tipo.tipo">
+      </nz-option>
+    </nz-select>
+  </div>
+  <div class="steps-content" *ngIf="current == 2">
+    {{nombreTipoProfesorSeleccionado}}
+    {{nombreFuncionarioSeleccionado}}
+    {{apellidoFuncionarioSeleccionado}}
+  </div>
+  <div class="steps-action">
+    <button nz-button nzType="default" (click)="pre()" *ngIf="current > 0">
+      <span>Atras</span>
+    </button>
+    <button nz-button nzType="default" (click)="next()" *ngIf="current === 1">
+      <span>Seleccionar</span>
+    </button>
+    <button nz-button nzType="primary" (click)="done()" *ngIf="current === 2">
+      <span>Agregar</span>
+    </button>
+  </div>
+</nz-modal>
+
+
+
