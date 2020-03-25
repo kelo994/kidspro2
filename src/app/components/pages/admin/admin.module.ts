@@ -13,6 +13,7 @@ import { CoursesAdminComponent } from './courses/courses.component';
 import { StudentsAdminComponent } from './students/students.component';
 import { TeachersAdminComponent } from './teachers/teachers.component';
 import { UsersAdminComponent } from './users/users.component';
+import { CourseComponent } from './courses/course/course.component';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { UsersAdminComponent } from './users/users.component';
     StudentsAdminComponent,
     TeachersAdminComponent,
     UsersAdminComponent,
+    CourseComponent,
   ],
   providers: [{ provide: NZ_I18N, useValue: es_ES }, NzI18nService],
   entryComponents: []

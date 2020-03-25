@@ -54,7 +54,6 @@ export class LeccionComponent implements OnInit {
   }
 
   goToLeccion(leccionId): void {
-    console.log(leccionId);
     this.router
         .navigateByUrl('pages/cursos/unidades/lecciones/' + leccionId, {state: {asignatura_id: this.asignaturaId,
             cursoId: this.cursoId, grupoId: this.grupoId}});
@@ -71,7 +70,6 @@ export class LeccionComponent implements OnInit {
           this.loadVideo(this.leccion.recursos[0].url);
         },
         (error) => {
-          console.log(error);
           this.showSection = 1;
           if (error.status === 401) {
             this.router.navigate(['/auth/login']);
@@ -82,7 +80,6 @@ export class LeccionComponent implements OnInit {
 
 
     obtenerBloques() {
-        console.log(this.grupoId);
         this.bloqueService.getBloquesGrupo(this.grupoId).subscribe( (data: any) => { // Success
             this.lecciones = data;
         }, (error) => {

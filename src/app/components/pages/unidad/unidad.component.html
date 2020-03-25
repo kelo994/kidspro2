@@ -13,9 +13,9 @@
       </div>
 
       <div class="content-left-bottom" nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 24, xl: 24, xxl: 24 }">
-        <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="6" nzXXl="6"
+        <div class="mr-auto" nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="6" nzXXl="6"
           *ngFor="let bloque of bloques; let i = index">
-          <nz-card [nzCover]="coverTemplate" style="margin-bottom: 18px">
+          <nz-card [nzCover]="coverTemplate" style="margin-bottom: 18px" class="mr-auto">
             <p class="truncar-texto" style="margin-top: 5px;">{{ bloque.bloque_titulo }} </p>
             <div nz-row style="margin-top: 16px">
               <div nz-col nzXs="20" nzSm="20" nzMd="20" nzLg="20" nzXl="20" nzXXl="20">

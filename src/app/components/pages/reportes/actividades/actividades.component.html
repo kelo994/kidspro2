@@ -1,1 +1,91 @@
-<p>actividades works!</p>
+<nz-layout class="right-layout headerrepos mb-5">
+    <div class="header bg-subheader p-2 bg-gris-reportes pl-5">
+        <label class="bd-invisible pr-3 title-repo">Actividades</label>
+        <label class="bd-invisible px-3 title-repo-curso">Curso</label>
+        <label class="px-3 title-repo-curso">Asignatura</label>
+        <br>
+        <label class="subtitle-repo bd-invisible px-3">Exigencia</label>
+        <label class="subtitle-repo bd-invisible px-3">Todas las Actividades</label>
+        <label class="subtitle-repo bd-invisible px-3">Estudiante</label>
+    </div>
+
+    <nz-card class="mx-4 mt-3" style="min-height: 234px; text-align: center;">
+        <div style="display: block;">
+            <canvas baseChart width="400" height="200" [datasets]="lineChartData" [labels]="lineChartLabels"
+                [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                [chartType]="lineChartType" [plugins]="lineChartPlugins"></canvas>
+        </div>
+    </nz-card>
+
+    <div class="row mx-4">
+        <div class="col-6 p-0">
+            <div class="card mr-1 mt-3" style="text-align: center; min-height: 200px; max-height: 200px;">
+                <div class="row m-0 card-point">
+                    <div class="col-4 d-block my-auto">
+                        <p class="point-repo py-4">200</p>
+                    </div>
+                    <div class="col-4 d-block my-auto">
+                        <p class="point-repo py-4">150</p>
+                    </div>
+                    <div class="col-4 d-block my-auto">
+                        <p class="point-repo py-4">100</p>
+                    </div>
+                </div>
+                <div class="row m-0 card-title-point bg-estadisticas p-0">
+                    <div class="col-4 d-block my-auto">
+                        <p class="title-point-repo m-0 text-center m-0">Iniciales</p>
+                    </div>
+                    <div class="col-4 d-block my-auto">
+                        <p class="title-point-repo m-0 text-center m-0">Intermedio</p>
+                    </div>
+                    <div class="col-4 d-block my-auto">
+                        <p class="title-point-repo m-0 text-center m-0">Avanzado</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 p-0">
+            <div class="card ml-1 mt-3" style="text-align: center; min-height: 200px; max-height: 200px;">
+                <div style="display: block">
+                    <canvas baseChart [datasets]="labelMFL" [labels]="barChartLabels" [options]="barChartOptions"
+                        [chartType]="ChartType" [colors]="_barChartColors"></canvas>
+                </div>
+                <p class="title-graph-bar">Puntaje total de la Asigntura</p>
+            </div>
+        </div>
+    </div>
+</nz-layout>
+<nz-sider class="submenu-sidebar-reportes mt-0 pt-3 pl-0 sidebar-repo-l filtrosrepo">
+    <p class="title-sider-repo bd-bottom mx-3 pb-3">Filtros Avanzados</p>
+
+    <div class="form-group mx-3 mt-3">
+        <label class="m-0 p-0 pb-1">Nivel de Exigencia</label>
+        <select class="form-control" id="">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+        </select>
+    </div>
+    <div class="form-group mx-3 mt-3">
+        <label class="m-0 p-0 pb-1">Actividades</label>
+        <select class="form-control" id="">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+        </select>
+    </div>
+    <div class="form-group mx-3 mt-3">
+        <label class="m-0 p-0 pb-1">Estudiante</label>
+        <select class="form-control" id="">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+        </select>
+    </div>
+</nz-sider>

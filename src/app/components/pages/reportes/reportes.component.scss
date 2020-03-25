@@ -55,3 +55,10 @@
         
     }
 }
+::ng-deep nz-spin .ant-spin-lg .ant-spin-dot {
+    font-size: 152px !important;
+}
+::ng-deep nz-spin .ant-spin-lg .ant-spin-dot i {
+    height: 60px;
+    width: 60px;
+}
