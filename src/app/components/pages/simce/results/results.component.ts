@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { SimceService } from '../../../../services/simce.service';
+import { HighchartsService } from '../../../../services/highcharts.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,7 +10,11 @@ import { Router } from '@angular/router';
 })
 export class EvaluationResultsComponent implements OnInit {
 
-  constructor(public simceService: SimceService,  public router: Router) { }
+  constructor(
+    public simceService: SimceService,
+    private highcharts: HighchartsService,
+    public router: Router
+  ) { }
 
   evaluation;
   dataLoading = true;
@@ -22,26 +27,35 @@ export class EvaluationResultsComponent implements OnInit {
   vistaCompleta = true;
   vistaAlumno = [];
   rowsVistaAlumno;
+  alumnoStats = [];
+  rowsAlumnoStats;
   alumnoSelected;
 
-  dataChart: object;
+  dataChart: any;
+  nivelesChart: any;
+
+  @ViewChild('chartPreguntas') public chartPreguntas: ElementRef;
+  @ViewChild('chartNiveles') public chartNiveles: ElementRef;
 
   ngOnInit(): void {
     window.scrollTo({ top: 0, behavior: 'auto' });
-    this.evaluation = history.state.simce
+    this.evaluation = history.state.evaluation
     this.getStats()
   }
 
   getStats() {
     if (typeof this.evaluation !== 'undefined') {
       this.simceService.estadisticasPrueba(this.evaluation.prueba_id).subscribe((data: any) => { // Success
-        this.dataLoading = false
         this.data = data.data
         this.preguntas = data.preguntas;
         this.preguntaSelected = this.preguntas[0];
         this.puntajes = data.dash_puntajes_simce
         this.niveles = data.levels
-        this.dataChart = data
+        this.dataChart = data.dataChart
+        this.nivelesChart = data.dataNiveles
+        this.highcharts.createChart(this.chartPreguntas.nativeElement, this.dataChart);
+        this.highcharts.createChart(this.chartNiveles.nativeElement, this.nivelesChart);
+        this.dataLoading = false
         /*this.preguntas = data.preguntas
         this.question = this.preguntas[0]
         this.correctas = data.correctas
@@ -87,8 +101,51 @@ export class EvaluationResultsComponent implements OnInit {
       }
       array.push(data)
     }
-    //if ()
     vistaAlumno[Math.floor(this.preguntas.length / 6) - 1] = array;
+
+    let newRows = new Array();
+    if (this.preguntas.length % 6 !== 1 && this.preguntas.length % 6 !== 2) {
+      for (let a = 0; a < 4; a++) {
+        this.rowsVistaAlumno.push({data: a})
+      }
+    }
+
+    if (this.preguntas.length % 6 === 0 || this.preguntas.length % 6 === 1 || this.preguntas.length % 6 === 2) {
+      this.rowsAlumnoStats = this.rowsVistaAlumno.length - 4
+    } else {
+      this.rowsAlumnoStats = this.rowsVistaAlumno.length - 8
+    }
+
+    let dataResultados = []
+    dataResultados[0] = {
+      name: 'Porcentaje Correctas',
+      value: alumno.porcentaje + '%'
+    }
+    dataResultados[1] = {
+      name: 'Preguntas Correctas',
+      value: alumno.correctas
+    }
+    dataResultados[2] = {
+      name: 'Nota',
+      value: alumno.notas
+    }
+    dataResultados[3] = {
+      name: 'Puntaje SIMCE',
+      value: alumno.puntajes_simce
+    }
+
+    let newArray = [];
+    let j = 0;
+    for (let i = 0; i < 4; i++) {
+      if (6 - this.preguntas.length % 6 === i && i > 0) {
+        newRows[j] = newArray;
+        newArray = []
+      }
+      newArray.push(dataResultados[i])
+    }
+    newRows[j] = newArray;
+    this.alumnoStats = newRows;
+    
     this.vistaAlumno = vistaAlumno
     this.vistaCompleta = false
   }
@@ -100,6 +157,12 @@ export class EvaluationResultsComponent implements OnInit {
       backgrounColor: color
     }
     return style
+  }
+
+  getFirstWord (string) {
+    // Para evitar nombres tan largos
+    let str = string.split(" ");
+    return str[0];
   }
 
   back () {

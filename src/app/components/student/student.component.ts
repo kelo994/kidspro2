@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 export class StudentComponent {
   constructor(private router: Router) { }
 
+  studentName = localStorage.getItem('studentName');
+
   ngOnInit(): void {
   }
 

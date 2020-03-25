@@ -28,9 +28,13 @@ export class SimceEvaluationsComponent implements OnInit {
 
   prueba: any;
   pruebas = []
-  pruebasLoading = true;
   pruebasFinalizadas = [];
+  pruebas_en_ejecucion;
+  pruebasLoading = true;
   pruebasFinalizadasLoading = true;
+  dataFirstChart;
+  dataSecondChart;
+  pruebasEnEspera;
 
   @ViewChild('chartActivas') public chartActivas: ElementRef;
   @ViewChild('chartResultados') public chartResultados: ElementRef;
@@ -44,13 +48,16 @@ export class SimceEvaluationsComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.highcharts.createChart(this.chartActivas.nativeElement, this.myOptions1);
-    this.highcharts.createChart(this.chartResultados.nativeElement, this.myOptions2);
   }
 
   getPruebasFuncionario() {
     this.simceService.getPruebasFuncionario(this.idFuncionario).subscribe((data: any) => { // Success
-      this.pruebas = data;
+      this.pruebas = data.pruebas;
+      this.pruebasEnEspera = data.pruebas_en_espera;
+      this.dataFirstChart = data.firstPie
+      this.dataSecondChart = data.secondPie
+      this.highcharts.createChart(this.chartActivas.nativeElement, this.dataFirstChart);
+      this.highcharts.createChart(this.chartResultados.nativeElement, this.dataSecondChart);
       this.pruebasLoading = false;
     }, (error) => {
       if (error.status == 401) this.router.navigate(['/auth/login']);
@@ -87,8 +94,8 @@ export class SimceEvaluationsComponent implements OnInit {
   }
 
   verPrueba (element, tipo) {
-    if (tipo === 'ver') this.router.navigate(['/pages/simce/prueba'], {state: {idPrueba: element.prueba_id, simce: element}})
-    if (tipo === 'resultados') this.router.navigate(['/pages/simce/resultados'], {state: {idPrueba: element.prueba_id, simce: element}})
+    if (tipo === 'ver') this.router.navigate(['/pages/simce/prueba'], { state: { evaluation: element } })
+    if (tipo === 'resultados') this.router.navigate(['/pages/simce/resultados'], { state: { evaluation: element } })
   }
 
   newEvaluation (event) {
@@ -116,97 +123,5 @@ export class SimceEvaluationsComponent implements OnInit {
       nzOnOk: () => this.actualizarEstadoPrueba()
     });
   }
-
-  myOptions1 = {
-    chart: {
-      plotBackgroundColor: null,
-      type: 'pie',
-      height: 294.2,
-      style: {
-        float: 'right',
-        maxWidth: '100%'
-      }
-    },
-    title: {
-      text: 'Cantidad de Evaluaciones',
-    },
-    legend: {
-      symbolRadius: 0,
-      itemStyle: {
-        fontSize: '15px',
-        fontWeight: '300'
-      }
-    },
-    credits: {
-      enabled: false
-    },
-    plotOptions : {
-       pie: {
-        colors: ['#cfba29', '#52a564'],
-        allowPointSelect: true,
-        cursor: 'pointer',
-        dataLabels: {
-          enabled: true,
-          format: '{point.y}',
-        },
-        showInLegend: true
-      }
-    },
-    series : [{
-       type: 'pie',
-       name: 'Evaluaciones activas',
-       keys: ['name', 'y'],
-       data: [
-        ['Evaluaciones en espera', 7],
-        ['Evaluaciones en ejecución', 30,],
-       ]
-    }]
-  };
-
-  myOptions2 = {
-    chart: {
-      plotBackgroundColor: null,
-      type: 'pie',
-      height: 328,
-      style: {
-        float: 'right',
-        maxWidth: '100%'
-      }
-    },
-    title: {
-      text: 'Cantidad de Evaluaciones',
-    },
-    legend: {
-      symbolRadius: 0,
-      itemStyle: {
-        fontSize: '15px',
-        fontWeight: '300'
-      }
-    },
-    credits: {
-      enabled: false
-    },
-    plotOptions : {
-       pie: {
-        colors: ['#46e1ff', '#a442e1'],
-        allowPointSelect: true,
-        cursor: 'pointer',
-        dataLabels: {
-          enabled: true,
-          format: '{point.y}',
-        },
-        showInLegend: true
-      }
-    },
-    series : [{
-       type: 'pie',
-       name: 'Evaluaciones activas',
-       keys: ['name', 'y'],
-       data: [
-        ['Lenguaje, Literatura y Comunicación', 7, false],
-        ['Matemáticas', 30, true, true],
-       ]
-    }]
-  };
 
 }

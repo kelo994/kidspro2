@@ -34,7 +34,7 @@
                             <td>
                                 <i *ngIf="data.estado_id === 1" class="fa fa-play vertical-line" style="color: rgba(65, 156, 85, 0.911)" (click)="showConfirm('activar', data)"></i>
                                 <i *ngIf="data.estado_id === 2" class="fa fa-stop vertical-line" style="color: rgba(255, 101, 91, 0.911);" (click)="showConfirm('finalizar', data)"></i>
-                                <i nz-icon nzType="file-search" class="vertical-line"></i>
+                                <i nz-icon nzType="file-search" class="vertical-line" (click)="verPrueba(data, 'ver')"></i>
                                 <i nz-icon nzType="unlock" nzTheme="outline" class="vertical-line" style="color: rgba(202, 175, 18, 0.89)"></i>
                                 <i nz-icon nzType="delete" nzTheme="outline"></i>
                             </td>
@@ -54,10 +54,14 @@
                     </div>
                     <div nz-col nzXs="18" nzSm="18" nzMd="24" nzLg="18">
                         <div class="title-card-evaluations">
-                            <span style="font-weight: bold;">{{ pruebas.length }}</span> evaluaciones activas
+                            <span style="font-weight: bold;">{{ pruebas.length }} </span>
+                            <span *ngIf="pruebas.length == 1">evaluación </span>
+                            <span *ngIf="pruebas.length != 1">evaluaciones </span>
+                            activas
                         </div>
                         <div class="subtitle-card-evaluations">
-                            <span class="subtitle-number-card-evaluations">7</span> evaluaciones en espera
+                            <span *ngIf="pruebasEnEspera == 1" class="subtitle-number-card-evaluations">{{ pruebasEnEspera }} evaluación en espera</span>
+                            <span *ngIf="pruebasEnEspera != 1" class="subtitle-number-card-evaluations">{{ pruebasEnEspera }} evaluaciones en espera</span>
                         </div>
                     </div>
                 </div>
@@ -95,7 +99,7 @@
                             <td>{{ data.inicio }}</td>
                             <td>{{ data.fin }}</td>
                             <td class="p-0 text-center vertical-line">
-                                <i nz-icon nzType="file-search"></i>
+                                <i nz-icon nzType="file-search" (click)="verPrueba(data, 'ver')"></i>
                             </td>
                             <td class="p-0 text-center">
                                 <i nz-icon nzType="bar-chart" nzTheme="outline" (click)="verPrueba(data, 'resultados')"></i>
@@ -116,9 +120,6 @@
             <nz-card class="card-finish-evaluations">
                 <div class="title-card-finish-evaluations">
                     <span style="font-weight: bold;">{{ pruebasFinalizadas.length }}</span> evaluaciones
-                </div>
-                <div class="subtitle-card-finish-evaluations">
-                    15% de alumnos aprobados
                 </div>
             </nz-card>
         </div>

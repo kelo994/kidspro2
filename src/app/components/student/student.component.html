@@ -1,6 +1,6 @@
-<nz-header>
+<nz-header class="header-estudiante">
     <div class="row">
-        <div class="col">
+        <div nz-col nzXs="7" nzSm="7" nzMd="10" nzLg="12">
             <div class="row">
                 <div class="col d-block my-auto">
                     <div class="logo">
@@ -9,15 +9,14 @@
                 </div>
             </div>
         </div>
-        <div class="col d-block my-auto">
+        <div nz-col nzXs="17" nzSm="17" nzMd="14" nzLg="12" class="d-block my-auto">
             <div class="btn-container btn-group">
-                <div class="info-container dropdown-toggle ml-auto" type="button" data-toggle="dropdown" aria-haspopup="true"
+                <div class="student-name ml-auto">{{ studentName }}</div>
+                <div class="info-container dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
                     <img class="logo-opcion" src="../../../../../assets/images/student/opcion.png" alt="">
                 </div>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Cambiar estudiante</a>
-                    <div class="dropdown-divider"></div>
                     <a class="dropdown-item" (click)="logout()">Cerrar sesión</a>
                 </div>
             </div>

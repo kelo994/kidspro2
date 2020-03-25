@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NzFormatEmitEvent, NzNotificationService } from 'ng-zorro-antd';
+import { NzModalService, NzNotificationService } from 'ng-zorro-antd';
 import { FuncionarioService } from 'src/app/services/funcionario.service';
 import { RolService } from 'src/app/services/rol.service';
 import { GeneroService } from 'src/app/services/genero.service';
@@ -36,6 +36,7 @@ export class UsersAdminComponent implements OnInit {
     private generoService: GeneroService,
     private rutService: RutService,
     private emailService: EmailService,
+    private modalService: NzModalService,
     private notification: NzNotificationService,
     private router: Router
   ) {
@@ -155,6 +156,33 @@ export class UsersAdminComponent implements OnInit {
     }
   }
 
+  delete (userId) {
+    this.userId = userId
+    this.modalService.confirm({
+      nzTitle: '<i>¿Estas seguro de realizar esta acción?</i>',
+      nzContent: '<b>Esta acción no se puede deshacer</b>',
+      nzCancelText: 'Cancelar',
+      nzOkText: 'Eliminar',
+      nzClassName: 'modal-confirm-delete',
+      nzOnOk: () => this.confirmDelete()
+    });
+  }
+
+  confirmDelete() {
+    this.userService.delete(this.userId).subscribe((data: any) => {
+      this.usersData = data
+      this.search()
+      this.notification.success('Funcionarios', 'El Funcionario fue eliminado con exito');
+    }, (error) => {
+      console.log(error);
+      if (error.status == 401) {
+        this.router.navigate(['/auth/login']);
+      } else if (error.status == 400 || error.status == 500) {
+        this.notification.error('Error al Eliminar el Funcionario', error.error.message);
+      }
+    });
+  }
+
   search() {
     if (this.inputSearch.length > 0) {
       this.users = this.usersData.filter(e => {
@@ -253,7 +281,7 @@ export class UsersAdminComponent implements OnInit {
     this.userForm.controls['telefono'].setValue('')
     this.userForm.controls['direccion'].setValue('')
     this.userForm.controls['nacionalidad'].setValue('')
-    this.userForm.controls['genero'].setValue('')
+    this.userForm.controls['genero'].setValue(null)
     this.userForm.controls['roles'].setValue([])
     this.userForm.reset()
   }

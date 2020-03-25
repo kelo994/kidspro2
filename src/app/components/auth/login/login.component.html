@@ -15,11 +15,11 @@
         <form nz-form [formGroup]="formaLogin" (ngSubmit)="login()" autocomplete="off">
             <div class="inputs">
                 <label>RUT</label>
-                <input type="text" nz-input formControlName="rut" placeholder="RUT" (keyup)="formateaRut()" />
+                <input type="text" nz-input formControlName="rut" placeholder="RUT" (keyup)="formateaRut(1)" />
                 <label>Contraseña</label>
                 <input type="password" nz-input formControlName="password" placeholder="Contraseña"/>
             </div>
-            <div class="row">
+            <div class="row" style="margin: 0px 10px">
                 <div class="col-6">
                     <button class="w-100" type="submit" nz-button nzSize="large" nzType="primary">
                         <i class="icon-login" nz-icon [nzType]="loginIcon" nzTheme="outline"></i>
@@ -33,7 +33,7 @@
         </form>
       </div>
       <div id="estudiante" class="tab-pane fade">
-        <form (ngSubmit)="loginCode()" [formGroup]="formaCode" autocomplete="off">
+        <form *ngIf="!validCode" (ngSubmit)="loginCode()" [formGroup]="formaCode" autocomplete="off">
             <div class="inputs">
                 <label>Ingrese el código de acceso</label>
                 <input type="text" nz-input formControlName="codigo" placeholder="Código" (keyup)="setUpperCase($event)" />
@@ -42,44 +42,25 @@
                 <div class="offset-6 col-6 text-right">
                     <button class="w-100" type="submit" nz-button nzSize="large" nzType="primary" (click)="loginCode()"
                     [disabled]="formaCode.invalid">
+                    Verificar Código
+                </button>
+                </div>
+            </div>
+        </form>
+        <form *ngIf="validCode" (ngSubmit)="validateStudentRut()" [formGroup]="validCodeForm" autocomplete="off">
+            <div class="inputs">
+                <label>Ingrese el RUT del Estudiante</label>
+                <input type="text" nz-input formControlName="rut" placeholder="RUT" (keyup)="formateaRut(2)" />
+            </div>
+            <div class="row">
+                <div class="offset-6 col-6 text-right">
+                    <button class="w-100" type="submit" nz-button nzSize="large" nzType="primary">
                     <i class="icon-login" nz-icon [nzType]="codeIcon" nzTheme="outline"></i>
                     Iniciar sesión
                 </button>
                 </div>
             </div>
-            
         </form>
       </div>
     </div>
   </div>
-
-<!-- <nz-tabset nzTabPosition="top" nzType="card" >
-    <nz-tab nzTitle="Profesor">
-        <form nz-form [formGroup]="formaLogin" (ngSubmit)="login()" autocomplete="off">
-            <div class="inputs">
-                <label>RUT</label>
-                <input type="text" nz-input formControlName="rut" placeholder="RUT" (keyup)="formateaRut()" />
-                <label>Contraseña</label>
-                <input type="password" nz-input formControlName="password" placeholder="Contraseña"/>
-            </div>
-            <button type="submit" nz-button nzSize="large" nzType="primary">
-                <i class="icon-login" nz-icon [nzType]="loginIcon" nzTheme="outline"></i>
-                Iniciar Sesión
-            </button>
-            <a class="underlineHover" href="#">¿Olvidaste tu Contraseña?</a>
-        </form>
-    </nz-tab>
-    <nz-tab nzTitle="Estudiante">
-        <form (ngSubmit)="loginCode()" [formGroup]="formaCode" autocomplete="off">
-            <div class="inputs">
-                <label>Ingrese el código de acceso</label>
-                <input type="text" nz-input formControlName="code" placeholder="Código" (keyup)="setUpperCase($event)" />
-            </div>
-            <button type="submit" nz-button nzSize="large" nzType="primary" (click)="loginCode()"
-                [disabled]="formaCode.invalid">
-                <i class="icon-login" nz-icon [nzType]="codeIcon" nzTheme="outline"></i>
-                Iniciar sesión
-            </button>
-        </form>
-    </nz-tab>
-</nz-tabset> -->

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PagesComponent } from './pages.component';
 import { UnidadComponent } from './unidad/unidad.component';
 import { SimceEvaluationsComponent } from './simce/evaluations/evaluations.component';
+import { SimceEvaluationComponent } from './simce/evaluation/evaluation.component';
 import { EvaluationResultsComponent } from './simce/results/results.component';
 import { LeccionComponent } from './leccion/leccion.component';
 import { CursoComponent } from './curso/curso.component';
@@ -53,6 +54,10 @@ const pagesroutes: Routes = [{
     {
       path: 'simce',
       component: SimceEvaluationsComponent
+    },
+    {
+      path: 'simce/prueba',
+      component: SimceEvaluationComponent,
     },
     {
       path: 'simce/resultados',

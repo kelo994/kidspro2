@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PreguntasChartComponent } from './preguntas.component';
+import { SimceEvaluationComponent } from './evaluation.component';
 
-describe('SimceComponent', () => {
-  let component: PreguntasChartComponent;
-  let fixture: ComponentFixture<PreguntasChartComponent>;
+describe('SimceEvaluationComponent', () => {
+  let component: SimceEvaluationComponent;
+  let fixture: ComponentFixture<SimceEvaluationComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PreguntasChartComponent ]
+      declarations: [ SimceEvaluationComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PreguntasChartComponent);
+    fixture = TestBed.createComponent(SimceEvaluationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
