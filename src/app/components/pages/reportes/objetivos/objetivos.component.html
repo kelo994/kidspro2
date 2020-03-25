@@ -1,8 +1,8 @@
 <nz-layout class="right-layout headerrepos mb-5">
     <div class="header bg-subheader p-2 bg-gris-reportes pl-5">
         <label class="bd-invisible pr-3 title-repo">Objetivos de Aprendizaje</label>
-        <label class="bd-invisible px-3 title-repo-curso">Objetivos de Aprendizaje</label>
-        <label class="px-3 title-repo-curso">Asigntura</label>
+        <label class="bd-invisible px-3 title-repo-curso">{{ curso.curso_nombre}}</label>
+        <label class="px-3 title-repo-curso">{{ selectAsignatura.materia_descripcion }}</label>
         <br>
         <label class="subtitle-repo bd-invisible px-3">Todas las Unidades</label>
         <label class="subtitle-repo bd-invisible px-3">Todas los Objetivos</label>
@@ -61,31 +61,29 @@
     <div class="form-group mx-3 mt-3">
         <label class="m-0 p-0 pb-1">Unidad</label>
         <select class="form-control" id="">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+            <option *ngFor="let u of unidades" (click)="onChangeUnidad(u)">{{ u.grupo_nombre }}</option>
+            <option *ngIf="unidades?.length == 0">No hay unidades</option>
+        </select>
+    </div>
+    <div class="form-group mx-3 mt-3">
+        <label class="m-0 p-0 pb-1">Lección</label>
+        <select class="form-control" id="">
+            <option *ngFor="let l of lecciones" (click)="onChangeLeccion(l)">{{ l.bloque_titulo }}</option>
+            <option *ngIf="lecciones?.length == 0">No hay Lecciones</option>
         </select>
     </div>
     <div class="form-group mx-3 mt-3">
         <label class="m-0 p-0 pb-1">Objetivo</label>
         <select class="form-control" id="">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+            <option *ngFor="let o of objetivos" (click)="onChangeObjetivo(o)">{{ o.objetivo_descripcion }}</option>
+            <option *ngIf="objetivos?.length == 0">No hay Objetivos</option>
         </select>
     </div>
     <div class="form-group mx-3 mt-3">
         <label class="m-0 p-0 pb-1">Estudiante</label>
         <select class="form-control" id="">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+            <option *ngFor="let e of estudiantes" (click)="onChangeEstudiante(e)">{{ e.persona_nombre }} {{ e.persona_apellido }}</option>
+            <option *ngIf="estudiantes?.length == 0">No hay estudiantes</option>
         </select>
     </div>
 </nz-sider>

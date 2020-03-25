@@ -3,25 +3,34 @@
         <p class="title-sider-repo">Filtros Globales</p>
         <p class="title-filter-repo ml-3">Cursos</p>
         <ul class="menureport" nz-menu nzMode="inline">
-            <li nz-menu-item nzMatchRouter (click)="selectCourse(1)" style="padding-left: 30px !important;">
-                <span>Nombre Curso</span>
+            <li *ngFor="let c of cursos" nz-menu-item nzMatchRouter (click)="selectCourse(c)"
+                style="padding-left: 30px !important;">
+                <span>{{ c.curso_nombre }}</span>
             </li>
-            <li nz-menu-item nzMatchRouter (click)="selectCourse(1)" style="padding-left: 30px !important;">
-                <span>Nombre Curso</span>
-            </li>
-            <li nz-menu-item nzMatchRouter (click)="selectCourse(1)" style="padding-left: 30px !important;">
-                <span>Nombre Curso</span>
-            </li>
+            <li *ngIf="cursos?.length == 0" nz-menu-item nzMatchRouter style="padding-left: 30px !important;">
+                <span>Obteniendo Cursos <i class="fas fa-spinner fa-spin"></i></span>
+            </li>   
         </ul>
         <p class="title-filter-repo ml-3">Asignatura</p>
         <ul class="menureport" nz-menu nzMode="inline">
-            <li nz-menu-item nzMatchRouter (click)="selectAsignature(1)" style="padding-left: 30px !important;">
-                <span>Lenguaje Comunicación y Literatura</span>
+            <li *ngFor="let a of asignaturas" nz-menu-item nzMatchRouter (click)="selectAsignature(a)"
+                style="padding-left: 30px !important;">
+                <span>{{ a.materia_descripcion }}</span>
             </li>
-            <li nz-menu-item nzMatchRouter (click)="selectAsignature(1)" style="padding-left: 30px !important;">
-                <span>MAtemáticas</span>
+            <li *ngIf="asignaturas?.length == 0" nz-menu-item nzMatchRouter
+                style="padding-left: 30px !important;">
+                <span>Obteniendo Asignaturas <i class="fas fa-spinner fa-spin"></i></span>
             </li>
         </ul>
     </nz-sider>
-    <router-outlet></router-outlet>
+    <div class="w-100 text-center d-block my-auto" *ngIf="reportePage == 0">
+        <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+        <br>
+        <h3 class="c-blue">Cargando ...</h3>
+    </div>
+    <app-objetivos *ngIf="reportePage == 1" [selectCurso]="selectCurso" [selectAsignatura]="selectAsignatura"></app-objetivos>
+    <app-actividades *ngIf="reportePage == 2"></app-actividades>
+    <div *ngIf="reportePage == 3" class="w-100 text-center d-block my-auto">
+        <h3 class="c-blue">El Curso no cuenta con Asignaturas</h3>
+    </div>
 </nz-layout>
