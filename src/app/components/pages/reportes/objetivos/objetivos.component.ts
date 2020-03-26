@@ -49,7 +49,6 @@ export class ObjetivosComponent implements OnInit {
   }
 
   ngOnChanges(changes: any) {
-    $('#cursoIdx').click();
     console.log(changes);
     if (changes.selectCurso) {
       if (changes.selectCurso.currentValue.curso_nombre) this.curso.curso_nombre = changes.selectCurso.currentValue.curso_nombre;
@@ -66,9 +65,26 @@ export class ObjetivosComponent implements OnInit {
     }
 
     if (this.curso.id > 0 && this.asignatura.asignatura_id > 0) {
+      this.getDataTest();
       this.getDataAsignatura();
       this.getEstudiantes();
     }
+  }
+
+  getDataTest() {
+    this.rService.getACursosGraficosTwo(this.curso.id).subscribe(
+      (data: any) => { // Success
+        console.log(data);
+      },
+      (error) => {
+        console.log(error)
+        if (error.status == 401) {
+          this.router.navigate(['/auth/login']);
+        } else if (error.status == 400) {
+          this.router.navigate(['/auth/login']);
+        }
+      }
+    );
   }
 
   getDataAsignatura() {

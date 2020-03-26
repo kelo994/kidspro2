@@ -31,7 +31,7 @@ export class CursoService {
   }
 
   openAsignatura(idCurso: any, idAsignatura: any) {
-    return this.http.get(`${this.url}/detalleAsignatura/${idCurso}/${idAsignatura}`, this.getToken());
+    return this.http.get(`${this.url}/bloques/activos/${idCurso}/${idAsignatura}`, this.getToken());
   }
 
   putUnidades(data: any, idAsignatura: any) {

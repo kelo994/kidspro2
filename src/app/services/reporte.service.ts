@@ -47,6 +47,17 @@ export class ReporteService {
             finalize(() => { /*console.log('finilize')*/ }));;
     }
 
+    getACursosGraficosTwo(idx) {
+        return this.http.get(`${this.url}/dashboard/cursos/${idx},`, this.getToken()).pipe(timeout(5000),
+            retry(3),
+            catchError((error, c) => {
+                this.errorTime();
+                return throwError(error)
+            }),
+            switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+            finalize(() => { /*console.log('finilize')*/ }));;
+    }
+
     // Asignaturas
     getAsignaturasCurso(curso_id) {
         return this.http.get(`${this.url}/cursos/${curso_id}/asignaturas`, this.getToken()).pipe(timeout(5000),

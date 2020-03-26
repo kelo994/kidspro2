@@ -1,5 +1,8 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthModule } from '../auth/auth.module';
+import { AuthService } from 'src/app/services/auth.service';
+import { CoursesService } from 'src/app/services/courses.service';
 
 @Component({
   selector: 'app-pages',
@@ -49,10 +52,10 @@ export class PagesComponent implements OnInit {
   toggleCollapsed(): void {
     this.isCollapsed = !this.isCollapsed;
   }
-  constructor(public router: Router) { }
+  constructor(public router: Router, public coursesService: CoursesService) { }
 
   ngOnInit(): void {
-    this.cursos = JSON.parse(localStorage.getItem('cursos'));
+    this.getCursos();
 
     if (window.outerWidth <= 860) {
       setTimeout(() => {
@@ -64,9 +67,20 @@ export class PagesComponent implements OnInit {
     }
   }
 
+  getCursos() {
+    this.coursesService.obtenerNivelesEstablecimiento(localStorage.getItem('idEstablecimiento')).subscribe( (data: any) => { // Success
+      this.cursos = data;
+      console.log(data);
+    }, (error) => {
+      if (error.status === 401) { this.router.navigate(['/auth/login']); }
+    });
+  }
+
   changeRoute(item) {
-    localStorage.setItem('CursoName', item.curso_nombre);
-    this.router.navigate(['/pages/curso', item.curso_id]);
+    localStorage.setItem('CursoName', item.nivel_descripcion);
+    localStorage.setItem('secciones', JSON.stringify(item.cursos));
+    localStorage.setItem('asignaturas', JSON.stringify(item.asignaturas));
+    this.router.navigate(['/pages/curso', item.nivel_id]);
   }
 
   gotoReportes(text) {
