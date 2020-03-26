@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NzFormatEmitEvent, NzNotificationService } from 'ng-zorro-antd';
 import { CursoService } from 'src/app/services/cursos.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { BloqueService } from 'src/app/services/bloque.service';
 
 
 @Component({
@@ -12,6 +13,12 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
   styleUrls: ['./curso.component.scss']
 })
 export class CursoComponent implements OnInit {
+
+  cursoNombre = '';
+  secciones = [];
+  selectSeccion = 0;
+  asignaturas = [];
+  selectAsginatura = 'Seleccione Asignatura';
   // Codigo
   modalGetCode = false;
   codigo = '';
@@ -20,9 +27,8 @@ export class CursoComponent implements OnInit {
   searchValue = '';
   selectedValue;
 
-  cursoNombre = '';
-  asignaturas;
-  selectAsginatura = 'Seleccione Asignatura';
+
+
   unidades;
 
   loading = false;
@@ -30,50 +36,55 @@ export class CursoComponent implements OnInit {
   private parametersObservable: any;
 
   constructor(private routeActive: ActivatedRoute,
-    private notification: NzNotificationService, private router: Router, public cService: CursoService) {
+    private notification: NzNotificationService, private router: Router, public cService: CursoService, public bloqService: BloqueService) {
   }
 
   ngOnInit(): void {
 
     this.parametersObservable = this.routeActive.params.subscribe(params => {
       // console.log(params);
-      this.cursoNombre = localStorage.getItem('CursoName');
-      localStorage.setItem('CursoId', this.routeActive.snapshot.params.idCurso);
-      this.cService.getAsignaturas(this.routeActive.snapshot.params.idCurso)
-        .subscribe(
-          (data: any) => { // Success
-            this.asignaturas = data;
-            this.unidades = [];
-            if (this.asignaturas.length === 0) {
-              this.notification.warning('Error', 'No tienes asignaturas asociadas a este curso.');
-            } else if (this.asignaturas.length > 0) {
-              $('#firstStep').removeClass('active').addClass('afterActive');
-              $('#secondStep').removeClass('desactive').addClass('active');
-              $('#progressBar').css('width', 48 + '%').attr('aria-valuenow', 48);
-              $('#pointTwo').removeClass('point-blank').addClass('point-blue');
-              
-              if (this.asignaturas.length === 1) {
-                this.openAsignatura(this.asignaturas[0])
-                // this.notification.success('Error', 'No tienes asignaturas asociadas a este curso.');
-              } else {
-                $('#btnmodalAsignature').click();
-              }
-            }            
-          },
-          (error) => {
-            if (error.status == 401) {
-              this.router.navigate(['/auth/login']);
-            }
-          }
-        )
+      if (this.routeActive.snapshot.params.idCurso != 0) {
+        this.cursoNombre = localStorage.getItem('CursoName');
+        this.secciones = JSON.parse(localStorage.getItem('secciones'));
+        this.selectSeccion = this.secciones[0].curso_id;
+        this.asignaturas = JSON.parse(localStorage.getItem('asignaturas'));
+        // console.log(this.asignaturas);
+        localStorage.setItem('CursoId', this.routeActive.snapshot.params.idCurso);
+        localStorage.setItem('SeccionId', String(this.secciones[0].curso_id));
+
+        if (this.asignaturas.length > 1) {
+          // console.log("asignaturas")
+          $('#firstStepSecciones').removeClass('active').addClass('afterActive');
+          $('#secondStep').removeClass('desactive').addClass('active');
+          $('#progressBar').css('width', 48 + '%').attr('aria-valuenow', 48);
+          $('#pointTwo').removeClass('point-blank').addClass('point-blue');
+        } else {
+          this.openAsignatura(this.asignaturas[0]);
+        }
+      }
     });
   }
 
   openAsignatura(element) {
     localStorage.setItem('AsignaturaId', element.asignatura_id);
-    localStorage.setItem('AsignaturaNombre', element.materia_descripcion);
-    this.selectAsginatura = element.materia_descripcion;
-    this.cService.openAsignatura(localStorage.getItem('CursoId'), element.asignatura_id)
+    localStorage.setItem('AsignaturaNombre', element.asignatura_nombre);
+    this.selectAsginatura = element.asignatura_nombre;
+    this.bloqService.getGrupos(localStorage.getItem('idFuncionario'), element.asignatura_id, localStorage.getItem('SeccionId'))
+      .subscribe(
+        (data: any) => { // Success
+          this.unidades = data;
+        },
+        (error) => {
+          if (error.status == 401) {
+            this.router.navigate(['/auth/login']);
+          }
+        }
+      )
+  }
+
+  onChangeSeccion() {
+    localStorage.setItem('CursoId', String(this.selectSeccion));
+    this.bloqService.getGrupos(localStorage.getItem('idFuncionario'), localStorage.getItem('AsignaturaId'), localStorage.getItem('CursoId'))
       .subscribe(
         (data: any) => { // Success
           this.unidades = data;
@@ -86,7 +97,6 @@ export class CursoComponent implements OnInit {
         }
       )
   }
-
   nzEvent(event: NzFormatEmitEvent): void {
     console.log(event);
   }
