@@ -20,18 +20,13 @@
           <th>Matrícula</th>
           <th class="content-celda">Nombre</th>
           <th class="content-celda">Apellido</th>
-          <th class="content-celda">RUT</th>
-          <th class="content-celda">Acciones</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let estudiante of EstudiantesTable.data">
-          <td>20202</td>
-          <td class="content-celda">Matrícula</td>
+          <td>{{estudiante.matricula}}</td>
           <td class="content-celda">{{estudiante.persona_nombre}}</td>
           <th class="content-celda">{{estudiante.persona_apellido}}</th>
-          <td class="content-celda">RUT</td>
-          <td class="content-celda">Acciones</td>
         </tr>
       </tbody>
     </nz-table>

@@ -41,6 +41,18 @@ export class CoursesService {
                 finalize(() => { /*console.log('finilize')*/ }));
     }
 
+    obtenerCursosEstablecimiento(establecimientoId) {
+        return this.http.get(`${this.url}/establecimientos/${establecimientoId}/cursos`, this.getToken())
+            .pipe(timeout(5000),
+                retry(1),
+                catchError((error, c) => {
+                    this.errorTime();
+                    return throwError(error);
+                }),
+                switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+                finalize(() => { /*console.log('finilize')*/ }));
+    }
+
     obtenerNivelesSinCrear(establecimientoId) {
         return this.http.get(`${this.url}/establecimientos/${establecimientoId}/niveles/libres`, this.getToken())
             .pipe(timeout(5000),
@@ -55,6 +67,17 @@ export class CoursesService {
 
     crearCursos(data: any) {
         return this.http.post(`${this.url}/cursos`, data, this.getToken())
+            .pipe(timeout(10000),
+                catchError((error, c) => {
+                    this.errorTime();
+                    return throwError(error);
+                }),
+                switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+                finalize(() => { /*console.log('finilize')*/ }));
+    }
+
+    crearEstudiante(data: any) {
+        return this.http.post(`${this.url}/estudiantes`, data, this.getToken())
             .pipe(timeout(10000),
                 catchError((error, c) => {
                     this.errorTime();
@@ -131,6 +154,17 @@ export class CoursesService {
                 catchError((error, c) => {
                     this.errorTime();
                     return throwError(error);
+                }),
+                switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+                finalize(() => { /*console.log('finilize')*/ }));
+    }
+
+    deleteEstudiante(cursoId, estudianteId) {
+        return this.http.delete(`${this.url}/estudiante/curso/delete/${cursoId}/${estudianteId}`, this.getToken())
+            .pipe(
+                catchError((error, c) => {
+                    this.errorTime();
+                    return throwError(error)
                 }),
                 switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
                 finalize(() => { /*console.log('finilize')*/ }));
