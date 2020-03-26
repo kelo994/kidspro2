@@ -74,3 +74,34 @@
     min-height: 50px;
     max-height: 50px;
 }
+
+.bg-blue-clear {
+    background-color: #56ccf2 !important;
+    h3 {
+        color: #4f4f4f !important;
+        font-weight: 500 !important;
+    }
+    label {
+        color: #ffffff !important;
+        font-size: 12px !important;
+        font-weight: 400 !important;
+    }
+}
+
+.card-stats-repo {
+    min-height: 270px;
+    max-height: 270px;
+    height: 270px;
+
+    ul>li {
+        min-height: 90px;
+    }
+}
+
+.title-piechart {
+    color: #c5c5c5;
+    font-size: 20px;
+    position: absolute;
+    top: 40px;
+    left: 10px;
+}

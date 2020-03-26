@@ -76,6 +76,18 @@ export class ReporteService {
             finalize(() => { /*console.log('finilize')*/ }));;
     }
 
+    // obtener datos
+    getObjetivosCursos(idCurso, idAsignatura, idObjetivo) {
+        return this.http.get(`${this.url}/analisisPorCursoObjetivos/${idCurso}/${idAsignatura}/${idObjetivo}`, this.getToken()).pipe(timeout(5000),
+            retry(3),
+            catchError((error, c) => {
+                this.errorTime();
+                return throwError(error)
+            }),
+            switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+            finalize(() => { /*console.log('finilize')*/ }));;
+    }
+
     errorTime() {
         // this.toast.eternalToast('danger', 'Error Inesperado', 'Lo sentimos, no se ha podido realizar la solicitud, intentelo más tarde');
     }

@@ -49,7 +49,7 @@ export class PagesComponent implements OnInit {
   }
 
   gotoReportes(text) {
-    this.router.navigate(['//pages/reportes/' + text]);
+    this.router.navigate(['/pages/reportes/' + text]);
   }
 
   goToSimce () {

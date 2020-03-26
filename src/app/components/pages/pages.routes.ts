@@ -38,18 +38,8 @@ const pagesroutes: Routes = [{
       component: LeccionComponent,
     },
     {
-      path: 'reportes',
+      path: 'reportes/:area',
       component: ReportesComponent,
-      children: [
-        {
-          path: 'objetivos',
-          component: ObjetivosComponent
-        },
-        {
-          path: 'actividades',
-          component: ActividadesComponent
-        }
-      ]
     },
     {
       path: 'simce',
