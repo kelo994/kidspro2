@@ -44,7 +44,6 @@ export class CursoComponent implements OnInit {
           (data: any) => { // Success
             this.asignaturas = data;
             this.unidades = [];
-            console.log(this.asignaturas.length);
             if (this.asignaturas.length === 0) {
               this.notification.warning('Error', 'No tienes asignaturas asociadas a este curso.');
             } else if (this.asignaturas.length > 0) {

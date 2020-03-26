@@ -31,6 +31,8 @@ $kidspro-theme: mat-light-theme($kidspro-primary, $kidspro-accent, $kidspro-warn
 html, body { height: 100%; width: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+$mobile-style: 860px;
+
 @import './assets/scss/header.component.scss';
 @import './assets/scss/button.component.scss';
 @import './assets/scss/color.component.scss';
