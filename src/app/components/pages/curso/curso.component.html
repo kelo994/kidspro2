@@ -20,13 +20,13 @@
     <nz-layout class="right-layout">
         <div class="header bg-subheader p-3">
             <div class="row m-0">
-                <div class="col-6">
+                <div class="col-lg-6 col-md-6 col-xs-12">
                     <div>
                         <span class="text-subheader bd-invisible"><strong>{{ selectAsginatura }}</strong></span>
                         <span class="px-3">{{ cursoNombre }}</span>
                     </div>
                 </div>
-                <div *ngIf="unidades?.length > 0" class="col-6 text-right">
+                <div *ngIf="unidades?.length > 0" class="col-lg-6 col-md-6 col-xs-12 text-right">
                     <button class="btn btn-unidad mr-3" (click)="editarUnidades()">
                         <i class="fas fa-cog bd-invisible pr-1"></i>
                         <span class="pl-1" *ngIf="!editUnidades">Editar Unidades</span>
@@ -43,7 +43,7 @@
         </div>
         <div class="unidades pt-5">
             <div *ngIf="unidades" cdkDropListGroup class="row m-0">
-                <div *ngFor="let u of unidades; let i = index" class="col-3 mb-3">
+                <div *ngFor="let u of unidades; let i = index" class="col-lg-3 col-md-6 col-xs-12 mb-3">
                     <div class="card-content bg-gray p-0">
                         <p class="c-black py-1 pl-3 m-0 t-12">{{ u.grupo_nombre }}</p>
                         <div class="content-card-unidad bg-white">
@@ -78,8 +78,8 @@
                 </div>
             </div>
 
-            <div *ngIf="!unidades || unidades?.length == 0" class="">
-                <div class="w-75 row m-0 mx-auto">
+            <div *ngIf="!unidades || unidades?.length == 0" class="container">
+                <div class="w80 row m-0 mx-auto justify-content-center">
                     <div class="col-4">
                         <div class="row m-0 mx-2">
                             <div class="col-2 px-0 text-right col-step">
@@ -111,20 +111,20 @@
                         </div>
                     </div>
                     <div class="col-12 row mt-4 p-0">
-                        <div class="col p-0" style="left: -20px; width: 4%;">
+                        <div class="col p-0" style="left: -4%; width: 4%;">
                             <div class="point-blue ml-auto"></div>
                         </div>
-                        <div class="col d-block my-auto pl-0" style="left: -29px;min-width: 95%;">
+                        <div class="col-12 d-block my-auto p-0" style="left: -5%;min-width: 100%;">
                             <div class="progress">
                                 <div id="progressBar" class="progress-bar" role="progressbar" aria-valuenow="12" aria-valuemin="12"
                                 style="width: 12%" aria-valuemax="100">
                                 </div>
                             </div>
                         </div>
-                        <div class="col p-0" style="left: -516px;max-width: 4%;">
+                        <div class="col p-0" style="left: -74%;max-width: 4%;">
                             <div id="pointTwo"  class="point-blank mr-auto"></div>
                         </div>
-                        <div class="col p-0" style="left: -278px;">
+                        <div class="col p-0" style="left: -43%;">
                             <div class="point-blank mr-auto"></div>
                         </div>
                     </div>

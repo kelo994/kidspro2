@@ -59,7 +59,14 @@
 
 .ant-menu-inline .ant-menu-item {
   height: 30px !important;
-  line-height: 30px !important; 
+  line-height: 30px !important;
   font-size: 10px !important;
   margin-top: 0px !important;
+}
+
+@media screen and (max-width: $mobile-style) {
+  .ant-menu-inline .ant-menu-item {
+    font-size: 15px !important;
+    line-height: 14px !important;
+  }
 }
