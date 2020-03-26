@@ -31,7 +31,14 @@ export class CourseComponent implements OnInit {
     ],
     estudiantesColegioLibres: [],
   };
-  profesores: [];
+  profesores: [
+    {
+      tipo: '',
+      persona_nombre: '',
+      persona_apellido: '',
+      persona_rut: '',
+    }
+  ];
   profesoresEstablecimiento: [];
   tipoProfesores = [
     {id: 1, tipo: 'Titular'},
