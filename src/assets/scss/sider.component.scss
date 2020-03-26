@@ -64,7 +64,7 @@
   margin-top: 0px !important;
 }
 
-@media screen and (min-width: $mobile-style) {
+@media screen and (max-width: $mobile-style) {
   .ant-menu-inline .ant-menu-item {
     font-size: 15px !important;
     line-height: 14px !important;
