@@ -61,10 +61,6 @@ export class SimceCreateComponent implements OnInit {
   getSimceTypes() {
     this.simceService.getSimce().subscribe( (data: any) => { // Success
       this.simceTypes = data;
-      if (this.simceTypes.length) {
-        //this.createForm.controls['tipo'].setValue(this.simceTypes[0]);
-        //this.getValidCourses()
-      }
     }, (error) => {
       if (error.status == 401) this.router.navigate(['/auth/login']);
     })
@@ -84,16 +80,15 @@ export class SimceCreateComponent implements OnInit {
       this.newEvaluation.emit(data);
       this.openModal('detail')
     },(error) => {
-      console.log(error.response)
-      this.notification.error('Error Inesperado', 'Ha ocurrido un error al generar la evaluación')
+      this.notification.error('Error Inesperado', error.error)
       if (error.status == 401) this.router.navigate(['/auth/login'])
     })
   }
 
   getValidCourses () {
+    this.cursos = [];
     let asignaturaId = this.createForm.controls.tipo.value.asignatura_id;
     if (asignaturaId != 0) {
-      this.cursos = [];
       this.simceService.getCursosFuncionarioAsignatura(this.idFuncionario, asignaturaId).subscribe( (data: any) => { // Success
         this.cursos = data
         if (this.cursos.length === 0) {
@@ -104,7 +99,7 @@ export class SimceCreateComponent implements OnInit {
       })
     }
 
-    this.createForm.controls['curso'].setValue('');
+    this.createForm.controls['curso'].setValue(null);
   }
 
   clean () {
@@ -114,7 +109,7 @@ export class SimceCreateComponent implements OnInit {
   }
 
   verPrueba (element) {
-    this.router.navigate(['/pages/simce/prueba'], {state: {idPrueba: element.prueba_id, simce: element}})
+    this.router.navigate(['/pages/simce/prueba'], { state: { evaluation: element } })
   }
 
   setValue(newValue) {

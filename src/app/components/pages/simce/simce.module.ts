@@ -10,8 +10,8 @@ registerLocaleData(es);
 import { SimceComponent } from './simce.component';
 import { SimceCreateComponent } from './create/create.component';
 import { SimceEvaluationsComponent } from './evaluations/evaluations.component';
+import { SimceEvaluationComponent } from './evaluation/evaluation.component';
 import { EvaluationResultsComponent } from './results/results.component';
-import { PreguntasChartComponent } from './results/charts/preguntas.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
@@ -26,8 +26,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
         SimceComponent,
         SimceCreateComponent,
         SimceEvaluationsComponent,
+        SimceEvaluationComponent,
         EvaluationResultsComponent,
-        PreguntasChartComponent
     ],
     providers: [{ provide: NZ_I18N, useValue: es_ES }, NzI18nService],
     entryComponents: [  ]

@@ -1,4 +1,4 @@
-<nz-layout *ngIf="evaluation != null" style="height: 100vh; padding-top: 64px;">
+<nz-layout style="height: 100vh;">
     <nz-sider class="lesson-sidebar" [nzWidth]="siderWidth" nzTheme="light">
         <nz-card class="sidebar-evaluation-title">
             Preg<ng-template [ngIf]="siderWidth === 200">untas</ng-template>
@@ -12,33 +12,32 @@
 
     <nz-layout>
         <nz-content>
-            <nz-page-header class="evaluation-subheader">
-                <nz-page-header-title class="evaluation-subheader-title">Evaluación
+            <nz-page-header>
+                <nz-page-header-title *ngIf="evaluation != null" class="evaluation-subheader-title">Borrador
                     #{{ evaluation.prueba_id }} {{ evaluation.simce_descripcion }}</nz-page-header-title>
-                <nz-page-header-content class="evaluation-subheader-subtitle">
-                    Pregunta {{ question.pregunta_numero }} de {{ questions.length }}
-                </nz-page-header-content>
+                <nz-page-header-extra>
+                    <div class="back" (click)="back()">
+                        <i nz-icon nzType="arrow-left" nzTheme="outline"></i>
+                        Salir
+                    </div>
+                </nz-page-header-extra>
             </nz-page-header>
             <div class="question-container" nz-row *ngIf="question != null">
-                <div *ngIf="question.multimedia != ''" nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="17" nzXl="17" nzXXl="16">
+                <div *ngIf="question.multimedia != ''" nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="15" nzXl="15" nzXXl="15">
                     <nz-card class="card-img">
                         <img class="question-img" [src]="question.multimedia" [height]="question.multimedia_height">
                     </nz-card>
                 </div>
-                <div *ngIf="question.multimedia != ''" class="question" nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="7" nzXl="7" nzXXl="8">
+                <div *ngIf="question.multimedia != ''" class="question" nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="9" nzXl="9" nzXXl="9">
                     <p class="bold">{{ question.primer_parrafo }}</p>
                     <p class="bold">{{ question.segundo_parrafo }}</p>
                     <p class="bold">{{ question.tercer_parrafo }}</p>
                     <nz-radio-group [(ngModel)]="question.respuesta_id">
                         <label *ngFor="let option of question.alternativas" class="question-option" nz-radio
-                            [nzValue]="option.respuesta_id" (click)="guardarRespuesta(question.pregunta_id, option.respuesta_id)">
+                            [nzValue]="option.respuesta_id">
                             <span class="overflow-visible">{{ option.respuesta }}</span>
                         </label>
                     </nz-radio-group>
-                    <div class="buttons">
-                        <button class="btn-previous" nz-button nzType="primary" [disabled]="questionIndex === 0" (click)="prev()">Anterior</button>
-                        <button class="btn-next" nz-button nzType="primary" [disabled]="questionIndex === (questions.length - 1)" (click)="next()">Siguiente</button>
-                    </div>
                 </div>
                 <div *ngIf="question.multimedia == ''"class="question" nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="24" nzXXl="24">
                     <p class="bold">{{ question.primer_parrafo }}</p>
@@ -46,14 +45,10 @@
                     <p class="bold">{{ question.tercer_parrafo }}</p>
                     <nz-radio-group [(ngModel)]="question.respuesta_id">
                         <label *ngFor="let option of question.alternativas" class="question-option" nz-radio
-                            [nzValue]="option.respuesta_id" (click)="guardarRespuesta(question.pregunta_id, option.respuesta_id)">
+                            [nzValue]="option.respuesta_id">
                             <span class="overflow-visible">{{ option.respuesta }}</span>
                         </label>
                     </nz-radio-group>
-                    <div class="buttons">
-                        <button class="btn-previous" nz-button nzType="primary" [disabled]="questionIndex === 0" (click)="prev()">Anterior</button>
-                        <button class="btn-next" nz-button nzType="primary" [disabled]="questionIndex === (questions.length - 1)" (click)="next()">Siguiente</button>
-                    </div>
                 </div>
             </div>
         </nz-content>

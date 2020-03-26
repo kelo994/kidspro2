@@ -1,10 +1,11 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Input } from '@angular/core';
 import { HighchartsService } from 'src/app/services/highcharts.service';
 import { Router } from '@angular/router';
 import { Color, BaseChartDirective, Label } from 'ng2-charts';
 import { ChartDataSets, ChartType, ChartOptions } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
+import { NzNotificationService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-actividades',
@@ -12,14 +13,41 @@ import * as pluginAnnotations from 'chartjs-plugin-annotation';
   styleUrls: ['./actividades.component.scss']
 })
 export class ActividadesComponent implements OnInit {
+  @Input() selectCurso: any;
+  @Input() selectAsignatura: any;
   
-  constructor(private highcharts: HighchartsService, public router: Router) { }
+  curso = {
+    curso_nombre: 'Seleccione un Curso',
+    id: 0
+  }
 
-  @ViewChild('analisisComparativo') public analisisComparativo: ElementRef;
+  asignatura = {
+    materia_descripcion: 'Seleccione Asignatura',
+    asignatura_id: 0
+  }
+
+  constructor(private highcharts: HighchartsService, public router: Router, private notification: NzNotificationService) { }
+
+  // @ViewChild('analisisComparativo') public analisisComparativo: ElementRef;
 
   ngOnInit(): void {  }
 
-  ngAfterViewInit() { }
+  ngOnChanges(changes: any) {
+    console.log(changes);
+    if (changes.selectCurso) {
+      if (changes.selectCurso.currentValue.curso_nombre) this.curso.curso_nombre = changes.selectCurso.currentValue.curso_nombre;
+      if (changes.selectCurso.currentValue.id) this.curso.id = changes.selectCurso.currentValue.id;
+    } else if (!(Number(this.curso.id) > 0)) {
+      this.notification.warning('Reporte de Objetivos', 'Error, no se ha seleccionado un curso.');
+    }
+
+    if (changes.selectAsignatura) {
+      if (changes.selectAsignatura.currentValue.materia_descripcion) this.asignatura.materia_descripcion = changes.selectAsignatura.currentValue.materia_descripcion;
+      if (changes.selectAsignatura.currentValue.asignatura_id) this.asignatura.asignatura_id = changes.selectAsignatura.currentValue.asignatura_id;
+    } else if (!(Number(this.selectAsignatura.asignatura_id) > 0)) {
+      this.notification.warning('Reporte de Objetivos', 'Error, no se ha seleccionado una asignatura.');
+    }
+  }
 
   // lineChart
   public lineChartData: ChartDataSets[] = [
@@ -126,4 +154,79 @@ export class ActividadesComponent implements OnInit {
     pointHoverBorderColor: '#56ccf2'
   }];
   public ChartType = 'bar';
+
+  // barChart
+  // firstCopy = false;
+
+  // data
+  public barChartDataAct: ChartDataSets[] = [
+    { data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40], label: 'Puntaje Total de los Objetivos' }
+  ];
+
+  // public labelMFL: Array<any> = [
+  //   { data: this.barChartDataAct[0] }
+  // ];
+  // labels
+  public barChartLabelsAct: Array<any> = ["01", "02", "03", "04", "05", "06", "07", "01", "02", "03", "04", "05", "06", "07"];
+
+  public barChartOptionsAct: any = {
+    responsive: true,
+    legend: { position: 'bottom', align: 'start' },
+    scales: {
+      yAxes: [
+        {
+          scaleLabel: {
+            display: true,
+            labelString: 'Puntaje total de las Unidades',
+          },
+          ticks: {
+            max: 60,
+            min: 0,
+          }
+        }],
+      xAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Lecciones',
+        }
+      }],
+    },
+  };
+
+  _barChartColorsAct: Array<any> = [{
+    backgroundColor: '#6fcf97',
+    borderColor: '#6fcf97',
+    pointBackgroundColor: '#6fcf97',
+    pointBorderColor: '#6fcf97',
+    pointHoverBackgroundColor: '#6fcf97',
+    pointHoverBorderColor: '#6fcf97'
+  }];
+
+  public ChartTypeAct = 'bar';
+
+  // pie chart
+  public pieChartOptions: ChartOptions = {
+    responsive: true,
+    legend: {
+      position: 'left', align: 'end'
+    },
+    plugins: {
+      datalabels: {
+        formatter: (value, ctx) => {
+          const label = ctx.chart.data.labels[ctx.dataIndex];
+          return label;
+        },
+      },
+    }
+  };
+  public pieChartLabels: Label[] = ['Iniciales', 'Intermedio', 'Avanzado'];
+  public pieChartData: number[] = [50, 30, 20];
+  public pieChartType: ChartType = 'pie';
+  public pieChartLegend = true;
+  public pieChartPlugins = [pluginDataLabels];
+  public pieChartColors = [
+    {
+      backgroundColor: ['rgba(255,0,0,0.3)', 'rgba(0,255,0,0.3)', 'rgba(0,0,255,0.3)'],
+    },
+  ];
 }

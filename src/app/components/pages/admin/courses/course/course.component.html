@@ -1,6 +1,7 @@
-<nz-page-header >
-  <nz-page-header-title>{{curso.nivel_descripcion}}  {{ curso.seccion_nombre }}, {{asignatura.materia_descripcion}}</nz-page-header-title>
-  <nz-page-header-extra >
+<nz-page-header>
+  <nz-page-header-title>{{curso.nivel_descripcion}} {{ curso.seccion_nombre }}, {{asignatura.materia_descripcion}}
+  </nz-page-header-title>
+  <nz-page-header-extra>
 
   </nz-page-header-extra>
 </nz-page-header>
@@ -12,25 +13,26 @@
         <h6>Estudiantes inscritos</h6>
       </div>
     </div>
-    <nz-table class="content-table" #EstudiantesTable  nzFooter="" nzSize="middle"  [nzData]="data.estudiantesCurso" nzShowPagination="false">
+    <nz-table class="content-table" #EstudiantesTable nzFooter="" nzSize="middle" [nzData]="data.estudiantesCurso"
+      nzShowPagination="false">
       <thead>
-      <tr>
-        <th  >Matrícula</th>
-        <th class="content-celda" >Nombre</th>
-        <th class="content-celda" >Apellido</th>
-        <th class="content-celda" >RUT</th>
-        <th class="content-celda" >Acciones</th>
-      </tr>
+        <tr>
+          <th>Matrícula</th>
+          <th class="content-celda">Nombre</th>
+          <th class="content-celda">Apellido</th>
+          <th class="content-celda">RUT</th>
+          <th class="content-celda">Acciones</th>
+        </tr>
       </thead>
-      <tbody >
-      <tr *ngFor="let estudiante of EstudiantesTable.data">
-        <td>20202</td>
-        <td class="content-celda" >Matrícula</td>
-        <td class="content-celda" >{{estudiante.persona_nombre}}</td>
-        <th class="content-celda" >{{estudiante.persona_apellido}}</th>
-        <td class="content-celda" >RUT</td>
-        <td class="content-celda" >Acciones</td>
-      </tr>
+      <tbody>
+        <tr *ngFor="let estudiante of EstudiantesTable.data">
+          <td>20202</td>
+          <td class="content-celda">Matrícula</td>
+          <td class="content-celda">{{estudiante.persona_nombre}}</td>
+          <th class="content-celda">{{estudiante.persona_apellido}}</th>
+          <td class="content-celda">RUT</td>
+          <td class="content-celda">Acciones</td>
+        </tr>
       </tbody>
     </nz-table>
   </div>

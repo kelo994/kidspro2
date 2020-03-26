@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ChartDataSets, ChartType, ChartOptions } from 'chart.js';
 import { Color, BaseChartDirective, Label } from 'ng2-charts';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
 import { ReporteService } from '../../../../services/reporte.service';
 import { NzNotificationService } from 'ng-zorro-antd';
@@ -41,27 +42,28 @@ export class ObjetivosComponent implements OnInit {
   constructor(private highcharts: HighchartsService, public router: Router,
     private notification: NzNotificationService, public rService: ReporteService) { }
 
-  @ViewChild('analisisComparativo') public analisisComparativo: ElementRef;
+  // @ViewChild('analisisComparativo') public analisisComparativo: ElementRef;
 
   ngOnInit(): void {
     // obtener Cursos
   }
 
   ngOnChanges(changes: any) {
+    $('#cursoIdx').click();
     console.log(changes);
-    if(changes.selectCurso) {
+    if (changes.selectCurso) {
       if (changes.selectCurso.currentValue.curso_nombre) this.curso.curso_nombre = changes.selectCurso.currentValue.curso_nombre;
       if (changes.selectCurso.currentValue.id) this.curso.id = changes.selectCurso.currentValue.id;
-    } else if(!(Number(this.curso.id) > 0)) {
+    } else if (!(Number(this.curso.id) > 0)) {
       this.notification.warning('Reporte de Objetivos', 'Error, no se ha seleccionado un curso.');
     }
-    
-    if(changes.selectAsignatura) {
+
+    if (changes.selectAsignatura) {
       if (changes.selectAsignatura.currentValue.materia_descripcion) this.asignatura.materia_descripcion = changes.selectAsignatura.currentValue.materia_descripcion;
-    if (changes.selectAsignatura.currentValue.asignatura_id) this.asignatura.asignatura_id = changes.selectAsignatura.currentValue.asignatura_id;
-    } else if(!(Number(this.selectAsignatura.asignatura_id) > 0)) {
+      if (changes.selectAsignatura.currentValue.asignatura_id) this.asignatura.asignatura_id = changes.selectAsignatura.currentValue.asignatura_id;
+    } else if (!(Number(this.selectAsignatura.asignatura_id) > 0)) {
       this.notification.warning('Reporte de Objetivos', 'Error, no se ha seleccionado una asignatura.');
-    }    
+    }
 
     if (this.curso.id > 0 && this.asignatura.asignatura_id > 0) {
       this.getDataAsignatura();
@@ -76,7 +78,7 @@ export class ObjetivosComponent implements OnInit {
         this.unidades = data;
         if (this.unidades.length > 0) {
           this.selectUnidad = this.unidades[0];
-          this.changeUnidad(this.selectUnidad);
+          this.setLecciones(this.selectUnidad);
         }
       },
       (error) => {
@@ -90,17 +92,19 @@ export class ObjetivosComponent implements OnInit {
     );
   }
 
-  changeUnidad(itemU) {
+  setLecciones(itemU) {
     this.lecciones = itemU.bloques;
     this.selectLeccion = this.lecciones[0];
-    this.changeObjetivos(this.selectLeccion);
+    this.setObjetivos(this.selectLeccion);
   }
 
-  changeObjetivos(itemL) {
+  setObjetivos(itemL) {
     this.objetivos = itemL.objetivos;
     this.selectObjetivo = this.objetivos[0];
+    console.log(itemL.objetivos);
+    this.obtenerDataGraficos();
   }
-  
+
   getEstudiantes() {
     this.rService.getEstudiantesCurso(this.selectCurso.id).subscribe(
       (data: any) => { // Success
@@ -119,26 +123,41 @@ export class ObjetivosComponent implements OnInit {
   }
 
   onChangeUnidad(item) {
-    this.lecciones = item.bloques;
-    this.selectLeccion = this.lecciones[0]
-    this.onChangeLeccion(this.selectLeccion);
+    this.selectUnidad = this.unidades[item];
+    this.setLecciones(this.selectUnidad);
   }
 
   onChangeLeccion(item) {
-    this.objetivos = item.objetivos;
-    this.selectObjetivo = this.objetivos[0];
-    this.onChangeObjetivo(this.selectObjetivo);
+    this.selectLeccion = this.lecciones[item];
+    this.setObjetivos(this.selectLeccion);
   }
 
   onChangeObjetivo(item) {
-    // render graficos
+    this.selectObjetivo = this.objetivos[item];
+    this.obtenerDataGraficos();
   }
 
   onChangeEstudiante(item) {
-    // render graficos
+    this.selectEstudiante = this.estudiantes[item];
   }
-  
 
+  obtenerDataGraficos() {
+    this.rService.getObjetivosCursos(this.selectCurso.id, this.selectAsignatura.asignatura_id, this.selectObjetivo.id).subscribe(
+      (data: any) => { // Success
+        console.log(data);
+        // this.datos = data.datos;
+        // this.gauges = data.gauge;
+        // this.showSection = 2;
+      },
+      (error) => {
+        if (error.status == 401) {
+          this.router.navigate(['/auth/login']);
+        } else if (error.status == 400) {
+          this.router.navigate(['/auth/login']);
+        }
+      }
+    );
+  }
   // lineChart
   public lineChartData: ChartDataSets[] = [
     { data: [830, 850, 840, 820, 860, 855, 840], label: 'Puntajes Mínimos' },
@@ -213,35 +232,73 @@ export class ObjetivosComponent implements OnInit {
   firstCopy = false;
 
   // data
-  public barChartData: Array<number> = [40, 48, 50, 40, 38, 40, 59];
+  public barChartData: ChartDataSets[] = [
+    { data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40], label: 'Puntaje Total de los Objetivos' }
+  ];
 
   public labelMFL: Array<any> = [
-    { data: this.barChartData }
+    { data: this.barChartData[0] }
   ];
   // labels
-  public barChartLabels: Array<any> = ["01", "02", "03", "04", "05", "06", "07"];
+  public barChartLabels: Array<any> = ["01", "02", "03", "04", "05", "06", "07", "01", "02", "03", "04", "05", "06", "07"];
 
   public barChartOptions: any = {
     responsive: true,
-    legend: { display: false },
+    legend: { position: 'bottom', align: 'start' },
     scales: {
-      yAxes: [{
-        ticks: {
-          max: 60,
-          min: 0,
+      yAxes: [
+        {
+          scaleLabel: {
+            display: true,
+            labelString: 'Puntaje total de las Unidades',
+          },
+          ticks: {
+            max: 60,
+            min: 0,
+          }
+        }],
+      xAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Lecciones',
         }
       }],
-      xAxes: [{}],
     },
   };
 
   _barChartColors: Array<any> = [{
-    backgroundColor: '#56ccf2',
-    borderColor: '#56ccf2',
-    pointBackgroundColor: '#56ccf2',
-    pointBorderColor: '#56ccf2',
-    pointHoverBackgroundColor: '#56ccf2',
-    pointHoverBorderColor: '#56ccf2'
+    backgroundColor: '#6fcf97',
+    borderColor: '#6fcf97',
+    pointBackgroundColor: '#6fcf97',
+    pointBorderColor: '#6fcf97',
+    pointHoverBackgroundColor: '#6fcf97',
+    pointHoverBorderColor: '#6fcf97'
   }];
   public ChartType = 'bar';
+
+  // pie chart
+  public pieChartOptions: ChartOptions = {
+    responsive: true,
+    legend: {
+      position: 'left', align: 'end'
+    },
+    plugins: {
+      datalabels: {
+        formatter: (value, ctx) => {
+          const label = ctx.chart.data.labels[ctx.dataIndex];
+          return label;
+        },
+      },
+    }
+  };
+  public pieChartLabels: Label[] = ['Iniciales', 'Intermedio', 'Avanzado'];
+  public pieChartData: number[] = [50, 30, 20];
+  public pieChartType: ChartType = 'pie';
+  public pieChartLegend = true;
+  public pieChartPlugins = [pluginDataLabels];
+  public pieChartColors = [
+    {
+      backgroundColor: ['rgba(255,0,0,0.3)', 'rgba(0,255,0,0.3)', 'rgba(0,0,255,0.3)'],
+    },
+  ];
 }

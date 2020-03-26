@@ -1,8 +1,8 @@
 <nz-layout class="right-layout headerrepos mb-5">
     <div class="header bg-subheader p-2 bg-gris-reportes pl-5">
         <label class="bd-invisible pr-3 title-repo">Actividades</label>
-        <label class="bd-invisible px-3 title-repo-curso">Curso</label>
-        <label class="px-3 title-repo-curso">Asignatura</label>
+        <label class="bd-invisible px-3 title-repo-curso">{{ curso.curso_nombre}}</label>
+        <label class="px-3 title-repo-curso">{{ selectAsignatura.materia_descripcion }}</label>
         <br>
         <label class="subtitle-repo bd-invisible px-3">Exigencia</label>
         <label class="subtitle-repo bd-invisible px-3">Todas las Actividades</label>
@@ -17,40 +17,43 @@
         </div>
     </nz-card>
 
+    <nz-card class="mx-4 mt-3" style="min-height: 234px; text-align: center;">
+        <p class="title-graph-bar text-left pl-2 d-none">Puntaje total de las Unidades</p>
+        <div class="mx-auto mt-2" style="display: block; max-width: 90%; min-width: 90%;">
+            <canvas baseChart [datasets]="barChartDataAct" [labels]="barChartLabelsAct" [options]="barChartOptionsAct"
+                [chartType]="ChartTypeAct" [colors]="_barChartColorsAct"></canvas>
+        </div>
+        <p class="title-graph-bar text-right pr-2 d-none">Lecciones</p>
+    </nz-card>
+
     <div class="row mx-4">
-        <div class="col-6 p-0">
-            <div class="card mr-1 mt-3" style="text-align: center; min-height: 200px; max-height: 200px;">
-                <div class="row m-0 card-point">
-                    <div class="col-4 d-block my-auto">
-                        <p class="point-repo py-4">200</p>
-                    </div>
-                    <div class="col-4 d-block my-auto">
-                        <p class="point-repo py-4">150</p>
-                    </div>
-                    <div class="col-4 d-block my-auto">
-                        <p class="point-repo py-4">100</p>
-                    </div>
-                </div>
-                <div class="row m-0 card-title-point bg-estadisticas p-0">
-                    <div class="col-4 d-block my-auto">
-                        <p class="title-point-repo m-0 text-center m-0">Iniciales</p>
-                    </div>
-                    <div class="col-4 d-block my-auto">
-                        <p class="title-point-repo m-0 text-center m-0">Intermedio</p>
-                    </div>
-                    <div class="col-4 d-block my-auto">
-                        <p class="title-point-repo m-0 text-center m-0">Avanzado</p>
-                    </div>
+        <div class="col-8 px-0">
+            <div class="card mr-1 mt-3 card-stats-repo" style="text-align: center;">
+                <label class="title-piechart">Porcentajes</label>
+                <div class="chart p-3 pl-5">
+                    <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+                        [options]="pieChartOptions" [plugins]="pieChartPlugins" [colors]="pieChartColors"
+                        [legend]="pieChartLegend">
+                    </canvas>
                 </div>
             </div>
         </div>
-        <div class="col-6 p-0">
-            <div class="card ml-1 mt-3" style="text-align: center; min-height: 200px; max-height: 200px;">
-                <div style="display: block">
-                    <canvas baseChart [datasets]="labelMFL" [labels]="barChartLabels" [options]="barChartOptions"
-                        [chartType]="ChartType" [colors]="_barChartColors"></canvas>
-                </div>
-                <p class="title-graph-bar">Puntaje total de la Asigntura</p>
+        <div class="col-4 pr-0">
+            <div class="card mr-1 mt-3 card-stats-repo" style="text-align: center;">
+                <ul class="list-group">
+                    <li class="list-group-item bg-blue-clear text-left">
+                        <h3 class="m-0 text-left pl-5">200</h3>
+                        <label class="text-left pl-5 m-0">Iniciales</label>
+                    </li>
+                    <li class="list-group-item bg-blue-clear text-left">
+                        <h3 class="m-0 text-left pl-5">150</h3>
+                        <label class="text-left pl-5 m-0">Intermedio</label>
+                    </li>
+                    <li class="list-group-item bg-blue-clear text-left">
+                        <h3 class="m-0 text-left pl-5">100</h3>
+                        <label class="text-left pl-5 m-0">Avanzado</label>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

@@ -30,7 +30,6 @@ export class StudentLessonService {
     }
 
     getBloqueAlumno(idEstudiante: any) {
-        console.log(idEstudiante)
         return this.http.get(`${this.url}/detalleBloqueAlumno/${idEstudiante}`, this.getTokenStudent())
             .pipe(timeout(5000),
                 retry(3),

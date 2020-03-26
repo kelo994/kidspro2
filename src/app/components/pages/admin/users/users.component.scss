@@ -35,3 +35,8 @@ i {
     padding-right: 5px;
     cursor: pointer;
 }
+
+::ng-deep .modal-confirm-delete > .ant-modal-content > .ant-modal-body > .ant-modal-confirm-body-wrapper > .ant-modal-confirm-btns > .ant-btn-primary {
+    background-color: #ff655b;
+    border-color: #ff655b;
+}

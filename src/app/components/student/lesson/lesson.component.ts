@@ -31,7 +31,7 @@ export class StudentLessonComponent implements OnInit {
   isCollapsed;
   visibleDrawer = false;
 
-  estudianteId = localStorage.getItem('idEstudiante');
+  idEstudiante;
   leccionId;
   leccion = {
     bloque_id: '',
@@ -59,6 +59,7 @@ export class StudentLessonComponent implements OnInit {
   iframeHtml: any;
 
   ngOnInit(): void {
+    this.idEstudiante = localStorage.getItem('idEstudiante');
     this.loadContent()
     if (window.innerWidth >= 576) {
       this.innerWidth = window.innerWidth / 2;
@@ -68,25 +69,21 @@ export class StudentLessonComponent implements OnInit {
   }
 
   loadContent() {
-    this.lessonService.getBloqueAlumno(this.estudianteId).subscribe((data: any) => { // Success
+    this.lessonService.getBloqueAlumno(this.idEstudiante).subscribe((data: any) => {
+      this.lecciones = data.data;
       this.leccion = data.data[0];
       if (this.leccion != null) {
         this.playleccion = this.leccion.ruta_actividad;
         this.loadVideo(this.leccion.recursos[0].url);
       } else {
-        //this.notFound = true
-      }
-      //this.load = true;
-      //this.estudent = localStorage.getItem('alumnoFast');
-      this.lecciones = data.data;
-      if (this.lecciones.length <= 1) {
-        //this.sinLeccion = true;
-      } else {
-        //this.sinLeccion = false;
+        this.notification.warning('No hay lecciones activadas', '');
       }
     }, (error) => {
       if (error.status === 500) this.notification.error('Error', error.error);
-      if (error.status == 401) this.router.navigate(['/auth/login']);
+      if (error.status == 401) {
+        localStorage.clear();
+        this.router.navigate(['/auth/login']);
+      }
     });
   }
 

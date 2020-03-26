@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReporteService } from 'src/app/services/reporte.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-reportes',
@@ -8,34 +8,39 @@ import { Router } from '@angular/router';
   styleUrls: ['./reportes.component.scss']
 })
 export class ReportesComponent implements OnInit {
+  tipoReporte = '';
   cursos = [];
   selectCurso: any;
   asignaturas = [];
   selectAsignatura: any;
   reportePage = 0;
 
-  constructor(public rService: ReporteService, public router: Router) { }
+  private parametersObservable: any;
+
+  constructor(public rService: ReporteService, public router: Router, public rActive: ActivatedRoute) { }
 
   ngOnInit(): void {
-    //cursos
-    // console.log(this.router.routerState.snapshot.url);
-
-    this.rService.getACursosGraficos(localStorage.getItem('rolId'), localStorage.getItem('idFuncionario')).subscribe(
-      (data: any) => { // Success
-        // console.log(data);
-        this.cursos = data;
-        if (this.cursos.length > 0) {
-          this.selectCurso = this.cursos[0];
-          this.getAsignaturas();
+    this.parametersObservable = this.rActive.params.subscribe(params => {
+      this.reportePage = 0;
+      this.tipoReporte = params.area;
+      this.rService.getACursosGraficos(localStorage.getItem('rolId'), localStorage.getItem('idFuncionario')).subscribe(
+        (data: any) => { // Success
+          // console.log(data);
+          this.cursos = data;
+          if (this.cursos.length > 0) {
+            this.selectCurso = this.cursos[0];
+            $('#cursoIdx').addClass('ant-menu-item-selected');
+            this.getAsignaturas();
+          }
+          // cargando asignaturas
+        },
+        (error) => {
+          console.log(error)
+          if (error.status == 401) this.router.navigate(['/auth/login']);
+          else if (error.status == 400) this.router.navigate(['/auth/login']);
         }
-        // cargando asignaturas
-      },
-      (error) => {
-        console.log(error)
-        if (error.status == 401) this.router.navigate(['/auth/login']);
-        else if (error.status == 400) this.router.navigate(['/auth/login']);
-      }
-    );
+      );
+    });
   }
 
   getAsignaturas() {
@@ -46,8 +51,8 @@ export class ReportesComponent implements OnInit {
         this.asignaturas = data;
         if(this.asignaturas.length > 0) {
           this.selectAsignatura = this.asignaturas[0];
-          if (String(this.router.routerState.snapshot.url) == '/pages/reportes/objetivos') this.reportePage = 1;
-          else if (String(this.router.routerState.snapshot.url) == '/pages/reportes/actividades') this.reportePage = 2;
+          if (String(this.tipoReporte) == 'objetivos') this.reportePage = 1;
+          else if (String(this.tipoReporte) == 'actividades') this.reportePage = 2;
         } else this.reportePage = 3;
       },
       (error) => {
@@ -73,6 +78,10 @@ export class ReportesComponent implements OnInit {
 
   sendDataReporte() {
 
+  }
+
+  ngOnDestroy() {
+    this.parametersObservable.unsubscribe();
   }
 
 }

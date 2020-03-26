@@ -25,7 +25,6 @@ export class StudentEvaluationComponent implements OnInit {
   }
 
   idEstudiante = localStorage.getItem('idEstudiante');
-  idCursoEspecifico = localStorage.getItem('idCursoEspecifico');
 
   siderWidth = 200;
   isCollapsed;
@@ -33,6 +32,7 @@ export class StudentEvaluationComponent implements OnInit {
   evaluation: any;
   questions = [];
   question: any;
+  questionIndex: any;
 
   ngOnInit(): void {
     this.getEvaluation()
@@ -44,15 +44,17 @@ export class StudentEvaluationComponent implements OnInit {
   }
 
   getEvaluation() {
-    this.simceService.getPruebaCursoEspecifico(this.idCursoEspecifico, this.idEstudiante).subscribe((data: any) => {
+    this.simceService.getPruebaEstudiante(this.idEstudiante).subscribe((data: any) => {
       this.evaluation = data.prueba
       this.questions = data.preguntas
       this.question = data.preguntas[0]
-      console.log(this.questions)
-      //this.title = 'Evaluación #' + data.prueba.prueba_id + ' ' + data.prueba.simce_descripcion
+      this.questionIndex = 0
     }, (error) => {
       if (error.status === 500) this.notification.error('Error', error.error);
-      if (error.status == 401) this.router.navigate(['/auth/login']);
+      if (error.status == 401) {
+        localStorage.clear();
+        this.router.navigate(['/auth/login']);
+      }
       //this.notFound = true
     });
   }
@@ -68,8 +70,19 @@ export class StudentEvaluationComponent implements OnInit {
     })
   }
 
-  setQuestion(q) {
+  setQuestion(q, index) {
     this.question = q
+    this.questionIndex = index 
+  }
+
+  next () {
+    this.questionIndex = this.questionIndex + 1
+    this.question = this.questions[this.questionIndex]
+  }
+  
+  prev () {
+    this.questionIndex = this.questionIndex - 1
+    this.question = this.questions[this.questionIndex]
   }
 
 }
