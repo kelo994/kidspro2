@@ -22,7 +22,7 @@ export class CursoComponent implements OnInit {
 
   cursoNombre = '';
   asignaturas;
-  selectAsginatura = 'Sin asignatura Seleccionada';
+  selectAsginatura = 'Seleccione Asignatura';
   unidades;
 
   loading = false;
