@@ -1,0 +1,152 @@
+<nz-page-header >
+  <nz-page-header-title>Administración de estudiantes</nz-page-header-title>
+  <nz-page-header-extra >
+    <button style="font-size: 12px; font-weight: bold; background-color: #009dee; color: white" nz-button
+            *ngIf="step == 1" (click)="changeStep(2)">
+      <i nz-icon nzType="plus"></i>
+      <nz-divider [nzType]="'vertical'" style="margin-left: 0px"></nz-divider>
+      Registrar Estudiante
+    </button>
+  </nz-page-header-extra>
+</nz-page-header>
+<div nz-row class="content">
+  <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12" nzXl="12" nzXXl="12" class="content-left">
+    <div nz-row class="student-title">
+      <div nz-col nzXs="24" nzSm="24" nzMd="14" nzLg="16" nzXl="18" nzXXl="20">
+        <h6>Matrícula completa - Cursos</h6>
+      </div>
+    </div>
+    <div class="content-cursos">
+      <nz-card class="content-table">
+        <div nz-row>
+          <div nz-col nzXs="12" nzSm="12" nzMd="6" nzLg="6" nzXl="6" nzXXl="6"
+               class="content-curso" *ngFor="let curso of cursos" >
+            <div nz-row nzType="flex" nzJustify="space-around" nzAlign="middle">
+              <div nz-col nzSpan="24" class="alinear-centro">
+                <nz-avatar class="avatar-curso" [nzSize]="48" nzIcon="folder-open" (click)="selectCurso(curso)" *ngIf="curso != cursoSeleccionado"></nz-avatar>
+                <nz-avatar class="avatar-curso-seleccionado" [nzSize]="48" nzIcon="folder-open" *ngIf="curso == cursoSeleccionado"></nz-avatar>
+              </div>
+              <div nz-col nzSpan="24" class="alinear-centro"><p >{{curso.nivel_descripcion}} {{curso.seccion_nombre}}</p></div>
+            </div>
+          </div>
+        </div>
+      </nz-card>
+    </div>
+  </div>
+  <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12" nzXl="12" nzXXl="12" class="content-right">
+    <div nz-row class="student-title">
+      <h6>Estudiantes</h6>
+    </div>
+    <div >
+      <nz-table class="content-table" #EstudiantesTable nzFooter="" nzSize="middle" [nzData]="estudiantesCurso"
+                nzShowPagination="false" *ngIf="step == 1">
+        <thead>
+        <tr>
+          <th>Matrícula</th>
+          <th class="content-celda">Nombre</th>
+          <th class="content-celda">Apellido</th>
+          <th class="content-celda">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let estudiante of EstudiantesTable.data">
+          <td>{{estudiante.matricula}}</td>
+          <td class="content-celda">{{estudiante.persona_nombre}}</td>
+          <th class="content-celda">{{estudiante.persona_apellido}}</th>
+          <td class="content-celda">
+            <i nz-icon nzType="delete" nzTheme="outline" class="pointer" (click)="delete(estudiante.estudiante_id)"></i>
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+      <div *ngIf="step == 0"  class="alinear-centro content-info">
+        <h3 style="color: rgba(0,0,0,0.1)">Seleccione un curso para mostrar la información</h3>
+      </div>
+      <div *ngIf="step == 2" class="form-student">
+
+        <form [formGroup]="estudianteForm" autocomplete="off">
+          <div class="modal-container">
+            <div nz-row class="mb-3">
+              <div nz-col nzSpan="8">
+                <label class="form-label">Matrícula</label>
+              </div>
+              <div nz-col nzSpan="16">
+                <input nz-input formControlName="matricula" placeholder="Matrícula" />
+              </div>
+            </div>
+            <div nz-row class="mb-3">
+              <div nz-col nzSpan="8">
+                <label class="form-label">RUT</label>
+              </div>
+              <div nz-col nzSpan="16">
+                <input nz-input formControlName="rut" placeholder="RUT" (keyup)="formateaRut()"/>
+              </div>
+            </div>
+            <div nz-row class="mb-3">
+              <div nz-col nzSpan="8">
+                <label class="form-label">Nombres</label>
+              </div>
+              <div nz-col nzSpan="16">
+                <input nz-input formControlName="nombre" placeholder="Nombres" />
+              </div>
+            </div>
+            <div nz-row class="mb-3">
+              <div nz-col nzSpan="8">
+                <label class="form-label">Apellidos</label>
+              </div>
+              <div nz-col nzSpan="16">
+                <input nz-input formControlName="apellido" placeholder="Apellidos" />
+              </div>
+            </div>
+            <div nz-row class="mb-3">
+              <div nz-col nzSpan="8">
+                <label class="form-label">Género</label>
+              </div>
+              <div nz-col nzSpan="16">
+                <nz-select formControlName="genero" class="w-100" nzAllowClear nzPlaceHolder="Generos">
+                  <nz-option *ngFor="let genero of generos; let i = index" [nzValue]="genero.id"
+                             [nzLabel]="genero.descripcion">
+                  </nz-option>
+                </nz-select>
+              </div>
+            </div>
+            <div nz-row class="mb-3">
+              <div nz-col nzSpan="8">
+                <label class="form-label">Teléfono</label>
+              </div>
+              <div nz-col nzSpan="16">
+                <input nz-input formControlName="telefono" placeholder="Teléfono" />
+              </div>
+            </div>
+            <div nz-row class="mb-3">
+              <div nz-col nzSpan="8">
+                <label class="form-label">Dirección</label>
+              </div>
+              <div nz-col nzSpan="16">
+                <input nz-input formControlName="direccion" placeholder="Dirección" />
+              </div>
+            </div>
+            <div nz-row class="mb-3">
+              <div nz-col nzSpan="8">
+                <label class="form-label">Nacionalidad</label>
+              </div>
+              <div nz-col nzSpan="16">
+                <input nz-input formControlName="nacionalidad" placeholder="Nacionalidad" />
+              </div>
+            </div>
+          </div>
+        </form>
+        <nz-divider></nz-divider>
+        <div nz-row nzType="flex" nzJustify="space-around" nzAlign="middle">
+          <button nz-button nzSize="large" style="background-color: #e8e8e8;"
+                  (click)="changeStep(0)">Cancelar</button>
+          <button nz-button nzSize="large" style="background-color: #e8e8e8;"
+                  (click)="clearForm()">Limpiar</button>
+          <button nz-button nzSize="large" nzType="primary" (click)="guardarEstudiante()" [disabled]="estudianteForm.invalid">
+            Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
