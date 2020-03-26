@@ -3,7 +3,7 @@
         Resultados de la Evaluación ID: {{evaluation.prueba_id}}
         <br>
         <nz-page-header-subtitle style="font-weight: 400;">
-            Realizada el día 12/03/2020
+            Realizada entre {{ evaluation.inicio }} y {{ evaluation.fin }}
         </nz-page-header-subtitle>
     </nz-page-header-title>
     <nz-page-header-extra>
@@ -14,8 +14,8 @@
     </nz-page-header-extra>
 </nz-page-header>
 
-<nz-layout *ngIf="!dataLoading" class="inner-layout">
-    <div nz-row>
+<nz-layout class="inner-layout">
+    <div *ngIf="!dataLoading" nz-row>
         <div nz-col nzMd="10" nzXs="24">
         </div>
         <div nz-col nzMd="14" nzXs="24">
@@ -46,7 +46,7 @@
         </div>
     </div>
     <div class="results" nz-row style="margin-bottom: 25px;">
-        <span class="note">Nota: Seleccione un alumno para una vista más detallada</span>
+        <span *ngIf="!dataLoading" class="note">Nota: Seleccione un alumno para una vista más detallada</span>
         <nz-table #results [nzData]="data" nzSize="small" nzShowPagination="false" [nzLoading]="dataLoading"
             style="margin-top: 10px;">
             <thead>
@@ -68,7 +68,7 @@
             <tbody *ngIf="vistaCompleta">
                 <tr *ngFor="let item of results.data">
                     <td (click)="detalleAlumno(item)" class="alumno">
-                        {{item.persona_nombre}} {{item.persona_apellido}}
+                        {{getFirstWord(item.persona_nombre)}} {{getFirstWord(item.persona_apellido)}}
                     </td>
                     <td *ngFor="let respuesta of item.respuestas"
                         [style]="respuesta.estado_respuesta === 0 ? 'background-color: #eb5757' : 'background-color: #6fcf97'">
@@ -77,17 +77,17 @@
             </tbody>
             <tbody *ngIf="!vistaCompleta">
                 <tr *ngFor="let item of rowsVistaAlumno; let i = index">
-                    <td *ngIf="i < results.data.length && alumnoSelected == item" (click)="detalleAlumno(item)"
+                    <td *ngIf="i < results.data.length && alumnoSelected == item"
                         class="alumno alumno-active" rowspan="1">
-                        {{item.persona_nombre}} {{item.persona_apellido}}
+                        {{getFirstWord(item.persona_nombre)}} {{getFirstWord(item.persona_apellido)}}
                     </td>
                     <td *ngIf="i < results.data.length && alumnoSelected != item" (click)="detalleAlumno(item)"
                         class="alumno" rowspan="1">
-                        {{item.persona_nombre}} {{item.persona_apellido}}
+                        {{getFirstWord(item.persona_nombre)}} {{getFirstWord(item.persona_apellido)}}
                     </td>
                     <td *ngIf="i >= results.data.length" class="not-alumno">
                     </td>
-                    <ng-template [ngIf]="i % 4 === 0">
+                    <ng-template [ngIf]="i % 4 === 0 && i < 20">
                         <td *ngFor="let pregunta of vistaAlumno[i / 4]" style="width: 14.33333333333333%" rowspan="4"
                             [style]="pregunta.estado === 0 ? 'background-color: #eb5757' : 'background-color: #6fcf97'">
                             <label>{{pregunta.pregunta.pregunta_numero}}</label>
@@ -95,19 +95,24 @@
                             </p>
                         </td>
                     </ng-template>
+                    <ng-template [ngIf]="i % 4 === 0 && i >= rowsAlumnoStats">
+                        <td *ngFor="let stat of alumnoStats[(i / 4) - (rowsAlumnoStats / 4)]" style="width: 14.33333333333333%" rowspan="4">
+                            <label class="stat-name">{{stat.name}}</label>
+                            <h4 class="stat-value">{{ stat.value }}</h4>
+                        </td>
+                    </ng-template>
                 </tr>
             </tbody>
         </nz-table>
     </div>
-    <div *ngIf="dataChart != null" class="porcentajes">
-        Porcentaje general por preguntas
-        <app-simce-preguntas-chart [data]="dataChart"></app-simce-preguntas-chart>
+    <div class="porcentajes">
+        <div #chartPreguntas></div>
     </div>
     <div nz-row>
-        <div nz-col nzMd="12" nzXs="24">
+        <div *ngIf="!dataLoading" nz-col nzMd="12" nzXs="24">
             <div nz-row>
                 <div nz-col nzSpan="4">
-                    Pregunta:
+                    <h5>Pregunta:</h5>
                 </div>
                 <div nz-col nzSpan="8">
                     <nz-select [(ngModel)]="preguntaSelected" class="w-100" nzAllowClear
@@ -126,7 +131,7 @@
                     <p>{{ preguntaSelected.tercer_parrafo }}</p>
                     <nz-radio-group [(ngModel)]="preguntaSelected.respuesta_id">
                         <label nz-radio *ngFor="let option of preguntaSelected.alternativas"
-                            nzValue="option.respuesta_id">
+                            [nzValue]="option.respuesta_id">
                             {{ option.respuesta }}
                         </label>
                     </nz-radio-group>
@@ -134,18 +139,9 @@
             </div>
         </div>
         <div nz-col nzMd="12" nzXs="24">
-            Niveles de Logro
-            <nz-card class="text-center">
-                <div nz-row>
-                    <div nz-col nzSpan="12">
-                        Porcentajes
-                    </div>
-                    <div nz-col nzSpan="12">
-                        Grafico
-                    </div>
-                </div>
-            </nz-card>
-            <nz-card class="text-center">
+            <h5 *ngIf="!dataLoading">Niveles de Logro</h5>
+            <div #chartNiveles></div>
+            <nz-card *ngIf="!dataLoading" class="text-center">
                 <div nz-row class="card-body">
                     <div nz-col nzSpan="8">
                         {{ niveles[0].value }}

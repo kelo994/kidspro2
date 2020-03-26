@@ -79,6 +79,12 @@
     margin-bottom: 20px;
 }
 
+.title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
 .alumno {
     cursor: pointer;
     border: 0;
@@ -107,4 +113,13 @@
 .note {
     font-style: italic;
     margin-bottom: 10px;
+}
+
+.stat-name {
+    font-weight: 500;
+}
+
+.stat-value {
+    color: #019101e3;
+    font-weight: 600;
 }

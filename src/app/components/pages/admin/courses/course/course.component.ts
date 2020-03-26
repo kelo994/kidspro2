@@ -38,6 +38,14 @@ export class CourseComponent implements OnInit {
     {id: 2, tipo: 'Suplente con permiso de editado'},
     {id: 3, tipo: 'Suplente sin permiso de editado'},
   ];
+  selectedValue = {id: 1, tipo: 'Titular'};
+  current = 0;
+  modalProfesor = false;
+  funcionarioSeleccionado;
+  tipoProfesorSeleccionado;
+  nombreTipoProfesorSeleccionado;
+  nombreFuncionarioSeleccionado;
+  apellidoFuncionarioSeleccionado;
 
   constructor( private notification: NzNotificationService,
                private router: Router,
@@ -101,14 +109,13 @@ export class CourseComponent implements OnInit {
   }
 
 
-  agregarProfesor(tipoProfesor, funcionarioId) {
-
+  agregarProfesor() {
     const data = {
       curso_id: this.cursoId,
       establecimiento_id: this.establecimientoId,
       asignatura_id: this.asignaturaId,
-      tipo_profesor_id: tipoProfesor,
-      funcionario_id: funcionarioId
+      tipo_profesor_id: this.tipoProfesorSeleccionado,
+      funcionario_id: this.funcionarioSeleccionado
     };
     this.coursesService.agregarFuncionarioCurso(data).subscribe((response: any) => {
       console.log(response);
@@ -122,5 +129,35 @@ export class CourseComponent implements OnInit {
     });
   }
 
+  pre(): void {
+    this.current -= 1;
+  }
+
+  next(): void {
+    this.current += 1;
+  }
+
+  done(): void {
+    this.agregarProfesor();
+  }
+  openModalProfesor() {
+    this.modalProfesor = true;
+  }
+
+  seleccionarProfesor(funcionarioId, nombreFuncionario, apellidoFuncionarioSeleccionado) {
+    this.funcionarioSeleccionado = funcionarioId;
+    this.nombreFuncionarioSeleccionado = nombreFuncionario;
+    this.apellidoFuncionarioSeleccionado = apellidoFuncionarioSeleccionado;
+    this.current += 1;
+  }
+  seleccionarTipoProfesor(value) {
+    this.selectedValue = value;
+    this.tipoProfesorSeleccionado = value.id;
+    this.nombreTipoProfesorSeleccionado = value.tipo;
+  }
+
+  closeModalProfesor(): void {
+    this.modalProfesor = false;
+  }
 
 }

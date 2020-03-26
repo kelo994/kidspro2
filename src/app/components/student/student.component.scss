@@ -2,9 +2,9 @@
     min-width: 100%;
 }
 
-::ng-deep .ant-layout-header {
+.header-estudiante {
     background-image: url('../../../assets/images/student/nav.png');
-    background-color: none;
+    background-color: inherit;
     height: 64px;
     line-height: 64px;
 }
@@ -62,11 +62,34 @@
 .logo-imagen {
     height: 56px;
     padding-bottom: 4px;
-    margin-left: 15px;
+    margin-left: 0px;
 }
 
 .logo-opcion {
     margin-bottom: 4px;
     width: 60px;
     height: 60px;
+}
+
+.student-name {
+    font-size: 20px;
+    font-weight: bolder;
+    color: #ffffff;
+    text-shadow: -1px -1px 0 orange, 1px -1px 0 orange, -1px 1px 0 orange, 1px 1px 0 orange;
+    margin-right: 5px;
+}
+
+@media (max-width: 620px) {
+    .student-name {
+      display: none;
+    }
+    .info-container {
+        margin-left: auto;
+    }
+}
+
+@media (max-width: 860px) {
+    .info-container {
+        margin-right: 20px;
+    }
 }

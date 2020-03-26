@@ -72,24 +72,52 @@
       <div nz-col nzSpan="8" class="text-center">
         <i nz-icon nzType="check-circle" class="check-icon" nzTheme="fill"></i>
       </div>
-      <div nz-col nzSpan="8">
-        <label>ID Evaluación</label>
-        <label>Tipo de SIMCE</label>
-        <label>Curso</label>
-        <label>Número de Preguntas</label>
-        <label>Código de Acceso</label>
-      </div>
-      <div nz-col nzSpan="8" *ngIf="evaluation != null">
-        <label>{{ evaluation.prueba_id }}</label>
-        <label>{{ evaluation.curso_nombre }}</label>
-        <label>{{ evaluation.simce_descripcion }}</label>
-        <label>{{ evaluation.numero_preguntas }}</label>
-        <label>{{ evaluation.codigo }}</label>
+      <div nz-col nzSpan="16" *ngIf="evaluation != null">
+        <div nz-row>
+          <div nz-col nzSpan="12">
+            <label>ID Evaluación</label>
+          </div>
+          <div nz-col nzSpan="12">
+            <label>{{ evaluation.prueba_id }}</label>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col nzSpan="12">
+            <label>Tipo de SIMCE</label>
+          </div>
+          <div nz-col nzSpan="12">
+            <label>{{ evaluation.simce_descripcion }}</label>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col nzSpan="12">
+            <label>Curso</label>
+          </div>
+          <div nz-col nzSpan="12">
+            <label>{{ evaluation.curso_nombre }}</label>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col nzSpan="12">
+            <label>Número de Preguntas</label>
+          </div>
+          <div nz-col nzSpan="12">
+            <label>{{ evaluation.numero_preguntas }}</label>
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col nzSpan="12">
+            <label>Código de Acceso</label>
+          </div>
+          <div nz-col nzSpan="12">
+            <label>{{ evaluation.codigo }}</label>
+          </div>
+        </div>
       </div>
     </div>
   </ng-template>
   <ng-template #modalDetailFooter>
-    <button nz-button nzSize="large" (click)="closeModal('detail')">Ver Preguntas</button>
+    <button nz-button nzSize="large" (click)="verPrueba(evaluation)">Ver Preguntas</button>
     <button nz-button nzSize="large" (click)="closeModal('detail')" nzType="primary">
       Cerrar
     </button>

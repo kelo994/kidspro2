@@ -17,9 +17,13 @@ export class LoginComponent implements OnInit {
 
   formaCode: FormGroup;
   codeIcon = 'login';
+  
+  validCodeForm: FormGroup;
 
+  validCode = false;
   estudiantes: any;
-  tokenStudent;
+  studentToken: any;
+  studentCode: any;
 
   constructor(
     private authService: AuthService,
@@ -35,7 +39,10 @@ export class LoginComponent implements OnInit {
       'password': new FormControl('123456', [Validators.required, Validators.minLength(3)])
     })
     this.formaCode = new FormGroup({
-      'codigo': new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]),
+      'codigo': new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]),
+    })
+    this.validCodeForm = new FormGroup({
+      'rut': new FormControl('', [Validators.required, this.rutService.validaRut]),
     })
   }
 
@@ -66,12 +73,18 @@ export class LoginComponent implements OnInit {
         this.formaLogin.controls['password'].setValue('');
         if (error.status == 401 || error == 'Unauthorized') {
           this.notification.error('Error en Acceso', 'Credenciales Inválidas');
+        } else if (error.status == 403) {
+          this.notification.error('Error en Acceso', error.error.error);
         } else {
           this.notification.error('Error de Conexión', 'Ocurrió un error inesperado, intentelo más tarde');
         }
       })
     } else {
-      this.notification.error('RUT Invalido', '');
+      if (this.formaLogin.controls.password.status != 'VALID') {
+        this.notification.error('La contraseña debe tener mínimo 3 caracteres', '');
+      } else if (this.formaLogin.controls.rut.status != 'VALID') {
+        this.notification.error('Por favor ingrese un rut válido', '');
+      }
     }
   }
 
@@ -94,21 +107,10 @@ export class LoginComponent implements OnInit {
       this.authService.loginCode(this.formaCode.getRawValue()).subscribe((data) => {
         this.codeIcon = 'login';
         this.estudiantes = data.estudiantes;
-        //this.info = data;
-        //this.simceState = data.verificar_simce
         if (this.estudiantes.length > 0) {
-          // abrir modal
-          this.tokenStudent = data.token;
-          
-          localStorage.setItem('idEstudiante', this.estudiantes[0].id);
-          localStorage.setItem('tokenStudent', this.tokenStudent); // se debe borrar
-          localStorage.setItem('nameEstablecimiento', data.establecimiento);
-          localStorage.setItem('rolId', '11');
-          localStorage.setItem('cursoNombre', data.curso);
-          localStorage.setItem('idCurso', data.curso_especifico.curso_id);
-          localStorage.setItem('idAsignatura', data.curso_especifico.asignatura_id);
-          localStorage.setItem('idCursoEspecifico', data.curso_especifico.curso_especifico_id);
-          this.notification.success('Inicio Rápido', 'Código de acceso válido');
+          this.validCode = true
+          this.studentToken = data.token;
+          this.studentCode = data.codigo
         } else {
           this.notification.error('Error', 'El curso no tiene estudiantes');
         }
@@ -124,12 +126,41 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  validateStudentRut () {
+    if (this.validCodeForm.controls.rut.status != 'VALID') {
+      this.notification.error('Por favor ingrese un rut válido', '');
+    } else {
+      let estudiante = this.estudiantes.find(estudiante => estudiante.persona_rut === this.validCodeForm.controls.rut.value);
+      if (typeof estudiante === 'undefined') {
+        if (this.studentCode.tipo_codigo_id == 1) {
+          this.notification.error('Error', 'El RUT ingresado no pertenece a la lista de estudiantes del curso');
+        } else {
+          this.notification.error('Error', 'El RUT ingresado no está asociado a la evaluación');
+        }
+      } else {
+        localStorage.setItem('idEstudiante', estudiante.id);
+        let first_name = estudiante.persona_nombre.split(" ");
+        let last_name = estudiante.persona_apellido.split(" ");
+        localStorage.setItem('studentName', first_name[0] + ' ' + last_name[0]);
+        localStorage.setItem('tokenStudent', this.studentToken);
+        if (this.studentCode.tipo_codigo_id == 1) {
+          this.router.navigate(['/student/lesson']);
+        } else {
+          this.router.navigate(['/student/evaluation']);
+        }
+        this.notification.success('Bienvenido', 'Has Iniciado Sesión Satisfactoriamente');
+      }
+    }
+    
+    
+  }
+
   openLeccion(idEstudiante, type) {
     localStorage.setItem('idEstudiante', idEstudiante);
     this.estudiantes.forEach(element => {
       if (element.id == idEstudiante) {
         localStorage.setItem('alumnoFast', element.persona_nombre + " " + element.persona_apellido);
-        localStorage.setItem('tokenStudent', this.tokenStudent);
+        localStorage.setItem('tokenStudent', this.studentToken);
         this.notification.success('Inicio de Sesión Exitoso', '');
         if (type === 'Leccion') {
           this.router.navigate(['/student/lesson']);
@@ -141,9 +172,16 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  formateaRut() {
-    let rutFormat = this.rutService.formateaRut(this.formaLogin.controls['rut'].value);
-    this.formaLogin.controls['rut'].setValue(rutFormat);
+  formateaRut(index) {
+    if (index === 1) {
+      let rutFormat = this.rutService.formateaRut(this.formaLogin.controls['rut'].value);
+      this.formaLogin.controls['rut'].setValue(rutFormat);
+    }
+    if (index === 2) {
+      let rutFormat = this.rutService.formateaRut(this.validCodeForm.controls['rut'].value);
+      this.validCodeForm.controls['rut'].setValue(rutFormat);
+    }
+    
   }
 
   setUpperCase(event: any) {

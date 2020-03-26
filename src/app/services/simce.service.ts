@@ -172,8 +172,8 @@ export class SimceService {
         finalize(() => { /*console.log('finilize')*/ }));
   }
 
-  getPruebaCursoEspecifico (idCursoEspecifico, idEstudiante) {
-    return this.http.get(`${this.url}/simce/${idCursoEspecifico}/${idEstudiante}`, this.getTokenStudent())
+  getPruebaEstudiante (idEstudiante) {
+    return this.http.get(`${this.url}/simce/estudiante/${idEstudiante}`, this.getTokenStudent())
       .pipe(timeout(5000),
         retry(1),
         catchError((error, c) => {
