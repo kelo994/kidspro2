@@ -55,7 +55,7 @@ export class StudentLessonComponent implements OnInit {
   cursoId;
   grupoId;
   showSection = 0;
-  playleccion = 'matemáticas/1/1/Build/1.json';
+  playleccion = 'matematicas/1/1/Build/1.json';
   iframeHtml: any;
 
   ngOnInit(): void {
@@ -74,6 +74,7 @@ export class StudentLessonComponent implements OnInit {
       this.leccion = data.data[0];
       if (this.leccion != null) {
         this.playleccion = this.leccion.ruta_actividad;
+        console.log(this.playleccion)
         this.loadVideo(this.leccion.recursos[0].url);
       } else {
         this.notification.warning('No hay lecciones activadas', '');
@@ -100,6 +101,10 @@ export class StudentLessonComponent implements OnInit {
     this.leccion = lesson;
     this.playleccion = this.leccion.ruta_actividad;
     this.loadVideo(lesson.recursos[0].url);
+  }
+
+  goToGame () {
+    this.router.navigate(['/student/lesson/game'], { state: { play: this.playleccion, titulo: this.leccion.bloque_titulo } })
   }
 
 }
