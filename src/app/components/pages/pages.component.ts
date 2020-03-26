@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -26,6 +26,18 @@ export class PagesComponent implements OnInit {
     sub4: false
   };
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    if (window.outerWidth <= 860) {
+      setTimeout(() => {
+        this.isCollapsed = true;
+      }, 1000); 
+      
+    } else {
+      this.isCollapsed = false;
+    }
+  }
+
   openHandler(value: string): void {
     for (const key in this.openMap) {
       if (key !== value) {
@@ -41,6 +53,15 @@ export class PagesComponent implements OnInit {
 
   ngOnInit(): void {
     this.cursos = JSON.parse(localStorage.getItem('cursos'));
+
+    if (window.outerWidth <= 860) {
+      setTimeout(() => {
+        this.isCollapsed = true;
+        $('#btnCollapse').addClass('d-none');
+      }, 200); 
+    } else {
+      this.isCollapsed = false;
+    }
   }
 
   changeRoute(item) {
