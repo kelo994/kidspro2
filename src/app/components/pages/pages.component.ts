@@ -34,7 +34,6 @@ export class PagesComponent implements OnInit {
     if (window.outerWidth <= 860) {
       setTimeout(() => {
         this.isCollapsed = true;
-        $('#colCollapse').addClass('d-none');
       }, 200);
     } else {
       this.isCollapsed = false;
@@ -60,7 +59,6 @@ export class PagesComponent implements OnInit {
     if (window.outerWidth <= 860) {
       setTimeout(() => {
         this.isCollapsed = true;
-        $('#colCollapse').addClass('d-none');
       }, 200); 
     } else {
       this.isCollapsed = false;

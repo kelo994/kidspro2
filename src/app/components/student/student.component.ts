@@ -18,7 +18,7 @@ export class StudentComponent {
   }
 
   logout () {
-    localStorage.setItem('tokenStudent', '');
+    localStorage.clear();
     this.router.navigate(['/auth/login']);
   }
 }

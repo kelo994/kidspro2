@@ -1,5 +1,6 @@
-<button type="button" nz-button nzSize="large" nzType="primary" (click)="openModal('create')">
-  <i nz-icon nzType="plus" nzTheme="outline"></i>
+<button style="font-size: 12px; font-weight: bold; background-color: #009dee; color: white" type="button" nz-button nzType="primary" (click)="openModal('create')">
+  <i nz-icon nzType="plus"></i>
+  <nz-divider [nzType]="'vertical'" style="margin-left: 0px"></nz-divider>
   Generar Evaluación
 </button>
 
@@ -29,7 +30,7 @@
           <div nz-col nzSpan="16">
             <nz-select formControlName="curso" class="w-100" nzAllowClear nzPlaceHolder="Seleccione un Curso">
               <nz-option *ngFor="let curso of cursos; let i = index" [nzValue]="curso.id"
-                [nzLabel]="curso.curso_nombre">
+                [nzLabel]="curso.nivel_descripcion + ' ' + curso.seccion_nombre">
               </nz-option>
             </nz-select>
           </div>
@@ -94,7 +95,7 @@
             <label>Curso</label>
           </div>
           <div nz-col nzSpan="12">
-            <label>{{ evaluation.curso_nombre }}</label>
+            <label>{{ evaluation.nivel_descripcion }} {{ evaluation.seccion_nombre }}</label>
           </div>
         </div>
         <div nz-row>

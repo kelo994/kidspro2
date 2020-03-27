@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NzFormatEmitEvent, NzNotificationService } from 'ng-zorro-antd';
+import { NzModalService, NzNotificationService } from 'ng-zorro-antd';
 import { FuncionarioService } from 'src/app/services/funcionario.service';
 
 @Component({
@@ -15,11 +15,13 @@ export class TeachersAdminComponent implements OnInit {
 
   teachers = [];
   teachersData =  [];
+  userId;
 
   inputSearch = "";
 
   constructor(
     private userService: FuncionarioService,
+    private modalService: NzModalService,
     private notification: NzNotificationService,
     private router: Router) {
   }
@@ -47,11 +49,38 @@ export class TeachersAdminComponent implements OnInit {
         const term = this.inputSearch.toLowerCase();
         return e.persona_nombre.toLowerCase().includes(term)
           || e.persona_apellido.toString().includes(term)
-          || e.persona_email.toString().includes(term);
-          //|| e.persona_rut.toString().includes(term)
+          || e.persona_email.toString().includes(term)
+          || e.persona_rut.toString().includes(term);
       });
     } else {
       this.teachers = this.teachersData
     }
+  }
+
+  delete (userId) {
+    //this.userId = userId
+    this.modalService.confirm({
+      nzTitle: '<i>¿Estas seguro de realizar esta acción?</i>',
+      nzContent: '<b>Esta acción no se puede deshacer</b>',
+      nzCancelText: 'Cancelar',
+      nzOkText: 'Eliminar',
+      nzClassName: 'modal-confirm-delete',
+      nzOnOk: () => this.confirmDelete()
+    });
+  }
+
+  confirmDelete() {
+    this.userService.delete(this.userId).subscribe((data: any) => {
+      //this.usersData = data
+      this.search()
+      this.notification.success('Funcionarios', 'El Funcionario fue eliminado con exito');
+    }, (error) => {
+      console.log(error);
+      if (error.status == 401) {
+        this.router.navigate(['/auth/login']);
+      } else if (error.status == 400 || error.status == 500) {
+        this.notification.error('Error al Eliminar el Funcionario', error.error.message);
+      }
+    });
   }
 }
