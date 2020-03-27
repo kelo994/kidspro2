@@ -148,7 +148,7 @@
     </nz-layout>
 </nz-layout>
 
-<nz-modal [(nzVisible)]="modalGetCode" nzTitle="Código de Acceso" (nzOnOk)="handleOk()">
+<nz-modal [(nzVisible)]="modalGetCode" nzTitle="Código de Acceso" (nzOnOk)="handleOk()" (nzOnCancel)="handleOk()">
     <div class="card c-code p-3">
         <p class="c-blue m-0">
             {{ codigo }}

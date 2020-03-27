@@ -215,7 +215,7 @@ export class CursoComponent implements OnInit {
 
   showModal(): void {
     let idAsignatura = localStorage.getItem('AsignaturaId');
-    let idCurso = localStorage.getItem('CursoId');
+    let idCurso = localStorage.getItem('CursoEspecifico');
     this.cService.obtenerCodigoCursoAsignatura(idCurso, idAsignatura).subscribe((data: any) => { // Success
       this.codigo = data.codigo;
       this.modalGetCode = true;
