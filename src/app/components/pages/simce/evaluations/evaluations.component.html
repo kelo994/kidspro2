@@ -7,44 +7,57 @@
 <nz-layout class="inner-layout">
     <h5>Evaluaciones Activas</h5>
     <div nz-row>
-        <div nz-col nzMd="14" nzXs="24" class="bg-blue">
-            <nz-card style="min-height: 375.2px;" nzShowPagination>
+        <div nz-col nzMd="14" nzXs="24">
+            <nz-table class="content-table" style="width: 100%;" #pruebasTable [nzData]="pruebas" nzPageSize="5"
+                [nzTitle]="searchTemplate" [nzLoading]="pruebasLoading" style="min-height: 380px;">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tipo</th>
+                        <th>Curso</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of pruebasTable.data | filter:searchEvaluaciones">
+                        <td>{{ data.prueba_id }}</td>
+                        <td>{{ data.simce_descripcion }}</td>
+                        <td>{{ data.nivel_descripcion }} {{data.seccion_nombre}}</td>
+                        <td>{{ data.estado_prueba }}</td>
+                        <td class="p-0">
+                            <i *ngIf="data.estado_id === 1" class="fa fa-play pointer vertical-line"
+                                style="color: rgba(65, 156, 85, 0.911)" (click)="showConfirm('activar', data)"></i>
+                            <i *ngIf="data.estado_id === 2" class="fa fa-stop pointer vertical-line"
+                                style="color: rgba(255, 101, 91, 0.911);" (click)="showConfirm('finalizar', data)"></i>
+                            <i nz-icon nzType="file-search" class="pointer vertical-line"
+                                (click)="verPrueba(data, 'ver')"></i>
+                            <i nz-icon nzType="unlock" nz-popover nzPopoverTrigger="click"
+                                [nzPopoverContent]="codeTemplate" nzTheme="outline" class="pointer"
+                                style="color: rgba(202, 175, 18, 0.89)" (click)="setCode(data.codigo)"></i>
+                            <ng-template #codeTemplate>
+                                <div class="text-center">
+                                    <i nz-icon nzType="unlock" nzTheme="outline"
+                                        style="color: rgba(202, 175, 18, 0.89)"></i>
+                                    <span id="code">{{ evaluationCode }}</span>
+                                </div>
+                            </ng-template>
+                            <!--<i nz-icon nzType="delete" nzTheme="outline"></i>-->
+                        </td>
+                    </tr>
+                </tbody>
+            </nz-table>
+            <ng-template #searchTemplate>
                 <div class="offset-6 col-6 pt-3">
                     <div class="input-group input-group-sm mb-3">
                         <label class="pr-3 m-0 py-2"><strong>Buscar</strong></label>
                         <input type="text" class="form-control" [(ngModel)]="searchEvaluaciones">
-                      </div>
+                    </div>
                 </div>
-                <nz-table style="width: 100%;" #pruebasTable [nzData]="pruebas" nzPageSize="5" [nzLoading]="pruebasLoading">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Tipo</th>
-                            <th>Curso</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let data of pruebasTable.data | filter:searchEvaluaciones">
-                            <td>{{ data.prueba_id }}</td>
-                            <td>{{ data.simce_descripcion }}</td>
-                            <td>{{ data.curso_nombre }}</td>
-                            <td>{{ data.estado_prueba }}</td>
-                            <td>
-                                <i *ngIf="data.estado_id === 1" class="fa fa-play vertical-line" style="color: rgba(65, 156, 85, 0.911)" (click)="showConfirm('activar', data)"></i>
-                                <i *ngIf="data.estado_id === 2" class="fa fa-stop vertical-line" style="color: rgba(255, 101, 91, 0.911);" (click)="showConfirm('finalizar', data)"></i>
-                                <i nz-icon nzType="file-search" class="vertical-line" (click)="verPrueba(data, 'ver')"></i>
-                                <i nz-icon nzType="unlock" nzTheme="outline" class="vertical-line" style="color: rgba(202, 175, 18, 0.89)"></i>
-                                <i nz-icon nzType="delete" nzTheme="outline"></i>
-                            </td>
-                        </tr>
-                    </tbody>
-                </nz-table>
-            </nz-card>
+            </ng-template>
         </div>
         <div class="second-row" nz-col nzMd="10" nzXs="24">
-            <nz-card style="min-height: 234px; text-align: center;" >
+            <nz-card style="min-height: 234px; text-align: center;">
                 <div #chartActivas></div>
             </nz-card>
             <nz-card class="card-evaluations">
@@ -60,8 +73,12 @@
                             activas
                         </div>
                         <div class="subtitle-card-evaluations">
-                            <span *ngIf="pruebasEnEspera == 1" class="subtitle-number-card-evaluations">{{ pruebasEnEspera }} evaluación en espera</span>
-                            <span *ngIf="pruebasEnEspera != 1" class="subtitle-number-card-evaluations">{{ pruebasEnEspera }} evaluaciones en espera</span>
+                            <span *ngIf="pruebasEnEspera == 1"
+                                class="subtitle-number-card-evaluations">{{ pruebasEnEspera }} evaluación en
+                                espera</span>
+                            <span *ngIf="pruebasEnEspera != 1"
+                                class="subtitle-number-card-evaluations">{{ pruebasEnEspera }} evaluaciones en
+                                espera</span>
                         </div>
                     </div>
                 </div>
@@ -70,47 +87,45 @@
     </div>
     <div nz-row class="finish-evaluations">
         <h5>Historial de resultados</h5>
-        <div nz-col nzMd="24" nzLg="17" nzXl="18" class="bg-blue">
-            <nz-card style="min-height: 520px;">
+        <div nz-col nzMd="24" nzLg="17" nzXl="18">
+            <nz-table class="content-table" #pruebasFinalizadasTable [nzTitle]="searchTemplateFinalizadas"
+                [nzData]="pruebasFinalizadas" nzPageSize="9" [nzLoading]="pruebasFinalizadasLoading" style="min-height: 520px;">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tipo</th>
+                        <th>Curso</th>
+                        <th>Puntaje</th>
+                        <th>Inicio</th>
+                        <th>Termino</th>
+                        <th colspan="2">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of pruebasFinalizadasTable.data | filter:searchHistorial">
+                        <td>{{ data.prueba_id }}</td>
+                        <td>{{ data.simce_descripcion }}</td>
+                        <td>{{ data.nivel_descripcion }} {{data.seccion_nombre}}</td>
+                        <td>{{ data.puntaje_simce }}</td>
+                        <td>{{ data.inicio }}</td>
+                        <td>{{ data.fin }}</td>
+                        <td class="p-0 text-center vertical-line">
+                            <i class="pointer" nz-icon nzType="file-search" (click)="verPrueba(data, 'ver')"></i>
+                        </td>
+                        <td class="p-0 text-center">
+                            <i class="pointer" nz-icon nzType="bar-chart" nzTheme="outline"
+                                (click)="verPrueba(data, 'resultados')"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </nz-table>
+            <ng-template #searchTemplateFinalizadas>
                 <div class="offset-6 col-6 pt-3">
                     <div class="input-group input-group-sm mb-3">
                         <label class="pr-3 m-0 py-2"><strong>Buscar</strong></label>
                         <input type="text" class="form-control" [(ngModel)]="searchHistorial">
-                      </div>
+                    </div>
                 </div>
-                <nz-table #pruebasFinalizadasTable [nzData]="pruebasFinalizadas" nzPageSize="9" [nzLoading]="pruebasFinalizadasLoading">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Tipo</th>
-                            <th>Curso</th>
-                            <th>Puntaje</th>
-                            <th>Inicio</th>
-                            <th>Termino</th>
-                            <th colspan="2">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let data of pruebasFinalizadasTable.data | filter:searchHistorial">
-                            <td>{{ data.prueba_id }}</td>
-                            <td>{{ data.simce_descripcion }}</td>
-                            <td>{{ data.curso_nombre }}</td>
-                            <td>{{ data.puntaje_simce }}</td>
-                            <td>{{ data.inicio }}</td>
-                            <td>{{ data.fin }}</td>
-                            <td class="p-0 text-center vertical-line">
-                                <i nz-icon nzType="file-search" (click)="verPrueba(data, 'ver')"></i>
-                            </td>
-                            <td class="p-0 text-center">
-                                <i nz-icon nzType="bar-chart" nzTheme="outline" (click)="verPrueba(data, 'resultados')"></i>
-                            </td>
-                        </tr>
-                    </tbody>
-                </nz-table>
-            </nz-card>
-            <ng-template #searchTemplate>
-                <!-- <label>Buscar:</label> -->
-                <input nz-input placeholder="" />
             </ng-template>
         </div>
         <div nz-col nzMd="24" nzLg="7" nzXl="6" class="second-row-bottom">

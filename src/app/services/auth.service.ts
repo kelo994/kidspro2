@@ -25,7 +25,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  public get isLoggedIn(): boolean {
+  public isLoggedIn(): boolean {
     if (localStorage.getItem('token')) {
       return true
     } else {

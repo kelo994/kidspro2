@@ -26,6 +26,8 @@ import { ActividadesComponent } from './reportes/actividades/actividades.compone
 import { ChartModule } from 'angular-highcharts';
 import { ChartsModule } from 'ng2-charts';
 
+import { AuthGuardService } from '../../services/auth-guard/auth-guard.service';
+import { AdminGuardService } from '../../services/auth-guard/admin-guard.service';
 
 @NgModule({
     imports: [
@@ -52,7 +54,7 @@ import { ChartsModule } from 'ng2-charts';
         ObjetivosComponent,
         ActividadesComponent
     ],
-    providers: [{ provide: NZ_I18N, useValue: es_ES }, NzI18nService],
+    providers: [{ provide: NZ_I18N, useValue: es_ES }, NzI18nService, AuthGuardService, AdminGuardService],
     entryComponents: [ ]
 })
 export class PagesModule { }

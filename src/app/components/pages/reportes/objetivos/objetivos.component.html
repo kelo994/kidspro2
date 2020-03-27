@@ -1,15 +1,21 @@
 <nz-layout class="right-layout headerrepos mb-5">
     <div class="header bg-subheader p-2 bg-gris-reportes pl-5">
         <label class="bd-invisible pr-3 title-repo">Objetivos de Aprendizaje</label>
-        <label class="bd-invisible px-3 title-repo-curso">{{ curso.curso_nombre}}</label>
-        <label class="px-3 title-repo-curso">{{ selectAsignatura.materia_descripcion }}</label>
+        <label class="bd-invisible px-3 title-repo-curso">{{ curso.nivel_descripcion}}</label>
+        <label class="px-3 title-repo-curso">{{ selectAsignatura.asignatura_nombre }}</label>
         <br>
-        <label class="subtitle-repo bd-invisible px-3">Todas las Unidades</label>
-        <label class="subtitle-repo bd-invisible px-3">Todas los Objetivos</label>
-        <label class="subtitle-repo px-3">Todas los Estudiantes</label>
+        <label class="subtitle-repo bd-invisible px-3">
+            <span *ngIf="selectUnidad.grupo_id == 0">Todas las Unidades</span>
+            <span *ngIf="selectUnidad.grupo_id != 0">{{ selectUnidad.grupo_nombre }}</span>
+        </label>
+        <label class="subtitle-repo px-3">
+            <span *ngIf="selectObjetivo.id == 0">Todas los Objetivos</span>
+            <span *ngIf="selectObjetivo.id != 0">{{ selectObjetivo.objetivo_codigo }}</span>
+        </label>
+        <!-- <label class="subtitle-repo px-3">Todas los Estudiantes</label> -->
     </div>
 
-    <nz-card class="mx-4 mt-3" style="min-height: 234px; text-align: center;">
+    <nz-card class="mx-4 mt-3" *ngIf="lineChartFlag" style="min-height: 234px; text-align: center;">
         <div style="display: block;">
             <canvas baseChart width="400" height="200" [datasets]="lineChartData" [labels]="lineChartLabels"
                 [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
@@ -17,7 +23,7 @@
         </div>
     </nz-card>
 
-    <nz-card class="mx-4 mt-3" style="min-height: 234px; text-align: center;">
+    <nz-card class="mx-4 mt-3" *ngIf="barChartFlag" style="min-height: 234px; text-align: center;">
         <p class="title-graph-bar text-left pl-2 d-none">Puntaje total de las Unidades</p>
         <div class="mx-auto mt-2" style="display: block; max-width: 90%; min-width: 90%;">
             <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
@@ -26,7 +32,7 @@
         <p class="title-graph-bar text-right pr-2 d-none">Lecciones</p>
     </nz-card>
 
-    <div class="row mx-4">
+    <div class="row mx-4" *ngIf="pieChartFlag">
         <div class="col-8 px-0">
             <div class="card mr-1 mt-3 card-stats-repo" style="text-align: center;">
                 <label class="title-piechart">Porcentajes</label>
@@ -38,7 +44,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-4 pr-0">
+        <div class="col-4 pr-0" *ngIf="puntajeFlag">
             <div class="card mr-1 mt-3 card-stats-repo" style="text-align: center;">
                 <ul class="list-group">
                     <li class="list-group-item bg-blue-clear text-left">
@@ -59,35 +65,41 @@
     </div>
 </nz-layout>
 <nz-sider class="submenu-sidebar-reportes mt-0 pt-3 pl-0 sidebar-repo-l filtrosrepo">
-    <p class="title-sider-repo bd-bottom mx-3 pb-3">Filtros Avanzados</p>
-
+    <p class="title-sider-repo bd-bottom mx-3 pb-2">Filtros Avanzados</p>
+    <div class="form-group mx-3 mt-3">
+        <label class="m-0 p-0 pb-1">Sección</label>
+        <select class="form-control" (change)="onChangeSeccion($event.target.value)">
+            <option *ngFor="let s of secciones; let iSeccion = index" [value]="iSeccion">Sección {{ s.seccion_nombre }}
+            </option>
+            <option *ngIf="secciones?.length == 0">No hay secciones</option>
+        </select>
+    </div>
     <div class="form-group mx-3 mt-3">
         <label class="m-0 p-0 pb-1">Unidad</label>
         <select class="form-control" (change)="onChangeUnidad($event.target.value)">
+            <option *ngIf="unidades?.length > 0">Seleccione Unidad</option>
             <option *ngFor="let u of unidades; let iUnidad = index" [value]="iUnidad">{{ u.grupo_nombre }}</option>
             <option *ngIf="unidades?.length == 0">No hay unidades</option>
         </select>
     </div>
     <div class="form-group mx-3 mt-3">
-        <label class="m-0 p-0 pb-1">Lección</label>
-        <select class="form-control" (change)="onChangeLeccion($event.target.value)">
-            <option *ngFor="let l of lecciones; let iLeccion = index" [value]="iLeccion">{{ l.bloque_titulo }}</option>
-            <option *ngIf="lecciones?.length == 0">No hay Lecciones</option>
-        </select>
-    </div>
-    <div class="form-group mx-3 mt-3">
         <label class="m-0 p-0 pb-1">Objetivo</label>
         <select class="form-control" (change)="onChangeObjetivo($event.target.value)">
-            <option *ngFor="let o of objetivos; let iObjetivo = index" [value]="iObjetivo">{{ o.objetivo_descripcion }}</option>
-            <option *ngIf="objetivos?.length == 0">No hay Objetivos</option>
+            <option *ngIf="objetivos?.length > 0">Seleccione Objetivo</option>
+            <option *ngFor="let o of objetivos; let iObjetivo = index" [value]="iObjetivo">{{ o.objetivo_codigo }}
+            </option>
+            <option *ngIf="objetivos?.length == 0">Seleccione Una unidad</option>
+            <option *ngIf="objetivosFlag">
+                <span>Obteniendo Objetivos <i class="fas fa-spinner fa-spin"></i></span>
+            </option>
         </select>
     </div>
-    <div class="form-group mx-3 mt-3">
+    <!-- <div class="form-group mx-3 mt-3">
         <label class="m-0 p-0 pb-1">Estudiante</label>
         <select class="form-control" (change)="onChangeEstudiante($event.target.value)">
             <option *ngFor="let e of estudiantes; let iEstudiante = index" [value]="iEstudiante">{{ e.persona_nombre }}
                 {{ e.persona_apellido }}</option>
             <option *ngIf="estudiantes?.length == 0">No hay estudiantes</option>
         </select>
-    </div>
+    </div> -->
 </nz-sider>

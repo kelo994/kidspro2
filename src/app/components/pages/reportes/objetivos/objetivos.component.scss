@@ -1,3 +1,4 @@
+$mobile-style: 860px;
 ::ng-deep app-objetivos {
     width: 100% !important;
 }
@@ -6,6 +7,12 @@
     height: -webkit-fill-available;
     width: calc(100% - 200px);
     float: left;
+}
+
+@media screen and (max-width: $mobile-style) {
+    .headerrepos {
+        width: calc(100% - 150px) !important;
+    }
 }
 
 .filtrosrepo {
@@ -17,6 +24,15 @@
     float: right;
     margin-top: 0px !important;
     top: 0px;
+}
+
+@media screen and (max-width: $mobile-style) {
+    .filtrosrepo {
+        flex: 0 0 150px;
+        max-width: 150px;
+        min-width: 150px;
+        width: 150px;
+  }
 }
 
 .sidebar-repo-l {
@@ -104,4 +120,17 @@
     position: absolute;
     top: 40px;
     left: 10px;
+}
+
+.form-control {
+    padding: .275rem .5rem !important;
+    font-size: 10px !important;
+}
+
+.title-sider-repo {
+    font-size: 10px;
+    padding-top: 20px;
+    padding-left: 20px;
+    font-style: oblique;
+    border-bottom: #bfbebe  1px solid;
 }

@@ -36,6 +36,8 @@ export class SimceEvaluationsComponent implements OnInit {
   dataSecondChart;
   pruebasEnEspera;
 
+  evaluationCode;
+
   @ViewChild('chartActivas') public chartActivas: ElementRef;
   @ViewChild('chartResultados') public chartResultados: ElementRef;
 
@@ -122,6 +124,23 @@ export class SimceEvaluationsComponent implements OnInit {
       nzClassName: className,
       nzOnOk: () => this.actualizarEstadoPrueba()
     });
+  }
+
+  setCode (code) {
+    this.evaluationCode = code
+  }
+
+  copy () {
+    /* Get the text field */
+    let copyText: HTMLInputElement = document.getElementById("Id") as HTMLInputElement;
+  
+    /* Select the text field */
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+  
+    /* Copy the text inside the text field */
+    document.execCommand("copy");
+    alert("Copied the text: " + copyText.value);
   }
 
 }
