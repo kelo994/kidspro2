@@ -10,6 +10,7 @@ import { CoursesService } from 'src/app/services/courses.service';
 })
 export class ReportesComponent implements OnInit {
   tipoReporte = '';
+  widthSidebar = '100px';
   cursos = [];
   secciones = [];
   selectSeccion;

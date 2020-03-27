@@ -1,3 +1,4 @@
+$mobile-style: 860px;
 ::ng-deep app-objetivos {
     width: 100% !important;
 }
@@ -6,6 +7,12 @@
     height: -webkit-fill-available;
     width: calc(100% - 200px);
     float: left;
+}
+
+@media screen and (max-width: $mobile-style) {
+    .headerrepos {
+        width: calc(100% - 150px) !important;
+    }
 }
 
 .filtrosrepo {
@@ -17,6 +24,15 @@
     float: right;
     margin-top: 0px !important;
     top: 0px;
+}
+
+@media screen and (max-width: $mobile-style) {
+    .filtrosrepo {
+        flex: 0 0 150px;
+        max-width: 150px;
+        min-width: 150px;
+        width: 150px;
+  }
 }
 
 .sidebar-repo-l {

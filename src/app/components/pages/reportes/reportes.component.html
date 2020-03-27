@@ -1,5 +1,6 @@
 <nz-layout class="left-layout">
-    <nz-sider class="submenu-sidebar-reportes mt-0 pt-3 pl-0 sidebar-repo-r">
+    <nz-sider class="submenu-sidebar-reportes mt-0 pt-3 pl-0 sidebar-repo-r" [nzZeroTrigger]="zeroTrigger" [nzBreakpoint]="'lg'"
+    [nzCollapsedWidth]="widthSidebar">
         <p class="title-sider-repo">Filtros Globales</p>
         <p class="title-filter-repo ml-3">Cursos</p>
         <ul class="menureport" nz-menu nzMode="inline">
@@ -23,6 +24,9 @@
             </li>
         </ul>
     </nz-sider>
+    <ng-template #zeroTrigger>
+        <i nz-icon nzType="menu-fold" nzTheme="outline"></i>
+      </ng-template>
     <div class="w-100 text-center d-block my-auto" *ngIf="reportePage == 0">
         <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
         <br>

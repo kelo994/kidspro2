@@ -18,7 +18,7 @@ export class PagesComponent implements OnInit {
 
   admin = [
     { path: 'cursos', name: 'Cursos', icon: 'bank', nzIcon: true },
-    { path: 'estudiantes', name: 'Estudiantes', icon :'smile', nzIcon: true },
+    { path: 'estudiantes', name: 'Estudiantes', icon: 'smile', nzIcon: true },
     { path: 'profesores', name: 'Profesores', icon: 'fa fa-graduation-cap' },
     { path: 'usuarios', name: 'Usuarios', icon: 'team', nzIcon: true }
   ]
@@ -67,9 +67,9 @@ export class PagesComponent implements OnInit {
   }
 
   getCursos() {
-    this.coursesService.obtenerNivelesEstablecimiento(localStorage.getItem('idEstablecimiento')).subscribe( (data: any) => { // Success
+    this.coursesService.obtenerNivelesEstablecimiento(localStorage.getItem('idEstablecimiento')).subscribe((data: any) => { // Success
       this.cursos = data;
-     // console.log(data);
+      // console.log(data);
     }, (error) => {
       if (error.status === 401) { this.router.navigate(['/auth/login']); }
     });
