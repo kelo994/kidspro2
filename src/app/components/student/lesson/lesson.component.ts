@@ -73,6 +73,7 @@ export class StudentLessonComponent implements OnInit {
       this.lecciones = data.data;
       this.leccion = data.data[0];
       if (this.leccion != null) {
+        localStorage.setItem('fastBloque', this.leccion.bloque_id)
         this.playleccion = this.leccion.ruta_actividad;
         console.log(this.playleccion)
         this.loadVideo(this.leccion.recursos[0].url);
@@ -100,6 +101,7 @@ export class StudentLessonComponent implements OnInit {
   goToLesson(lesson) {
     this.leccion = lesson;
     this.playleccion = this.leccion.ruta_actividad;
+    localStorage.setItem('fastBloque', this.leccion.bloque_id)
     this.loadVideo(lesson.recursos[0].url);
   }
 
