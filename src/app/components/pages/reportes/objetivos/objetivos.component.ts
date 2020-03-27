@@ -149,18 +149,21 @@ export class ObjetivosComponent implements OnInit {
     }
 
     this.courseS.obtenerCursosProfesor(localStorage.getItem('idEstablecimiento'), localStorage.getItem('idFuncionario'), localStorage.getItem('AsignaturaId')).subscribe((data: any) => { // Success
-      localStorage.setItem('CursoEspecifico', data[0].curso_especifico_id);
-      // console.log(data)
-      this.secciones = data;
-      this.selectedSeccion = this.secciones[0];
-      localStorage.setItem('SeccionId', this.selectedSeccion.curso_id);
+
+      if(data.length > 0) {
+        localStorage.setItem('CursoEspecifico', data[0].curso_especifico_id);
+        this.secciones = data;
+        this.selectedSeccion = this.secciones[0];
+        localStorage.setItem('SeccionId', this.selectedSeccion.curso_id);
+        this.getGraficoObjetivo();
+      } else this.notification.warning('Reportabilidad', 'El Usuario no tiene cursos asociados');
       this.selectUnidad = { grupo_id: 0, grupo_nombre: ''};
       this.unidades = []
       this.selectObjetivo = { id:0, objetivo_codigo: ''};
       this.objetivos = [];
-      this.getGraficoObjetivo();
+      
       this.getUnidades();
-      this.getDataEstudiante();
+      //this.getDataEstudiante();
     }, (error) => {
       console.log(error)
       if (error.status === 401) { this.router.navigate(['/auth/login']); }

@@ -26,7 +26,7 @@ export class ActividadesComponent implements OnInit {
   selectExigencia = 0;
 
   actividad = [];
-  selectActividades = 0;
+  selectActividades = { id: 0, bloque_titulo: '' };
 
   objetivosFlag = false;
 
@@ -49,7 +49,7 @@ export class ActividadesComponent implements OnInit {
   pieChartFlag = true;
   puntajeFlag = true;
   public lineChartLabels: Label[];
-  public lineChartData: ChartDataSets[] = [ { data:[], label: ''}];
+  public lineChartData: ChartDataSets[] = [{ data: [], label: '' }];
 
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
     responsive: true, legend: { position: 'bottom', align: 'start' },
@@ -120,7 +120,7 @@ export class ActividadesComponent implements OnInit {
     private notification: NzNotificationService, public rService: ReporteService,
     public bloqService: BloqueService, public courseS: CoursesService) { }
 
-  ngOnInit(): void {  }
+  ngOnInit(): void { }
 
   ngOnChanges(changes: any) {
     if (changes.selectCurso) {
@@ -129,7 +129,7 @@ export class ActividadesComponent implements OnInit {
         this.curso.nivel_descripcion = changes.selectCurso.currentValue.nivel_descripcion;
         this.curso.nivel_id = changes.selectCurso.currentValue.nivel_id;
         localStorage.setItem('NivelId', String(this.curso.nivel_id));
-      }      
+      }
     } else if (!(Number(this.curso.nivel_id) > 0)) {
       this.notification.warning('Reporte de Objetivos', 'Error, no se ha seleccionado un curso.');
     }
@@ -140,19 +140,22 @@ export class ActividadesComponent implements OnInit {
         this.asignatura.asignatura_nombre = changes.selectAsignatura.currentValue.asignatura_nombre;
         this.asignatura.asignatura_id = changes.selectAsignatura.currentValue.asignatura_id;
         localStorage.setItem('AsignaturaId', String(this.asignatura.asignatura_id));
-      }      
+      }
     } else if (!(Number(this.selectAsignatura.asignatura_id) > 0)) {
       this.notification.warning('Reporte de Objetivos', 'Error, no se ha seleccionado una asignatura.');
     }
 
     this.courseS.obtenerCursosProfesor(localStorage.getItem('idEstablecimiento'), localStorage.getItem('idFuncionario'), localStorage.getItem('AsignaturaId')).subscribe((data: any) => { // Success
-      localStorage.setItem('CursoEspecifico', data[0].curso_especifico_id);
-      console.log(data)
-      this.secciones = data;
-      this.selectedSeccion = this.secciones[0];
-      localStorage.setItem('SeccionId', this.selectedSeccion.curso_id);
+      // console.log(data);
+
+      if (data.length > 0) {
+        localStorage.setItem('CursoEspecifico', data[0].curso_especifico_id);
+        this.secciones = data;
+        this.selectedSeccion = this.secciones[0];
+        localStorage.setItem('SeccionId', this.selectedSeccion.curso_id);
+      } else this.notification.warning('Reportabilidad', 'El Usuario no tiene cursos asociados');
       this.selectExigencia = 50;
-      this.selectActividades = 0;
+      this.selectActividades = { id: 0, bloque_titulo: '' };
       this.actividad = [];
       this.getActividades();
     }, (error) => {
@@ -162,12 +165,12 @@ export class ActividadesComponent implements OnInit {
   }
 
   getActividades() {
-    this.rService.getObjetivosCursos(1)
+    this.rService.getBloques(localStorage.getItem('AsignaturaId'))
       .subscribe(
         (data: any) => { // Success
-          // console.log(data);
+          console.log(data);
           this.actividad = data;
-          //this.selectObjetivo = this.objetivos[0].id;
+          this.selectActividades = this.actividad[0];
           this.objetivosFlag = false;
           this.getGraficoActividad();
         },
@@ -182,10 +185,9 @@ export class ActividadesComponent implements OnInit {
   onChangeSeccion(item) {
     this.selectedSeccion = this.secciones[item];
     localStorage.setItem('SeccionId', this.selectedSeccion.curso_id);
-    this.exigencias = [];
     this.actividad = [];
-    this.selectExigencia = 0;
-    this.selectActividades = 0;
+    this.selectExigencia = this.exigencias[0];
+    this.selectActividades = { id: 0, bloque_titulo: '' };
     this.getGraficoActividad();
   }
 
@@ -195,140 +197,54 @@ export class ActividadesComponent implements OnInit {
   }
 
   onChangeActividades(item) {
-    // this.selectActividades = this.actividad[item].id;
+    this.selectActividades = this.actividad[item];
     this.getGraficoActividad();
   }
 
   getGraficoActividad() {
-    // if(this.selectedSeccion.curso_id > 0 && this.selectExigencia == 0) {
-    //    // console.log("filtro 1")
-    //   this.rService.getGraficoCurso(this.selectedSeccion.curso_id).subscribe(
-    //     (data: any) => { // Success
-    //       // console.log(data);
-    //       if(data.lineChartLabels) {
-    //         this.lineChartLabels = data.lineChartLabels;
-    //         this.lineChartData = data.lineChartData;
-    //         this.lineChartFlag = true;
-    //       } else this.lineChartFlag = false;
-                    
-    //       if(data.barChartLabels) {
+    this.rService.getgraficoActividad(localStorage.getItem('CursoEspecifico'), this.selectActividades.id, this.selectExigencia).subscribe(
+      (data: any) => { // Success
+        console.log(data);
+        if (data.lineChartLabels) {
+          this.lineChartLabels = data.lineChartLabels;
+          this.lineChartData = data.lineChartData;
+          this.lineChartFlag = true;
+        } else this.lineChartFlag = false;
 
-    //         this.barChartLabels = data.barChartLabels;
-    //       this.barChartData[0].data = data.barChartData;
-    //         this.barChartFlag = true;
-    //       } else this.barChartFlag = false;
+        if (data.barChartLabels) {
+          this.barChartLabelsAct = data.barChartLabels;
+          this.barChartDataAct[0].data = data.barChartData;
+          this.barChartFlag = true;
+        } else this.barChartFlag = false;
 
-    //       if(data.pieChartLabels) {
-    //         // this.lineChartLabels = data.lineChartLabels;
-    //         // this.lineChartData = data.lineChartData;
-    //         this.pieChartFlag = true;
-    //       } else this.pieChartFlag = false;
+        if (data.pieChartLabels) {
+          // this.lineChartLabels = data.lineChartLabels;
+          // this.lineChartData = data.lineChartData;
+          this.pieChartFlag = true;
+        } else this.pieChartFlag = false;
 
-    //       if(data.puntaje) {
-    //         // this.lineChartLabels = data.lineChartLabels;
-    //         // this.lineChartData = data.lineChartData;
-    //         this.puntajeFlag = true;
-    //       } else this.puntajeFlag = false;
+        if (data.puntaje) {
+          // this.lineChartLabels = data.lineChartLabels;
+          // this.lineChartData = data.lineChartData;
+          this.puntajeFlag = true;
+        } else this.puntajeFlag = false;
 
-          
-    //       // this.datos = data.datos;
-    //       // this.gauges = data.gauge;
-    //       // this.showSection = 2;
-    //     },
-    //     (error) => {
-    //       if (error.status == 401) {
-    //         this.router.navigate(['/auth/login']);
-    //       } else if (error.status == 400) {
-    //         this.router.navigate(['/auth/login']);
-    //       }
-    //     }
-    //   );
-    // } else if (this.selectedSeccion.curso_id > 0 && this.selectExigencia > 0 && this.selectActividades == 0) {
-    //    // console.log("filtro 2")
-    //   this.rService.getGraficoCursoUnidad(this.selectExigencia).subscribe(
-    //     (data: any) => { // Success
-    //       // console.log(data);
-    //       if(data.lineChartLabels) {
-    //         this.lineChartLabels = data.lineChartLabels;
-    //         this.lineChartData = data.lineChartData;
-    //         this.lineChartFlag = true;
-    //       } else this.lineChartFlag = false;
-                    
-    //       if(data.barChartLabels) {
-    //         this.barChartLabels = data.barChartLabels;
-    //       this.barChartData[0].data = data.barChartData;
-    //         this.barChartFlag = true;
-    //       } else this.barChartFlag = false;
 
-    //       if(data.pieChartLabels) {
-    //         // this.lineChartLabels = data.lineChartLabels;
-    //         // this.lineChartData = data.lineChartData;
-    //         this.pieChartFlag = true;
-    //       } else this.pieChartFlag = false;
-
-    //       if(data.puntaje) {
-    //         // this.lineChartLabels = data.lineChartLabels;
-    //         // this.lineChartData = data.lineChartData;
-    //         this.puntajeFlag = true;
-    //       } else this.puntajeFlag = false;
-
-          
-    //       // this.datos = data.datos;
-    //       // this.gauges = data.gauge;
-    //       // this.showSection = 2;
-    //     },
-    //     (error) => {
-    //       if (error.status == 401) {
-    //         this.router.navigate(['/auth/login']);
-    //       } else if (error.status == 400) {
-    //         this.router.navigate(['/auth/login']);
-    //       }
-    //     }
-    //   );
-    // } else if (this.selectedSeccion.curso_id > 0 && this.selectExigencia > 0 && this.selectActividades > 0) {
-    //    // console.log("filtro 3")
-    //   this.rService.getGraficoCursoUnidadObjetivo(this.selectedSeccion.curso_id, this.selectActividades).subscribe(
-    //     (data: any) => { // Success
-    //       // console.log(data);
-    //       if(data.lineChartLabels) {
-    //         this.lineChartLabels = data.lineChartLabels;
-    //         this.lineChartData = data.lineChartData;
-    //         this.lineChartFlag = true;
-    //       } else this.lineChartFlag = false;
-                    
-    //       if(data.barChartLabels) {
-    //         this.barChartLabels = data.barChartLabels;
-    //       this.barChartData[0].data = data.barChartData;
-    //         this.barChartFlag = true;
-    //       } else this.barChartFlag = false;
-
-    //       if(data.pieChartLabels) {
-    //         // this.lineChartLabels = data.lineChartLabels;
-    //         // this.lineChartData = data.lineChartData;
-    //         this.pieChartFlag = true;
-    //       } else this.pieChartFlag = false;
-
-    //       if(data.puntaje) {
-    //         // this.lineChartLabels = data.lineChartLabels;
-    //         // this.lineChartData = data.lineChartData;
-    //         this.puntajeFlag = true;
-    //       } else this.puntajeFlag = false;
-
-          
-    //       // this.datos = data.datos;
-    //       // this.gauges = data.gauge;
-    //       // this.showSection = 2;
-    //     },
-    //     (error) => {
-    //       if (error.status == 401) {
-    //         this.router.navigate(['/auth/login']);
-    //       } else if (error.status == 400) {
-    //         this.router.navigate(['/auth/login']);
-    //       }
-    //     }
-    //   );
-    // }
-  } 
+        // this.datos = data.datos;
+        // this.gauges = data.gauge;
+        // this.showSection = 2;
+      },
+      (error) => {
+        console.log(error);
+        this.notification.error('Reporte Actividad', 'El curso no cuenta con estudiantes')
+        if (error.status == 401) {
+          this.router.navigate(['/auth/login']);
+        } else if (error.status == 400) {
+          this.router.navigate(['/auth/login']);
+        }
+      }
+    );
+  }
 
   @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
 
