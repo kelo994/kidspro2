@@ -45,7 +45,6 @@ export class BloqueService {
     getGrupos(funcId, asignId, cursoId) {
         return this.http.get(`${this.url}/funcionarios/${funcId}/asignaturas/${asignId}/cursos/${cursoId}/grupos`, this.getToken())
             .pipe(timeout(5000),
-                retry(1),
                 catchError((error, c) => {
                     this.errorTime();
                     return throwError(error);

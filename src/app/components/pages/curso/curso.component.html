@@ -1,6 +1,6 @@
 <a id="changeRoute" class="d-none" (click)="destruir()"> a</a>
 <nz-layout class="left-layout">
-    <nz-sider class="submenu-sidebar-asignatura mt-0" [nzWidth]="180">
+    <!-- <nz-sider class="submenu-sidebar-asignatura mt-0" [nzWidth]="180">
         <nz-input-group [nzSuffix]="suffixIcon" class="p-0">
             <input type="text" class="p-0" nz-input placeholder="Buscar Asignatura" [(ngModel)]="searchValue" />
         </nz-input-group>
@@ -16,7 +16,7 @@
                 <p class="m-0 py-2 text-center" style="line-height: 15px;">No hay asignaturas</p>
             </li>
         </ul>
-    </nz-sider>
+    </nz-sider> -->
     <nz-layout class="right-layout">
         <div class="header bg-subheader p-3">
             <div class="row m-0">
@@ -26,13 +26,9 @@
                             <span class="text-subheader bd-invisible"><strong>{{ selectAsginatura }}</strong></span>
                             <span class="px-3">{{ cursoNombre }}</span>
                         </div>
-                        <div class="col-6 text-left">
-                            <select class="form-control w-50" (change)="onChangeSeccion($event.target.value)">
-                                <option *ngFor="let s of secciones; let iSeccion = index" [value]="iSeccion">Sección {{ s.seccion_nombre }}
-                                </option>
-                                <option *ngIf="secciones?.length == 0">No hay secciones</option>
-                            </select>
-                        </div>
+                        <!-- <div class="col-6 text-left">
+                            
+                        </div> -->
                     </div>
                 </div>
                 <div *ngIf="unidades?.length > 0" class="col-lg-4 col-md-4 col-xs-12 text-right">
@@ -45,13 +41,30 @@
                         <i class="fas fa-qrcode bd-invisible"></i> Código de Acceso
                     </button>
                 </div>
-                <div class="col-12">
-                    <span *ngIf="unidades?.length != 0">{{ unidades?.length }} Unidades</span>
+                <br>                
+            </div>
+            <div class="row m-0 pl-4">
+                <div class="col-2 p-0">
+                    <label class="m-0 p-0">Asignatura</label>
+                    <select class="form-control w-75" (change)="openAsignatura($event.target.value)">
+                        <option *ngFor="let a of asignaturas; let iAsignatura = index" [value]="iAsignatura">
+                            {{ a.asignatura_nombre }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-2 p-0">
+                    <label class="m-0 p-0">Sección</label>
+                    <select class="form-control w-75" (change)="onChangeSeccion($event.target.value)">
+                        <option *ngFor="let s of secciones; let iSeccion = index" [value]="iSeccion">Sección
+                            {{ s.seccion_nombre }}
+                        </option>
+                        <option *ngIf="secciones?.length == 0">No hay secciones</option>
+                    </select>
                 </div>
             </div>
         </div>
         <div class="unidades pt-5">
-            <div *ngIf="unidades?.length > 0" cdkDropListGroup class="row m-0">
+            <div *ngIf="flagUnidades == 2" cdkDropListGroup class="row m-0">
                 <div *ngFor="let u of unidades; let i = index" class="col-lg-3 col-md-6 col-xs-12 mb-3">
                     <div class="card-content bg-gray p-0">
                         <p class="c-black py-1 pl-3 m-0 t-12">{{ u.grupo_nombre }}</p>
@@ -61,7 +74,8 @@
                                 <li *ngFor="let b of u.bloques; let j = index" class="list-group-item p-1" cdkDrag
                                     [cdkDragDisabled]="!editUnidades">
                                     <div class="row m-0">
-                                        <div class="col px-0 pl-1 t-12" [ngClass]="{'pointer': editUnidades, 'no-pointer':!editUnidades }">
+                                        <div class="col px-0 pl-1 t-12"
+                                            [ngClass]="{'pointer': editUnidades, 'no-pointer':!editUnidades }">
                                             {{ b.bloque_titulo }}
                                         </div>
                                         <div class="col-2 p-0 d-block my-auto">
@@ -72,8 +86,7 @@
                             </ul>
                             <div class="row m-0 p-2 footerUnity">
                                 <div class="col text-center px-1">
-                                    <button class="btn btn-unidad btn-sm w-100 t-12 py-2b"
-                                        (click)="goToUnidad(u)">
+                                    <button class="btn btn-unidad btn-sm w-100 t-12 py-2b" (click)="goToUnidad(u)">
                                         Entrar
                                     </button>
                                 </div>
@@ -88,7 +101,7 @@
                 </div>
             </div>
 
-            <div *ngIf="flagUnidades != 1 && unidades?.length == 0" class="container">
+            <div *ngIf="flagUnidades == 0" class="container">
                 <div class="w80 row m-0 mx-auto justify-content-center">
                     <div class="col-4">
                         <div class="row m-0 mx-2">
@@ -141,9 +154,9 @@
                 </div>
             </div>
 
-            <nz-alert *ngIf="flagUnidades == 1" nzType="warning" nzMessage="Curso"
+            <!-- <nz-alert *ngIf="flagUnidades == 1" nzType="warning" nzMessage="Curso"
                 nzDescription="El funcionario no cuenta con cursos asociados">
-            </nz-alert>
+            </nz-alert> -->
         </div>
     </nz-layout>
 </nz-layout>
