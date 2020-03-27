@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { NzModalService, NzNotificationService } from 'ng-zorro-antd';
-import {CoursesService} from '../../../../services/courses.service';
+import { CoursesService } from '../../../../services/courses.service';
+import { MultimediaService } from '../../../../services/multimedia.service';
 import { GeneroService } from 'src/app/services/genero.service';
 import { RutService } from 'src/app/services/forms/rut.service';
 import { EmailService } from 'src/app/services/forms/email.service';
@@ -38,8 +39,11 @@ export class StudentsAdminComponent implements OnInit {
     }
   ];
   estudianteElminado;
+  files: any = [];
+  fileItem: File = null;
 
   constructor(
+    private multimedia: MultimediaService,
     private notification: NzNotificationService,
     private router: Router,
     private generoService: GeneroService,
@@ -66,7 +70,7 @@ export class StudentsAdminComponent implements OnInit {
 
 
   obtenerCursosEstablecimiento() {
-    this.coursesService.obtenerCursosEstablecimiento(this.establecimientoId).subscribe( (data: any) => { // Success
+    this.coursesService.obtenerCursosEstablecimiento(this.establecimientoId).subscribe((data: any) => { // Success
       this.cursos = data;
     }, (error) => {
       if (error.status === 401) { this.router.navigate(['/auth/login']); }
@@ -74,7 +78,7 @@ export class StudentsAdminComponent implements OnInit {
   }
 
   estudiantesCursoEstudianteSCurso(cursoId) {
-    this.coursesService.estudiantesCursoEstudianteSCurso(cursoId, this.establecimientoId).subscribe( (data: any) => { // Success
+    this.coursesService.estudiantesCursoEstudianteSCurso(cursoId, this.establecimientoId).subscribe((data: any) => { // Success
       this.estudiantesCurso = data.estudiantesCurso;
     }, (error) => {
       if (error.status === 401) { this.router.navigate(['/auth/login']); }
@@ -95,7 +99,7 @@ export class StudentsAdminComponent implements OnInit {
   }
 
   confirmDelete() {
-    this.coursesService.deleteEstudiante(this.cursoSeleccionado.curso_id,  this.estudianteElminado).subscribe((data: any) => {
+    this.coursesService.deleteEstudiante(this.cursoSeleccionado.curso_id, this.estudianteElminado).subscribe((data: any) => {
       this.estudiantesCurso = data;
       this.notification.success('Estudiantes', 'El estudiante fue eliminado con exito');
     }, (error) => {
@@ -209,6 +213,46 @@ export class StudentsAdminComponent implements OnInit {
       nzClassName: 'modal-confirm-delete',
       nzOnOk: () => this.confirmDelete()
     });
+  }
+
+  uploadFile(event) {
+    if (this.files.length == 0) {
+      this.files.push(event.target.files[0].name)
+    } else {
+      this.deleteAttachment(0);
+      this.files.push(event.target.files[0].name)
+    }
+    this.fileItem = event.target.files[0];
+  }
+
+  deleteAttachment(index) {
+    this.files.splice(index, 1)
+  }
+
+  saveFile() {
+    if (this.cursoSeleccionado.curso_id != '') {
+      this.step = 1;
+      this.notification.info('Importar Estudiantes', 'Estamos procesando su solicitud')
+      var formData = new FormData();
+      formData.append('select_file', this.fileItem);
+      formData.append('establecimiento_id', this.establecimientoId);
+      this.deleteAttachment(0);
+      this.multimedia.importEstudiantesACurso(formData, this.cursoSeleccionado.curso_id).subscribe((data: any) => {
+        this.estudiantesCurso = data.curso
+        this.notification.success('Estudiantes Importados con Éxito', '');
+      }, (error) => {
+        if (error.status == 401) {
+          this.router.navigate(['/auth/login']);
+        } else if (error.status == 400) {
+          this.notification.error('Error Inesperado', 'Por favor vuelva a intentarlo mas tarde');
+        } else if (error.status == 422) {
+          this.notification.error('Archivo Inválido', 'El archivo no corresponde con el formato solicitado');
+        }
+      });
+    } else {
+      this.notification.error('Error', 'Debe seleccionar un Curso');
+    }
+
   }
 
 }

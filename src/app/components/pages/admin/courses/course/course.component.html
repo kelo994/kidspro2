@@ -65,11 +65,11 @@
 
 
 <!-- Modal -->
-<nz-modal [(nzVisible)]="modalProfesor" nzTitle="Profesor" nzFooter="*permite agregar profesor a un curso" (nzOnCancel)="closeModalProfesor()">
+<nz-modal [(nzVisible)]="modalProfesor" nzTitle="Profesor" [nzWidth]="600" [nzFooter]="null" (nzOnCancel)="closeModalProfesor()">
   <nz-steps [nzCurrent]="current" nzSize="small">
     <nz-step nzTitle="Seleccionar Profesor" nzDescription=""></nz-step>
     <nz-step nzTitle="Seleccionar Tipo de Profesor" nzSubtitle="" nzDescription=""> </nz-step>
-    <nz-step nzTitle="completado" nzSubtitle="" nzDescription=""> </nz-step>
+    <nz-step nzTitle="Completado" nzSubtitle="" nzDescription=""> </nz-step>
   </nz-steps>
 
   <div class="steps-content" *ngIf="current == 0">

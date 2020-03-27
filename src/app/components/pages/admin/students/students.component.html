@@ -1,8 +1,14 @@
-<nz-page-header >
+<nz-page-header>
   <nz-page-header-title>Administración de estudiantes</nz-page-header-title>
-  <nz-page-header-extra >
+  <nz-page-header-extra>
     <button style="font-size: 12px; font-weight: bold; background-color: #009dee; color: white" nz-button
-            *ngIf="step == 1" (click)="changeStep(2)">
+      *ngIf="step == 1" (click)="changeStep(3)">
+      <i nz-icon nzType="plus"></i>
+      <nz-divider [nzType]="'vertical'" style="margin-left: 0px"></nz-divider>
+      Importar Estudiantes
+    </button>
+    <button style="font-size: 12px; font-weight: bold; background-color: #009dee; color: white" nz-button
+      *ngIf="step == 1" (click)="changeStep(2)">
       <i nz-icon nzType="plus"></i>
       <nz-divider [nzType]="'vertical'" style="margin-left: 0px"></nz-divider>
       Registrar Estudiante
@@ -18,14 +24,18 @@
     </div>
     <nz-card class="content-table pt-3 pb-3">
       <div nz-row>
-        <div nz-col nzXs="12" nzSm="12" nzMd="6" nzLg="6" nzXl="6" nzXXl="6"
-             class="content-curso" *ngFor="let curso of cursos" >
+        <div nz-col nzXs="12" nzSm="12" nzMd="6" nzLg="6" nzXl="6" nzXXl="6" class="content-curso"
+          *ngFor="let curso of cursos">
           <div nz-row nzType="flex" nzJustify="space-around" nzAlign="middle">
             <div nz-col nzSpan="24" class="alinear-centro">
-              <nz-avatar class="avatar-curso" [nzSize]="48" nzIcon="folder-open" (click)="selectCurso(curso)" *ngIf="curso != cursoSeleccionado"></nz-avatar>
-              <nz-avatar class="avatar-curso-seleccionado" [nzSize]="48" nzIcon="folder-open" *ngIf="curso == cursoSeleccionado"></nz-avatar>
+              <nz-avatar class="avatar-curso" [nzSize]="48" nzIcon="folder-open" (click)="selectCurso(curso)"
+                *ngIf="curso != cursoSeleccionado"></nz-avatar>
+              <nz-avatar class="avatar-curso-seleccionado" [nzSize]="48" nzIcon="folder-open"
+                *ngIf="curso == cursoSeleccionado"></nz-avatar>
             </div>
-            <div nz-col nzSpan="24" class="alinear-centro"><p >{{curso.nivel_descripcion}} {{curso.seccion_nombre}}</p></div>
+            <div nz-col nzSpan="24" class="alinear-centro">
+              <p>{{curso.nivel_descripcion}} {{curso.seccion_nombre}}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -35,33 +45,33 @@
     <div nz-row class="student-title">
       <h6>Estudiantes</h6>
     </div>
-    <div >
+    <div>
       <nz-table class="content-table" #EstudiantesTable nzFooter="" nzSize="middle" [nzData]="estudiantesCurso"
-                nzShowPagination="false" *ngIf="step == 1">
+        nzShowPagination="false" *ngIf="step == 1">
         <thead>
-        <tr>
-          <th>Matrícula</th>
-          <th class="content-celda">Nombre</th>
-          <th class="content-celda">Apellido</th>
-          <th class="content-celda">Acciones</th>
-        </tr>
+          <tr>
+            <th>Matrícula</th>
+            <th class="content-celda">Nombre</th>
+            <th class="content-celda">Apellido</th>
+            <th class="content-celda">Acciones</th>
+          </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let estudiante of EstudiantesTable.data">
-          <td>{{estudiante.matricula}}</td>
-          <td class="content-celda">{{estudiante.persona_nombre}}</td>
-          <td class="content-celda">{{estudiante.persona_apellido}}</td>
-          <td class="content-celda">
-            <i nz-icon nzType="delete" nzTheme="outline" class="pointer" (click)="delete(estudiante.estudiante_id)"></i>
-          </td>
-        </tr>
+          <tr *ngFor="let estudiante of EstudiantesTable.data">
+            <td>{{estudiante.matricula}}</td>
+            <td class="content-celda">{{estudiante.persona_nombre}}</td>
+            <td class="content-celda">{{estudiante.persona_apellido}}</td>
+            <td class="content-celda">
+              <i nz-icon nzType="delete" nzTheme="outline" class="pointer"
+                (click)="delete(estudiante.estudiante_id)"></i>
+            </td>
+          </tr>
         </tbody>
       </nz-table>
-      <div *ngIf="step == 0"  class="alinear-centro content-info">
+      <div *ngIf="step == 0" class="alinear-centro content-info">
         <h3 style="color: rgba(0,0,0,0.1)">Seleccione un curso para mostrar la información</h3>
       </div>
       <div *ngIf="step == 2" class="form-student">
-
         <form [formGroup]="estudianteForm" autocomplete="off">
           <div class="modal-container">
             <div nz-row class="mb-3">
@@ -77,7 +87,7 @@
                 <label class="form-label">RUT</label>
               </div>
               <div nz-col nzSpan="16">
-                <input nz-input formControlName="rut" placeholder="RUT" (keyup)="formateaRut()"/>
+                <input nz-input formControlName="rut" placeholder="RUT" (keyup)="formateaRut()" />
               </div>
             </div>
             <div nz-row class="mb-3">
@@ -103,7 +113,7 @@
               <div nz-col nzSpan="16">
                 <nz-select formControlName="genero" class="w-100" nzAllowClear nzPlaceHolder="Generos">
                   <nz-option *ngFor="let genero of generos; let i = index" [nzValue]="genero.id"
-                             [nzLabel]="genero.descripcion">
+                    [nzLabel]="genero.descripcion">
                   </nz-option>
                 </nz-select>
               </div>
@@ -136,13 +146,30 @@
         </form>
         <nz-divider></nz-divider>
         <div nz-row nzType="flex" nzJustify="space-around" nzAlign="middle">
-          <button nz-button nzSize="large" style="background-color: #e8e8e8;"
-                  (click)="changeStep(0)">Cancelar</button>
-          <button nz-button nzSize="large" style="background-color: #e8e8e8;"
-                  (click)="clearForm()">Limpiar</button>
-          <button nz-button nzSize="large" nzType="primary" (click)="guardarEstudiante()" [disabled]="estudianteForm.invalid">
+          <button nz-button nzSize="large" style="background-color: #e8e8e8;" (click)="changeStep(1)">Cancelar</button>
+          <button nz-button nzSize="large" style="background-color: #e8e8e8;" (click)="clearForm()">Limpiar</button>
+          <button nz-button nzSize="large" nzType="primary" (click)="guardarEstudiante()"
+            [disabled]="estudianteForm.invalid">
             Guardar
           </button>
+        </div>
+      </div>
+      <div *ngIf="step == 3" class="form-student text-center">
+        <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile($event)">
+          <form enctype="multipart/form-data" name="fileForm">
+            <input id="fileInput" hidden type="file" #fileInput (change)="uploadFile($event)">
+          </form>
+        </div>
+        <div class="files-list" *ngFor="let file of files;let i=index">
+          <p class="m-0">{{ file }}</p>
+          <button class="delete-file" (click)="deleteAttachment(i)">
+            <i class="fas fa-trash c-red"></i>
+          </button>
+        </div>
+        <div nz-row nzType="flex" nzJustify="space-around" nzAlign="middle">
+          <button nz-button style="background-color: #e8e8e8;" (click)="changeStep(1)">Cancelar</button>
+          <button nz-button nzType="primary" (click)="saveFile()" [disabled]="files.length === 0"><i nz-icon
+              nzType="upload"></i><span>Importar Estudiantes</span></button>
         </div>
       </div>
     </div>
