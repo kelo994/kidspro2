@@ -16,6 +16,8 @@ import { StudentLessonGameComponent } from './lesson/game/game.component'
 import { StudentEvaluationComponent } from './evaluation/evaluation.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
+import { StudentAuthGuardService } from '../../services/auth-guard/student-auth-guard.service';
+
 @NgModule({
     imports: [
         STUDENT_ROUTES,
@@ -32,7 +34,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
         StudentLessonGameComponent,
         StudentEvaluationComponent,
     ],
-    providers: [{ provide: NZ_I18N, useValue: es_ES }, NzI18nService],
+    providers: [{ provide: NZ_I18N, useValue: es_ES }, NzI18nService, StudentAuthGuardService],
     entryComponents: []
 })
 export class StudentModule { }

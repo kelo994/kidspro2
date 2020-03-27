@@ -30,13 +30,27 @@
                 </div>
 
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Cambiar Rol</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Cambiar Establecimiento</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Cerrar Sesión</a>
+                    <a *ngIf="roles.length > 1" class="dropdown-item" (click)="openModal('roles')">Cambiar Rol</a>
+                    <div *ngIf="roles.length > 1" class="dropdown-divider"></div>
+                    <a *ngIf="establecimientos.length > 1" class="dropdown-item" (click)="openModal('establecimientos')">Cambiar Establecimiento</a>
+                    <div *ngIf="establecimientos.length > 1" class="dropdown-divider"></div>
+                    <a class="dropdown-item" (click)="logout()">Cerrar Sesión</a>
                 </div>
             </div>
         </div>
     </div>
 </nz-header>
+<nz-modal [(nzVisible)]="modalRoles" nzTitle="Cambiar Rol" nzCancelText="Cancelar" nzOkText="Cambiar"
+    (nzOnCancel)="closeModal('roles')"
+    (nzOnOk)="cambiarRol()">
+    <nz-radio-group [(ngModel)]="rolId">
+        <label *ngFor="let rol of roles" nz-radio [nzValue]="rol.id">{{ rol.rol_nombre }}</label>
+    </nz-radio-group>
+</nz-modal>
+<nz-modal [(nzVisible)]="modalEstablecimientos" nzTitle="Cambiar Establecimiento" nzCancelText="Cancelar" nzOkText="Cambiar"
+    (nzOnCancel)="closeModal('establecimientos')" 
+    (nzOnOk)="cambiarEstablecimiento()">
+    <nz-radio-group [(ngModel)]="establecimientoId">
+        <label *ngFor="let establecimiento of establecimientos" nz-radio [nzValue]="establecimiento.id">{{ establecimiento.establecimiento_nombre }}</label>
+    </nz-radio-group>
+</nz-modal>
