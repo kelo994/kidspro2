@@ -29,6 +29,10 @@ export class CoursesService {
         };
     }
 
+    obtenerCursosProfesor(idEstablecimiento, idFuncionario, idAsignatura) {
+        return this.http.get(`${this.url}/establecimientos/${idEstablecimiento}/funcionarios/${idFuncionario}/asignaturas/${idAsignatura}/cursos`, this.getToken());
+    }
+
     obtenerNivelesEstablecimiento(establecimientoId) {
         return this.http.get(`${this.url}/establecimientos/${establecimientoId}/niveles`, this.getToken())
             .pipe(timeout(5000),

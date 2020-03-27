@@ -47,6 +47,28 @@ export class ReporteService {
             finalize(() => { /*console.log('finilize')*/ }));;
     }
 
+    getUnidades(idCurso) {
+        return this.http.get(`${this.url}/dashboard/cursos/${idCurso}`, this.getToken()).pipe(timeout(5000),
+            retry(3),
+            catchError((error, c) => {
+                this.errorTime();
+                return throwError(error)
+            }),
+            switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+            finalize(() => { /*console.log('finilize')*/ }));
+    }
+
+    getObjetivos(idUnidad) {
+        return this.http.get(`${this.url}/dashboard/cursos/${idUnidad}`, this.getToken()).pipe(timeout(5000),
+            retry(3),
+            catchError((error, c) => {
+                this.errorTime();
+                return throwError(error)
+            }),
+            switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+            finalize(() => { /*console.log('finilize')*/ }));
+    }
+
     getACursosGraficosTwo(idx) {
         return this.http.get(`${this.url}/dashboard/cursos/${idx},`, this.getToken()).pipe(timeout(5000),
             retry(3),
@@ -55,7 +77,7 @@ export class ReporteService {
                 return throwError(error)
             }),
             switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
-            finalize(() => { /*console.log('finilize')*/ }));;
+            finalize(() => { /*console.log('finilize')*/ }));
     }
 
     // Asignaturas
@@ -84,19 +106,54 @@ export class ReporteService {
                 return throwError(error)
             }),
             switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
-            finalize(() => { /*console.log('finilize')*/ }));;
+            finalize(() => { /*console.log('finilize')*/ }));
     }
 
     // obtener datos
-    getObjetivosCursos(idCurso, idAsignatura, idObjetivo) {
-        return this.http.get(`${this.url}/analisisPorCursoObjetivos/${idCurso}/${idAsignatura}/${idObjetivo}`, this.getToken()).pipe(timeout(5000),
+    getObjetivosCursos(groupId) {
+        return this.http.get(`${this.url}/grupos/${groupId}/objetivos`, this.getToken()).pipe(timeout(5000),
             retry(3),
             catchError((error, c) => {
                 this.errorTime();
                 return throwError(error)
             }),
             switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
-            finalize(() => { /*console.log('finilize')*/ }));;
+            finalize(() => { /*console.log('finilize')*/ }));
+    }
+
+    //reporte 1
+    getGraficoCurso(cursoId) {
+        return this.http.get(`${this.url}/dashboard/cursos/${cursoId}`, this.getToken()).pipe(timeout(5000),
+            retry(3),
+            catchError((error, c) => {
+                this.errorTime();
+                return throwError(error)
+            }),
+            switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+            finalize(() => { /*console.log('finilize')*/ }));
+    }
+    //reporte 2
+    getGraficoCursoUnidad(groupId) {
+        return this.http.get(`${this.url}/dashboard/grupos/${groupId}`, this.getToken()).pipe(timeout(5000),
+            retry(3),
+            catchError((error, c) => {
+                this.errorTime();
+                return throwError(error)
+            }),
+            switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+            finalize(() => { /*console.log('finilize')*/ }));
+    }
+
+    //reporte 3
+    getGraficoCursoUnidadObjetivo(cursoId, objetivoId) {
+        return this.http.get(`${this.url}/dashboard/cursos/${cursoId}/objetivos/${objetivoId}`, this.getToken()).pipe(timeout(5000),
+            retry(3),
+            catchError((error, c) => {
+                this.errorTime();
+                return throwError(error)
+            }),
+            switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+            finalize(() => { /*console.log('finilize')*/ }));
     }
 
     errorTime() {
