@@ -1,12 +1,18 @@
-<nz-page-header>
+<nz-page-header *ngIf="loading">
   <nz-page-header-title>{{curso.nivel_descripcion}} {{ curso.seccion_nombre }}, {{asignatura.materia_descripcion}}
   </nz-page-header-title>
   <nz-page-header-extra>
 
   </nz-page-header-extra>
 </nz-page-header>
-
-<div nz-row class="content">
+<nz-content class="loading pt-5">
+  <div class="w-100 text-center d-block my-auto" *ngIf="loading === false">
+    <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+    <br>
+    <h3 class="c-blue">Cargando ...</h3>
+  </div>
+</nz-content>
+<div nz-row class="content" *ngIf="loading">
   <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="14" nzXl="14" nzXXl="14" class="content-student">
     <div nz-row class="student-title">
       <div nz-col nzXs="24" nzSm="24" nzMd="14" nzLg="16" nzXl="18" nzXXl="20">

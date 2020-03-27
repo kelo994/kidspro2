@@ -8,40 +8,41 @@
     </button>
   </nz-page-header-extra>
 </nz-page-header>
+<nz-content class="loading pt-5">
+  <div class="w-100 text-center d-block my-auto" *ngIf="loading === false">
+    <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+    <br>
+    <h3 class="c-blue">Cargando ...</h3>
+  </div>
+</nz-content>
+<nz-layout class="inner-layout" *ngIf="loading">
 
-<nz-layout class="inner-layout">
-  <mat-accordion>
-    <mat-expansion-panel *ngFor="let nivel of niveles; let i = index">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <strong>{{ nivel.nivel_descripcion }}</strong>
-        </mat-panel-title>
-        <mat-panel-description>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <nz-table class="content-table" #borderedTable  nzFooter="" nzSize="middle"  [nzData]="nivel.asignaturas" nzShowPagination="false">
-        <thead>
-        <tr>
-          <th>Asignaturas / Secciones</th>
-          <th class="content-celda" *ngFor="let curso of nivel.cursos; let i = index">{{ curso.seccion_nombre }}</th>
-        </tr>
-        </thead>
-        <tbody >
-        <tr *ngFor="let asignaturas of borderedTable.data">
-          <td>{{ asignaturas.asignatura_nombre }}</td>
-          <td class="content-celda" *ngFor="let curso of asignaturas.cursos">
-            <a [routerLink]="['/pages/administrar/cursos/', curso.curso_id , 'asignaturas', asignaturas.asignatura_id]"
-               [state]="{}">
-              <i nz-icon nzType="file-add" nzTheme="outline"></i>
-            </a>
-          </td>
-        </tr>
-        </tbody>
-      </nz-table>
-    </mat-expansion-panel>
+  <div *ngFor="let nivel of niveles; let i = index" class="mb-5">
+    <div nz-row>
+      <h5>{{ nivel.nivel_descripcion }}</h5>
+    </div>
+    <nz-table class="content-table" #borderedTable  nzFooter="" nzSize="middle"  [nzData]="nivel.asignaturas" nzShowPagination="false">
+      <thead>
+      <tr>
+        <th>Asignaturas / Secciones</th>
+        <th class="content-celda" *ngFor="let curso of nivel.cursos; let i = index">{{ curso.seccion_nombre }}</th>
+      </tr>
+      </thead>
+      <tbody >
+      <tr *ngFor="let asignaturas of borderedTable.data">
+        <td>{{ asignaturas.asignatura_nombre }}</td>
+        <td class="content-celda" *ngFor="let curso of asignaturas.cursos">
+          <a [routerLink]="['/pages/administrar/cursos/', curso.curso_id , 'asignaturas', asignaturas.asignatura_id]"
+             [state]="{}">
+            <i nz-icon nzType="file-add" nzTheme="outline"></i>
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
 
 
-  </mat-accordion>
 </nz-layout>
 
 <nz-modal [(nzVisible)]="modalCrearCurso" nzWrapClassName="vertical-center-modal" nzTitle="Crear curso nuevo" nzOkText="Crear"
