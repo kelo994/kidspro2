@@ -13,10 +13,10 @@ app.use(function(req, res, next) {
 
   next();
 });
-app.use(express.static(__dirname + '/dist'));
+app.use(express.static(__dirname + '/dist/kidspro'));
 
 app.get('/*', function (req, res) {
-  res.sendFile('index.html', {root: path.join(__dirname, '/dist')});
+  res.sendFile('index.html', {root: path.join(__dirname, '/dist/kidspro')});
 });
 
 const server = http.createServer(app);
