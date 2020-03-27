@@ -6,6 +6,9 @@ import { ChartDataSets, ChartType, ChartOptions } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
 import { NzNotificationService } from 'ng-zorro-antd';
+import { ReporteService } from 'src/app/services/reporte.service';
+import { CoursesService } from 'src/app/services/courses.service';
+import { BloqueService } from 'src/app/services/bloque.service';
 
 @Component({
   selector: 'app-actividades',
@@ -15,47 +18,39 @@ import { NzNotificationService } from 'ng-zorro-antd';
 export class ActividadesComponent implements OnInit {
   @Input() selectCurso: any;
   @Input() selectAsignatura: any;
-  
+  @Input() selectSeccion: any;
+
+  secciones = [];
+  selectedSeccion;
+  exigencias = [50, 60, 70];
+  selectExigencia = 0;
+
+  actividad = [];
+  selectActividades = 0;
+
+  objetivosFlag = false;
+
+  estudiantes = [];
+  selectEstudiante;
+
   curso = {
-    curso_nombre: 'Seleccione un Curso',
-    id: 0
+    nivel_descripcion: 'Seleccione un Curso',
+    nivel_id: 0
   }
 
   asignatura = {
-    materia_descripcion: 'Seleccione Asignatura',
+    asignatura_nombre: 'Seleccione Asignatura',
     asignatura_id: 0
   }
 
-  constructor(private highcharts: HighchartsService, public router: Router, private notification: NzNotificationService) { }
+  // graficos
+  lineChartFlag = true;
+  barChartFlag = true;
+  pieChartFlag = true;
+  puntajeFlag = true;
+  public lineChartLabels: Label[];
+  public lineChartData: ChartDataSets[] = [ { data:[], label: ''}];
 
-  // @ViewChild('analisisComparativo') public analisisComparativo: ElementRef;
-
-  ngOnInit(): void {  }
-
-  ngOnChanges(changes: any) {
-    console.log(changes);
-    if (changes.selectCurso) {
-      if (changes.selectCurso.currentValue.curso_nombre) this.curso.curso_nombre = changes.selectCurso.currentValue.curso_nombre;
-      if (changes.selectCurso.currentValue.id) this.curso.id = changes.selectCurso.currentValue.id;
-    } else if (!(Number(this.curso.id) > 0)) {
-      this.notification.warning('Reporte de Objetivos', 'Error, no se ha seleccionado un curso.');
-    }
-
-    if (changes.selectAsignatura) {
-      if (changes.selectAsignatura.currentValue.materia_descripcion) this.asignatura.materia_descripcion = changes.selectAsignatura.currentValue.materia_descripcion;
-      if (changes.selectAsignatura.currentValue.asignatura_id) this.asignatura.asignatura_id = changes.selectAsignatura.currentValue.asignatura_id;
-    } else if (!(Number(this.selectAsignatura.asignatura_id) > 0)) {
-      this.notification.warning('Reporte de Objetivos', 'Error, no se ha seleccionado una asignatura.');
-    }
-  }
-
-  // lineChart
-  public lineChartData: ChartDataSets[] = [
-    { data: [830, 850, 840, 820, 860, 855, 840], label: 'Puntajes Mínimos' },
-    { data: [728, 748, 740, 719, 876, 727, 790], label: 'Puntajes Máximos' },
-    { data: [980, 980, 970, 990, 900, 970, 900], label: 'Puntaje Promedio' }
-  ];
-  public lineChartLabels: Label[] = ['01', '02', '03', '04', '05', '06', '07'];
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
     responsive: true, legend: { position: 'bottom', align: 'start' },
     scales: {
@@ -116,21 +111,232 @@ export class ActividadesComponent implements OnInit {
   public lineChartType = 'line';
   public lineChartPlugins = [pluginAnnotations];
 
+  public barChartLabelsAct: Array<any>;
+  public barChartDataAct: ChartDataSets[] = [
+    { data: [], label: 'Puntaje Total de los Objetivos' }
+  ];
+
+  constructor(private highcharts: HighchartsService, public router: Router,
+    private notification: NzNotificationService, public rService: ReporteService,
+    public bloqService: BloqueService, public courseS: CoursesService) { }
+
+  ngOnInit(): void {  }
+
+  ngOnChanges(changes: any) {
+    if (changes.selectCurso) {
+      this.secciones = changes.selectCurso.currentValue.cursos;
+      if (changes.selectCurso.currentValue.nivel_descripcion) {
+        this.curso.nivel_descripcion = changes.selectCurso.currentValue.nivel_descripcion;
+        this.curso.nivel_id = changes.selectCurso.currentValue.nivel_id;
+        localStorage.setItem('NivelId', String(this.curso.nivel_id));
+      }      
+    } else if (!(Number(this.curso.nivel_id) > 0)) {
+      this.notification.warning('Reporte de Objetivos', 'Error, no se ha seleccionado un curso.');
+    }
+
+    if (changes.selectAsignatura) {
+      this.objetivosFlag = true;
+      if (changes.selectAsignatura.currentValue.asignatura_nombre) {
+        this.asignatura.asignatura_nombre = changes.selectAsignatura.currentValue.asignatura_nombre;
+        this.asignatura.asignatura_id = changes.selectAsignatura.currentValue.asignatura_id;
+        localStorage.setItem('AsignaturaId', String(this.asignatura.asignatura_id));
+      }      
+    } else if (!(Number(this.selectAsignatura.asignatura_id) > 0)) {
+      this.notification.warning('Reporte de Objetivos', 'Error, no se ha seleccionado una asignatura.');
+    }
+
+    this.courseS.obtenerCursosProfesor(localStorage.getItem('idEstablecimiento'), localStorage.getItem('idFuncionario'), localStorage.getItem('AsignaturaId')).subscribe((data: any) => { // Success
+      localStorage.setItem('CursoEspecifico', data[0].curso_especifico_id);
+      console.log(data)
+      this.secciones = data;
+      this.selectedSeccion = this.secciones[0];
+      localStorage.setItem('SeccionId', this.selectedSeccion.curso_id);
+      this.selectExigencia = 50;
+      this.selectActividades = 0;
+      this.actividad = [];
+      this.getActividades();
+    }, (error) => {
+      console.log(error)
+      if (error.status === 401) { this.router.navigate(['/auth/login']); }
+    });
+  }
+
+  getActividades() {
+    this.rService.getObjetivosCursos(1)
+      .subscribe(
+        (data: any) => { // Success
+          // console.log(data);
+          this.actividad = data;
+          //this.selectObjetivo = this.objetivos[0].id;
+          this.objetivosFlag = false;
+          this.getGraficoActividad();
+        },
+        (error) => {
+          if (error.status == 401) {
+            this.router.navigate(['/auth/login']);
+          }
+        }
+      )
+  }
+
+  onChangeSeccion(item) {
+    this.selectedSeccion = this.secciones[item];
+    localStorage.setItem('SeccionId', this.selectedSeccion.curso_id);
+    this.exigencias = [];
+    this.actividad = [];
+    this.selectExigencia = 0;
+    this.selectActividades = 0;
+    this.getGraficoActividad();
+  }
+
+  onChangeExigencia(item) {
+    this.selectExigencia = this.exigencias[item];
+    //this.getActividades();
+  }
+
+  onChangeActividades(item) {
+    // this.selectActividades = this.actividad[item].id;
+    this.getGraficoActividad();
+  }
+
+  getGraficoActividad() {
+    // if(this.selectedSeccion.curso_id > 0 && this.selectExigencia == 0) {
+    //    // console.log("filtro 1")
+    //   this.rService.getGraficoCurso(this.selectedSeccion.curso_id).subscribe(
+    //     (data: any) => { // Success
+    //       // console.log(data);
+    //       if(data.lineChartLabels) {
+    //         this.lineChartLabels = data.lineChartLabels;
+    //         this.lineChartData = data.lineChartData;
+    //         this.lineChartFlag = true;
+    //       } else this.lineChartFlag = false;
+                    
+    //       if(data.barChartLabels) {
+
+    //         this.barChartLabels = data.barChartLabels;
+    //       this.barChartData[0].data = data.barChartData;
+    //         this.barChartFlag = true;
+    //       } else this.barChartFlag = false;
+
+    //       if(data.pieChartLabels) {
+    //         // this.lineChartLabels = data.lineChartLabels;
+    //         // this.lineChartData = data.lineChartData;
+    //         this.pieChartFlag = true;
+    //       } else this.pieChartFlag = false;
+
+    //       if(data.puntaje) {
+    //         // this.lineChartLabels = data.lineChartLabels;
+    //         // this.lineChartData = data.lineChartData;
+    //         this.puntajeFlag = true;
+    //       } else this.puntajeFlag = false;
+
+          
+    //       // this.datos = data.datos;
+    //       // this.gauges = data.gauge;
+    //       // this.showSection = 2;
+    //     },
+    //     (error) => {
+    //       if (error.status == 401) {
+    //         this.router.navigate(['/auth/login']);
+    //       } else if (error.status == 400) {
+    //         this.router.navigate(['/auth/login']);
+    //       }
+    //     }
+    //   );
+    // } else if (this.selectedSeccion.curso_id > 0 && this.selectExigencia > 0 && this.selectActividades == 0) {
+    //    // console.log("filtro 2")
+    //   this.rService.getGraficoCursoUnidad(this.selectExigencia).subscribe(
+    //     (data: any) => { // Success
+    //       // console.log(data);
+    //       if(data.lineChartLabels) {
+    //         this.lineChartLabels = data.lineChartLabels;
+    //         this.lineChartData = data.lineChartData;
+    //         this.lineChartFlag = true;
+    //       } else this.lineChartFlag = false;
+                    
+    //       if(data.barChartLabels) {
+    //         this.barChartLabels = data.barChartLabels;
+    //       this.barChartData[0].data = data.barChartData;
+    //         this.barChartFlag = true;
+    //       } else this.barChartFlag = false;
+
+    //       if(data.pieChartLabels) {
+    //         // this.lineChartLabels = data.lineChartLabels;
+    //         // this.lineChartData = data.lineChartData;
+    //         this.pieChartFlag = true;
+    //       } else this.pieChartFlag = false;
+
+    //       if(data.puntaje) {
+    //         // this.lineChartLabels = data.lineChartLabels;
+    //         // this.lineChartData = data.lineChartData;
+    //         this.puntajeFlag = true;
+    //       } else this.puntajeFlag = false;
+
+          
+    //       // this.datos = data.datos;
+    //       // this.gauges = data.gauge;
+    //       // this.showSection = 2;
+    //     },
+    //     (error) => {
+    //       if (error.status == 401) {
+    //         this.router.navigate(['/auth/login']);
+    //       } else if (error.status == 400) {
+    //         this.router.navigate(['/auth/login']);
+    //       }
+    //     }
+    //   );
+    // } else if (this.selectedSeccion.curso_id > 0 && this.selectExigencia > 0 && this.selectActividades > 0) {
+    //    // console.log("filtro 3")
+    //   this.rService.getGraficoCursoUnidadObjetivo(this.selectedSeccion.curso_id, this.selectActividades).subscribe(
+    //     (data: any) => { // Success
+    //       // console.log(data);
+    //       if(data.lineChartLabels) {
+    //         this.lineChartLabels = data.lineChartLabels;
+    //         this.lineChartData = data.lineChartData;
+    //         this.lineChartFlag = true;
+    //       } else this.lineChartFlag = false;
+                    
+    //       if(data.barChartLabels) {
+    //         this.barChartLabels = data.barChartLabels;
+    //       this.barChartData[0].data = data.barChartData;
+    //         this.barChartFlag = true;
+    //       } else this.barChartFlag = false;
+
+    //       if(data.pieChartLabels) {
+    //         // this.lineChartLabels = data.lineChartLabels;
+    //         // this.lineChartData = data.lineChartData;
+    //         this.pieChartFlag = true;
+    //       } else this.pieChartFlag = false;
+
+    //       if(data.puntaje) {
+    //         // this.lineChartLabels = data.lineChartLabels;
+    //         // this.lineChartData = data.lineChartData;
+    //         this.puntajeFlag = true;
+    //       } else this.puntajeFlag = false;
+
+          
+    //       // this.datos = data.datos;
+    //       // this.gauges = data.gauge;
+    //       // this.showSection = 2;
+    //     },
+    //     (error) => {
+    //       if (error.status == 401) {
+    //         this.router.navigate(['/auth/login']);
+    //       } else if (error.status == 400) {
+    //         this.router.navigate(['/auth/login']);
+    //       }
+    //     }
+    //   );
+    // }
+  } 
+
   @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
 
   // barChart
-  public SystemName: string = "MF1";
-  firstCopy = false;
-
-  // data
-  public barChartData: Array<number> = [40, 48, 50, 40, 38, 40, 59];
-
   public labelMFL: Array<any> = [
-    { data: this.barChartData }
+    { data: this.barChartDataAct }
   ];
   // labels
-  public barChartLabels: Array<any> = ["01", "02", "03", "04", "05", "06", "07"];
-
   public barChartOptions: any = {
     responsive: true,
     legend: { display: false },
@@ -159,15 +365,15 @@ export class ActividadesComponent implements OnInit {
   // firstCopy = false;
 
   // data
-  public barChartDataAct: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40], label: 'Puntaje Total de los Objetivos' }
-  ];
+  // public barChartDataAct: ChartDataSets[] = [
+  //   { data: [65, 59, 80, 81, 56, 55, 40, 65, 59, 80, 81, 56, 55, 40], label: 'Puntaje Total de los Objetivos' }
+  // ];
 
   // public labelMFL: Array<any> = [
   //   { data: this.barChartDataAct[0] }
   // ];
   // labels
-  public barChartLabelsAct: Array<any> = ["01", "02", "03", "04", "05", "06", "07", "01", "02", "03", "04", "05", "06", "07"];
+  //public barChartLabelsAct: Array<any> = ["01", "02", "03", "04", "05", "06", "07", "01", "02", "03", "04", "05", "06", "07"];
 
   public barChartOptionsAct: any = {
     responsive: true,

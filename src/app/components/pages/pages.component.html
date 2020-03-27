@@ -12,7 +12,7 @@
                 <ul>
                     <li *ngFor="let curso of cursos" nz-menu-item nzMatchRouter (click)="changeRoute(curso)"
                         style="padding-left: 10px !important;">
-                        <a [routerLink]="['/pages/curso/' + curso.nivel_id]">
+                        <a>
                             <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
                             <span>{{ curso.nivel_descripcion }}</span>
                         </a>
@@ -39,7 +39,7 @@
                 </ul>
             </li>
             <li nz-menu-item nz-tooltip nzPlacement="right" [nzTitle]="isCollapsed ? 'Evaluación SIMCE' : ''"
-                nzMatchRouter (click)="goToSimce()" style="margin-top: 4px!important;">
+                nzMatchRouter (click)="goToSimce()" style="padding-top: 4px!important; padding-bottom: 4px!important;">
                 <a [routerLink]="['/pages/simce']" style="height: 40px!important;">
                     <i nz-icon nzType="schedule" nzTheme="outline" style="font-size: 13px!important;"></i>
                     <span style="font-size: 12px!important;">Evaluación SIMCE</span>

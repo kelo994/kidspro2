@@ -14,7 +14,6 @@ import { CoursesService } from 'src/app/services/courses.service';
   styleUrls: ['./curso.component.scss']
 })
 export class CursoComponent implements OnInit {
-
   cursoNombre = '';
   secciones = [];
   selectSeccion;
@@ -42,15 +41,14 @@ export class CursoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.asignaturas = JSON.parse(localStorage.getItem('asignaturas'));
     this.parametersObservable = this.routeActive.params.subscribe(params => {
       console.log(params);
       if (Number(this.routeActive.snapshot.params.idCurso) != 0) {
         this.cursoNombre = localStorage.getItem('CursoName');
         this.asignaturas = JSON.parse(localStorage.getItem('asignaturas'));
-        console.log(this.asignaturas);
         localStorage.setItem('NivelId', this.routeActive.snapshot.params.idCurso);
-        localStorage.setItem('AsignaturaId', String(this.asignaturas[0].asignatura_id));
+        console.log(this.asignaturas);
 
         if (this.asignaturas.length > 1) {
           //  console.log("asignaturas")
@@ -59,7 +57,7 @@ export class CursoComponent implements OnInit {
           $('#progressBar').css('width', 48 + '%').attr('aria-valuenow', 48);
           $('#pointTwo').removeClass('point-blank').addClass('point-blue');
         }
-
+  
         this.coursesService.obtenerCursosProfesor(localStorage.getItem('idEstablecimiento'), localStorage.getItem('idFuncionario'), localStorage.getItem('AsignaturaId')).subscribe((data: any) => { // Success
           // console.log(data);
           if (data.length != 0) {
@@ -69,14 +67,14 @@ export class CursoComponent implements OnInit {
             this.selectSeccion = this.secciones[0].curso_id;
             localStorage.setItem('CursoEspecifico', String(data[0].curso_especifico_id));
             this.unidades = [];
-            this.openAsignatura(this.asignaturas[0]);
             this.flagUnidades = 2;
+            this.openAsignatura(this.asignaturas[0]);
           } else this.flagUnidades = 1;
-
+  
         }, (error) => {
           console.log(error)
           if (error.status === 401) { this.router.navigate(['/auth/login']); }
-        });
+        });  
       }
     });
   }
@@ -85,7 +83,8 @@ export class CursoComponent implements OnInit {
     localStorage.setItem('AsignaturaId', element.asignatura_id);
     localStorage.setItem('AsignaturaNombre', element.asignatura_nombre);
     this.selectAsginatura = element.asignatura_nombre;
-    this.bloqService.getGrupos(localStorage.getItem('idFuncionario'), element.asignatura_id, localStorage.getItem('CursoEspecifico'))
+    if(this.flagUnidades != 1) {
+      this.bloqService.getGrupos(localStorage.getItem('idFuncionario'), element.asignatura_id, localStorage.getItem('CursoEspecifico'))
       .subscribe(
         (data: any) => { // Success
           // console.log(data)
@@ -97,6 +96,8 @@ export class CursoComponent implements OnInit {
           }
         }
       )
+    }
+    
   }
 
   onChangeSeccion(item) {
