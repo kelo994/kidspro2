@@ -33,8 +33,6 @@
                                 <option *ngIf="secciones?.length == 0">No hay secciones</option>
                             </select>
                         </div>
-                       
-                       
                     </div>
                 </div>
                 <div *ngIf="unidades?.length > 0" class="col-lg-4 col-md-4 col-xs-12 text-right">
@@ -63,7 +61,7 @@
                                 <li *ngFor="let b of u.bloques; let j = index" class="list-group-item p-1" cdkDrag
                                     [cdkDragDisabled]="!editUnidades">
                                     <div class="row m-0">
-                                        <div class="col px-0 pl-1 t-12">
+                                        <div class="col px-0 pl-1 t-12" [ngClass]="{'pointer': editUnidades, 'no-pointer':!editUnidades }">
                                             {{ b.bloque_titulo }}
                                         </div>
                                         <div class="col-2 p-0 d-block my-auto">
@@ -150,7 +148,7 @@
     </nz-layout>
 </nz-layout>
 
-<nz-modal [(nzVisible)]="modalGetCode" nzTitle="Código de Acceso" (nzOnOk)="handleOk()">
+<nz-modal [(nzVisible)]="modalGetCode" nzTitle="Código de Acceso" (nzOnOk)="handleOk()" (nzOnCancel)="handleOk()">
     <div class="card c-code p-3">
         <p class="c-blue m-0">
             {{ codigo }}
