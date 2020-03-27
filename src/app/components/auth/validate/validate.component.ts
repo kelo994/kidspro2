@@ -47,6 +47,8 @@ export class ValidateComponent implements OnInit {
           this.notification.error('Error de Conexión', 'Ocurrió un error inesperado, intentelo más tarde');
         }
       })
+    } else {
+      this.notification.error('Error', 'La contraseña debe tener un mínimo de 6 caracteres');
     }
   }
 
