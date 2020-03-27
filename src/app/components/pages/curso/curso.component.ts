@@ -14,7 +14,6 @@ import { CoursesService } from 'src/app/services/courses.service';
   styleUrls: ['./curso.component.scss']
 })
 export class CursoComponent implements OnInit {
-  countError = 0;
   cursoNombre = '';
   secciones = [];
   selectSeccion;
