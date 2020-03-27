@@ -30,7 +30,7 @@
             </div>
           </nz-card>
           <ng-template #coverTemplate class="contenedor">
-            <div (click)="goToLeccion(bloque.bloque_id)">
+            <div (click)="goToLeccion(bloque)">
               <img alt="example" [src]="bloque.bloque_imagen" style="cursor: pointer" />
               <button class="btn btnPlay-leccion">
                 <i class="far fa-play-circle"></i>

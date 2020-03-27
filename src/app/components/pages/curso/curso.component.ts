@@ -64,7 +64,7 @@ export class CursoComponent implements OnInit {
           // console.log(data);
           if (data.length != 0) {
             localStorage.setItem('CursoEspecifico', data[0].curso_especifico_id);
-            // console.log(data)
+            localStorage.setItem('letterSeccion', data[0].seccion_nombre)
             this.secciones = data;
             this.selectSeccion = this.secciones[0].curso_id;
             localStorage.setItem('CursoEspecifico', String(data[0].curso_especifico_id));
@@ -199,13 +199,16 @@ export class CursoComponent implements OnInit {
       )*/
   }
 
-  goToUnidad(grupoId): void {
-    console.log(grupoId);
-    this.router.navigateByUrl('pages/cursos/unidades/' + grupoId,
+  goToUnidad(item): void {
+    localStorage.setItem('unidadNombre', item.grupo_nombre);
+    localStorage.setItem('unidadId', item.grupo_id);
+    localStorage.setItem('nivelNombre', this.cursoNombre);
+    this.router.navigateByUrl('pages/cursos/unidades/' + item.grupo_id,
       {
         state: {
           func: localStorage.getItem('idFuncionario'),
-          asig: this.selectAsginatura, cur: localStorage.getItem('cursoId')
+          asig: this.selectAsginatura, cur: localStorage.getItem('cursoId'),
+          unidadNombre: item.grupo_nombre
         }
       });
   }

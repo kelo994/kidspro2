@@ -95,10 +95,11 @@ export class UnidadComponent implements OnInit {
         .navigateByUrl('pages/cursos/unidades/' + item.grupo_id, {state: {func: this.funcionario,  asig: this.asignatura, cur: this.curso}});
   }
 
-  goToLeccion(leccionId): void {
-    console.log(leccionId);
+  goToLeccion(item): void {
+    localStorage.setItem('leccionName', item.bloque_titulo);
+    localStorage.setItem('leccionId', item.bloque_id);
     this.router
-        .navigateByUrl('pages/cursos/unidades/lecciones/' + leccionId, {state: {asignatura_id: this.asignatura.id,
+        .navigateByUrl('pages/cursos/unidades/lecciones/' + item.bloque_id, {state: {asignatura_id: this.asignatura.id,
             cursoId: this.curso.id, grupoId: this.unidad.id}});
   }
 
