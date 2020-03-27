@@ -1,4 +1,11 @@
-<nz-layout class="layout">
+<nz-content class="loading pt-5" *ngIf="loading === false">
+  <div class="w-100 text-center d-block my-auto" >
+    <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+    <br>
+    <h3 class="c-blue">Cargando ...</h3>
+  </div>
+</nz-content>
+<nz-layout class="layout" *ngIf="loading">
   <nz-sider
     class="submenu-sidebar"
     nzCollapsible
