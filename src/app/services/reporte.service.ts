@@ -156,6 +156,28 @@ export class ReporteService {
             finalize(() => { /*console.log('finilize')*/ }));
     }
 
+    //reporte act
+    getBloques(asignaturaId){
+        return this.http.get(`${this.url}/asignaturas/${asignaturaId}/bloques`, this.getToken()).pipe(timeout(5000),
+        retry(3),
+        catchError((error, c) => {
+            this.errorTime();
+            return throwError(error)
+        }),
+        switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+        finalize(() => { /*console.log('finilize')*/ }));
+    }
+
+    getgraficoActividad(cursoId, bloqueId, exigencia) {
+        return this.http.get(`${this.url}/dashboard/cursos/${cursoId}/bloques/${bloqueId}/exigencia/${exigencia}`, this.getToken()).pipe(timeout(5000),
+        catchError((error, c) => {
+            this.errorTime();
+            return throwError(error)
+        }),
+        switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+        finalize(() => { /*console.log('finilize')*/ }));
+        
+    }
     errorTime() {
         // this.toast.eternalToast('danger', 'Error Inesperado', 'Lo sentimos, no se ha podido realizar la solicitud, intentelo más tarde');
     }

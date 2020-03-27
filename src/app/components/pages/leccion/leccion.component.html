@@ -127,7 +127,12 @@
         </div>
         <nz-divider ></nz-divider>
         <div nz-row>
-          <div nz-col nzMd="8">
+          <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop >
+            <form enctype="multipart/form-data" name="fileForm">
+              <input id="fileInput" hidden type="file" #fileInput (change)="procesarArchivo($event)">
+            </form>
+          </div>
+      <!--    <div nz-col nzMd="8">
             <label class="form-label">Archivo:</label>
           </div>
           <div nz-col nzMd="16">
@@ -135,7 +140,7 @@
             type="file"
             accept="image/*;capture=camera"
             (change)="procesarArchivo($event)">
-          </div>
+          </div>-->
         </div>
       </div>
     </form>
