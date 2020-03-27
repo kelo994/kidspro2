@@ -12,7 +12,7 @@ export class UnityService implements OnInit {
   private gameInstance: any;
   public flag = false;
   // private url = 'http://localhost:8000/api/ejercicios';
-  private url = 'https://api.acamykids.cl/api/ejercicios';
+  private url = `${environment.apiBaseUrl}`+ '/ejercicios';
 
   constructor() { }
 
@@ -68,7 +68,7 @@ export class UnityService implements OnInit {
   public alert() {
     var messageValueJson =
       {
-        "nombre": localStorage.getItem('alumnoFast'),
+        "nombre": localStorage.getItem('studentName'),
         "estudiante_id": localStorage.getItem('idEstudiante'),
         "sexoEstudiante": "?",
         "bloque_id": localStorage.getItem('fastBloque'),

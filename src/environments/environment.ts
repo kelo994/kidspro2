@@ -10,7 +10,7 @@
 
 export const environment = {
   production: false,
-  // apiBaseUrl: 'https://api.acamykids.cl/api/v1',
-  apiBaseUrl: 'http://localhost:8000/api/v1'
+  apiBaseUrl: 'https://api.acamykids.cl/api/v1',
+  // apiBaseUrl: 'http://localhost:8000/api/v1'
   // apiBaseUrl: 'http://localhost:8888/CeoSim/AcamyKids/public/api/v1'
 };
