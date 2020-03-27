@@ -53,6 +53,7 @@ export class CourseComponent implements OnInit {
   nombreTipoProfesorSeleccionado;
   nombreFuncionarioSeleccionado;
   apellidoFuncionarioSeleccionado;
+  loading = false;
 
   constructor( private notification: NzNotificationService,
                private router: Router,
@@ -77,6 +78,7 @@ export class CourseComponent implements OnInit {
 
   obtenerCurso() {
     this.coursesService.obtenerCurso(this.cursoId).subscribe( (data: any) => { // Success
+      this.loading = true;
       this.curso = data;
     }, (error) => {
       if (error.status === 401) { this.router.navigate(['/auth/login']); }
@@ -127,6 +129,11 @@ export class CourseComponent implements OnInit {
     this.coursesService.agregarFuncionarioCurso(data).subscribe((response: any) => {
       this.profesores = response.data;
       this.modalProfesor = false;
+      this.funcionarioSeleccionado = '';
+      this.tipoProfesorSeleccionado =  '';
+      this.nombreTipoProfesorSeleccionado = '';
+      this.nombreFuncionarioSeleccionado = '';
+      this.apellidoFuncionarioSeleccionado = '';
       this.notification.success('Profesor', 'Profesor agregado con exito');
     }, (error) => {
       if (error.status === 401) {
@@ -166,6 +173,11 @@ export class CourseComponent implements OnInit {
 
   closeModalProfesor(): void {
     this.modalProfesor = false;
+    this.funcionarioSeleccionado = '';
+    this.tipoProfesorSeleccionado =  '';
+    this.nombreTipoProfesorSeleccionado = '';
+    this.nombreFuncionarioSeleccionado = '';
+    this.apellidoFuncionarioSeleccionado = '';
   }
 
 }

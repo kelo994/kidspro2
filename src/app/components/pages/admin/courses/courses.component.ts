@@ -61,6 +61,7 @@ export class CoursesAdminComponent implements OnInit {
   obtenerNivelesEstablecimiento() {
     this.coursesService.obtenerNivelesEstablecimiento(this.establecimientoId).subscribe( (data: any) => { // Success
       this.niveles = data;
+      this.loading = true;
     }, (error) => {
       if (error.status === 401) { this.router.navigate(['/auth/login']); }
     });
