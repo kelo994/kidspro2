@@ -12,7 +12,7 @@
                 <ul>
                     <li *ngFor="let curso of cursos" nz-menu-item nzMatchRouter (click)="changeRoute(curso)"
                         style="padding-left: 10px !important;">
-                        <a [routerLink]="['/pages/curso/' + curso.nivel_id]">
+                        <a>
                             <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
                             <span>{{ curso.nivel_descripcion }}</span>
                         </a>

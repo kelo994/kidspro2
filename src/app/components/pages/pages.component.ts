@@ -79,6 +79,9 @@ export class PagesComponent implements OnInit {
     localStorage.setItem('CursoName', item.nivel_descripcion);
     localStorage.setItem('secciones', JSON.stringify(item.cursos));
     localStorage.setItem('asignaturas', JSON.stringify(item.asignaturas));
+   
+    // console.log(item.asignaturas);
+
     this.router.navigate(['/pages/curso', item.nivel_id]);
   }
 
