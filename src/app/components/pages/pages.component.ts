@@ -70,7 +70,7 @@ export class PagesComponent implements OnInit {
   getCursos() {
     this.coursesService.obtenerNivelesEstablecimiento(localStorage.getItem('idEstablecimiento')).subscribe( (data: any) => { // Success
       this.cursos = data;
-      console.log(data);
+     // console.log(data);
     }, (error) => {
       if (error.status === 401) { this.router.navigate(['/auth/login']); }
     });

@@ -29,8 +29,8 @@ export class CoursesService {
         };
     }
 
-    obtenerCursosEstablecimiento(idEstablecimiento, idRol) {
-        return this.http.get(`${this.url}/obtenerCursosPorRolyEstablecimiento/${idEstablecimiento}/${idRol}`, this.getToken());
+    obtenerCursosProfesor(idEstablecimiento, idFuncionario, idAsignatura) {
+        return this.http.get(`${this.url}/establecimientos/${idEstablecimiento}/funcionarios/${idFuncionario}/asignaturas/${idAsignatura}/cursos`, this.getToken());
     }
 
     obtenerNivelesEstablecimiento(establecimientoId) {

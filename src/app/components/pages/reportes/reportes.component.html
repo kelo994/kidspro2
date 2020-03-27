@@ -5,7 +5,7 @@
         <ul class="menureport" nz-menu nzMode="inline">
             <li *ngFor="let c of cursos; let iCurso = index" [ngClass]="{'ant-menu-item-selected': iCurso=='0'}" nz-menu-item nzMatchRouter (click)="selectCourse(c)"
                 style="padding-left: 30px !important;">
-                <span>{{ c.curso_nombre }}</span>
+                <span>{{ c.nivel_descripcion }}</span>
             </li>
             <li *ngIf="cursos?.length == 0" nz-menu-item nzMatchRouter style="padding-left: 30px !important;">
                 <span>Obteniendo Cursos <i class="fas fa-spinner fa-spin"></i></span>
@@ -15,7 +15,7 @@
         <ul class="menureport" nz-menu nzMode="inline">
             <li *ngFor="let a of asignaturas; let iAsignatura = index" [ngClass]="{'ant-menu-item-selected': iAsignatura=='0'}" nz-menu-item nzMatchRouter (click)="selectAsignature(a)"
                 style="padding-left: 30px !important;">
-                <span>{{ a.materia_descripcion }}</span>
+                <span>{{ a.asignatura_nombre }}</span>
             </li>
             <li *ngIf="asignaturas?.length == 0" nz-menu-item nzMatchRouter
                 style="padding-left: 30px !important;">
