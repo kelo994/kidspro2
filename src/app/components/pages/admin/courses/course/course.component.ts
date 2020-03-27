@@ -125,14 +125,14 @@ export class CourseComponent implements OnInit {
       funcionario_id: this.funcionarioSeleccionado
     };
     this.coursesService.agregarFuncionarioCurso(data).subscribe((response: any) => {
-      this.profesores = response;
+      this.profesores = response.data;
       this.modalProfesor = false;
-      this.notification.success('Profesor', 'progesor agregado con exito');
+      this.notification.success('Profesor', 'Profesor agregado con exito');
     }, (error) => {
       if (error.status === 401) {
         this.router.navigate(['/auth/login']);
       } else if (error.status === 400 || error.status === 500) {
-        this.notification.error('Error al agregar profesor', error.error.Warning);
+        this.notification.error('Error al agregar un Profesor', error.error.Warning);
       }
     });
   }
