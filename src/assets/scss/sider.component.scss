@@ -63,9 +63,23 @@
 
 .ant-menu-submenu-selected {
   color: #000000;
-  border: 1px solid black !important;
+  border-top: 1px solid #a4a4a4 !important;
+  border-bottom: 1px solid #a4a4a4 !important;
+  background: #e9e9e9;
 }
 
+.ant-menu-submenu-selected > .ant-menu {
+  background: #e9e9e9!important;
+}
+
+.ant-menu-submenu-selected > .ant-menu-submenu-title {
+  border-bottom: 1px solid #a4a4a4 !important;
+}
+
+/*.ant-menu-submenu > .ant-menu {
+  background: #e9e9e9;
+}
+*/
 .ant-menu-inline .ant-menu-item {
   height: 30px !important;
   line-height: 30px !important;

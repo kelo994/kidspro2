@@ -1,62 +1,66 @@
 <nz-page-header>
     <nz-page-header-title>Usuarios</nz-page-header-title>
     <nz-page-header-extra>
-        <button type="button" nz-button nzSize="large" nzType="primary" (click)="openModal('create')">
-            <i nz-icon nzType="plus" nzTheme="outline"></i>
+        <button style="font-size: 12px; font-weight: bold; background-color: #009dee; color: white" type="button" nz-button nzType="primary" (click)="openModal('create')">
+            <i nz-icon nzType="plus"></i>
+            <nz-divider [nzType]="'vertical'" style="margin-left: 0px"></nz-divider>
             Agregar Usuario
         </button>
     </nz-page-header-extra>
 </nz-page-header>
 <nz-layout class="inner-layout">
-    <nz-card [nzExtra]="searchTemplate">
-        <nz-table nzShowPagination="false" #usersTable [nzFooter]="tableFooter" [nzData]="users" [nzLoading]="loading">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>RUT</th>
-                    <th>Correo electrónico</th>
-                    <th>Rol</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let data of usersTable.data">
-                    <td>{{ data.funcionario_id }}</td>
-                    <td>{{ data.persona_nombre }}</td>
-                    <td>{{ data.persona_apellido }}</td>
-                    <td>{{ data.persona_rut }}</td>
-                    <td>{{ data.persona_email }}</td>
-                    <td>
-                        <span *ngFor="let rol of data.roles; let i = index">
-                            <ng-template [ngIf]="i === 0">{{ rol.rol_nombre }}</ng-template>
-                            <ng-template [ngIf]="i !== 0"> - {{ rol.rol_nombre }}</ng-template>
-                        </span>
-                    </td>
-                    <td>
-                        <i nz-icon nzType="edit" nzTheme="outline" (click)="setUser(data)"></i>
-                        <i nz-icon nzType="delete" nzTheme="outline" (click)="delete(data.funcionario_id)"></i>
-                    </td>
-                </tr>
-            </tbody>
-            <ng-template #tableFooter>
-                <ng-template [ngIf]="usersData.length === 0">
-                    No hay profesores activos
-                </ng-template>
-                <ng-template [ngIf]="usersData.length === 1">
-                    1 Profesor activo
-                </ng-template>
-                <ng-template [ngIf]="usersData.length > 1">
-                    {{ usersData.length  }} Usuarios activos
-                </ng-template>
+    <nz-table class="content-table" nzShowPagination="false" #usersTable [nzTitle]="searchTemplate"
+        [nzFooter]="tableFooter" [nzData]="users" [nzLoading]="loading">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>RUT</th>
+                <th>Correo electrónico</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of usersTable.data">
+                <td>{{ data.funcionario_id }}</td>
+                <td>{{ data.persona_nombre }}</td>
+                <td>{{ data.persona_apellido }}</td>
+                <td>{{ data.persona_rut }}</td>
+                <td>{{ data.persona_email }}</td>
+                <td>
+                    <span *ngFor="let rol of data.roles; let i = index">
+                        <ng-template [ngIf]="i === 0">{{ rol.rol_nombre }}</ng-template>
+                        <ng-template [ngIf]="i !== 0"> - {{ rol.rol_nombre }}</ng-template>
+                    </span>
+                </td>
+                <td>
+                    <i class="action" nz-icon nzType="edit" nzTheme="outline" (click)="setUser(data)"></i>
+                    <i class="action" nz-icon nzType="delete" nzTheme="outline" (click)="delete(data.funcionario_id)"></i>
+                </td>
+            </tr>
+        </tbody>
+        <ng-template #tableFooter>
+            <ng-template [ngIf]="usersData.length === 0">
+                No hay profesores activos
             </ng-template>
-        </nz-table>
-        <ng-template #searchTemplate>
-            <label class="search-label">Buscar:</label>
-            <input class="search-input" nz-input [(ngModel)]="inputSearch" placeholder="" (ngModelChange)="search()" />
+            <ng-template [ngIf]="usersData.length === 1">
+                1 Profesor activo
+            </ng-template>
+            <ng-template [ngIf]="usersData.length > 1">
+                {{ usersData.length  }} Usuarios activos
+            </ng-template>
         </ng-template>
-    </nz-card>
+    </nz-table>
+    <ng-template #searchTemplate>
+        <div class="offset-6 col-6 pt-3">
+            <div class="input-group input-group-sm mb-3">
+                <label class="pr-3 m-0 py-2"><strong>Buscar</strong></label>
+                <input type="text" class="form-control" [(ngModel)]="inputSearch" (ngModelChange)="search()" />
+            </div>
+        </div>
+    </ng-template>
 </nz-layout>
 
 <nz-modal [(nzVisible)]="userModal" nzWrapClassName="vertical-center-modal" nzTitle="Nuevo Usuario" nzOkText="Enviar"
@@ -70,7 +74,7 @@
                         <label class="form-label">RUT</label>
                     </div>
                     <div nz-col nzMd="16">
-                        <input nz-input formControlName="rut" placeholder="RUT" (keyup)="formateaRut()"/>
+                        <input nz-input formControlName="rut" placeholder="RUT" (keyup)="formateaRut()" />
                     </div>
                 </div>
                 <div nz-row>
@@ -152,8 +156,7 @@
     <ng-template #modalFooter>
         <button nz-button nzSize="large" style="background-color: #e8e8e8;"
             (click)="closeModal('user')">Cancelar</button>
-        <button nz-button nzSize="large" style="background-color: #e8e8e8;"
-            (click)="clearForm()">Limpiar</button>
+        <button nz-button nzSize="large" style="background-color: #e8e8e8;" (click)="clearForm()">Limpiar</button>
         <button nz-button nzSize="large" nzType="primary" (click)="saveUser()" [disabled]="userForm.invalid">
             {{formType}}
         </button>

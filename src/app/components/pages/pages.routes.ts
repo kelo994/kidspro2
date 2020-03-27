@@ -1,5 +1,8 @@
 import { RouterModule, Routes } from '@angular/router';
 
+import { AuthGuardService as AuthGuard } from '../../services/auth-guard/auth-guard.service';
+import { AdminGuardService as AdminGuard } from '../../services/auth-guard/admin-guard.service';
+
 import { PagesComponent } from './pages.component';
 import { UnidadComponent } from './unidad/unidad.component';
 import { SimceEvaluationsComponent } from './simce/evaluations/evaluations.component';
@@ -21,6 +24,7 @@ import { ActividadesComponent } from './reportes/actividades/actividades.compone
 const pagesroutes: Routes = [{
   path: 'pages',
   component: PagesComponent,
+  canActivate: [AuthGuard],
   children: [
     {
       path: 'curso/:idCurso',
@@ -58,22 +62,27 @@ const pagesroutes: Routes = [{
     {
       path: 'administrar/cursos',
       component: CoursesAdminComponent,
+      canActivate: [AdminGuard],
     },
     {
       path: 'administrar/profesores',
       component: TeachersAdminComponent,
+      canActivate: [AdminGuard],
     },
     {
       path: 'administrar/estudiantes',
       component: StudentsAdminComponent,
+      canActivate: [AdminGuard],
     },
     {
       path: 'administrar/usuarios',
       component: UsersAdminComponent,
+      canActivate: [AdminGuard],
     },
     {
       path: 'administrar/cursos/:curso/asignaturas/:asignatura',
       component: CourseComponent,
+      canActivate: [AdminGuard],
     },
   ]
 }];

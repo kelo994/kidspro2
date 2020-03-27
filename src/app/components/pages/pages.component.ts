@@ -14,6 +14,8 @@ export class PagesComponent implements OnInit {
 
   cursos;
 
+  rolId = parseInt(localStorage.getItem('rolId'));
+
   admin = [
     { path: 'cursos', name: 'Cursos', icon: 'bank', nzIcon: true },
     { path: 'estudiantes', name: 'Estudiantes', icon: 'smile', nzIcon: true },
@@ -26,7 +28,6 @@ export class PagesComponent implements OnInit {
     sub1: false,
     sub2: false,
     sub3: false,
-    sub4: false
   };
 
   @HostListener('window:resize', ['$event'])
@@ -34,7 +35,6 @@ export class PagesComponent implements OnInit {
     if (window.outerWidth <= 860) {
       setTimeout(() => {
         this.isCollapsed = true;
-        $('#colCollapse').addClass('d-none');
       }, 200);
     } else {
       this.isCollapsed = false;
@@ -60,8 +60,7 @@ export class PagesComponent implements OnInit {
     if (window.outerWidth <= 860) {
       setTimeout(() => {
         this.isCollapsed = true;
-        $('#colCollapse').addClass('d-none');
-      }, 200);
+      }, 200); 
     } else {
       this.isCollapsed = false;
     }
@@ -87,12 +86,18 @@ export class PagesComponent implements OnInit {
     this.router.navigate(['/pages/reportes/' + text]);
   }
 
-  goToSimce() {
-    this.router.navigate(['//pages/simce']);
+  goToSimce () {
+    this.router.navigate(['/pages/simce']);
   }
 
   adminRoute(route) {
     this.router.navigate(['/pages/administrar/' + route]);
+  }
+
+  newSystemChange (event) {
+    console.log(event)
+    this.rolId = event;
+    this.router.navigate(['/pages/curso/0']);
   }
 
 }

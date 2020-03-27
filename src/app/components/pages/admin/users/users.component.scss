@@ -29,7 +29,7 @@
     top: 60px;
 }
 
-i {
+.action {
     font-size: 15px;
     padding-left: 5px;
     padding-right: 5px;
@@ -39,4 +39,17 @@ i {
 ::ng-deep .modal-confirm-delete > .ant-modal-content > .ant-modal-body > .ant-modal-confirm-body-wrapper > .ant-modal-confirm-btns > .ant-btn-primary {
     background-color: #ff655b;
     border-color: #ff655b;
+}
+
+.content-table{
+    padding-bottom: 10px;
+    background-color: white;
+    border-bottom: 4px solid #009dee;
+    border-left: 1px solid rgba(0,0,0,0.3);
+    border-top: 1px solid rgba(0,0,0,0.3);
+    border-right: 1px solid rgba(0,0,0,0.3);
+    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 5px 10px 1px rgba(0,0,0,.14), 0 3px 10px 2px rgba(0,0,0,.12);
 }
