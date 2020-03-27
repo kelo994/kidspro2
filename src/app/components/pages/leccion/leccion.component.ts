@@ -214,7 +214,7 @@ export class LeccionComponent implements OnInit {
     }
 
     getRepositoriosProfesor() {
-        this.repositorioService.getRepositorios(1, this.funcionarioId, 1).subscribe( (data: any) => { // Success
+        this.repositorioService.getRepositorios(1, this.funcionarioId, this.leccionId).subscribe( (data: any) => { // Success
             this.repositoriosProfesor = data;
         }, (error) => {
             if (error.status === 401) { this.router.navigate(['/auth/login']); }
@@ -222,7 +222,7 @@ export class LeccionComponent implements OnInit {
     }
 
     getRepositoriosSistema() {
-        this.repositorioService.getRepositorios(2, this.funcionarioId, 1).subscribe( (data: any) => { // Success
+        this.repositorioService.getRepositorios(2, this.funcionarioId, this.leccionId).subscribe( (data: any) => { // Success
             this.repositoriosSistema = data;
         }, (error) => {
             if (error.status === 401) { this.router.navigate(['/auth/login']); }
