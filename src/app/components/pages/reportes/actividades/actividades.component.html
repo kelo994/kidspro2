@@ -1,8 +1,8 @@
 <nz-layout class="right-layout headerrepos mb-5">
     <div class="header bg-subheader p-2 bg-gris-reportes pl-5">
         <label class="bd-invisible pr-3 title-repo">Actividades</label>
-        <label class="bd-invisible px-3 title-repo-curso">{{ curso.curso_nombre}}</label>
-        <label class="px-3 title-repo-curso">{{ selectAsignatura.materia_descripcion }}</label>
+        <label class="bd-invisible px-3 title-repo-curso">{{ curso.nivel_descripcion}}</label>
+        <label class="px-3 title-repo-curso">{{ selectAsignatura.asignatura_nombre }}</label>
         <br>
         <label class="subtitle-repo bd-invisible px-3">Exigencia</label>
         <label class="subtitle-repo bd-invisible px-3">Todas las Actividades</label>
@@ -62,13 +62,17 @@
     <p class="title-sider-repo bd-bottom mx-3 pb-3">Filtros Avanzados</p>
 
     <div class="form-group mx-3 mt-3">
+        <label class="m-0 p-0 pb-1">Sección</label>
+        <select class="form-control" (change)="onChangeSeccion($event.target.value)">
+            <option *ngFor="let s of secciones; let iSeccion = index" [value]="iSeccion">Sección {{ s.seccion_nombre }}</option>
+            <option *ngIf="secciones?.length == 0">No hay secciones</option>
+        </select>
+    </div>
+    
+    <div class="form-group mx-3 mt-3">
         <label class="m-0 p-0 pb-1">Nivel de Exigencia</label>
-        <select class="form-control" id="">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+        <select class="form-control" (change)="onChangeExigencia($event.target.value)">
+            <option *ngFor="let e of exigencias; let iExigencia = index" [value]="iExigencia">{{ e }}%</option>
         </select>
     </div>
     <div class="form-group mx-3 mt-3">
@@ -81,7 +85,7 @@
             <option>5</option>
         </select>
     </div>
-    <div class="form-group mx-3 mt-3">
+    <!-- <div class="form-group mx-3 mt-3">
         <label class="m-0 p-0 pb-1">Estudiante</label>
         <select class="form-control" id="">
             <option>1</option>
@@ -90,5 +94,5 @@
             <option>4</option>
             <option>5</option>
         </select>
-    </div>
+    </div> -->
 </nz-sider>

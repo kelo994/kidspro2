@@ -9,13 +9,17 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
   styleUrls: ['./unidad.component.scss']
 })
 export class UnidadComponent implements OnInit {
+  unidad = { id: 0, nombre: '' };
   bloques = [];
   funcionario;
-  asignatura;
-  curso;
+  asignatura = { id: 0, nombre: ''} ;
+  curso = { id: 0, nombre: '' };
   grupos = [];
   grupoId;
   isCollapsed = false;
+
+  loading = 0;
+  nombreUnidad = '';
 
   constructor(
       public bloqueService: BloqueService, public router: Router, private route: ActivatedRoute) {
@@ -23,37 +27,42 @@ export class UnidadComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.unidad.nombre = localStorage.getItem('unidadNombre');
+    this.unidad.id = Number(localStorage.getItem('unidadId'));
+    this.curso.nombre = localStorage.getItem('CursoName') + ' ' + localStorage.getItem('letterSeccion');
+    this.curso.id = Number(localStorage.getItem('CursoEspecifico'));
+    this.asignatura.nombre = localStorage.getItem('AsignaturaNombre');
 
     this.route.params.subscribe(params => {
-      console.log(params);
+      console.log(params.unidadNombre);
       console.log(history.state);
       this.grupoId = params.unidad;
      // this.funcionario = history.state.func;
-      this.funcionario = 2;
+      this.funcionario = localStorage.getItem('idFuncionario');
      // this.asignatura = history.state.asig;
-      this.asignatura = 1;
+      this.asignatura.id = Number(localStorage.getItem('AsignaturaId'));
       // this.curso = history.state.cur;
-      this.curso = 1;
+      // this.curso = localStorage.getItem('CursoEspecifico');
       this.obtenerBloques();
       this.obtenerGrupos();
     });
-
-
-
   }
 
   obtenerBloques() {
-    console.log(this.grupoId);
+    // console.log(this.grupoId);
     this.bloqueService.getBloquesGrupo(this.grupoId).subscribe( (data: any) => { // Success
       this.bloques = data;
+      this.loading = 1;
+
     }, (error) => {
       if (error.status === 401) { this.router.navigate(['/auth/login']); }
     });
   }
 
   obtenerGrupos() {
-    this.bloqueService.getGrupos(this.funcionario, this.asignatura, this.curso).subscribe( (data: any) => { // Success
+    this.bloqueService.getGrupos(this.funcionario, this.asignatura.id, this.curso.id).subscribe( (data: any) => { // Success
       this.grupos = data;
+      console.log(data);
     }, (error) => {
       if (error.status === 401) { this.router.navigate(['/auth/login']); }
     });
@@ -79,16 +88,22 @@ export class UnidadComponent implements OnInit {
         });
   }
 
-  goToUnidad(grupoId): void {
-    console.log(grupoId);
+  goToUnidad(item): void {
+    localStorage.setItem('unidadNombre', item.grupo_nombre);
+    this.unidad.nombre = item.grupo_nombre;
     this.router
-        .navigateByUrl('pages/cursos/unidades/' + grupoId, {state: {func: this.funcionario,  asig: this.asignatura, cur: this.curso}});
+        .navigateByUrl('pages/cursos/unidades/' + item.grupo_id, {state: {func: this.funcionario,  asig: this.asignatura, cur: this.curso}});
   }
 
-  goToLeccion(leccionId): void {
-    console.log(leccionId);
+  goToLeccion(item): void {
+    localStorage.setItem('leccionName', item.bloque_titulo);
+    localStorage.setItem('leccionId', item.bloque_id);
     this.router
-        .navigateByUrl('pages/cursos/unidades/lecciones/' + leccionId, {state: {asignatura_id: this.asignatura,
-            cursoId: this.curso, grupoId: this.grupoId}});
+        .navigateByUrl('pages/cursos/unidades/lecciones/' + item.bloque_id, {state: {asignatura_id: this.asignatura.id,
+            cursoId: this.curso.id, grupoId: this.unidad.id}});
+  }
+
+  backToCourses() {
+    this.router.navigate(['/pages/curso/' + localStorage.getItem('NivelId')]);
   }
 }

@@ -77,7 +77,10 @@ h6 {
   text-overflow: ellipsis;
 }
 
-
 ::ng-deep nz-switch button.ant-switch.ant-switch-small.ant-switch-checked {
   background-color: #27ae60;
+}
+
+::ng-deep app-unidad .ant-layout{
+  min-height: 80% !important;
 }
