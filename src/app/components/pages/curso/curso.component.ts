@@ -41,63 +41,69 @@ export class CursoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.asignaturas = JSON.parse(localStorage.getItem('asignaturas'));
     this.parametersObservable = this.routeActive.params.subscribe(params => {
-      console.log(params);
+      // console.log(params);
       if (Number(this.routeActive.snapshot.params.idCurso) != 0) {
         this.cursoNombre = localStorage.getItem('CursoName');
         this.asignaturas = JSON.parse(localStorage.getItem('asignaturas'));
-        localStorage.setItem('NivelId', this.routeActive.snapshot.params.idCurso);
-        console.log(this.asignaturas);
 
-        if (this.asignaturas.length > 1) {
-          //  console.log("asignaturas")
-          $('#firstStepSecciones').removeClass('active').addClass('afterActive');
-          $('#secondStep').removeClass('desactive').addClass('active');
-          $('#progressBar').css('width', 48 + '%').attr('aria-valuenow', 48);
-          $('#pointTwo').removeClass('point-blank').addClass('point-blue');
+        localStorage.setItem('NivelId', this.routeActive.snapshot.params.idCurso);
+
+        // if (this.asignaturas.length > 1) {
+        //   //  console.log("asignaturas")
+        //   $('#firstStepSecciones').removeClass('active').addClass('afterActive');
+        //   $('#secondStep').removeClass('desactive').addClass('active');
+        //   $('#progressBar').css('width', 48 + '%').attr('aria-valuenow', 48);
+        //   $('#pointTwo').removeClass('point-blank').addClass('point-blue');
+        // }
+        console.log(this.asignaturas)
+        if(this.asignaturas.length > 0) {
+          this.coursesService.obtenerCursosProfesor(localStorage.getItem('idEstablecimiento'), localStorage.getItem('idFuncionario'), this.asignaturas[0].asignatura_id).subscribe((data: any) => { // Success
+            if (data.length != 0) {
+              console.log(data);
+              localStorage.setItem('CursoEspecifico', data[0].curso_especifico_id);
+              localStorage.setItem('letterSeccion', data[0].seccion_nombre)
+              this.secciones = data;
+              this.selectSeccion = this.secciones[0].curso_id;
+              localStorage.setItem('CursoEspecifico', String(data[0].curso_especifico_id));
+              this.unidades = [];
+              this.flagUnidades = 1;
+              localStorage.setItem('AsignaturaId', this.asignaturas[0].asignatura_id);
+              this.getUnidades();
+            }
+  
+          }, (error) => {
+            console.log(error)
+            if (error.status === 401) { this.router.navigate(['/auth/login']); }
+          });
         }
-  
-        this.coursesService.obtenerCursosProfesor(localStorage.getItem('idEstablecimiento'), localStorage.getItem('idFuncionario'), localStorage.getItem('AsignaturaId')).subscribe((data: any) => { // Success
-          // console.log(data);
-          if (data.length != 0) {
-            localStorage.setItem('CursoEspecifico', data[0].curso_especifico_id);
-            localStorage.setItem('letterSeccion', data[0].seccion_nombre)
-            this.secciones = data;
-            this.selectSeccion = this.secciones[0].curso_id;
-            localStorage.setItem('CursoEspecifico', String(data[0].curso_especifico_id));
-            this.unidades = [];
-            this.flagUnidades = 2;
-            this.openAsignatura(this.asignaturas[0]);
-          } else this.flagUnidades = 1;
-  
-        }, (error) => {
-          console.log(error)
-          if (error.status === 401) { this.router.navigate(['/auth/login']); }
-        });  
+       
       }
     });
   }
 
   openAsignatura(element) {
-    localStorage.setItem('AsignaturaId', element.asignatura_id);
-    localStorage.setItem('AsignaturaNombre', element.asignatura_nombre);
-    this.selectAsginatura = element.asignatura_nombre;
-    if(this.flagUnidades != 1) {
-      this.bloqService.getGrupos(localStorage.getItem('idFuncionario'), element.asignatura_id, localStorage.getItem('CursoEspecifico'))
+    localStorage.setItem('AsignaturaId', this.asignaturas[Number(element)].asignatura_id);
+   // localStorage.setItem('AsignaturaNombre', item.asignatura_nombre);
+    //this.selectAsginatura = item.asignatura_nombre;
+    this.getUnidades();
+  }
+
+  getUnidades() {
+    console.log(localStorage.getItem('idFuncionario') + ' ' +  localStorage.getItem('AsignaturaId') + ' ' +   localStorage.getItem('CursoEspecifico'))
+    this.bloqService.getGrupos(localStorage.getItem('idFuncionario'), localStorage.getItem('AsignaturaId'), localStorage.getItem('CursoEspecifico'))
       .subscribe(
         (data: any) => { // Success
-          // console.log(data)
+          console.log(data)
           this.unidades = data;
+          if(this.unidades.length > 0) this.flagUnidades =2;
         },
         (error) => {
           if (error.status == 401) {
             this.router.navigate(['/auth/login']);
           }
         }
-      )
-    }
-    
+      );
   }
 
   onChangeSeccion(item) {
