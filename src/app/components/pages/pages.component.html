@@ -12,7 +12,7 @@
                 <ul>
                     <li *ngFor="let curso of cursos" nz-menu-item nzMatchRouter (click)="changeRoute(curso)"
                         style="padding-left: 10px !important;">
-                        <a>
+                        <a [routerLink]="['curso/' + curso.nivel_id]" >
                             <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
                             <span>{{ curso.nivel_descripcion }}</span>
                         </a>
@@ -50,7 +50,7 @@
                 <ul>
                     <li *ngFor="let route of admin" nz-menu-item nzMatchRouter style="padding-left: 20px !important;"
                         (click)="adminRoute(route.path)">
-                        <a [routerLink]="['pages/administrar/' + route.path]">
+                        <a [routerLink]="['administrar/' + route.path]">
                             <i *ngIf="route.nzIcon" class="trigger" nz-icon [nzType]="route.icon"></i>
                             <i *ngIf="!route.nzIcon" [class]="route.icon" style="margin-right: 10px;"></i>
                             <span>{{ route.name }}</span>

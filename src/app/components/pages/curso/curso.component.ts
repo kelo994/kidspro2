@@ -46,6 +46,8 @@ export class CursoComponent implements OnInit {
       if (Number(this.routeActive.snapshot.params.idCurso) != 0) {
         this.cursoNombre = localStorage.getItem('CursoName');
         this.asignaturas = JSON.parse(localStorage.getItem('asignaturas'));
+        this.secciones = []
+        this.unidades = [];
 
         localStorage.setItem('NivelId', this.routeActive.snapshot.params.idCurso);
 
