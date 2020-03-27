@@ -97,6 +97,7 @@ export class LeccionComponent implements OnInit {
         }
     ];
     archivoElminado;
+    loading = false;
 
   constructor(public router: Router, private route: ActivatedRoute,
               private embedService: EmbedVideoService,
@@ -143,6 +144,7 @@ export class LeccionComponent implements OnInit {
     this.leccionService.getBloque(this.cursoId, this.asignaturaId, this.leccionId).subscribe(
       (data: any) => { // Success
         this.leccion = data.data;
+        this.loading = true;
         this.showSection = 2;
         this.playleccion = this.leccion.ruta_actividad;
         // @ts-ignore
@@ -306,5 +308,6 @@ export class LeccionComponent implements OnInit {
             nzOnOk: () => this.confirmDelete()
         });
     }
+
 
 }
