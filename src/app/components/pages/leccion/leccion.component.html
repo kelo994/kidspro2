@@ -64,25 +64,34 @@
           <div class="border-bottom padding-title" >
             <p class="negrita">Repositorio del Sistema</p>
           </div>
-          <div class=" lista-repositorio-sistema" >
+          <div class="lista-repositorio-sistema" >
             <ul>
-              <li>
+              <li *ngFor="let repositorio of repositorios; let i = index">
                 <div nz-row nzType="flex" nzJustify="space-between" nzAlign="middle">
-                  <div nz-col nzSpan="4">
-                    <i class="fas fa-file-pdf" style="color: red; font-size: 32px"></i>
+                  <div nz-col nzSpan="6">
+                    <nz-avatar [nzSize]="64" [nzIcon]="repositorio.tipo_repositorio_icono" [style]="'background-color: transparent; color: ' + repositorio.tipo_repositorio_color "></nz-avatar>
                   </div>
-                  <div nz-col nzSpan="16">
-                    <p class="negrita">Nombre del documento</p>
-                    <p class="descripcion-documento">Nombre del documento</p>
+                  <div nz-col nzSpan="15">
+                    <p class="negrita">{{ repositorio.repositorio_name }}</p>
+                    <p class="descripcion-documento">{{ repositorio.tipo_repositorio_name }}</p>
                   </div>
                   <div nz-col nzSpan="3">
-                    <button  style="color: blue; float: right; " nz-button nzType="link" nzSize="large">
+                    <button  style="color: blue; float: right; " nz-button nzType="link" nzSize="large" (click)="descargarArchivo(repositorio.repositorio_name)">
                       <i nz-icon nzType="vertical-align-bottom" nzTheme="outline"></i>
                     </button>
                   </div>
                 </div>
               </li>
             </ul>
+            <button nz-button nzType="link" (click)="openModal('repositorio')">Ver mas...</button>
+            <div nz-row class="repositorio-content p-4 mt-3" (click)="openModal('crearRepositorio')">
+              <div nz-col nzSpan="24" class="text-center mb-2">
+                <i style="font-size: 32px" nz-icon nzType="file-add" nzTheme="twotone"></i>
+              </div>
+              <div nz-col nzSpan="24" class="text-center">
+                <span class="negrita">Haga clic para cargar los archivos</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -90,3 +99,113 @@
   </nz-layout>
 </nz-layout>
 
+<nz-modal [(nzVisible)]="modalCrearRepositorio" nzWrapClassName="vertical-center-modal" nzTitle="Repositorio" nzOkText="Crear"
+          nzCancelText="Cancelar" [nzContent]="modalContent" [nzFooter]="modalFooter" nzWidth="600"
+          (nzOnCancel)="closeModal('crearRepositorio')" >
+  <ng-template #modalContent>
+    <form [formGroup]="repositorioForm" autocomplete="off">
+      <div class="modal-container">
+        <div nz-row>
+          <div nz-col nzMd="8">
+            <label class="form-label">Tipo de archivo:</label>
+          </div>
+          <div nz-col nzMd="16">
+            <nz-select formControlName="tipoArchivo" class="w-100" nzAllowClear nzPlaceHolder="Seleccione un tipo de archivo">
+              <nz-option *ngFor="let tipo of tipoArchivo; let i = index" [nzValue]="tipo.tipo_id"
+                         [nzLabel]="tipo.nombre">
+              </nz-option>
+            </nz-select>
+          </div>
+        </div>
+        <nz-divider ></nz-divider>
+        <div nz-row>
+          <div nz-col nzMd="8">
+            <label class="form-label">Nombre archivo:</label>
+          </div>
+          <div nz-col nzMd="16">
+            <input nz-input formControlName="nombre" placeholder="Nombre" />
+          </div>
+        </div>
+        <nz-divider ></nz-divider>
+        <div nz-row>
+          <div nz-col nzMd="8">
+            <label class="form-label">Archivo:</label>
+          </div>
+          <div nz-col nzMd="16">
+            <input
+            type="file"
+            accept="image/*;capture=camera"
+            (change)="procesarArchivo($event)">
+          </div>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+  <ng-template #modalFooter style="border-bottom: 4px solid #009dee;">
+    <button nz-button nzSize="large" style="background-color: #e8e8e8;"
+            (click)="closeModal('crearRepositorio')">Cancelar</button>
+    <button nz-button nzSize="large" nzType="primary" (click)="saveRepositorio()" [disabled]="repositorioForm.invalid">
+      Guardar
+    </button>
+  </ng-template>
+</nz-modal>
+
+
+<nz-modal [(nzVisible)]="modalRepositorio" nzWrapClassName="vertical-center-modal" nzTitle="Repositorio"
+          nzCancelText="Cancelar" [nzContent]="modalContentRepositorio" nzWidth="1000"
+          (nzOnCancel)="closeModal('repositorio')" [nzFooter]=null>
+  <ng-template #modalContentRepositorio style="background-color: rgba(0, 0, 0, 0.65);">
+    <h6 class="mb-3">Repositorio del sistema</h6><nz-divider></nz-divider>
+    <div class="content-sistema" nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 24, xl: 24, xxl: 24 }">
+      <div class="mr-auto" nz-col nzXs="12" nzSm="12" nzMd="6" nzLg="6" nzXl="4" nzXXl="4"
+           *ngFor="let repositorio of repositoriosSistema; let i = index">
+        <nz-card  class="mr-auto p-0 card" style="padding: 0">
+          <div class="" nz-row >
+            <div class="content-icono text-center pt-3 pb-3" nz-col nzSpan="24">
+              <i style="font-size: 40px" nz-icon [nzType]="repositorio.tipo_repositorio_icono" nzTheme="twotone" [nzTwotoneColor]="repositorio.tipo_repositorio_color"></i>
+            </div>
+            <div class="text-center" nz-col nzSpan="24">
+              <p class="negrita truncar-texto " style="font-size: 11px">{{ repositorio.repositorio_name }}</p>
+            </div>
+            <div class="text-right pb-2" nz-col nzSpan="24">
+              <button  style="color: blue; float: right; " nz-button nzType="link" nzSize="small" (click)="descargarArchivo(repositorio.repositorio_name)">
+                <span style="font-size: 10px">Descargar</span><i nz-icon nzType="vertical-align-bottom" nzTheme="outline"></i>
+              </button>
+            </div>
+          </div>
+        </nz-card>
+      </div>
+    </div>
+    <h6 class="mb-3">Repositorio del profesor</h6><nz-divider></nz-divider>
+    <div class="content-profesor" nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 24, xl: 24, xxl: 24 }">
+      <div class="mr-auto content-repositorio-profesor" nz-col nzXs="12" nzSm="12" nzMd="6" nzLg="6" nzXl="4" nzXXl="4"
+           *ngFor="let repositorio of repositoriosProfesor; let i = index">
+        <nz-card  class="mr-auto p-0 card" style="padding: 0">
+          <div class="" nz-row >
+            <div class="text-right pb-2" nz-col nzSpan="24">
+              <button  style="color: blue; float: right; " nz-button nzType="link"  (click)="delete(repositorio.repositorio_id)">
+                <i nz-icon nzType="delete" nzTheme="outline"></i>
+              </button>
+            </div>
+            <div class="content-icono text-center pt-3 pb-3" nz-col nzSpan="24">
+              <i style="font-size: 40px" nz-icon [nzType]="repositorio.tipo_repositorio_icono" nzTheme="twotone" [nzTwotoneColor]="repositorio.tipo_repositorio_color"></i>
+            </div>
+            <div class="text-center" nz-col nzSpan="24">
+              <p class="negrita truncar-texto " style="font-size: 11px">{{ repositorio.repositorio_name }}</p>
+            </div>
+            <div class="text-right pb-2" nz-col nzSpan="24">
+              <button  style="color: blue; float: right; " nz-button nzType="link" nzSize="small" (click)="descargarArchivo(repositorio.repositorio_name)">
+                <span style="font-size: 10px">Descargar</span><i nz-icon nzType="vertical-align-bottom" nzTheme="outline"></i>
+              </button>
+            </div>
+          </div>
+        </nz-card>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #modalFooterRepositorio style="border-bottom: 4px solid #009dee;">
+    <button nz-button nzSize="large" style="background-color: #e8e8e8;"
+            (click)="closeModal('repositorio')">Cancelar</button>
+
+  </ng-template>
+</nz-modal>
