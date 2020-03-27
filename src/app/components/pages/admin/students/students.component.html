@@ -50,7 +50,7 @@
         <tr *ngFor="let estudiante of EstudiantesTable.data">
           <td>{{estudiante.matricula}}</td>
           <td class="content-celda">{{estudiante.persona_nombre}}</td>
-          <th class="content-celda">{{estudiante.persona_apellido}}</th>
+          <td class="content-celda">{{estudiante.persona_apellido}}</td>
           <td class="content-celda">
             <i nz-icon nzType="delete" nzTheme="outline" class="pointer" (click)="delete(estudiante.estudiante_id)"></i>
           </td>
