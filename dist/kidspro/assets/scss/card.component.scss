@@ -1,0 +1,27 @@
+.card-content {
+  padding: 12px;
+  background: #fff;
+  height: auto;
+  box-shadow: 3px 4px 7px -2px grey;
+  border-radius: 3px;
+  max-height: 250px;
+  min-height: 250px;
+}
+.card-content ul {
+  max-height: 180px;
+  min-height: 180px;
+  overflow: auto;
+}
+
+.card-content-steps {
+  padding: 12px;
+  background: #fff;
+  height: auto;
+  box-shadow: 3px 4px 7px -2px grey;
+  border-radius: 3px;
+}
+
+.footerUnity {
+  position: relative;
+  bottom: 0;
+}

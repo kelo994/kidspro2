@@ -7,9 +7,12 @@ import { registerLocaleData, CommonModule } from '@angular/common';
 import es from '@angular/common/locales/es';
 registerLocaleData(es);
 
+import { UnityLinkerModule } from '../modules/unity-linker/unity-linker.module';
+
 import { STUDENT_ROUTES } from './student.routes';
 import { StudentComponent } from './student.component';
 import { StudentLessonComponent } from './lesson/lesson.component';
+import { StudentLessonGameComponent } from './lesson/game/game.component'
 import { StudentEvaluationComponent } from './evaluation/evaluation.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
@@ -20,11 +23,13 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
         FormsModule,
         ReactiveFormsModule,
         NgZorroAntdModule,
-        Ng2SearchPipeModule
+        Ng2SearchPipeModule,
+        UnityLinkerModule
     ],
     declarations: [
         StudentComponent,
         StudentLessonComponent,
+        StudentLessonGameComponent,
         StudentEvaluationComponent,
     ],
     providers: [{ provide: NZ_I18N, useValue: es_ES }, NzI18nService],

@@ -1,0 +1,55 @@
+{
+  "_args": [
+    [
+      "unity-loader@1.0.11",
+      "C:\\angular\\unitytest\\ng-unity-master"
+    ]
+  ],
+  "_from": "unity-loader@1.0.11",
+  "_id": "unity-loader@1.0.11",
+  "_inBundle": false,
+  "_integrity": "sha512-9d9w768QHtVm/3gunZg8QlK4LUTq4DuD9k9w/9I0Hko8s7N/VUbAfEYcVuoPMHfbtlHGa10WJ1jA2SEZaYTMzQ==",
+  "_location": "/unity-loader",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "unity-loader@1.0.11",
+    "name": "unity-loader",
+    "escapedName": "unity-loader",
+    "rawSpec": "1.0.11",
+    "saveSpec": null,
+    "fetchSpec": "1.0.11"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/unity-loader/-/unity-loader-1.0.11.tgz",
+  "_spec": "1.0.11",
+  "_where": "C:\\angular\\unitytest\\ng-unity-master",
+  "author": {
+    "name": "Christof Hullaert"
+  },
+  "bugs": {
+    "url": "https://github.com/cHullaert/unity-loader/issues"
+  },
+  "description": "loader for unity application",
+  "homepage": "https://github.com/cHullaert/unity-loader#readme",
+  "keywords": [
+    "unity",
+    "loader",
+    "npm",
+    "angular"
+  ],
+  "license": "MIT",
+  "main": "UnityLoader.js",
+  "name": "unity-loader",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cHullaert/unity-loader.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.11"
+}
