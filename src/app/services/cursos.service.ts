@@ -49,6 +49,43 @@ export class CursoService {
         switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
         finalize(() => { /*console.log('finilize')*/ }));
   }
+  obtenerNivelesFuncionarioEstablecimiento(establecimientoId, funcionarioId) {
+    return this.http.get(`${this.url}/establecimientos/${establecimientoId}/funcionarios/${funcionarioId}/niveles`, this.getToken())
+      .pipe(timeout(5000),
+        retry(1),
+        catchError((error, c) => {
+          this.errorTime();
+          return throwError('error');
+        }),
+        switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+        finalize(() => { /*console.log('finilize')*/ }));
+  }
+  obtenerAsignaturasPorEstablecimientoFuncionarioNivel(establecimientoId, funcionarioId, nivelId) {
+    return this.http
+        .get(`${this.url}/establecimientos/${establecimientoId}/funcionarios/${funcionarioId}/niveles/${nivelId}/asignaturas`
+            , this.getToken())
+      .pipe(timeout(5000),
+        retry(1),
+        catchError((error, c) => {
+          this.errorTime();
+          return throwError('error');
+        }),
+        switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+        finalize(() => { /*console.log('finilize')*/ }));
+  }
+  obtenerCursosPorEstablecimientoFuncionarioNivelAsignatura(establecimientoId, funcionarioId, nivelId, asignaturaId) {
+    return this.http
+        .get(`${this.url}/establecimientos/${establecimientoId}/funcionarios/${funcionarioId}/niveles/${nivelId}/asignaturas/${asignaturaId}/cursos`
+            , this.getToken())
+      .pipe(timeout(5000),
+        retry(1),
+        catchError((error, c) => {
+          this.errorTime();
+          return throwError('error');
+        }),
+        switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+        finalize(() => { /*console.log('finilize')*/ }));
+  }
 
 
   errorTime() {

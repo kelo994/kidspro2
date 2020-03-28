@@ -1,4 +1,11 @@
-<nz-page-header>
+<nz-content class="loading pt-5" *ngIf="loading === false">
+  <div class="w-100 text-center d-block my-auto" >
+    <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+    <br>
+    <h3 class="c-blue">Cargando ...</h3>
+  </div>
+</nz-content>
+<nz-page-header *ngIf="loading">
   <nz-page-header-title>Administración de estudiantes</nz-page-header-title>
   <nz-page-header-extra>
     <button style="font-size: 12px; font-weight: bold; background-color: #009dee; color: white" nz-button
@@ -15,7 +22,7 @@
     </button>
   </nz-page-header-extra>
 </nz-page-header>
-<div nz-row class="content">
+<div nz-row class="content" *ngIf="loading">
   <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12" nzXl="12" nzXXl="12" class="content-left">
     <div nz-row class="student-title">
       <div nz-col nzXs="24" nzSm="24" nzMd="14" nzLg="16" nzXl="18" nzXXl="20">
@@ -47,7 +54,7 @@
     </div>
     <div>
       <nz-table class="content-table" #EstudiantesTable nzFooter="" nzSize="middle" [nzData]="estudiantesCurso"
-        nzShowPagination="false" *ngIf="step == 1">
+        nzShowPagination="true" *ngIf="step == 1">
         <thead>
           <tr>
             <th>Matrícula</th>

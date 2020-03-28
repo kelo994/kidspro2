@@ -14,6 +14,11 @@ import { CoursesService } from 'src/app/services/courses.service';
   styleUrls: ['./curso.component.scss']
 })
 export class CursoComponent implements OnInit {
+  step = 1;
+  selecAsignatura;
+  nivelSelected;
+  cursos;
+  selectCurso;
   cursoNombre = '';
   secciones = [];
   selectSeccion;
@@ -41,11 +46,38 @@ export class CursoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.routeActive.params.subscribe(params => {
+      console.log(params);
+      if ( params.idCurso == 0) {
+        console.log('step 1: Seleccionar curso');
+        this.step = 1;
+        this.asignaturas = null;
+        this.selecAsignatura = null;
+        this.selectCurso = null;
+        this.cursos = null;
+        this.unidades = [];
+
+      } else if (params.idCurso > 0) {
+        console.log('step 2: Seleccionar asignatura');
+        this.step = 2;
+        this.nivelSelected = params.idCurso;
+        this.getAsignaturas(params.idCurso);
+        this.asignaturas = null;
+        this.selecAsignatura = null;
+        this.selectCurso = null;
+        this.cursos = null;
+        this.unidades = [];
+
+      }
+
+
+    });
+/*
     this.parametersObservable = this.routeActive.params.subscribe(params => {
-      // console.log(params);
+
       if (Number(this.routeActive.snapshot.params.idCurso) != 0) {
         this.cursoNombre = localStorage.getItem('CursoName');
-        this.asignaturas = JSON.parse(localStorage.getItem('asignaturas'));
+        //this.asignaturas = JSON.parse(localStorage.getItem('asignaturas'));
         this.secciones = []
         this.unidades = [];
 
@@ -58,11 +90,9 @@ export class CursoComponent implements OnInit {
         //   $('#progressBar').css('width', 48 + '%').attr('aria-valuenow', 48);
         //   $('#pointTwo').removeClass('point-blank').addClass('point-blue');
         // }
-        console.log(this.asignaturas)
         if(this.asignaturas.length > 0) {
           this.coursesService.obtenerCursosProfesor(localStorage.getItem('idEstablecimiento'), localStorage.getItem('idFuncionario'), this.asignaturas[0].asignatura_id).subscribe((data: any) => { // Success
             if (data.length != 0) {
-              console.log(data);
               localStorage.setItem('CursoEspecifico', data[0].curso_especifico_id);
               localStorage.setItem('letterSeccion', data[0].seccion_nombre)
               this.secciones = data;
@@ -73,27 +103,26 @@ export class CursoComponent implements OnInit {
               localStorage.setItem('AsignaturaId', this.asignaturas[0].asignatura_id);
               this.getUnidades();
             }
-  
+
           }, (error) => {
             console.log(error)
             if (error.status === 401) { this.router.navigate(['/auth/login']); }
           });
         }
-       
+
       }
-    });
+    }); */
   }
 
   openAsignatura(element) {
     localStorage.setItem('AsignaturaId', this.asignaturas[Number(element)].asignatura_id);
    // localStorage.setItem('AsignaturaNombre', item.asignatura_nombre);
     //this.selectAsginatura = item.asignatura_nombre;
-    this.getUnidades();
+    //this.getUnidades();
   }
 
-  getUnidades() {
-    console.log(localStorage.getItem('idFuncionario') + ' ' +  localStorage.getItem('AsignaturaId') + ' ' +   localStorage.getItem('CursoEspecifico'))
-    this.bloqService.getGrupos(localStorage.getItem('idFuncionario'), localStorage.getItem('AsignaturaId'), localStorage.getItem('CursoEspecifico'))
+  getUnidades(funcionarioId, asignaturaId, cursoId ) {
+    this.bloqService.getGrupos( funcionarioId, asignaturaId,cursoId)
       .subscribe(
         (data: any) => { // Success
           console.log(data)
@@ -242,5 +271,44 @@ export class CursoComponent implements OnInit {
   handleCancel(): void {
     console.log('Button cancel clicked!');
     this.modalGetCode = false;
+  }
+
+  getAsignaturas(nivelId) {
+
+    this.cService
+        .obtenerAsignaturasPorEstablecimientoFuncionarioNivel(localStorage.getItem('idEstablecimiento')
+            , localStorage.getItem('idFuncionario'), nivelId)
+        .subscribe((data: any) => { // Success
+          this.asignaturas = data;
+          // console.log(data);
+        }, (error) => {
+          if (error.status === 401) { this.router.navigate(['/auth/login']); }
+        });
+  }
+  getCursos(nivelId, asignaturaId) {
+    this.cService
+        .obtenerCursosPorEstablecimientoFuncionarioNivelAsignatura(localStorage.getItem('idEstablecimiento')
+            , localStorage.getItem('idFuncionario'), nivelId, asignaturaId)
+        .subscribe((data: any) => { // Success
+          this.cursos = data;
+          // console.log(data);
+        }, (error) => {
+          if (error.status === 401) { this.router.navigate(['/auth/login']); }
+        });
+  }
+
+  selectAsignatura(value) {
+    console.log('step 3: select seccion');
+    this.selecAsignatura = value;
+    this.selectCurso = null;
+    this.cursos = null;
+    this.unidades = [];
+    this.getCursos(this.nivelSelected, value.asignatura_id);
+    this.step = 3;
+  }
+
+  selectCursoEvent(value) {
+    console.log(value);
+    this.getUnidades( localStorage.getItem('idFuncionario'), this.selecAsignatura.asignatura_id, value.curso_id);
   }
 }

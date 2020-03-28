@@ -27,7 +27,7 @@
                             <span class="px-3">{{ cursoNombre }}</span>
                         </div>
                         <!-- <div class="col-6 text-left">
-                            
+
                         </div> -->
                     </div>
                 </div>
@@ -41,25 +41,35 @@
                         <i class="fas fa-qrcode bd-invisible"></i> Código de Acceso
                     </button>
                 </div>
-                <br>                
+                <br>
             </div>
             <div class="row m-0 pl-4">
                 <div class="col-2 p-0">
                     <label class="m-0 p-0">Asignatura</label>
-                    <select class="form-control w-75" (change)="openAsignatura($event.target.value)">
+                  <!--  <select class="form-control w-75" (change)="openAsignatura($event.target.value)">
                         <option *ngFor="let a of asignaturas; let iAsignatura = index" [value]="iAsignatura">
-                            {{ a.asignatura_nombre }}
+                            {{ a.materia_descripcion }}
                         </option>
-                    </select>
+                    </select>-->
+                    <nz-select  class="w-100" [(ngModel)]="selecAsignatura" (ngModelChange)="selectAsignatura($event)" nzAllowClear>
+                        <nz-option *ngFor="let asignatura of asignaturas; let i = index" [nzValue]="asignatura"
+                                   [nzLabel]="asignatura.materia_descripcion">
+                        </nz-option>
+                    </nz-select>
                 </div>
                 <div class="col-2 p-0">
                     <label class="m-0 p-0">Sección</label>
-                    <select class="form-control w-75" (change)="onChangeSeccion($event.target.value)">
+                    <nz-select  class="w-100" [(ngModel)]="selectCurso" (ngModelChange)="selectCursoEvent($event)" nzAllowClear>
+                        <nz-option *ngFor="let curso of cursos; let i = index" [nzValue]="curso"
+                                   [nzLabel]="curso.seccion_nombre">
+                        </nz-option>
+                    </nz-select>
+                   <!-- <select class="form-control w-75" (change)="onChangeSeccion($event.target.value)">
                         <option *ngFor="let s of secciones; let iSeccion = index" [value]="iSeccion">Sección
                             {{ s.seccion_nombre }}
                         </option>
                         <option *ngIf="secciones?.length == 0">No hay secciones</option>
-                    </select>
+                    </select>-->
                 </div>
             </div>
         </div>
@@ -102,6 +112,7 @@
             </div>
 
             <div *ngIf="flagUnidades == 0" class="container">
+                {{step}}
                 <div class="w80 row m-0 mx-auto justify-content-center">
                     <div class="col-4">
                         <div class="row m-0 mx-2">

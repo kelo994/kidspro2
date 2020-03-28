@@ -8,13 +8,20 @@
         <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
             <li nz-menu-group nzTitle="Módulos"></li>
             <li nz-submenu nzOpen nzIcon="user" nzTitle="Cursos" [(nzOpen)]="openMap.sub1"
-                (nzOpenChange)="openHandler('sub1')">
+                (nzOpenChange)="openHandler('sub1')" >
                 <ul>
-                    <li *ngFor="let curso of cursos" nz-menu-item nzMatchRouter (click)="changeRoute(curso)"
+                   <!-- <li *ngFor="let curso of cursos" nz-menu-item nzMatchRouter (click)="changeRoute(curso)"
                         style="padding-left: 10px !important;">
                         <a [routerLink]="['curso/' + curso.nivel_id]" >
                             <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
                             <span>{{ curso.nivel_descripcion }}</span>
+                        </a>
+                    </li>-->
+                    <li *ngFor="let nivel of niveles" nz-menu-item nzMatchRouter (click)="changeRoute(nivel)"
+                        style="padding-left: 10px !important;">
+                        <a [routerLink]="['curso/' + nivel.nivel_id]" >
+                            <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
+                            <span>{{ nivel.nivel_descripcion }}</span>
                         </a>
                     </li>
                 </ul>

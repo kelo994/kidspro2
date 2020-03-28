@@ -72,6 +72,7 @@ export class StudentsAdminComponent implements OnInit {
   obtenerCursosEstablecimiento() {
     this.coursesService.obtenerCursosEstablecimiento(this.establecimientoId).subscribe((data: any) => { // Success
       this.cursos = data;
+      this.loading = true;
     }, (error) => {
       if (error.status === 401) { this.router.navigate(['/auth/login']); }
     });

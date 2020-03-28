@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthModule } from '../auth/auth.module';
 import { AuthService } from 'src/app/services/auth.service';
 import { CoursesService } from 'src/app/services/courses.service';
+import {CursoService} from '../../services/cursos.service';
 
 @Component({
   selector: 'app-pages',
@@ -13,6 +14,8 @@ export class PagesComponent implements OnInit {
   isCollapsed = false;
 
   cursos;
+  niveles;
+  open = true;
 
   rolId = parseInt(localStorage.getItem('rolId'));
 
@@ -42,6 +45,9 @@ export class PagesComponent implements OnInit {
   }
 
   openHandler(value: string): void {
+    if (value === 'sub1' ) {
+      this.router.navigate(['/pages/curso', 0]);
+    }
     for (const key in this.openMap) {
       if (key !== value) {
         this.openMap[key] = false;
@@ -52,15 +58,16 @@ export class PagesComponent implements OnInit {
   toggleCollapsed(): void {
     this.isCollapsed = !this.isCollapsed;
   }
-  constructor(public router: Router, public coursesService: CoursesService) { }
+  constructor(public router: Router, public coursesService: CoursesService,  public cursoService: CursoService) { }
 
   ngOnInit(): void {
     this.getCursos();
+    this.getNiveles();
 
     if (window.outerWidth <= 860) {
       setTimeout(() => {
         this.isCollapsed = true;
-      }, 200); 
+      }, 200);
     } else {
       this.isCollapsed = false;
     }
@@ -75,11 +82,23 @@ export class PagesComponent implements OnInit {
     });
   }
 
+  getNiveles() {
+    this.cursoService
+        .obtenerNivelesFuncionarioEstablecimiento(localStorage.getItem('idEstablecimiento'), localStorage.getItem('idFuncionario'))
+        .subscribe((data: any) => { // Success
+      this.niveles = data;
+      // console.log(data);
+    }, (error) => {
+      if (error.status === 401) { this.router.navigate(['/auth/login']); }
+    });
+  }
+
   changeRoute(item) {
+
     localStorage.setItem('CursoName', item.nivel_descripcion);
     localStorage.setItem('secciones', JSON.stringify(item.cursos));
     localStorage.setItem('asignaturas', JSON.stringify(item.asignaturas));
-   
+
     // console.log(item.asignaturas);
 
     this.router.navigate(['/pages/curso', item.nivel_id]);
