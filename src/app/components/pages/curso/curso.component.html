@@ -1,6 +1,6 @@
 <!--<a id="changeRoute" class="d-none" (click)="destruir()"> a</a>-->
 <nz-layout class="left-layout">
-    <!-- <nz-sider class="submenu-sidebar-asignatura mt-0" [nzWidth]="180">
+     <nz-sider class="submenu-sidebar-asignatura mt-0" [nzWidth]="180" *ngIf="resolucion > 768">
         <nz-input-group [nzSuffix]="suffixIcon" class="p-0">
             <input type="text" class="p-0" nz-input placeholder="Buscar Asignatura" [(ngModel)]="searchValue" />
         </nz-input-group>
@@ -9,18 +9,18 @@
         </ng-template>
         <ul nz-menu nzMode="inline" class="bd-top">
             <li class="item-submenu d-block my-auto" nz-menu-item nzMatchRouter
-                *ngFor="let asign of asignaturas | filter:searchValue" (click)="openAsignatura(asign)">
-                <p class="m-0">{{ asign.asignatura_nombre }}</p>
+                *ngFor="let asign of asignaturas | filter:searchValue" (click)="selectAsignatura(asign)">
+                <p class="m-0 truncar-texto">{{ asign.materia_descripcion }}</p>
             </li>
             <li *ngIf="!asignaturas" class="py-2 bg-gray">
                 <p class="m-0 py-2 text-center" style="line-height: 15px;">No hay asignaturas</p>
             </li>
         </ul>
-    </nz-sider> -->
+    </nz-sider>
     <nz-layout class="right-layout">
         <div class="header bg-subheader p-3">
-            <div nz-row class=" m-0 pl-4">
-                <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="4" nzXl="4" nzXXl="4" class=" p-0" *ngIf="step > 1">
+            <div nz-row class=" m-0 pl-4" >
+                <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="4" nzXXl="4" class="my-2" *ngIf="step > 1 && resolucion < 768">
                     <nz-select  class="w-100 pl-4 pr-4" [(ngModel)]="selecAsignatura" (ngModelChange)="selectAsignatura($event)"
                                 nzAllowClear nzPlaceHolder="Asignaturas">
                         <nz-option *ngFor="let asignatura of asignaturas; let i = index" [nzValue]="asignatura"
@@ -28,18 +28,18 @@
                         </nz-option>
                     </nz-select>
                 </div>
-                <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="4" nzXl="4" nzXXl="4" class="" *ngIf="step > 2">
+                <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12" nzXl="6" nzXXl="6" class="my-2" *ngIf="step > 2" style="text-align: center">
                     <span class="text-subheader bd-invisible"><strong>{{ nombreAsignaturaSeleccionada }}</strong></span>
                     <span class="px-3">Sección</span>
                 </div>
-                <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="4" nzXl="4" nzXXl="4" class=" p-0" *ngIf="step > 2">
+                <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12" nzXl="4" nzXXl="4" class="my-2" *ngIf="step > 2">
                     <nz-select  class="w-100 pl-4 pr-4" [(ngModel)]="selectCurso" (ngModelChange)="selectCursoEvent($event)" nzAllowClear>
                         <nz-option *ngFor="let curso of cursos; let i = index" [nzValue]="curso"
                                    [nzLabel]="'Sección ' + curso.seccion_nombre" nzPlaceHolder="Secciones">
                         </nz-option>
                     </nz-select>
                 </div>
-                <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="8" nzXl="8" nzXXl="8" class=" p-0" *ngIf="unidades?.length > 0">
+                <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="14" nzXXl="14" class=" my-2" *ngIf="unidades?.length > 0" style="text-align: center">
                     <button class="btn btn-unidad mr-3" (click)="editarUnidades()">
                         <i class="fas fa-cog bd-invisible pr-1"></i>
                         <span class="pl-1" *ngIf="!editUnidades">Editar Unidades</span>
@@ -53,7 +53,7 @@
         </div>
         <div class="unidades pt-5">
             <div *ngIf="step == 4" cdkDropListGroup class="row m-0">
-                <div *ngFor="let u of unidades; let i = index" class="col-lg-3 col-md-6 col-xs-12 mb-3">
+                <div *ngFor="let u of unidades; let i = index" class="col-xl-3 col-lg-4 col-md-6 col-xs-12 mb-3">
                     <div class="card-content bg-gray p-0">
                         <p class="c-black py-1 pl-3 m-0 t-12">{{ u.grupo_nombre }}</p>
                         <div class="content-card-unidad bg-white">
