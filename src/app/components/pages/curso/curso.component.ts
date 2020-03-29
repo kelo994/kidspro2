@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-//import { DashService } from '../../services/dash.service';
+// import { DashService } from '../../services/dash.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NzFormatEmitEvent, NzNotificationService } from 'ng-zorro-antd';
 import { CursoService } from 'src/app/services/cursos.service';
@@ -14,16 +14,19 @@ import { CoursesService } from 'src/app/services/courses.service';
   styleUrls: ['./curso.component.scss']
 })
 export class CursoComponent implements OnInit {
+  resolucion;
   step = 1;
   selecAsignatura;
   nivelSelected;
   cursos;
   selectCurso;
+  cursoIdSeleccionado;
   cursoNombre = '';
   secciones = [];
   selectSeccion;
   asignaturas = [];
-  selectAsginatura = 'Seleccione Asignatura';
+  nombreAsignaturaSeleccionada = 'Asignatura';
+  nombreNivelSeleccionado = 'Curso';
   // Codigo
   modalGetCode = false;
   codigo = '';
@@ -41,11 +44,13 @@ export class CursoComponent implements OnInit {
   private parametersObservable: any;
 
   constructor(private routeActive: ActivatedRoute,
-    private notification: NzNotificationService, private router: Router, public cService: CursoService,
-    public coursesService: CoursesService, public bloqService: BloqueService) {
+              private notification: NzNotificationService, private router: Router, public cService: CursoService,
+              public coursesService: CoursesService, public bloqService: BloqueService) {
   }
 
   ngOnInit(): void {
+    this.resolucion = window.screen.width;
+    console.log(this.resolucion);
     this.routeActive.params.subscribe(params => {
       console.log(params);
       if ( params.idCurso == 0) {
@@ -72,62 +77,23 @@ export class CursoComponent implements OnInit {
 
 
     });
-/*
-    this.parametersObservable = this.routeActive.params.subscribe(params => {
 
-      if (Number(this.routeActive.snapshot.params.idCurso) != 0) {
-        this.cursoNombre = localStorage.getItem('CursoName');
-        //this.asignaturas = JSON.parse(localStorage.getItem('asignaturas'));
-        this.secciones = []
-        this.unidades = [];
-
-        localStorage.setItem('NivelId', this.routeActive.snapshot.params.idCurso);
-
-        // if (this.asignaturas.length > 1) {
-        //   //  console.log("asignaturas")
-        //   $('#firstStepSecciones').removeClass('active').addClass('afterActive');
-        //   $('#secondStep').removeClass('desactive').addClass('active');
-        //   $('#progressBar').css('width', 48 + '%').attr('aria-valuenow', 48);
-        //   $('#pointTwo').removeClass('point-blank').addClass('point-blue');
-        // }
-        if(this.asignaturas.length > 0) {
-          this.coursesService.obtenerCursosProfesor(localStorage.getItem('idEstablecimiento'), localStorage.getItem('idFuncionario'), this.asignaturas[0].asignatura_id).subscribe((data: any) => { // Success
-            if (data.length != 0) {
-              localStorage.setItem('CursoEspecifico', data[0].curso_especifico_id);
-              localStorage.setItem('letterSeccion', data[0].seccion_nombre)
-              this.secciones = data;
-              this.selectSeccion = this.secciones[0].curso_id;
-              localStorage.setItem('CursoEspecifico', String(data[0].curso_especifico_id));
-              this.unidades = [];
-              this.flagUnidades = 1;
-              localStorage.setItem('AsignaturaId', this.asignaturas[0].asignatura_id);
-              this.getUnidades();
-            }
-
-          }, (error) => {
-            console.log(error)
-            if (error.status === 401) { this.router.navigate(['/auth/login']); }
-          });
-        }
-
-      }
-    }); */
   }
 
   openAsignatura(element) {
     localStorage.setItem('AsignaturaId', this.asignaturas[Number(element)].asignatura_id);
    // localStorage.setItem('AsignaturaNombre', item.asignatura_nombre);
-    //this.selectAsginatura = item.asignatura_nombre;
-    //this.getUnidades();
+    // this.selectAsginatura = item.asignatura_nombre;
+    // this.getUnidades();
   }
 
   getUnidades(funcionarioId, asignaturaId, cursoId ) {
-    this.bloqService.getGrupos( funcionarioId, asignaturaId,cursoId)
+    this.bloqService.getGrupos( funcionarioId, asignaturaId, cursoId)
       .subscribe(
         (data: any) => { // Success
-          console.log(data)
+          console.log(data);
           this.unidades = data;
-          if(this.unidades.length > 0) this.flagUnidades =2;
+          if (this.unidades.length > 0) { this.flagUnidades = 2; }
         },
         (error) => {
           if (error.status == 401) {
@@ -137,21 +103,7 @@ export class CursoComponent implements OnInit {
       );
   }
 
-  onChangeSeccion(item) {
-    localStorage.setItem('CursoEspecifico', this.secciones[item].curso_especifico_id);
-    this.bloqService.getGrupos(localStorage.getItem('idFuncionario'), localStorage.getItem('AsignaturaId'), localStorage.getItem('CursoEspecifico'))
-      .subscribe(
-        (data: any) => { // Success
-          // console.log(data)
-          this.unidades = data;
-        },
-        (error) => {
-          if (error.status == 401) {
-            this.router.navigate(['/auth/login']);
-          }
-        }
-      )
-  }
+
   nzEvent(event: NzFormatEmitEvent): void {
     console.log(event);
   }
@@ -160,20 +112,20 @@ export class CursoComponent implements OnInit {
     if (!this.editUnidades) {
 
     } else {
-      let dataSend = {
-        curso_id: localStorage.getItem('CursoId'),
+      const dataSend = {
+        curso_id: this.cursoIdSeleccionado,
         establecimiento_id: localStorage.getItem('idEstablecimiento'),
         grupos: this.unidades
-      }
+      };
       console.log(dataSend);
 
-      this.cService.putUnidades(dataSend, localStorage.getItem('AsignaturaId')).subscribe(
+      this.cService.putUnidades(dataSend, this.selecAsignatura.asignatura_id).subscribe(
         (data: any) => { // Success
           console.log(data);
           this.unidades = data;
         },
         (error) => {
-          console.log(error)
+          console.log(error);
           if (error.status == 401) {
             this.router.navigate(['/auth/login']);
           } else if (error.status == 500) {
@@ -187,19 +139,10 @@ export class CursoComponent implements OnInit {
 
   changeEstado(estado, i, j) {
     console.log(estado, i);
-    if (estado == 1) estado = 0;
-    else estado = 1;
+    if (estado == 1) { estado = 0; }
+    else { estado = 1; }
     this.unidades[i].bloques[j].bloque_estado = estado;
     console.log(this.unidades);
-  }
-
-  destruir() {
-    this.ngOnDestroy();
-  }
-
-  ngOnDestroy() {
-    this.selectAsginatura = '';
-    this.parametersObservable.unsubscribe();
   }
 
   drop(event: CdkDragDrop<{}[]>) {
@@ -213,29 +156,7 @@ export class CursoComponent implements OnInit {
     }
   }
 
-  openCurso(item) {
-    localStorage.setItem('CursoName', item.curso_nombre);
-    localStorage.setItem('CursoId', item.curso_id);
-    /*this.dashboard.getAsignaturas(item.curso_id)
-      .subscribe(
-        (data: any) => { // Success
-          this.asignaturas = data;
-          if (this.asignaturas.length === 0) {
-            this.toast.showToast('danger', 'Error', 'No tienes asignaturas asociadas a este curso.');
-          } else if (this.asignaturas.length === 1) {
-            this.openAsignatura(this.asignaturas[0])
-            this.toast.showToast('success', 'Asignatura Matemáticas', '')
-          } else {
-            $('#btnmodalAsignature').click();
-          }
-        },
-        (error) => {
-          if (error.status == 401) {
-            this.router.navigate(['/auth/login']);
-          }
-        }
-      )*/
-  }
+
 
   goToUnidad(item): void {
     localStorage.setItem('unidadNombre', item.grupo_nombre);
@@ -245,20 +166,21 @@ export class CursoComponent implements OnInit {
       {
         state: {
           func: localStorage.getItem('idFuncionario'),
-          asig: this.selectAsginatura, cur: localStorage.getItem('cursoId'),
+          asig: this.nombreAsignaturaSeleccionada,
+          cur: localStorage.getItem('cursoId'),
           unidadNombre: item.grupo_nombre
         }
       });
   }
 
   showModal(): void {
-    let idAsignatura = localStorage.getItem('AsignaturaId');
-    let idCurso = localStorage.getItem('CursoEspecifico');
+    const idAsignatura = localStorage.getItem('AsignaturaId');
+    const idCurso = localStorage.getItem('CursoEspecifico');
     this.cService.obtenerCodigoCursoAsignatura(idCurso, idAsignatura).subscribe((data: any) => { // Success
       this.codigo = data.codigo;
       this.modalGetCode = true;
     }, (error) => {
-      if (error.status == 401) this.router.navigate(['/pages/login']);
+      if (error.status === 401) { this.router.navigate(['/pages/login']); }
     });
 
   }
@@ -304,11 +226,14 @@ export class CursoComponent implements OnInit {
     this.cursos = null;
     this.unidades = [];
     this.getCursos(this.nivelSelected, value.asignatura_id);
+    this.nombreAsignaturaSeleccionada = value.materia_descripcion;
     this.step = 3;
   }
 
   selectCursoEvent(value) {
     console.log(value);
+    this.cursoIdSeleccionado = value.curso_id
     this.getUnidades( localStorage.getItem('idFuncionario'), this.selecAsignatura.asignatura_id, value.curso_id);
+    this.step = 4;
   }
 }

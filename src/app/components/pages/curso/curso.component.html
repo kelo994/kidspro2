@@ -1,4 +1,4 @@
-<a id="changeRoute" class="d-none" (click)="destruir()"> a</a>
+<!--<a id="changeRoute" class="d-none" (click)="destruir()"> a</a>-->
 <nz-layout class="left-layout">
     <!-- <nz-sider class="submenu-sidebar-asignatura mt-0" [nzWidth]="180">
         <nz-input-group [nzSuffix]="suffixIcon" class="p-0">
@@ -19,19 +19,27 @@
     </nz-sider> -->
     <nz-layout class="right-layout">
         <div class="header bg-subheader p-3">
-            <div class="row m-0">
-                <div class="col-lg-8 col-md-8 col-xs-12">
-                    <div class="row">
-                        <div class="col">
-                            <span class="text-subheader bd-invisible"><strong>{{ selectAsginatura }}</strong></span>
-                            <span class="px-3">{{ cursoNombre }}</span>
-                        </div>
-                        <!-- <div class="col-6 text-left">
-
-                        </div> -->
-                    </div>
+            <div nz-row class=" m-0 pl-4">
+                <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="4" nzXl="4" nzXXl="4" class=" p-0" *ngIf="step > 1">
+                    <nz-select  class="w-100 pl-4 pr-4" [(ngModel)]="selecAsignatura" (ngModelChange)="selectAsignatura($event)"
+                                nzAllowClear nzPlaceHolder="Asignaturas">
+                        <nz-option *ngFor="let asignatura of asignaturas; let i = index" [nzValue]="asignatura"
+                                   [nzLabel]="asignatura.materia_descripcion">
+                        </nz-option>
+                    </nz-select>
                 </div>
-                <div *ngIf="unidades?.length > 0" class="col-lg-4 col-md-4 col-xs-12 text-right">
+                <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="4" nzXl="4" nzXXl="4" class="" *ngIf="step > 2">
+                    <span class="text-subheader bd-invisible"><strong>{{ nombreAsignaturaSeleccionada }}</strong></span>
+                    <span class="px-3">Sección</span>
+                </div>
+                <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="4" nzXl="4" nzXXl="4" class=" p-0" *ngIf="step > 2">
+                    <nz-select  class="w-100 pl-4 pr-4" [(ngModel)]="selectCurso" (ngModelChange)="selectCursoEvent($event)" nzAllowClear>
+                        <nz-option *ngFor="let curso of cursos; let i = index" [nzValue]="curso"
+                                   [nzLabel]="'Sección ' + curso.seccion_nombre" nzPlaceHolder="Secciones">
+                        </nz-option>
+                    </nz-select>
+                </div>
+                <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="8" nzXl="8" nzXXl="8" class=" p-0" *ngIf="unidades?.length > 0">
                     <button class="btn btn-unidad mr-3" (click)="editarUnidades()">
                         <i class="fas fa-cog bd-invisible pr-1"></i>
                         <span class="pl-1" *ngIf="!editUnidades">Editar Unidades</span>
@@ -41,40 +49,10 @@
                         <i class="fas fa-qrcode bd-invisible"></i> Código de Acceso
                     </button>
                 </div>
-                <br>
-            </div>
-            <div class="row m-0 pl-4">
-                <div class="col-2 p-0">
-                    <label class="m-0 p-0">Asignatura</label>
-                  <!--  <select class="form-control w-75" (change)="openAsignatura($event.target.value)">
-                        <option *ngFor="let a of asignaturas; let iAsignatura = index" [value]="iAsignatura">
-                            {{ a.materia_descripcion }}
-                        </option>
-                    </select>-->
-                    <nz-select  class="w-100" [(ngModel)]="selecAsignatura" (ngModelChange)="selectAsignatura($event)" nzAllowClear>
-                        <nz-option *ngFor="let asignatura of asignaturas; let i = index" [nzValue]="asignatura"
-                                   [nzLabel]="asignatura.materia_descripcion">
-                        </nz-option>
-                    </nz-select>
-                </div>
-                <div class="col-2 p-0">
-                    <label class="m-0 p-0">Sección</label>
-                    <nz-select  class="w-100" [(ngModel)]="selectCurso" (ngModelChange)="selectCursoEvent($event)" nzAllowClear>
-                        <nz-option *ngFor="let curso of cursos; let i = index" [nzValue]="curso"
-                                   [nzLabel]="curso.seccion_nombre">
-                        </nz-option>
-                    </nz-select>
-                   <!-- <select class="form-control w-75" (change)="onChangeSeccion($event.target.value)">
-                        <option *ngFor="let s of secciones; let iSeccion = index" [value]="iSeccion">Sección
-                            {{ s.seccion_nombre }}
-                        </option>
-                        <option *ngIf="secciones?.length == 0">No hay secciones</option>
-                    </select>-->
-                </div>
             </div>
         </div>
         <div class="unidades pt-5">
-            <div *ngIf="flagUnidades == 2" cdkDropListGroup class="row m-0">
+            <div *ngIf="step == 4" cdkDropListGroup class="row m-0">
                 <div *ngFor="let u of unidades; let i = index" class="col-lg-3 col-md-6 col-xs-12 mb-3">
                     <div class="card-content bg-gray p-0">
                         <p class="c-black py-1 pl-3 m-0 t-12">{{ u.grupo_nombre }}</p>
@@ -111,40 +89,47 @@
                 </div>
             </div>
 
-            <div *ngIf="flagUnidades == 0" class="container">
-                {{step}}
+            <div *ngIf="step < 4" class="container">
                 <div class="w80 row m-0 mx-auto justify-content-center">
-                    <div class="col-4">
-                        <div class="row m-0 mx-2">
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 ">
+                        <div class="row m-0 mx-2" *ngIf="resolucion > 768 || (resolucion < 768 && step == 1)">
                             <div class="col-2 px-0 text-right col-step">
-                                <p id="firstStepSecciones" class="active">1</p>
+                                <p class="active" *ngIf="step == 1">1</p>
+                                <p class="afterActive" *ngIf="step > 1">1</p>
                             </div>
                             <div class="col-10 card-content-steps col-step-content">
-                                <p class="pl-4 desactive">Elige un Curso</p>
+                                <h6 class="pl-3 pt-2 " *ngIf="step == 1">Elige un Curso</h6>
+                                <h6 class="pl-3 pt-2 " style="color: rgba(0, 0, 0, 0.3)" *ngIf="step > 1">Elige un Curso</h6>
                             </div>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <div class="row m-0 mx-1">
-                            <div class="col-2 px-0 text-right col-step">
-                                <p id="secondStepSecciones" class="desactive">2</p>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 ">
+                        <div class="row m-0 mx-1" *ngIf="resolucion > 768 || (resolucion < 768 && step == 2)">
+                            <div class="col-2 px-0 text-right col-step" >
+                                <p class="desactive"  *ngIf="step == 1">2</p>
+                                <p class="active" *ngIf="step == 2">2</p>
+                                <p class="afterActive" *ngIf="step == 3">2</p>
                             </div>
                             <div class="col-10 card-content-steps col-step-content">
-                                <p class="pl-4 desactive">Elige una Asignatura</p>
+                                <h6 class="pl-3 pt-2 " style="color: rgba(0, 0, 0, 0.1)"  *ngIf="step == 1">Elige una Asignatura</h6>
+                                <h6 class="pl-3 pt-2 " *ngIf="step == 2">Elige una Asignatura</h6>
+                                <h6 class="pl-3 pt-2 " style="color: rgba(0, 0, 0, 0.3)" *ngIf="step == 3">Elige una Asignatura</h6>
                             </div>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <div class="row m-0 mx-1">
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 ">
+                        <div class="row m-0 mx-1" *ngIf="resolucion > 768 || (resolucion < 768 && step == 3)">
                             <div class="col-2 px-0 text-right col-step">
-                                <p id="secondStep" class="desactive">3</p>
+                                <p class="desactive"  *ngIf="step < 3">3</p>
+                                <p class="active" *ngIf="step == 3">3</p>
                             </div>
                             <div class="col-10 card-content-steps col-step-content">
-                                <p class="pl-4 desactive">Administre las unidades</p>
+                                <h6 class="pl-3 pt-2 " style="color: rgba(0, 0, 0, 0.1)"  *ngIf="step < 3">Elige una Sección</h6>
+                                <h6 class="pl-3 pt-2 " *ngIf="step == 3">Elige una Sección</h6>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 row mt-4 p-0">
+                    <!--<div class="col-12 row mt-4 p-0">
                         <div class="col p-0" style="left: -4%; width: 4%;">
                             <div class="point-blue ml-auto"></div>
                         </div>
@@ -161,7 +146,7 @@
                         <div class="col p-0" style="left: -43%;">
                             <div class="point-blank mr-auto"></div>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
 
