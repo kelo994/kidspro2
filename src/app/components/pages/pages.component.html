@@ -1,4 +1,4 @@
-<app-header isDrawer="isDrawer" (newSystemChange)=newSystemChange($event)></app-header>
+<app-header [isDrawer]="isDrawer" (newSystemChange)=newSystemChange($event)></app-header>
 <button *ngIf="isDrawer" id="btnCollapse" nz-button nzType="primary" (click)="toggleDrawer()" class="d-none">
     <i nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
 </button>
@@ -54,9 +54,9 @@
             <li *ngIf="rolId === 2" nz-submenu nzOpen nzIcon="setting" nzTitle="Administrador" [(nzOpen)]="openMap.sub3"
                 (nzOpenChange)="openHandler('sub3')">
                 <ul>
-                    <li *ngFor="let route of admin" nz-menu-item nzMatchRouter style="padding-left: 20px !important;"
+                    <li *ngFor="let route of admin" nz-menu-item nzMatchRouter
                         (click)="adminRoute(route.path)">
-                        <a [routerLink]="['administrar/' + route.path]">
+                        <a [routerLink]="['administrar/' + route.path]" style="padding-left: 20px !important;">
                             <i *ngIf="route.nzIcon" class="trigger" nz-icon [nzType]="route.icon"></i>
                             <i *ngIf="!route.nzIcon" [class]="route.icon" style="margin-right: 10px;"></i>
                             <span>{{ route.name }}</span>
@@ -118,9 +118,9 @@
             <li *ngIf="rolId === 2" nz-submenu nzOpen nzIcon="setting" nzTitle="Administrador" [(nzOpen)]="openMap.sub3"
                 (nzOpenChange)="openHandler('sub3')">
                 <ul>
-                    <li *ngFor="let route of admin" nz-menu-item nzMatchRouter style="padding-left: 20px !important;"
+                    <li *ngFor="let route of admin" nz-menu-item nzMatchRouter
                         (click)="adminRoute(route.path)">
-                        <a [routerLink]="['administrar/' + route.path]">
+                        <a [routerLink]="['administrar/' + route.path]" style="padding-left: 20px !important;">
                             <i *ngIf="route.nzIcon" class="trigger" nz-icon [nzType]="route.icon"></i>
                             <i *ngIf="!route.nzIcon" [class]="route.icon" style="margin-right: 10px;"></i>
                             <span>{{ route.name }}</span>

@@ -2,14 +2,14 @@
     <div class="row">
         <div class="col bg-logo" style="max-width:180px">
             <div class="row">
-                <div *ngIf="isDrawer" id="colCollapse" class="col-2 px-0">
-                    <button class="btn btn-drawer" (click)="collapseMenu()">
+                <div id="colCollapse" class="col-2 px-0" style="min-height: 48px;">
+                    <button *ngIf="isDrawer" class="btn btn-drawer" (click)="collapseMenu()">
                         <i nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
                     </button>
                 </div>
                 <div class="col pl-0 d-block my-auto">
                     <div class="logo">
-                        <img height="34" src="../../../../../assets/images/logo/kids-logo.png" alt="">
+                        <img height="34" src="../../../../../assets/images/logo/acamykids.png" alt="">
                     </div>
                 </div>
             </div>

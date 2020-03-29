@@ -78,3 +78,7 @@
     padding-top: 48px;
     color: #000000a6;
 }
+
+.ant-menu-inline .ant-menu-item, .ant-menu-inline .ant-menu-submenu-title {
+    width: calc(100%)!important;
+}
