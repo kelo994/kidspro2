@@ -12,6 +12,8 @@ import {CursoService} from '../../services/cursos.service';
 })
 export class PagesComponent implements OnInit {
   isCollapsed = false;
+  isDrawer = false;
+  drawerState = false;
 
   cursos;
   niveles;
@@ -34,13 +36,11 @@ export class PagesComponent implements OnInit {
   };
 
   @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    if (window.outerWidth <= 860) {
-      setTimeout(() => {
-        this.isCollapsed = true;
-      }, 200);
+  onResize() {
+    if (window.outerWidth <= 991) {
+      this.isDrawer = true;
     } else {
-      this.isCollapsed = false;
+      this.isDrawer = false;
     }
   }
 
@@ -55,22 +55,15 @@ export class PagesComponent implements OnInit {
     }
   }
 
-  toggleCollapsed(): void {
-    this.isCollapsed = !this.isCollapsed;
+  toggleDrawer(): void {
+    this.drawerState = !this.drawerState;
   }
   constructor(public router: Router, public coursesService: CoursesService,  public cursoService: CursoService) { }
 
   ngOnInit(): void {
+    this.onResize();
     this.getCursos();
     this.getNiveles();
-
-    if (window.outerWidth <= 860) {
-      setTimeout(() => {
-        this.isCollapsed = true;
-      }, 200);
-    } else {
-      this.isCollapsed = false;
-    }
   }
 
   getCursos() {
@@ -120,6 +113,14 @@ export class PagesComponent implements OnInit {
     console.log(event)
     this.rolId = event;
     this.router.navigate(['/pages/curso/0']);
+  }
+
+  openDrawer (): void {
+    this.drawerState = true;
+  }
+
+  closeDrawer (): void {
+    this.drawerState = false;
   }
 
 }

@@ -91,7 +91,10 @@
 
 @media screen and (max-width: $mobile-style) {
   .ant-menu-inline .ant-menu-item {
-    font-size: 15px !important;
-    line-height: 14px !important;
+    font-size: 10px !important;
+    line-height: 30px !important;
+  }
+  .ant-menu-inline .ant-menu-item, .ant-menu-inline .ant-menu-submenu-title {
+    width: calc(100%)!important;
   }
 }

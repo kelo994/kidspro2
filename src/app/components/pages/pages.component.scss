@@ -17,7 +17,7 @@
 }
 
 .content-layout {
-    margin-top: 48px;
+    padding-top: 48px;
 }
 
 ::ng-deep nz-breadcrumb {
@@ -68,4 +68,13 @@
 
 ::ng-deep .ant-menu-item-selected, ::ng-deep .ant-menu-item-selected > a {
     color: rgba(0, 0, 0, 0.65)!important;
+}
+
+::ng-deep .ant-drawer-body {
+    padding: 0px;
+}
+
+.pages-drawer {
+    padding-top: 48px;
+    color: #000000a6;
 }

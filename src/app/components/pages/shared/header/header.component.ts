@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzNotificationService } from 'ng-zorro-antd';
 
@@ -9,6 +9,7 @@ import { NzNotificationService } from 'ng-zorro-antd';
 })
 export class HeaderComponent implements OnInit {
 
+  @Input() isDrawer: boolean;
   @Output() newSystemChange = new EventEmitter();
 
   constructor(private router: Router, private notification: NzNotificationService) { }
