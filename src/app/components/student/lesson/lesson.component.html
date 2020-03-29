@@ -16,11 +16,16 @@
             </ng-template>
         </div>
     </nz-sider>
+    <div *ngIf="isCollapsed" class="drawer-button pointer" (click)="visibleDrawer = true">
+        <div class="drawer-container">
+            <img class="drawer-img" src="../../../../../../assets/images/student/lecciones.png">
+            <div class="centered">Lecciones</div>
+          </div>
+    </div>
     <nz-layout>
         <nz-content>
             <div nz-row>
                 <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="18" nzXXl="18" style="margin-top: 80px;">
-                    <div *ngIf="isCollapsed" class="drawer-button" (click)="visibleDrawer = true">Lecciones</div>
                     <div class="video" [innerHtml]="iframeHtml"></div>
                     <h3 *ngIf="leccion != null" class="lesson-title">{{leccion.bloque_titulo}}</h3>
                 </div>
@@ -54,30 +59,10 @@
                             </div>
                         </div>
                         <div class="layout-play" nz-col nzXs="24" nzSm="24" nzMd="10" nzLg="9" nzXl="24">
-                            <img class="button-play" src="../../../../../assets/images/student/boton-jugar.png" alt="" (click)="goToGame()">
+                            <img class="button-play" src="../../../../../assets/images/student/boton-jugar.png" alt=""
+                                (click)="goToGame()">
                         </div>
                     </div>
-                </div>
-                <div *ngIf="isCollapsed" nz-col nzXs="24" nzSm="12">
-                    <nz-layout style="height: 100vh;">
-                        <nz-sider class="lesson-sidebar-sm" [nzWidth]="innerWidth" nzTheme="light">
-                            <div class="lessons">Lecciones</div>
-                            <div nz-row nzAlign="middle" *ngFor="let lesson of lecciones; let i = index"
-                                class="container-lessons-videos">
-                                <nz-card [nzCover]="coverTemplate" style="margin-bottom: 18px">
-                                    <p class="truncar-texto" style="margin-top: 5px;">{{ lesson.bloque_titulo }} </p>
-                                </nz-card>
-                                <ng-template #coverTemplate class="contenedor">
-                                    <div (click)="goToLesson(lesson)">
-                                        <img alt="example" [src]="lesson.bloque_imagen" style="cursor: pointer" />
-                                        <button class="btn btnPlay-leccion">
-                                            <i class="far fa-play-circle"></i>
-                                        </button>
-                                    </div>
-                                </ng-template>
-                            </div>
-                        </nz-sider>
-                    </nz-layout>
                 </div>
             </div>
         </nz-content>

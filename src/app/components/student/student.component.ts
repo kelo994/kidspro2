@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,13 +8,27 @@ import { Router } from '@angular/router';
 })
 export class StudentComponent {
   constructor(private router: Router) { }
+  
+  isDrawer = false;
+  drawerState = false;
 
   studentName = localStorage.getItem('studentName');
 
-  ngOnInit(): void {
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    if (window.outerWidth <= 991) {
+      this.isDrawer = true;
+    } else {
+      this.isDrawer = false;
+    }
   }
 
-  collapseMenu() {
+  ngOnInit(): void {
+    this.onResize();
+  }
+
+  toggleDrawer(): void {
+    this.drawerState = !this.drawerState;
   }
 
   logout () {

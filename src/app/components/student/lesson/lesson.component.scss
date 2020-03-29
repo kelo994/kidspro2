@@ -17,7 +17,32 @@
   }
 
   .drawer-button {
-    background-image: url('../../../../assets/images/student/fondo.png');
+    position:absolute;
+    top:60px;
+    left:0px;
+    z-index: 1000;
+    //background-image: url('../../../../assets/images/student/fondo.png');
+  }
+
+  .drawer-container {
+    position: relative;
+    text-align: center;
+    color: white;
+  }
+
+  .drawer-img {
+    width: 115px;
+    height: 40px;
+  }
+
+  .centered {
+    font-family: "Luckiest Guy";
+    font-size: 18px;
+    letter-spacing: 1px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 
   ::ng-deep .ant-drawer-content {
