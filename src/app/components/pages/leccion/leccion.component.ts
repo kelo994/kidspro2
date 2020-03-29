@@ -120,7 +120,7 @@ export class LeccionComponent implements OnInit {
       // console.log(params);
       // console.log(history.state);
       this.leccionId = localStorage.getItem('leccionId');
-      this.cursoId = localStorage.getItem('CursoEspecifico');
+      this.cursoId = localStorage.getItem('cursoId');
       this.asignaturaId = localStorage.getItem('AsignaturaId');
       this.grupoId = localStorage.getItem('unidadId');
       this.loadContent();
@@ -162,7 +162,7 @@ export class LeccionComponent implements OnInit {
   reloadLeccion(item) {
     localStorage.setItem('leccionId', item.bloque_id);
     this.leccionId = localStorage.getItem('leccionId');
-    this.cursoId = localStorage.getItem('CursoEspecifico');
+    this.cursoId = localStorage.getItem('cursoId');
     this.asignaturaId = localStorage.getItem('AsignaturaId');
     this.grupoId = localStorage.getItem('unidadId');
     this.loadContent();

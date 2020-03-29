@@ -104,12 +104,12 @@ nz-input-group {
         right: 15px;
         border-radius: 15px;
         z-index: 40;
-    
+
         p {
             font-size: 16px;
         }
     }
-    
+
   }
 
 .bd-top {
@@ -163,4 +163,10 @@ nz-input-group {
 .form-control {
     padding: .275rem .5rem !important;
     font-size: 10px !important;
+}
+
+.truncar-texto {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }

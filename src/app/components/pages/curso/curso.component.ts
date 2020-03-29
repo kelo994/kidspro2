@@ -50,11 +50,8 @@ export class CursoComponent implements OnInit {
 
   ngOnInit(): void {
     this.resolucion = window.screen.width;
-    console.log(this.resolucion);
     this.routeActive.params.subscribe(params => {
-      console.log(params);
       if ( params.idCurso == 0) {
-        console.log('step 1: Seleccionar curso');
         this.step = 1;
         this.asignaturas = null;
         this.selecAsignatura = null;
@@ -63,7 +60,6 @@ export class CursoComponent implements OnInit {
         this.unidades = [];
 
       } else if (params.idCurso > 0) {
-        console.log('step 2: Seleccionar asignatura');
         this.step = 2;
         this.nivelSelected = params.idCurso;
         this.getAsignaturas(params.idCurso);
@@ -91,7 +87,6 @@ export class CursoComponent implements OnInit {
     this.bloqService.getGrupos( funcionarioId, asignaturaId, cursoId)
       .subscribe(
         (data: any) => { // Success
-          console.log(data);
           this.unidades = data;
           if (this.unidades.length > 0) { this.flagUnidades = 2; }
         },
@@ -105,7 +100,6 @@ export class CursoComponent implements OnInit {
 
 
   nzEvent(event: NzFormatEmitEvent): void {
-    console.log(event);
   }
 
   editarUnidades() {
@@ -117,15 +111,12 @@ export class CursoComponent implements OnInit {
         establecimiento_id: localStorage.getItem('idEstablecimiento'),
         grupos: this.unidades
       };
-      console.log(dataSend);
 
       this.cService.putUnidades(dataSend, this.selecAsignatura.asignatura_id).subscribe(
         (data: any) => { // Success
-          console.log(data);
           this.unidades = data;
         },
         (error) => {
-          console.log(error);
           if (error.status == 401) {
             this.router.navigate(['/auth/login']);
           } else if (error.status == 500) {
@@ -138,11 +129,9 @@ export class CursoComponent implements OnInit {
   }
 
   changeEstado(estado, i, j) {
-    console.log(estado, i);
     if (estado == 1) { estado = 0; }
     else { estado = 1; }
     this.unidades[i].bloques[j].bloque_estado = estado;
-    console.log(this.unidades);
   }
 
   drop(event: CdkDragDrop<{}[]>) {
@@ -162,6 +151,8 @@ export class CursoComponent implements OnInit {
     localStorage.setItem('unidadNombre', item.grupo_nombre);
     localStorage.setItem('unidadId', item.grupo_id);
     localStorage.setItem('nivelNombre', this.cursoNombre);
+    localStorage.setItem('AsignaturaId', this.selecAsignatura.asignatura_id);
+    localStorage.setItem('cursoId', this.cursoIdSeleccionado);
     this.router.navigateByUrl('pages/cursos/unidades/' + item.grupo_id,
       {
         state: {
@@ -174,8 +165,8 @@ export class CursoComponent implements OnInit {
   }
 
   showModal(): void {
-    const idAsignatura = localStorage.getItem('AsignaturaId');
-    const idCurso = localStorage.getItem('CursoEspecifico');
+    const idAsignatura = this.selecAsignatura.asignatura_id;
+    const idCurso = this.cursoIdSeleccionado;
     this.cService.obtenerCodigoCursoAsignatura(idCurso, idAsignatura).subscribe((data: any) => { // Success
       this.codigo = data.codigo;
       this.modalGetCode = true;
@@ -186,12 +177,10 @@ export class CursoComponent implements OnInit {
   }
 
   handleOk(): void {
-    console.log('Button ok clicked!');
     this.modalGetCode = false;
   }
 
   handleCancel(): void {
-    console.log('Button cancel clicked!');
     this.modalGetCode = false;
   }
 
@@ -202,7 +191,6 @@ export class CursoComponent implements OnInit {
             , localStorage.getItem('idFuncionario'), nivelId)
         .subscribe((data: any) => { // Success
           this.asignaturas = data;
-          // console.log(data);
         }, (error) => {
           if (error.status === 401) { this.router.navigate(['/auth/login']); }
         });
@@ -213,14 +201,12 @@ export class CursoComponent implements OnInit {
             , localStorage.getItem('idFuncionario'), nivelId, asignaturaId)
         .subscribe((data: any) => { // Success
           this.cursos = data;
-          // console.log(data);
         }, (error) => {
           if (error.status === 401) { this.router.navigate(['/auth/login']); }
         });
   }
 
   selectAsignatura(value) {
-    console.log('step 3: select seccion');
     this.selecAsignatura = value;
     this.selectCurso = null;
     this.cursos = null;
@@ -231,8 +217,8 @@ export class CursoComponent implements OnInit {
   }
 
   selectCursoEvent(value) {
-    console.log(value);
-    this.cursoIdSeleccionado = value.curso_id
+    this.cursoIdSeleccionado = value.curso_id;
+    localStorage.setItem('letterSeccion', value.seccion_nombre);
     this.getUnidades( localStorage.getItem('idFuncionario'), this.selecAsignatura.asignatura_id, value.curso_id);
     this.step = 4;
   }
