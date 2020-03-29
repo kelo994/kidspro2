@@ -4145,10 +4145,13 @@ footer .footer-links p {
 }
 
 .inner-layout {
-  padding-left: 50px;
-  padding-right: 50px;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding: 40px;
+}
+
+@media (max-width: 991px) {
+  .inner-layout {
+    padding: 30px;
+  }
 }
 
 .item-box-shadow {
