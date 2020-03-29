@@ -30,12 +30,11 @@ export class UnidadComponent implements OnInit {
     this.unidad.nombre = localStorage.getItem('unidadNombre');
     this.unidad.id = Number(localStorage.getItem('unidadId'));
     this.curso.nombre = localStorage.getItem('CursoName') + ' ' + localStorage.getItem('letterSeccion');
-    this.curso.id = Number(localStorage.getItem('CursoEspecifico'));
+    this.curso.id = Number(localStorage.getItem('cursoId'));
     this.asignatura.nombre = localStorage.getItem('AsignaturaNombre');
 
     this.route.params.subscribe(params => {
-      console.log(params.unidadNombre);
-      console.log(history.state);
+
       this.grupoId = params.unidad;
      // this.funcionario = history.state.func;
       this.funcionario = localStorage.getItem('idFuncionario');
