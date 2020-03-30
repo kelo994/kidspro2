@@ -118,8 +118,11 @@ export class LeccionComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+        console.log(params);
+        this.leccionId = params.leccion;
+    });
     this.funcionarioId  = localStorage.getItem('idFuncionario');
-    this.leccionId = localStorage.getItem('leccionId');
     this.cursoId = localStorage.getItem('cursoId');
     this.asignaturaId = localStorage.getItem('AsignaturaId');
     this.grupoId = localStorage.getItem('unidadId');
@@ -161,8 +164,6 @@ export class LeccionComponent implements OnInit {
   }
 
   reloadLeccion(item) {
-    localStorage.setItem('leccionId', item.bloque_id);
-    this.leccionId = localStorage.getItem('leccionId');
     this.cursoId = localStorage.getItem('cursoId');
     this.asignaturaId = localStorage.getItem('AsignaturaId');
     this.grupoId = localStorage.getItem('unidadId');
@@ -197,7 +198,7 @@ export class LeccionComponent implements OnInit {
             formData.append('tipo_repositorio_id', this.repositorioForm.controls.tipoArchivo.value);
             formData.append('usuario_repositorio_id', '1');
             formData.append('funcionario_id', this.funcionarioId);
-            formData.append('bloque_id', '1');
+            formData.append('bloque_id', this.leccionId);
             this.closeModal('crearRepositorio');
             this.notification.info('Repositorio', 'Estamos procesando su solicitud');
             console.log(formData);
@@ -233,7 +234,7 @@ export class LeccionComponent implements OnInit {
     }
 
     getRepositoriosBloque() {
-        this.repositorioService.getRepositoriosBloque(this.funcionarioId, 1).subscribe( (data: any) => { // Success
+        this.repositorioService.getRepositoriosBloque(this.funcionarioId, this.leccionId).subscribe( (data: any) => { // Success
             this.repositorios = data;
         }, (error) => {
             if (error.status === 401) { this.router.navigate(['/auth/login']); }
