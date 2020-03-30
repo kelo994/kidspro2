@@ -51,9 +51,9 @@ export class RepositorioService {
                 finalize(() => { /*console.log('finilize')*/ }));
     }
 
-    getRepositoriosBloque( funcionarioId, bloqueId) {
+    getRepositoriosBloque(bloqueId) {
         return this.http.
-        get(`${this.url}/funcionarios/${funcionarioId}/bloques/${bloqueId}/repositorios`, this.getToken())
+        get(`${this.url}/bloques/${bloqueId}/repositorios`, this.getToken())
             .pipe(timeout(5000),
                 retry(1),
                 catchError((error, c) => {
