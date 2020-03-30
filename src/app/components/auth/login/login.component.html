@@ -1,76 +1,73 @@
 <div class="content">
     <!-- Nav pills -->
     <ul class="nav nav-pills" role="tablist">
-      <li class="nav-item">
-        <a class="nav-link active" data-toggle="pill" href="#profesor">Profesor</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="pill" href="#estudiante">Estudiante</a>
-      </li>
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="pill" href="#profesor">Profesor</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#estudiante">Estudiante</a>
+        </li>
     </ul>
 
     <!-- Tab panes -->
     <div class="tab-content">
-      <div id="profesor" class="tab-pane active">
-        <form nz-form [formGroup]="formaLogin" (ngSubmit)="login()" autocomplete="off">
-            <div class="inputs">
-                <label>RUT</label>
-                <input type="text" nz-input formControlName="rut" placeholder="RUT" (keyup)="formateaRut(1)" />
-                <label>Contraseña</label>
-                <nz-input-group [nzSuffix]="passTemplate">
-                    <input
-                      [type]="passFlag ? 'text' : 'password'"
-                      nz-input
-                      formControlName="password" placeholder="Contraseña"
-                    />
-                  </nz-input-group>
-                  <ng-template #passTemplate class="pointer">
-                    <i nz-icon [nzType]="passFlag ? 'eye-invisible' : 'eye'" (click)="passFlag = !passFlag"></i>
-                  </ng-template>
-                <!-- <input [type]="passFlag ? 'text' : 'password'" nz-input f/> -->
-            </div>
-            <div class="row" style="margin: 0px 10px">
-                <div class="col-6">
-                    <button class="w-100" type="submit" nz-button nzSize="large" nzType="primary">
-                        <i class="icon-login" nz-icon [nzType]="loginIcon" nzTheme="outline"></i>
-                        Iniciar Sesión
-                    </button>
+        <div id="profesor" class="tab-pane active">
+            <form nz-form [formGroup]="formaLogin" (ngSubmit)="login()" autocomplete="off">
+                <div class="inputs">
+                    <label>RUT</label>
+                    <input type="text" nz-input formControlName="rut" placeholder="RUT" (keyup)="formateaRut(1)" />
+                    <label>Contraseña</label>
+                    <nz-input-group [nzSuffix]="passTemplate">
+                        <input [type]="passwordVisible ? 'text' : 'password'" nz-input formControlName="password"
+                            placeholder="Contraseña" />
+                    </nz-input-group>
+                    <ng-template #passTemplate>
+                        <i class="password-icon pointer" nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" (click)="passwordVisible = !passwordVisible"></i>
+                      </ng-template>
                 </div>
-                <div class="col-6 d-block my-auto">
-                    <a class="underlineHover" href="#">¿Olvidaste tu Contraseña?</a>
+                <div class="row" style="margin: 0px 10px">
+                    <div class="col-6">
+                        <button class="w-100" type="submit" nz-button nzSize="large" nzType="primary">
+                            <i class="icon-login" nz-icon [nzType]="loginIcon" nzTheme="outline"></i>
+                            Iniciar Sesión
+                        </button>
+                    </div>
+                    <div class="col-6 d-block my-auto">
+                        <a class="underlineHover" href="#">¿Olvidaste tu Contraseña?</a>
+                    </div>
                 </div>
-            </div>
-        </form>
-      </div>
-      <div id="estudiante" class="tab-pane fade">
-        <form *ngIf="!validCode" (ngSubmit)="loginCode()" [formGroup]="formaCode" autocomplete="off">
-            <div class="inputs">
-                <label>Ingrese el código de acceso</label>
-                <input type="text" nz-input formControlName="codigo" placeholder="Código" (keyup)="setUpperCase($event)" />
-            </div>
-            <div class="row">
-                <div class="offset-6 col-6 text-right">
-                    <button class="w-100" type="submit" nz-button nzSize="large" nzType="primary" (click)="loginCode()"
-                    [disabled]="formaCode.invalid">
-                    Verificar Código
-                </button>
+            </form>
+        </div>
+        <div id="estudiante" class="tab-pane fade">
+            <form *ngIf="!validCode" (ngSubmit)="loginCode()" [formGroup]="formaCode" autocomplete="off">
+                <div class="inputs">
+                    <label>Ingrese el código de acceso</label>
+                    <input type="text" nz-input formControlName="codigo" placeholder="Código"
+                        (keyup)="setUpperCase($event)" />
                 </div>
-            </div>
-        </form>
-        <form *ngIf="validCode" (ngSubmit)="validateStudentRut()" [formGroup]="validCodeForm" autocomplete="off">
-            <div class="inputs">
-                <label>Ingrese el RUT del Estudiante</label>
-                <input type="text" nz-input formControlName="rut" placeholder="RUT" (keyup)="formateaRut(2)" />
-            </div>
-            <div class="row">
-                <div class="offset-6 col-6 text-right">
-                    <button class="w-100" type="submit" nz-button nzSize="large" nzType="primary">
-                    <i class="icon-login" nz-icon [nzType]="codeIcon" nzTheme="outline"></i>
-                    Iniciar sesión
-                </button>
+                <div class="row">
+                    <div class="offset-6 col-6 text-right">
+                        <button class="w-100" type="submit" nz-button nzSize="large" nzType="primary"
+                            (click)="loginCode()" [disabled]="formaCode.invalid">
+                            Verificar Código
+                        </button>
+                    </div>
                 </div>
-            </div>
-        </form>
-      </div>
+            </form>
+            <form *ngIf="validCode" (ngSubmit)="validateStudentRut()" [formGroup]="validCodeForm" autocomplete="off">
+                <div class="inputs">
+                    <label>Ingrese el RUT del Estudiante</label>
+                    <input type="text" nz-input formControlName="rut" placeholder="RUT" (keyup)="formateaRut(2)" />
+                </div>
+                <div class="row">
+                    <div class="offset-6 col-6 text-right">
+                        <button class="w-100" type="submit" nz-button nzSize="large" nzType="primary">
+                            <i class="icon-login" nz-icon [nzType]="codeIcon" nzTheme="outline"></i>
+                            Iniciar sesión
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-  </div>
+</div>

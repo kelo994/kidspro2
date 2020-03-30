@@ -176,3 +176,14 @@ th {
   ::-webkit-scrollbar-thumb:hover {
     background: black; 
   }
+
+  .ant-radio {
+    margin-right: 15px;
+  }
+  .ant-slider-vertical {
+    margin: 0px;
+  }
+
+  .ant-menu-inline .ant-menu-item, .ant-menu-inline .ant-menu-submenu-title {
+      width: calc(100%);
+  }

@@ -183,6 +183,7 @@ input[type=button], input[type=submit], input[type=reset]  {
     font-size: 15.8px;
   }
 
-  ::ng-deep .ant-input-suffix {
-    cursor: pointer !important;
+  .password-icon {
+    font-size: 16px;
+    margin-top: -5px;
   }
