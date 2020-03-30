@@ -1,105 +1,194 @@
-<nz-layout class="right-layout headerrepos mb-5">
-    <div class="header bg-subheader p-2 bg-gris-reportes pl-5">
-        <label class="bd-invisible pr-3 title-repo">Objetivos de Aprendizaje</label>
-        <label class="bd-invisible px-3 title-repo-curso">{{ curso.nivel_descripcion}}</label>
-        <label class="px-3 title-repo-curso">{{ selectAsignatura.asignatura_nombre }}</label>
-        <br>
-        <label class="subtitle-repo bd-invisible px-3">
-            <span *ngIf="selectUnidad.grupo_id == 0">Todas las Unidades</span>
-            <span *ngIf="selectUnidad.grupo_id != 0">{{ selectUnidad.grupo_nombre }}</span>
-        </label>
-        <label class="subtitle-repo px-3">
-            <span *ngIf="selectObjetivo.id == 0">Todas los Objetivos</span>
-            <span *ngIf="selectObjetivo.id != 0">{{ selectObjetivo.objetivo_codigo }}</span>
-        </label>
-        <!-- <label class="subtitle-repo px-3">Todas los Estudiantes</label> -->
-    </div>
+<nz-layout class="left-layout">
+    <nz-sider class="submenu-sidebar-reportes mt-0 pt-3 pl-0 sidebar-repo-r" [nzZeroTrigger]="zeroTrigger"
+        [nzBreakpoint]="'lg'" nzCollapsedWidth="200">
+        <p class="title-sider-repo">Filtros Globales</p>
+        <p class="title-filter-repo ml-3">Cursos</p>
+        <ul class="menureport" nz-menu nzMode="inline">
+            <li *ngFor="let n of niveles; let iNivel = index"
+                [ngClass]="{'ant-menu-item-selected': iNivel=='0' && niveles?.length == 1}" nz-menu-item nzMatchRouter
+                (click)="setSelectNivel(n)" style="padding-left: 30px !important;">
+                <span>{{ n.nivel_descripcion }}</span>
+            </li>
+            <li *ngIf="niveles?.length == 0" nz-menu-item nzMatchRouter style="padding-left: 30px !important;">
+                <span>Obteniendo Niveles <i class="fas fa-spinner fa-spin"></i></span>
+            </li>
+        </ul>
+        <p class="title-filter-repo ml-3">Asignatura</p>
+        <ul class="menureport" nz-menu nzMode="inline">
+            <li *ngFor="let a of asignaturas; let iAsignatura = index"
+                [ngClass]="{'ant-menu-item-selected': iAsignatura=='0' && asignaturas?.length == 1}" nz-menu-item
+                nzMatchRouter (click)="setSelectAsignatura(a)" style="padding-left: 30px !important;">
+                <span>{{ a.materia_descripcion }}</span>
+            </li>
+            <li *ngIf="asignaturas?.length == 0" nz-menu-item nzMatchRouter style="padding-left: 30px !important;">
+                <span>Obteniendo Asignaturas <i class="fas fa-spinner fa-spin"></i></span>
+            </li>
+        </ul>
+    </nz-sider>
+    <ng-template #zeroTrigger>
+        <i nz-icon nzType="menu-fold" nzTheme="outline"></i>
+    </ng-template>
+    <nz-layout class="right-layout headerrepos mb-5">
+        <div class="header bg-subheader p-2 bg-gris-reportes pl-5">
+            <label class="bd-invisible pr-3 title-repo">Objetivos de Aprendizaje</label>
+            <label *ngIf="selectNivel.nivel_id != 0"
+                class="bd-invisible px-2 title-repo-curso">{{ selectNivel.nivel_descripcion }} <span
+                    *ngIf="selectCurso.curso_id != 0">{{ selectCurso.seccion_nombre }}</span></label>
+            <label *ngIf="selectAsignatura.asignatura_id != 0"
+                class="pl-3 title-repo-curso">{{ selectAsignatura.materia_descripcion }}</label>
+            <br>
+            <label class="subtitle-repo bd-invisible px-3">
+                <span *ngIf="selectUnidad.grupo_id == 0">Todas las Unidades</span>
+                <span *ngIf="selectUnidad.grupo_id != 0">{{ selectUnidad.grupo_nombre }}</span>
+            </label>
+            <label class="subtitle-repo px-3">
+                <span *ngIf="selectObjetivo.id == 0">Todas los Objetivos</span>
+                <span *ngIf="selectObjetivo.id != 0">{{ selectObjetivo.objetivo_codigo }}</span>
+            </label>
 
-    <nz-card class="mx-4 mt-3" *ngIf="lineChartFlag" style="min-height: 234px; text-align: center;">
-        <div style="display: block;">
-            <canvas baseChart width="400" height="200" [datasets]="lineChartData" [labels]="lineChartLabels"
-                [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
-                [chartType]="lineChartType" [plugins]="lineChartPlugins"></canvas>
-        </div>
-    </nz-card>
-
-    <nz-card class="mx-4 mt-3" *ngIf="barChartFlag" style="min-height: 234px; text-align: center;">
-        <p class="title-graph-bar text-left pl-2 d-none">Puntaje total de las Unidades</p>
-        <div class="mx-auto mt-2" style="display: block; max-width: 90%; min-width: 90%;">
-            <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-                [chartType]="ChartType" [colors]="_barChartColors"></canvas>
-        </div>
-        <p class="title-graph-bar text-right pr-2 d-none">Lecciones</p>
-    </nz-card>
-
-    <div class="row mx-4" *ngIf="pieChartFlag">
-        <div class="col-8 px-0">
-            <div class="card mr-1 mt-3 card-stats-repo" style="text-align: center;">
-                <label class="title-piechart">Porcentajes</label>
-                <div class="chart p-3 pl-5">
-                    <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
-                        [options]="pieChartOptions" [plugins]="pieChartPlugins" [colors]="pieChartColors"
-                        [legend]="pieChartLegend">
-                    </canvas>
+            <br *ngIf="resolution < 768">
+            <p *ngIf="resolution < 768" class="title-sider-repo bd-bottom mx-3 pb-2">Filtros Avanzados</p>
+            <div *ngIf="resolution < 768" class="row">
+                <div class="col-4">
+                    <div class="form-group mx-3 mt-3">
+                        <label class="m-0 p-0 pb-1">Sección</label>
+                        <select *ngIf="!flagSeccion" class="form-control"
+                            (change)="setSelectCursos($event.target.value)">
+                            <option *ngFor="let s of cursos; let iSeccion = index" [value]="iSeccion">Sección
+                                {{ s.seccion_nombre }}
+                            </option>
+                            <option *ngIf="cursos?.length == 0">No hay secciones</option>
+                        </select>
+                        <label *ngIf="flagSeccion" class="m-0 p-0 pb-1">
+                            <span>Obteniendo Secciones <i class="fas fa-spinner fa-spin"></i></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group mx-3 mt-3">
+                        <label class="m-0 p-0 pb-1">Unidad</label>
+                        <select *ngIf="!flagUnidad" class="form-control"
+                            (change)="setSelectUnidad($event.target.value)">
+                            <option *ngIf="unidades?.length > 0">Seleccione Unidad</option>
+                            <option *ngFor="let u of unidades; let iUnidad = index" [value]="iUnidad">
+                                {{ u.grupo_nombre }}</option>
+                            <option *ngIf="unidades?.length == 0">No hay unidades</option>
+                        </select>
+                        <label *ngIf="flagUnidad" class="m-0 p-0 pb-1">
+                            <span>Obteniendo Unidades <i class="fas fa-spinner fa-spin"></i></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group mx-3 mt-3">
+                        <label class="m-0 p-0 pb-1">Objetivo</label>
+                        <select *ngIf="!flagObjetivo" class="form-control"
+                            (change)="setSelectObjetivo($event.target.value)">
+                            <option *ngIf="objetivos?.length > 0">Seleccione Objetivo</option>
+                            <option *ngFor="let o of objetivos; let iObjetivo = index" [value]="iObjetivo">
+                                {{ o.objetivo_codigo }}
+                            </option>
+                            <option *ngIf="objetivos?.length == 0">No hay Objetivos</option>
+                        </select>
+                        <label *ngIf="flagObjetivo" class="m-0 p-0 pb-1">
+                            <span>Obteniendo Objetivos <i class="fas fa-spinner fa-spin"></i></span>
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-4 pr-0" *ngIf="puntajeFlag">
-            <div class="card mr-1 mt-3 card-stats-repo" style="text-align: center;">
-                <ul class="list-group">
-                    <li class="list-group-item bg-blue-clear text-left">
-                        <h3 class="m-0 text-left pl-5">200</h3>
-                        <label class="text-left pl-5 m-0">Iniciales</label>
-                    </li>
-                    <li class="list-group-item bg-blue-clear text-left">
-                        <h3 class="m-0 text-left pl-5">150</h3>
-                        <label class="text-left pl-5 m-0">Intermedio</label>
-                    </li>
-                    <li class="list-group-item bg-blue-clear text-left">
-                        <h3 class="m-0 text-left pl-5">100</h3>
-                        <label class="text-left pl-5 m-0">Avanzado</label>
-                    </li>
-                </ul>
+
+        <nz-alert *ngIf="noteFlagFilter" nzType="info" nzMessage="Nota:" [nzDescription]="noteDescription" nzShowIcon>
+        </nz-alert>
+
+        <nz-card class="mx-4 mt-3" style="min-height: 234px; text-align: center;">
+            <nz-spin [nzTip]="loadingText" [nzSpinning]="loading">
+                <div style="display: block;">
+                    <canvas baseChart width="400" height="200" [datasets]="lineChartData" [labels]="lineChartLabels"
+                        [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                        [chartType]="lineChartType" [plugins]="lineChartPlugins"></canvas>
+                </div>
+            </nz-spin>
+        </nz-card>
+
+        <nz-card class="mx-4 mt-3" style="min-height: 234px; text-align: center;">
+            <nz-spin [nzTip]="loadingText" [nzSpinning]="loading">
+                <p class="title-graph-bar text-left pl-2 d-none">Puntaje total de las Unidades</p>
+                <div class="mx-auto mt-2" style="display: block; max-width: 90%; min-width: 90%;">
+                    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+                        [chartType]="ChartType" [colors]="_barChartColors"></canvas>
+                </div>
+                <p class="title-graph-bar text-right pr-2 d-none">Lecciones</p>
+            </nz-spin>
+        </nz-card>
+
+        <!-- <div class="row mx-4" *ngIf="pieChartFlag">
+            <div class="col-8 px-0">
+                <div class="card mr-1 mt-3 card-stats-repo" style="text-align: center;">
+                    <label class="title-piechart">Porcentajes</label>
+                    <div class="chart p-3 pl-5">
+                        <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+                            [options]="pieChartOptions" [plugins]="pieChartPlugins" [colors]="pieChartColors"
+                            [legend]="pieChartLegend">
+                        </canvas>
+                    </div>
+                </div>
             </div>
+            <div class="col-4 pr-0" *ngIf="puntajeFlag">
+                <div class="card mr-1 mt-3 card-stats-repo" style="text-align: center;">
+                    <ul class="list-group">
+                        <li class="list-group-item bg-blue-clear text-left">
+                            <h3 class="m-0 text-left pl-5">200</h3>
+                            <label class="text-left pl-5 m-0">Iniciales</label>
+                        </li>
+                        <li class="list-group-item bg-blue-clear text-left">
+                            <h3 class="m-0 text-left pl-5">150</h3>
+                            <label class="text-left pl-5 m-0">Intermedio</label>
+                        </li>
+                        <li class="list-group-item bg-blue-clear text-left">
+                            <h3 class="m-0 text-left pl-5">100</h3>
+                            <label class="text-left pl-5 m-0">Avanzado</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div> -->
+    </nz-layout>
+    <nz-sider *ngIf="resolution > 768" class="submenu-sidebar-reportes mt-0 pt-3 pl-0 sidebar-repo-l filtrosrepo">
+        <p class="title-sider-repo bd-bottom mx-3 pb-2">Filtros Avanzados</p>
+        <div class="form-group mx-3 mt-3">
+            <label class="m-0 p-0 pb-1">Sección</label>
+            <select *ngIf="!flagSeccion" class="form-control" (change)="setSelectCursos($event.target.value)">
+                <option *ngFor="let s of cursos; let iSeccion = index" [value]="iSeccion">Sección {{ s.seccion_nombre }}
+                </option>
+                <option *ngIf="cursos?.length == 0">No hay secciones</option>
+            </select>
+            <label *ngIf="flagSeccion" class="m-0 p-0 pb-1">
+                <span>Obteniendo Secciones <i class="fas fa-spinner fa-spin"></i></span>
+            </label>
         </div>
-    </div>
-</nz-layout>
-<nz-sider class="submenu-sidebar-reportes mt-0 pt-3 pl-0 sidebar-repo-l filtrosrepo">
-    <p class="title-sider-repo bd-bottom mx-3 pb-2">Filtros Avanzados</p>
-    <div class="form-group mx-3 mt-3">
-        <label class="m-0 p-0 pb-1">Sección</label>
-        <select class="form-control" (change)="onChangeSeccion($event.target.value)">
-            <option *ngFor="let s of secciones; let iSeccion = index" [value]="iSeccion">Sección {{ s.seccion_nombre }}
-            </option>
-            <option *ngIf="secciones?.length == 0">No hay secciones</option>
-        </select>
-    </div>
-    <div class="form-group mx-3 mt-3">
-        <label class="m-0 p-0 pb-1">Unidad</label>
-        <select class="form-control" (change)="onChangeUnidad($event.target.value)">
-            <option *ngIf="unidades?.length > 0">Seleccione Unidad</option>
-            <option *ngFor="let u of unidades; let iUnidad = index" [value]="iUnidad">{{ u.grupo_nombre }}</option>
-            <option *ngIf="unidades?.length == 0">No hay unidades</option>
-        </select>
-    </div>
-    <div class="form-group mx-3 mt-3">
-        <label class="m-0 p-0 pb-1">Objetivo</label>
-        <select class="form-control" (change)="onChangeObjetivo($event.target.value)">
-            <option *ngIf="objetivos?.length > 0">Seleccione Objetivo</option>
-            <option *ngFor="let o of objetivos; let iObjetivo = index" [value]="iObjetivo">{{ o.objetivo_codigo }}
-            </option>
-            <option *ngIf="objetivos?.length == 0">Seleccione Una unidad</option>
-            <option *ngIf="objetivosFlag">
+        <div class="form-group mx-3 mt-3">
+            <label class="m-0 p-0 pb-1">Unidad</label>
+            <select *ngIf="!flagUnidad" class="form-control" (change)="setSelectUnidad($event.target.value)">
+                <option *ngIf="unidades?.length > 0">Seleccione Unidad</option>
+                <option *ngFor="let u of unidades; let iUnidad = index" [value]="iUnidad">{{ u.grupo_nombre }}</option>
+                <option *ngIf="unidades?.length == 0">No hay unidades</option>
+            </select>
+            <label *ngIf="flagUnidad" class="m-0 p-0 pb-1">
+                <span>Obteniendo Unidades <i class="fas fa-spinner fa-spin"></i></span>
+            </label>
+        </div>
+        <div class="form-group mx-3 mt-3">
+            <label class="m-0 p-0 pb-1">Objetivo</label>
+            <select *ngIf="!flagObjetivo" class="form-control" (change)="setSelectObjetivo($event.target.value)">
+                <option *ngIf="objetivos?.length > 0">Seleccione Objetivo</option>
+                <option *ngFor="let o of objetivos; let iObjetivo = index" [value]="iObjetivo">{{ o.objetivo_codigo }}
+                </option>
+                <option *ngIf="objetivos?.length == 0">No hay Objetivos</option>
+            </select>
+            <label *ngIf="flagObjetivo" class="m-0 p-0 pb-1">
                 <span>Obteniendo Objetivos <i class="fas fa-spinner fa-spin"></i></span>
-            </option>
-        </select>
-    </div>
-    <!-- <div class="form-group mx-3 mt-3">
-        <label class="m-0 p-0 pb-1">Estudiante</label>
-        <select class="form-control" (change)="onChangeEstudiante($event.target.value)">
-            <option *ngFor="let e of estudiantes; let iEstudiante = index" [value]="iEstudiante">{{ e.persona_nombre }}
-                {{ e.persona_apellido }}</option>
-            <option *ngIf="estudiantes?.length == 0">No hay estudiantes</option>
-        </select>
-    </div> -->
-</nz-sider>
+            </label>
+        </div>
+    </nz-sider>
+</nz-layout>

@@ -1,4 +1,70 @@
-::ng-deep app-actividades {
+.title-sider-repo {
+    font-size: 10px;
+    padding-top: 20px;
+    padding-left: 20px;
+    font-style: oblique;
+}
+
+.title-filter-repo {
+    font-size: 11px;
+    padding-top: 15px;
+    color: #000000;
+    border-bottom: #bfbebe  1px solid;
+    margin-right: 45px;
+    padding-left: 10px;
+}
+
+.bd-bottom {
+    border-bottom: #bfbebe  1px solid;
+}
+
+.title-repo {
+    color: #000000;
+    font-size: 15px;
+    font-weight: bold;
+}
+.title-repo-curso {
+    color: #828282;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.subtitle-repo {
+    color: #828282;
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.sidebar-repo-r {
+    border-right: 1px solid #c4c4c4 !important;
+}
+
+.menureport {
+    background-color: transparent !important;    
+    .ant-menu-item {
+        padding-left: 24px !important;
+    }
+    .ant-menu-item-selected {
+        background-color: #c4c4c4 !important;
+        font-weight: bold;
+        border-left: 3px solid #1890ff;
+    }
+
+    .ant-menu-item:after {
+        border-right: 0px solid #1890ff;
+        
+    }
+}
+::ng-deep nz-spin .ant-spin-lg .ant-spin-dot {
+    font-size: 152px !important;
+}
+::ng-deep nz-spin .ant-spin-lg .ant-spin-dot i {
+    height: 60px;
+    width: 60px;
+}
+
+$mobile-style: 860px;
+::ng-deep app-objetivos {
     width: 100% !important;
 }
 
@@ -6,6 +72,12 @@
     height: -webkit-fill-available;
     width: calc(100% - 200px);
     float: left;
+}
+
+@media screen and (max-width: $mobile-style) {
+    .headerrepos {
+        width: calc(100% - 150px) !important;
+    }
 }
 
 .filtrosrepo {
@@ -19,9 +91,17 @@
     top: 0px;
 }
 
+@media screen and (max-width: $mobile-style) {
+    .filtrosrepo {
+        flex: 0 0 150px;
+        max-width: 150px;
+        min-width: 150px;
+        width: 150px;
+  }
+}
+
 .sidebar-repo-l {
     border-left: 1px solid #c4c4c4 !important;
-    height: 100% !important;
 }
 
 .title-repo {

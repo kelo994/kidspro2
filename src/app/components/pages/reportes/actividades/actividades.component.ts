@@ -9,6 +9,7 @@ import { NzNotificationService } from 'ng-zorro-antd';
 import { ReporteService } from 'src/app/services/reporte.service';
 import { CoursesService } from 'src/app/services/courses.service';
 import { BloqueService } from 'src/app/services/bloque.service';
+import { CursoService } from 'src/app/services/cursos.service';
 
 @Component({
   selector: 'app-actividades',
@@ -16,32 +17,33 @@ import { BloqueService } from 'src/app/services/bloque.service';
   styleUrls: ['./actividades.component.scss']
 })
 export class ActividadesComponent implements OnInit {
-  @Input() selectCurso: any;
-  @Input() selectAsignatura: any;
-  @Input() selectSeccion: any;
+  // screen
+  resolution = 1000;
+  withSideBar = 200;
+  // loading graficos
+  loading = true;
+  loadingText = 'Esperando Obtener Datos';
+  noteDescription = 'Favor seleccione el curso que desea revisar';
+  noteFlagFilter = true;
 
-  secciones = [];
-  selectedSeccion;
+  // variables
+  niveles = [];
+  asignaturas = [];
+  cursos = [];
   exigencias = [50, 60, 70];
-  selectExigencia = 0;
+  actividades = [];
 
-  actividad = [];
-  selectActividades = { id: 0, bloque_titulo: '' };
+  // variables seleccionada
+  selectNivel = { nivel_id: 0, nivel_descripcion: '' };;
+  selectAsignatura = { asignatura_id: 0, materia_descripcion: '' };
+  selectCurso = { curso_id: 0, seccion_nombre: '' };
+  selectExigencia = [50];
+  selectActividad = { id: 0, bloque_titulo: '' };
 
-  objetivosFlag = false;
-
-  estudiantes = [];
-  selectEstudiante;
-
-  curso = {
-    nivel_descripcion: 'Seleccione un Curso',
-    nivel_id: 0
-  }
-
-  asignatura = {
-    asignatura_nombre: 'Seleccione Asignatura',
-    asignatura_id: 0
-  }
+  // flags
+  flagSeccion = false;
+  flagExigencia = false;
+  flagActividad = false;
 
   // graficos
   lineChartFlag = true;
@@ -116,63 +118,111 @@ export class ActividadesComponent implements OnInit {
     { data: [], label: 'Puntaje Total de los Objetivos' }
   ];
 
-  constructor(private highcharts: HighchartsService, public router: Router,
+  constructor(public cursoService: CursoService, private highcharts: HighchartsService, public router: Router,
     private notification: NzNotificationService, public rService: ReporteService,
     public bloqService: BloqueService, public courseS: CoursesService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.resolution = window.screen.width;
+    if (window.screen.width > 768) this.withSideBar = 200;
+    else this.withSideBar = 180;
+    // Obtener Cursos Establecimiento
+    this.cursoService
+      .obtenerNivelesFuncionarioEstablecimiento(localStorage.getItem('idEstablecimiento'), localStorage.getItem('idFuncionario'))
+      .subscribe((data: any) => { // Success
+        this.niveles = data;
+        console.log(data);
+        if (this.niveles.length == 0) console.log("El usuario no tiene cursos asociados");
+        else if (this.niveles.length == 1) {
+          this.setSelectNivel(this.niveles[0]);
+          this.noteDescription = 'Cargando Asignaturas';
+        } else this.noteDescription = 'Seleccione un curso';
+      }, (error) => {
+        if (error.status === 401) { this.router.navigate(['/auth/login']); }
+      });
+  }
 
-  ngOnChanges(changes: any) {
-    if (changes.selectCurso) {
-      this.secciones = changes.selectCurso.currentValue.cursos;
-      if (changes.selectCurso.currentValue.nivel_descripcion) {
-        this.curso.nivel_descripcion = changes.selectCurso.currentValue.nivel_descripcion;
-        this.curso.nivel_id = changes.selectCurso.currentValue.nivel_id;
-        localStorage.setItem('NivelId', String(this.curso.nivel_id));
-      }
-    } else if (!(Number(this.curso.nivel_id) > 0)) {
-      this.notification.warning('Reporte de Objetivos', 'Error, no se ha seleccionado un curso.');
+  setSelectNivel(itemNivel) {
+    this.selectNivel = itemNivel;
+    this.getAsignaturas();
+  }
+
+  getAsignaturas() {
+    this.cursoService
+      .obtenerAsignaturasPorEstablecimientoFuncionarioNivel(localStorage.getItem('idEstablecimiento')
+        , localStorage.getItem('idFuncionario'), this.selectNivel.nivel_id)
+      .subscribe((data: any) => { // Success
+        this.asignaturas = data;
+        console.log(data);
+        if (this.asignaturas.length == 0) console.log("El Curso no cuenta con asignaturas");
+        else if (this.asignaturas.length == 1) {
+          this.setSelectAsignatura(this.asignaturas[0]);
+          this.noteDescription = 'Cargando Cursos';
+        } else this.noteDescription = 'Seleccione una Asignatura';
+      }, (error) => {
+        if (error.status === 401) { this.router.navigate(['/auth/login']); }
+      });
+  }
+
+  setSelectAsignatura(itemAsignatura) {
+    this.flagSeccion = true;
+    this.flagActividad = true;
+    this.selectAsignatura = itemAsignatura;
+
+    this.selectActividad.id = 0;
+    this.loading = true;
+    this.getCursos();
+    this.getActividades();
+  }
+
+  getCursos() {
+    this.cursoService
+      .obtenerCursosPorEstablecimientoFuncionarioNivelAsignatura(localStorage.getItem('idEstablecimiento')
+        , localStorage.getItem('idFuncionario'), this.selectNivel.nivel_id, this.selectAsignatura.asignatura_id)
+      .subscribe((data: any) => { // Success
+        this.cursos = data;
+        if (this.cursos.length == 0) console.log("La Asignatura no cuenta con cursos");
+        else if (this.cursos.length == 1) {
+          this.flagSeccion = false;
+          this.setSelectCursos(0);
+        } else {
+          this.noteDescription = 'Seleccione Sección';
+          this.flagSeccion = false;
+        }
+        console.log(data);
+      }, (error) => {
+        if (error.status === 401) { this.router.navigate(['/auth/login']); }
+      });
+  }
+
+  setSelectCursos(itemCurso) {
+    // this.flagExigencia = true;
+    this.selectCurso = this.cursos[itemCurso];
+    if (this.selectActividad.id != 0) {
+      this.getGraficoActividad();
     }
+  }
 
-    if (changes.selectAsignatura) {
-      this.objetivosFlag = true;
-      if (changes.selectAsignatura.currentValue.asignatura_nombre) {
-        this.asignatura.asignatura_nombre = changes.selectAsignatura.currentValue.asignatura_nombre;
-        this.asignatura.asignatura_id = changes.selectAsignatura.currentValue.asignatura_id;
-        localStorage.setItem('AsignaturaId', String(this.asignatura.asignatura_id));
-      }
-    } else if (!(Number(this.selectAsignatura.asignatura_id) > 0)) {
-      this.notification.warning('Reporte de Objetivos', 'Error, no se ha seleccionado una asignatura.');
+  setSelectExigencia(itemExigencia) {
+    this.selectExigencia[0] = this.exigencias[itemExigencia];
+    if (this.selectCurso.curso_id != 0 && this.selectActividad.id != 0) {
+      this.getGraficoActividad();
     }
-
-    this.courseS.obtenerCursosProfesor(localStorage.getItem('idEstablecimiento'), localStorage.getItem('idFuncionario'), localStorage.getItem('AsignaturaId')).subscribe((data: any) => { // Success
-      // console.log(data);
-
-      if (data.length > 0) {
-        localStorage.setItem('CursoEspecifico', data[0].curso_especifico_id);
-        this.secciones = data;
-        this.selectedSeccion = this.secciones[0];
-        localStorage.setItem('SeccionId', this.selectedSeccion.curso_id);
-      } else this.notification.warning('Reportabilidad', 'El Usuario no tiene cursos asociados');
-      this.selectExigencia = 50;
-      this.selectActividades = { id: 0, bloque_titulo: '' };
-      this.actividad = [];
-      this.getActividades();
-    }, (error) => {
-      console.log(error)
-      if (error.status === 401) { this.router.navigate(['/auth/login']); }
-    });
   }
 
   getActividades() {
-    this.rService.getBloques(localStorage.getItem('AsignaturaId'))
+    this.rService.getBloques(this.selectAsignatura.asignatura_id)
       .subscribe(
         (data: any) => { // Success
           console.log(data);
-          this.actividad = data;
-          this.selectActividades = this.actividad[0];
-          this.objetivosFlag = false;
-          this.getGraficoActividad();
+          this.actividades = data;
+          this.flagActividad = false;
+
+          if (this.actividades.length == 0) this.noteDescription = 'La asignatura no cuenta con actividades';
+          else if (this.actividades.length == 1) {
+            this.selectActividad = this.actividades[0];
+            this.getGraficoActividad();
+          } else this.noteDescription = 'Seleccione Actividad';
         },
         (error) => {
           if (error.status == 401) {
@@ -182,27 +232,16 @@ export class ActividadesComponent implements OnInit {
       )
   }
 
-  onChangeSeccion(item) {
-    this.selectedSeccion = this.secciones[item];
-    localStorage.setItem('SeccionId', this.selectedSeccion.curso_id);
-    this.actividad = [];
-    this.selectExigencia = this.exigencias[0];
-    this.selectActividades = { id: 0, bloque_titulo: '' };
+  setSelectActividades(itemActividad) {
+    this.selectActividad = this.actividades[itemActividad];
     this.getGraficoActividad();
   }
 
-  onChangeExigencia(item) {
-    this.selectExigencia = this.exigencias[item];
-    //this.getActividades();
-  }
-
-  onChangeActividades(item) {
-    this.selectActividades = this.actividad[item];
-    this.getGraficoActividad();
-  }
+  // graficos
+  getGraficoByCurso() { }
 
   getGraficoActividad() {
-    this.rService.getgraficoActividad(localStorage.getItem('CursoEspecifico'), this.selectActividades.id, this.selectExigencia).subscribe(
+    this.rService.getgraficoActividad(this.selectCurso.curso_id, this.selectActividad.id, this.selectExigencia[0]).subscribe(
       (data: any) => { // Success
         console.log(data);
         if (data.lineChartLabels) {
@@ -233,6 +272,8 @@ export class ActividadesComponent implements OnInit {
         // this.datos = data.datos;
         // this.gauges = data.gauge;
         // this.showSection = 2;
+        this.noteFlagFilter = false;
+        this.loading = false;
       },
       (error) => {
         console.log(error);
@@ -245,6 +286,73 @@ export class ActividadesComponent implements OnInit {
       }
     );
   }
+
+  // ngOnChanges(changes: any) {
+  //   if (changes.selectCurso) {
+  //     this.secciones = changes.selectCurso.currentValue.cursos;
+  //     if (changes.selectCurso.currentValue.nivel_descripcion) {
+  //       this.curso.nivel_descripcion = changes.selectCurso.currentValue.nivel_descripcion;
+  //       this.curso.nivel_id = changes.selectCurso.currentValue.nivel_id;
+  //       localStorage.setItem('NivelId', String(this.curso.nivel_id));
+  //     }
+  //   } else if (!(Number(this.curso.nivel_id) > 0)) {
+  //     this.notification.warning('Reporte de Objetivos', 'Error, no se ha seleccionado un curso.');
+  //   }
+
+  //   if (changes.selectAsignatura) {
+  //     this.objetivosFlag = true;
+  //     if (changes.selectAsignatura.currentValue.asignatura_nombre) {
+  //       this.asignatura.asignatura_nombre = changes.selectAsignatura.currentValue.asignatura_nombre;
+  //       this.asignatura.asignatura_id = changes.selectAsignatura.currentValue.asignatura_id;
+  //       localStorage.setItem('AsignaturaId', String(this.asignatura.asignatura_id));
+  //     }
+  //   } else if (!(Number(this.selectAsignatura.asignatura_id) > 0)) {
+  //     this.notification.warning('Reporte de Objetivos', 'Error, no se ha seleccionado una asignatura.');
+  //   }
+
+  //   this.courseS.obtenerCursosProfesor(localStorage.getItem('idEstablecimiento'), localStorage.getItem('idFuncionario'), localStorage.getItem('AsignaturaId')).subscribe((data: any) => { // Success
+  //     // console.log(data);
+
+  //     if (data.length > 0) {
+  //       localStorage.setItem('CursoEspecifico', data[0].curso_especifico_id);
+  //       this.secciones = data;
+  //       this.selectedSeccion = this.secciones[0];
+  //       localStorage.setItem('SeccionId', this.selectedSeccion.curso_id);
+  //     } else this.notification.warning('Reportabilidad', 'El Usuario no tiene cursos asociados');
+  //     this.selectExigencia = 50;
+  //     this.selectActividades = { id: 0, bloque_titulo: '' };
+  //     this.actividad = [];
+  //     this.getActividades();
+  //   }, (error) => {
+  //     console.log(error)
+  //     if (error.status === 401) { this.router.navigate(['/auth/login']); }
+  //   });
+  // }
+
+  // getActividades() {
+  //   
+  // }
+
+  // onChangeSeccion(item) {
+  //   this.selectedSeccion = this.secciones[item];
+  //   localStorage.setItem('SeccionId', this.selectedSeccion.curso_id);
+  //   this.actividad = [];
+  //   this.selectExigencia = this.exigencias[0];
+  //   this.selectActividades = { id: 0, bloque_titulo: '' };
+  //   this.getGraficoActividad();
+  // }
+
+  // onChangeExigencia(item) {
+  //   this.selectExigencia = this.exigencias[item];
+  //   //this.getActividades();
+  // }
+
+  // onChangeActividades(item) {
+  //   this.selectActividades = this.actividad[item];
+  //   this.getGraficoActividad();
+  // }
+
+
 
   @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
 

@@ -11,6 +11,7 @@ import { ReporteService } from '../../../../services/reporte.service';
 import { NzNotificationService } from 'ng-zorro-antd';
 import { BloqueService } from 'src/app/services/bloque.service';
 import { CoursesService } from 'src/app/services/courses.service';
+import { CursoService } from 'src/app/services/cursos.service';
 
 @Component({
   selector: 'app-objetivos',
@@ -18,31 +19,38 @@ import { CoursesService } from 'src/app/services/courses.service';
   styleUrls: ['./objetivos.component.scss']
 })
 export class ObjetivosComponent implements OnInit {
-  @Input() selectCurso: any;
-  @Input() selectAsignatura: any;
-  @Input() selectSeccion: any;
+  // screen
+  resolution = 1000;
+  withSideBar = 200;
+  // loading graficos
+  loading = true;
+  loadingText = 'Esperando Obtener Datos';
+  noteDescription = 'Favor seleccione el curso que desea revisar';
+  noteFlagFilter = true;
 
-  secciones = [];
-  selectedSeccion;
+  // variables
+  niveles = [];
+  asignaturas = [];
+  cursos = [];
   unidades = [];
-  selectUnidad = { grupo_id: 0, grupo_nombre: ''};
-
   objetivos = [];
-  selectObjetivo = { id:0, objetivo_codigo: ''};
-  objetivosFlag = false;
 
-  estudiantes = [];
-  selectEstudiante;
+  // estudiantes = [];
 
-  curso = {
-    nivel_descripcion: 'Seleccione un Curso',
-    nivel_id: 0
-  }
 
-  asignatura = {
-    asignatura_nombre: 'Seleccione Asignatura',
-    asignatura_id: 0
-  }
+  // variables seleccionada
+  selectNivel = { nivel_id: 0, nivel_descripcion: '' };;
+  selectAsignatura = { asignatura_id: 0, materia_descripcion: '' };
+  selectCurso = { curso_id: 0, seccion_nombre: '' };
+  selectUnidad = { grupo_id: 0, grupo_nombre: '' };
+  selectObjetivo = { id: 0, objetivo_codigo: '' };
+
+  // flags
+  flagSeccion= false;
+  flagUnidad = false;
+  flagObjetivo = false;
+
+  // selectEstudiante;
 
   // graficos
   lineChartFlag = true;
@@ -50,7 +58,7 @@ export class ObjetivosComponent implements OnInit {
   pieChartFlag = true;
   puntajeFlag = true;
   public lineChartLabels: Label[];
-  public lineChartData: ChartDataSets[] = [ { data:[], label: ''}];
+  public lineChartData: ChartDataSets[] = [{ data: [], label: '' }];
 
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
     responsive: true, legend: { position: 'bottom', align: 'start' },
@@ -117,65 +125,99 @@ export class ObjetivosComponent implements OnInit {
     { data: [], label: 'Puntaje Total de los Objetivos' }
   ];
 
-  constructor(private highcharts: HighchartsService, public router: Router,
+  constructor(public cursoService: CursoService, private highcharts: HighchartsService, public router: Router,
     private notification: NzNotificationService, public rService: ReporteService,
     public bloqService: BloqueService, public courseS: CoursesService) { }
 
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.resolution = window.screen.width;
+    if( window.screen.width > 768 ) this.withSideBar = 200;
+    else this.withSideBar = 180;
+    // Obtener Cursos Establecimiento
+    this.cursoService
+      .obtenerNivelesFuncionarioEstablecimiento(localStorage.getItem('idEstablecimiento'), localStorage.getItem('idFuncionario'))
+      .subscribe((data: any) => { // Success
+        this.niveles = data;
+        console.log(data);
+        if (this.niveles.length == 0) console.log("El usuario no tiene cursos asociados");
+        else if (this.niveles.length == 1) { 
+          this.setSelectNivel(this.niveles[0]);
+          this.noteDescription = 'Cargando Asignaturas';
+        } else this.noteDescription = 'Seleccione un curso';
+      }, (error) => {
+        if (error.status === 401) { this.router.navigate(['/auth/login']); }
+      });
+  }
 
-  ngOnChanges(changes: any) {
-    // console.log(changes);
-    if (changes.selectCurso) {
-      this.secciones = changes.selectCurso.currentValue.cursos;
-      if (changes.selectCurso.currentValue.nivel_descripcion) {
-        this.curso.nivel_descripcion = changes.selectCurso.currentValue.nivel_descripcion;
-        this.curso.nivel_id = changes.selectCurso.currentValue.nivel_id;
-        localStorage.setItem('NivelId', String(this.curso.nivel_id));
-      }      
-    } else if (!(Number(this.curso.nivel_id) > 0)) {
-      this.notification.warning('Reporte de Objetivos', 'Error, no se ha seleccionado un curso.');
-    }
+  setSelectNivel(itemNivel) {
+    this.selectNivel = itemNivel;
+    this.getAsignaturas();
+  }
 
-    if (changes.selectAsignatura) {
-      this.objetivosFlag = true;
-      if (changes.selectAsignatura.currentValue.asignatura_nombre) {
-        this.asignatura.asignatura_nombre = changes.selectAsignatura.currentValue.asignatura_nombre;
-        this.asignatura.asignatura_id = changes.selectAsignatura.currentValue.asignatura_id;
-        localStorage.setItem('AsignaturaId', String(this.asignatura.asignatura_id));
-      }      
-    } else if (!(Number(this.selectAsignatura.asignatura_id) > 0)) {
-      this.notification.warning('Reporte de Objetivos', 'Error, no se ha seleccionado una asignatura.');
-    }
+  getAsignaturas() {
+    this.cursoService
+      .obtenerAsignaturasPorEstablecimientoFuncionarioNivel(localStorage.getItem('idEstablecimiento')
+        , localStorage.getItem('idFuncionario'), this.selectNivel.nivel_id)
+      .subscribe((data: any) => { // Success
+        this.asignaturas = data;
+        console.log(data);
+        if (this.asignaturas.length == 0) console.log("El Curso no cuenta con asignaturas");
+        else if (this.asignaturas.length == 1) { 
+          this.setSelectAsignatura(this.asignaturas[0]);
+          this.noteDescription = 'Cargando Cursos';
+        } else this.noteDescription = 'Favor seleccione la Asignatura que desea revisar';
+      }, (error) => {
+        if (error.status === 401) { this.router.navigate(['/auth/login']); }
+      });
+  }
 
-    this.courseS.obtenerCursosProfesor(localStorage.getItem('idEstablecimiento'), localStorage.getItem('idFuncionario'), localStorage.getItem('AsignaturaId')).subscribe((data: any) => { // Success
+  setSelectAsignatura(itemAsignatura) {
+    this.flagSeccion = true;
+    this.selectAsignatura = itemAsignatura;
+    this.getCursos();
+  }
 
-      if(data.length > 0) {
-        localStorage.setItem('CursoEspecifico', data[0].curso_especifico_id);
-        this.secciones = data;
-        this.selectedSeccion = this.secciones[0];
-        localStorage.setItem('SeccionId', this.selectedSeccion.curso_id);
-        this.getGraficoObjetivo();
-      } else this.notification.warning('Reportabilidad', 'El Usuario no tiene cursos asociados');
-      this.selectUnidad = { grupo_id: 0, grupo_nombre: ''};
-      this.unidades = []
-      this.selectObjetivo = { id:0, objetivo_codigo: ''};
-      this.objetivos = [];
-      
-      this.getUnidades();
-      //this.getDataEstudiante();
-    }, (error) => {
-      console.log(error)
-      if (error.status === 401) { this.router.navigate(['/auth/login']); }
-    });
+  getCursos() {
+    this.cursoService
+      .obtenerCursosPorEstablecimientoFuncionarioNivelAsignatura(localStorage.getItem('idEstablecimiento')
+        , localStorage.getItem('idFuncionario'), this.selectNivel.nivel_id, this.selectAsignatura.asignatura_id)
+      .subscribe((data: any) => { // Success
+        this.cursos = data;
+        if (this.cursos.length == 0) console.log("La Asignatura no cuenta con cursos");
+        else if(this.cursos.length == 1)  { 
+          this.flagSeccion = false;
+          this.setSelectCursos(0);          
+        } else {
+          this.noteDescription = '';
+          this.flagSeccion = false;
+        }
+        console.log(data);
+      }, (error) => {
+        if (error.status === 401) { this.router.navigate(['/auth/login']); }
+      });
+  }
+
+  setSelectCursos(itemCurso) {
+    this.flagUnidad = true;
+    this.selectCurso = this.cursos[itemCurso];
+    this.getGraficoByCurso();
+    this.getUnidades();
   }
 
   getUnidades() {
-    this.selectUnidad = { grupo_id: 0, grupo_nombre: ''};
-    this.bloqService.getGrupos(localStorage.getItem('idFuncionario'), localStorage.getItem('AsignaturaId'), localStorage.getItem('SeccionId'))
+    this.bloqService.getGrupos(localStorage.getItem('idFuncionario'), this.selectAsignatura.asignatura_id, this.selectCurso.curso_id)
       .subscribe(
         (data: any) => { // Success
           this.unidades = data;
+          if (this.unidades.length == 0) console.log("El Curso no cuenta con unidades");
+          else if(this.unidades.length == 1) {
+              this.setSelectUnidad(this.unidades[0]);
+              this.flagUnidad = false;
+          } else {
+            this.flagUnidad = false;
+          }
+          console.log(data);
         },
         (error) => {
           if (error.status == 401) {
@@ -183,6 +225,21 @@ export class ObjetivosComponent implements OnInit {
           }
         }
       )
+  }
+
+  setSelectUnidad(itemUnidad) {
+    this.flagObjetivo = true;
+
+    if(itemUnidad != 'Seleccione Unidad') {
+      this.selectUnidad = this.unidades[itemUnidad];
+      this.getGraficoByUnidad();
+      this.getObjetivos();
+    } else { 
+      this.flagObjetivo = false;
+      this.objetivos = [];
+      this.getGraficoByCurso();
+    }
+
   }
 
   getObjetivos() {
@@ -191,9 +248,7 @@ export class ObjetivosComponent implements OnInit {
         (data: any) => { // Success
           console.log(data);
           this.objetivos = data;
-          //this.selectObjetivo = this.objetivos[0].id;
-          this.objetivosFlag = false;
-          this.getGraficoObjetivo();
+          this.flagObjetivo = false;
         },
         (error) => {
           if (error.status == 401) {
@@ -201,6 +256,143 @@ export class ObjetivosComponent implements OnInit {
           }
         }
       )
+  }
+
+  setSelectObjetivo(itemObjetivo) {
+    if(itemObjetivo != 'Seleccione Objetivo') {
+    this.selectObjetivo = this.objetivos[itemObjetivo];
+    this.getGraficoByObjetivo();
+    } else { 
+      this.getGraficoByUnidad();
+    }
+  }
+
+  getGraficoByCurso() {
+    this.rService.getGraficoCurso(this.selectCurso.curso_id).subscribe(
+      (data: any) => { // Success
+        console.log(data);
+        if (data.lineChartLabels) {
+          this.lineChartLabels = data.lineChartLabels;
+          this.lineChartData = data.lineChartData;
+          this.lineChartFlag = true;
+        } else this.lineChartFlag = false;
+
+        if (data.barChartLabels) {
+
+          this.barChartLabels = data.barChartLabels;
+          this.barChartData[0].data = data.barChartData;
+          this.barChartFlag = true;
+        } else this.barChartFlag = false;
+
+        if (data.pieChartLabels) {
+          // this.lineChartLabels = data.lineChartLabels;
+          // this.lineChartData = data.lineChartData;
+          this.pieChartFlag = true;
+        } else this.pieChartFlag = false;
+
+        if (data.puntaje) {
+          // this.lineChartLabels = data.lineChartLabels;
+          // this.lineChartData = data.lineChartData;
+          this.puntajeFlag = true;
+        } else this.puntajeFlag = false;
+
+        this.noteFlagFilter = false;
+        this.loading = false;
+      },
+      (error) => {
+        if (error.status == 401) {
+          this.router.navigate(['/auth/login']);
+        } else if (error.status == 400) {
+          this.router.navigate(['/auth/login']);
+        }
+      }
+    );
+  }
+
+  getGraficoByUnidad() {
+    this.rService.getGraficoCursoUnidad(this.selectUnidad.grupo_id).subscribe(
+      (data: any) => { // Success
+        // console.log(data);
+        if (data.lineChartLabels) {
+          this.lineChartLabels = data.lineChartLabels;
+          this.lineChartData = data.lineChartData;
+          this.lineChartFlag = true;
+        } else this.lineChartFlag = false;
+
+        if (data.barChartLabels) {
+          this.barChartLabels = data.barChartLabels;
+          this.barChartData[0].data = data.barChartData;
+          this.barChartFlag = true;
+        } else this.barChartFlag = false;
+
+        if (data.pieChartLabels) {
+          // this.lineChartLabels = data.lineChartLabels;
+          // this.lineChartData = data.lineChartData;
+          this.pieChartFlag = true;
+        } else this.pieChartFlag = false;
+
+        if (data.puntaje) {
+          // this.lineChartLabels = data.lineChartLabels;
+          // this.lineChartData = data.lineChartData;
+          this.puntajeFlag = true;
+        } else this.puntajeFlag = false;
+
+
+        // this.datos = data.datos;
+        // this.gauges = data.gauge;
+        // this.showSection = 2;
+      },
+      (error) => {
+        if (error.status == 401) {
+          this.router.navigate(['/auth/login']);
+        } else if (error.status == 400) {
+          this.router.navigate(['/auth/login']);
+        }
+      }
+    );
+  }
+
+  getGraficoByObjetivo() {
+    this.rService.getGraficoCursoUnidadObjetivo(this.selectCurso.curso_id, this.selectObjetivo.id).subscribe(
+      (data: any) => { // Success
+        // console.log(data);
+        if (data.lineChartLabels) {
+          this.lineChartLabels = data.lineChartLabels;
+          this.lineChartData = data.lineChartData;
+          this.lineChartFlag = true;
+        } else this.lineChartFlag = false;
+
+        if (data.barChartLabels) {
+          this.barChartLabels = data.barChartLabels;
+          this.barChartData[0].data = data.barChartData;
+          this.barChartFlag = true;
+        } else this.barChartFlag = false;
+
+        if (data.pieChartLabels) {
+          // this.lineChartLabels = data.lineChartLabels;
+          // this.lineChartData = data.lineChartData;
+          this.pieChartFlag = true;
+        } else this.pieChartFlag = false;
+
+        if (data.puntaje) {
+          // this.lineChartLabels = data.lineChartLabels;
+          // this.lineChartData = data.lineChartData;
+          this.puntajeFlag = true;
+        } else this.puntajeFlag = false;
+
+
+        // this.datos = data.datos;
+        // this.gauges = data.gauge;
+        // this.showSection = 2;
+      },
+      (error) => {
+        if (error.status == 401) {
+          this.router.navigate(['/auth/login']);
+        } else if (error.status == 400) {
+          this.router.navigate(['/auth/login']);
+        }
+      }
+    );
   }
 
   getDataEstudiante() {
@@ -217,164 +409,17 @@ export class ObjetivosComponent implements OnInit {
       )
   }
 
-  onChangeSeccion(item) {
-    this.selectedSeccion = this.secciones[item];
-    localStorage.setItem('SeccionId', this.selectedSeccion.curso_id);
-    this.unidades = [];
-    this.objetivos = [];
-    this.selectObjetivo = { id:0, objetivo_codigo: ''};
-    this.getUnidades();
-    this.getGraficoObjetivo();
-    this.getDataEstudiante();
+  // onChangeSeccion(item) {
+  //   this.selectedSeccion = this.secciones[item];
+  //   localStorage.setItem('SeccionId', this.selectedSeccion.curso_id);
+  //   this.unidades = [];
+  //   this.objetivos = [];
+  //   this.selectObjetivo = { id:0, objetivo_codigo: ''};
+  //   this.getUnidades();
+  //   this.getGraficoObjetivo();
+  //   this.getDataEstudiante();
 
-  }
-
-  onChangeUnidad(item) {
-    this.selectUnidad = this.unidades[item];
-    this.getObjetivos();
-  }
-
-  onChangeObjetivo(item) {
-    this.selectObjetivo = this.objetivos[item];
-    this.getGraficoObjetivo();
-  }
-
-  onChangeEstudiante(item) {
-    this.selectEstudiante = this.estudiantes[item];
-  }
-
-  getGraficoObjetivo() {
-    if(this.selectedSeccion.curso_id > 0 && this.selectUnidad.grupo_id == 0) {
-       // console.log("filtro 1")
-      this.rService.getGraficoCurso(localStorage.getItem('CursoEspecifico')).subscribe(
-        (data: any) => { // Success
-          // console.log(data);
-          if(data.lineChartLabels) {
-            this.lineChartLabels = data.lineChartLabels;
-            this.lineChartData = data.lineChartData;
-            this.lineChartFlag = true;
-          } else this.lineChartFlag = false;
-                    
-          if(data.barChartLabels) {
-
-            this.barChartLabels = data.barChartLabels;
-          this.barChartData[0].data = data.barChartData;
-            this.barChartFlag = true;
-          } else this.barChartFlag = false;
-
-          if(data.pieChartLabels) {
-            // this.lineChartLabels = data.lineChartLabels;
-            // this.lineChartData = data.lineChartData;
-            this.pieChartFlag = true;
-          } else this.pieChartFlag = false;
-
-          if(data.puntaje) {
-            // this.lineChartLabels = data.lineChartLabels;
-            // this.lineChartData = data.lineChartData;
-            this.puntajeFlag = true;
-          } else this.puntajeFlag = false;
-
-          
-          // this.datos = data.datos;
-          // this.gauges = data.gauge;
-          // this.showSection = 2;
-        },
-        (error) => {
-          if (error.status == 401) {
-            this.router.navigate(['/auth/login']);
-          } else if (error.status == 400) {
-            this.router.navigate(['/auth/login']);
-          }
-        }
-      );
-    } else if (this.selectedSeccion.curso_id > 0 && this.selectUnidad.grupo_id > 0 && this.selectObjetivo.id == 0) {
-       // console.log("filtro 2")
-      this.rService.getGraficoCursoUnidad(this.selectUnidad.grupo_id).subscribe(
-        (data: any) => { // Success
-          // console.log(data);
-          if(data.lineChartLabels) {
-            this.lineChartLabels = data.lineChartLabels;
-            this.lineChartData = data.lineChartData;
-            this.lineChartFlag = true;
-          } else this.lineChartFlag = false;
-                    
-          if(data.barChartLabels) {
-            this.barChartLabels = data.barChartLabels;
-          this.barChartData[0].data = data.barChartData;
-            this.barChartFlag = true;
-          } else this.barChartFlag = false;
-
-          if(data.pieChartLabels) {
-            // this.lineChartLabels = data.lineChartLabels;
-            // this.lineChartData = data.lineChartData;
-            this.pieChartFlag = true;
-          } else this.pieChartFlag = false;
-
-          if(data.puntaje) {
-            // this.lineChartLabels = data.lineChartLabels;
-            // this.lineChartData = data.lineChartData;
-            this.puntajeFlag = true;
-          } else this.puntajeFlag = false;
-
-          
-          // this.datos = data.datos;
-          // this.gauges = data.gauge;
-          // this.showSection = 2;
-        },
-        (error) => {
-          if (error.status == 401) {
-            this.router.navigate(['/auth/login']);
-          } else if (error.status == 400) {
-            this.router.navigate(['/auth/login']);
-          }
-        }
-      );
-    } else if (this.selectedSeccion.curso_id > 0 && this.selectUnidad.grupo_id > 0 && this.selectObjetivo.id > 0) {
-       // console.log("filtro 3")
-      this.rService.getGraficoCursoUnidadObjetivo(this.selectedSeccion.curso_id, this.selectObjetivo.id).subscribe(
-        (data: any) => { // Success
-          // console.log(data);
-          if(data.lineChartLabels) {
-            this.lineChartLabels = data.lineChartLabels;
-            this.lineChartData = data.lineChartData;
-            this.lineChartFlag = true;
-          } else this.lineChartFlag = false;
-                    
-          if(data.barChartLabels) {
-            this.barChartLabels = data.barChartLabels;
-          this.barChartData[0].data = data.barChartData;
-            this.barChartFlag = true;
-          } else this.barChartFlag = false;
-
-          if(data.pieChartLabels) {
-            // this.lineChartLabels = data.lineChartLabels;
-            // this.lineChartData = data.lineChartData;
-            this.pieChartFlag = true;
-          } else this.pieChartFlag = false;
-
-          if(data.puntaje) {
-            // this.lineChartLabels = data.lineChartLabels;
-            // this.lineChartData = data.lineChartData;
-            this.puntajeFlag = true;
-          } else this.puntajeFlag = false;
-
-          
-          // this.datos = data.datos;
-          // this.gauges = data.gauge;
-          // this.showSection = 2;
-        },
-        (error) => {
-          if (error.status == 401) {
-            this.router.navigate(['/auth/login']);
-          } else if (error.status == 400) {
-            this.router.navigate(['/auth/login']);
-          }
-        }
-      );
-    }
-    
-  } 
-
+  // }
   @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
 
   public barChartOptions: any = {
