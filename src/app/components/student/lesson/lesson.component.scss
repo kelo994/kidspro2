@@ -284,3 +284,13 @@
     text-align: center;
     font-weight: 500;
   }
+
+  .lesson-not-found {
+    height: 100%;
+    width: 100%;
+    background-image: url('../../../../assets/images/not-found/lesson.png');
+    background-size: 1200px;
+    background-repeat: no-repeat;
+    background-color: black;
+    background-position: 50% 50%;
+}

@@ -1,4 +1,4 @@
-<nz-layout style="height: 100vh;">
+<nz-layout *ngIf="leccion != null && loading == false" style="height: 100vh;">
     <nz-sider class="lesson-sidebar" nzWidth="310px" [(nzCollapsed)]="isCollapsed" [nzBreakpoint]="'md'"
         [nzCollapsedWidth]="0" nzTheme="light">
         <div class="lessons">Lecciones</div>
@@ -68,6 +68,11 @@
         </nz-content>
     </nz-layout>
 </nz-layout>
+
+<nz-layout *ngIf="lecciones.length == 0 && loading == false" style="height: 100vh; padding-top: 64px;">
+    <div class="lesson-not-found"></div>
+</nz-layout>
+
 <ng-template [ngIf]="isCollapsed">
     <nz-drawer [nzClosable]="true" [nzVisible]="visibleDrawer" nzWidth="310px" nzPlacement="left" nzTitle="Lecciones"
         (nzOnClose)="visibleDrawer = false">

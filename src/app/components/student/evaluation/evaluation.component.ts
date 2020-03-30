@@ -35,6 +35,8 @@ export class StudentEvaluationComponent implements OnInit {
   question: any;
   questionIndex: any;
 
+  loading = true;
+
   ngOnInit(): void {
     this.getEvaluation()
     if (window.innerWidth <= 860) {
@@ -50,12 +52,14 @@ export class StudentEvaluationComponent implements OnInit {
       this.questions = data.preguntas
       this.question = data.preguntas[0]
       this.questionIndex = 0
+      this.loading = false
     }, (error) => {
       if (error.status === 500) this.notification.error('Error', error.error);
       if (error.status == 401) {
         localStorage.clear();
         this.router.navigate(['/auth/login']);
       }
+      this.loading = false
       //this.notFound = true
     });
   }
