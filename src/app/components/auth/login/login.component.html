@@ -17,7 +17,18 @@
                 <label>RUT</label>
                 <input type="text" nz-input formControlName="rut" placeholder="RUT" (keyup)="formateaRut(1)" />
                 <label>Contraseña</label>
-                <input type="password" nz-input formControlName="password" placeholder="Contraseña"/>
+                <nz-input-group [nzSuffix]="passTemplate">
+                    <input
+                      [type]="passFlag ? 'text' : 'password'"
+                      nz-input
+                      formControlName="password" placeholder="Contraseña"
+                      [(ngModel)]="password"
+                    />
+                  </nz-input-group>
+                  <ng-template #passTemplate class="pointer">
+                    <i nz-icon [nzType]="passFlag ? 'eye-invisible' : 'eye'" (click)="passFlag = !passFlag"></i>
+                  </ng-template>
+                <!-- <input [type]="passFlag ? 'text' : 'password'" nz-input f/> -->
             </div>
             <div class="row" style="margin: 0px 10px">
                 <div class="col-6">
