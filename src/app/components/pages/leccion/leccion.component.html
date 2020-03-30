@@ -77,7 +77,8 @@
             <p class="negrita">Vista previa del juego</p>
           </div>
           <div class="border-bottom vista-previa-image" >
-            <img alt="image" [src]="leccion.bloque_imagen" />
+            <img *ngIf="asignaturaId >= 1 && asignaturaId <= 4" alt="image" src="../../../../assets/images/lesson/matematicas.PNG">
+            <img *ngIf="asignaturaId >= 5 && asignaturaId <= 8" alt="image" src="../../../../assets/images/lesson/lenguaje.PNG" />
           </div>
           <div class="border-bottom padding-title" >
             <p class="negrita">Repositorio</p>
