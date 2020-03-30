@@ -235,7 +235,7 @@ export class LeccionComponent implements OnInit {
     }
 
     getRepositoriosBloque() {
-        this.repositorioService.getRepositoriosBloque(this.funcionarioId, this.leccionId).subscribe( (data: any) => { // Success
+        this.repositorioService.getRepositoriosBloque(this.leccionId).subscribe( (data: any) => { // Success
             this.repositorios = data;
         }, (error) => {
             if (error.status === 401) { this.router.navigate(['/auth/login']); }

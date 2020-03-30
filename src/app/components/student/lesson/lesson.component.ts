@@ -3,6 +3,7 @@ import { StudentLessonService } from '../../../services/student/lesson.service';
 import { NzNotificationService } from 'ng-zorro-antd';
 import { EmbedVideoService } from 'ngx-embed-video';
 import { Router } from '@angular/router';
+import {RepositorioService} from '../../../services/repositorio.service';
 
 @Component({
   selector: 'app-student-lesson',
@@ -13,6 +14,7 @@ export class StudentLessonComponent implements OnInit {
 
   constructor(
     private lessonService: StudentLessonService,
+    public repositorioService: RepositorioService,
     private notification: NzNotificationService,
     private embedService: EmbedVideoService,
     public router: Router
@@ -57,12 +59,13 @@ export class StudentLessonComponent implements OnInit {
   showSection = 0;
   playleccion = 'matematicas/1/1/Build/1.json';
   iframeHtml: any;
-
+  repositorios;
   loading = true;
 
   ngOnInit(): void {
     this.idEstudiante = localStorage.getItem('idEstudiante');
-    this.loadContent()
+    this.loadContent();
+    this.getRepositoriosBloque();
     if (window.innerWidth >= 576) {
       this.innerWidth = window.innerWidth / 2;
     } else {
@@ -109,8 +112,25 @@ export class StudentLessonComponent implements OnInit {
     this.loadVideo(lesson.recursos[0].url);
   }
 
-  goToGame () {
+  goToGame() {
     this.router.navigate(['/student/lesson/game'], { state: { play: this.playleccion, titulo: this.leccion.bloque_titulo } })
+  }
+
+  getRepositoriosBloque() {
+    this.repositorioService.getRepositoriosBloque(this.leccionId).subscribe( (data: any) => { // Success
+      this.repositorios = data;
+    }, (error) => {
+      if (error.status === 401) { this.router.navigate(['/auth/login']); }
+    });
+  }
+
+  descargarArchivo(nombreArchivo) {
+    var ruta = nombreArchivo.split('/');
+    this.repositorioService.descargarArchivo(ruta[5]).subscribe( (data: any) => { // Success
+      this.notification.info('Repositorio', 'Descarga exitosa');
+    }, (error) => {
+      if (error.status === 401) { this.router.navigate(['/auth/login']); }
+    });
   }
 
 }
