@@ -19,6 +19,7 @@ export class LeccionComponent implements OnInit {
     leccion_titulo: '',
     bloque_imagen: '',
     ruta_actividad: '',
+    unidad_id: '',
     lecciones: {
       leccion_titulo: ''
     },
@@ -98,6 +99,8 @@ export class LeccionComponent implements OnInit {
     ];
     archivoElminado;
     loading = false;
+    unidadNombre;
+    nombreAsignatura;
 
   constructor(public router: Router, private route: ActivatedRoute,
               private embedService: EmbedVideoService,
@@ -116,17 +119,15 @@ export class LeccionComponent implements OnInit {
 
   ngOnInit(): void {
     this.funcionarioId  = localStorage.getItem('idFuncionario');
-    //this.route.params.subscribe(params => {
-      // console.log(params);
-      // console.log(history.state);
-      this.leccionId = localStorage.getItem('leccionId');
-      this.cursoId = localStorage.getItem('cursoId');
-      this.asignaturaId = localStorage.getItem('AsignaturaId');
-      this.grupoId = localStorage.getItem('unidadId');
-      this.loadContent();
-      this.obtenerBloques();
-      this.getRepositoriosBloque();
-   // });
+    this.leccionId = localStorage.getItem('leccionId');
+    this.cursoId = localStorage.getItem('cursoId');
+    this.asignaturaId = localStorage.getItem('AsignaturaId');
+    this.grupoId = localStorage.getItem('unidadId');
+    this.unidadNombre = localStorage.getItem('unidadNombre');
+    this.nombreAsignatura = localStorage.getItem('nombreAsignatura');
+    this.loadContent();
+    this.obtenerBloques();
+    this.getRepositoriosBloque();
   }
 
   goToLeccion(leccionId): void {
@@ -309,5 +310,7 @@ export class LeccionComponent implements OnInit {
         });
     }
 
-
+    goToUnidad(): void {
+        this.router.navigateByUrl('pages/cursos/unidades/' + this.leccion.unidad_id);
+    }
 }

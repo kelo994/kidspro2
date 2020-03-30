@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { NzFormatEmitEvent, NzNotificationService } from 'ng-zorro-antd';
+import { NzModalService, NzNotificationService } from 'ng-zorro-antd';
 import {CoursesService} from '../../../../../services/courses.service';
 
 @Component({
@@ -37,6 +37,7 @@ export class CourseComponent implements OnInit {
       persona_nombre: '',
       persona_apellido: '',
       persona_rut: '',
+      funcionario_id: '',
     }
   ];
   profesoresEstablecimiento: [];
@@ -54,9 +55,11 @@ export class CourseComponent implements OnInit {
   nombreFuncionarioSeleccionado;
   apellidoFuncionarioSeleccionado;
   loading = false;
+  funcionarioElminado;
 
   constructor( private notification: NzNotificationService,
                private router: Router,
+               private modalService: NzModalService,
                private route: ActivatedRoute,
                public coursesService: CoursesService) {
   }
@@ -134,6 +137,7 @@ export class CourseComponent implements OnInit {
       this.nombreTipoProfesorSeleccionado = '';
       this.nombreFuncionarioSeleccionado = '';
       this.apellidoFuncionarioSeleccionado = '';
+      this.current = 0;
       this.notification.success('Profesor', 'Profesor agregado con exito');
     }, (error) => {
       if (error.status === 401) {
@@ -178,6 +182,36 @@ export class CourseComponent implements OnInit {
     this.nombreTipoProfesorSeleccionado = '';
     this.nombreFuncionarioSeleccionado = '';
     this.apellidoFuncionarioSeleccionado = '';
+  }
+
+  delete(funcionarioId) {
+    this.funcionarioElminado = funcionarioId;
+    this.modalService.confirm({
+      nzTitle: '<i>¿Estas seguro de realizar esta acción?</i>',
+      nzContent: '<b>Esta acción no se puede deshacer</b>',
+      nzCancelText: 'Cancelar',
+      nzOkText: 'Eliminar',
+      nzClassName: 'modal-confirm-delete',
+      nzOnOk: () => this.confirmDelete()
+    });
+  }
+
+  confirmDelete() {
+    this.coursesService.deleteFuncionarioCurso(this.cursoId, this.funcionarioElminado, this.asignaturaId).subscribe((data: any) => {
+      this.obtenerProfesoresCursoAsignatura();
+      this.notification.success('Estudiantes', 'El estudiante fue eliminado con exito');
+    }, (error) => {
+      console.log(error);
+      if (error.status === 401) {
+        this.router.navigate(['/auth/login']);
+      } else if (error.status === 400 || error.status === 500) {
+        this.notification.error('Error al Eliminar el Estudiante', error.error.message);
+      }
+    });
+  }
+
+  backToCourses() {
+    this.router.navigate(['/pages/administrar/cursos/']);
   }
 
 }

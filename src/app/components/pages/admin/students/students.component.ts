@@ -218,16 +218,16 @@ export class StudentsAdminComponent implements OnInit {
 
   uploadFile(event) {
     if (this.files.length == 0) {
-      this.files.push(event.target.files[0].name)
+      this.files.push(event.target.files[0].name);
     } else {
       this.deleteAttachment(0);
-      this.files.push(event.target.files[0].name)
+      this.files.push(event.target.files[0].name);
     }
     this.fileItem = event.target.files[0];
   }
 
   deleteAttachment(index) {
-    this.files.splice(index, 1)
+    this.files.splice(index, 1);
   }
 
   saveFile() {

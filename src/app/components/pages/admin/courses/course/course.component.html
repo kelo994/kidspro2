@@ -2,7 +2,9 @@
   <nz-page-header-title>{{curso.nivel_descripcion}} {{ curso.seccion_nombre }}, {{asignatura.materia_descripcion}}
   </nz-page-header-title>
   <nz-page-header-extra>
-
+    <button style="color: rgba(0,0,0,0.5); float: right;" nz-button nzType="link" nzSize="small" (click)="backToCourses()">
+      <i nz-icon nzType="left"></i> Volver a cursos
+    </button>
   </nz-page-header-extra>
 </nz-page-header>
 <nz-content class="loading pt-5">
@@ -61,7 +63,7 @@
             <h6>{{profesor.persona_nombre}} {{profesor.persona_apellido}}</h6>
             <span>{{profesor.persona_rut}}</span>
             <nz-divider></nz-divider>
-            <button nz-button nzType="default" style="float: right"><i nz-icon nzType="delete"></i>Quitar</button>
+            <button nz-button nzType="default" style="float: right" (click)="delete(profesor.funcionario_id)"><i nz-icon nzType="delete" ></i>Quitar</button>
           </div>
         </div>
       </nz-card>

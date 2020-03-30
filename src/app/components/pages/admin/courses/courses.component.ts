@@ -55,7 +55,6 @@ export class CoursesAdminComponent implements OnInit {
   ngOnInit(): void {
     this.establecimientoId = localStorage.getItem('idEstablecimiento');
     this.obtenerNivelesEstablecimiento();
-    this.obtenerNivelesSinCrear();
   }
 
   obtenerNivelesEstablecimiento() {
@@ -103,6 +102,7 @@ export class CoursesAdminComponent implements OnInit {
   }
 
   openModal(modal) {
+    this.obtenerNivelesSinCrear();
     this.modalCrearCurso = true;
   }
 
