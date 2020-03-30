@@ -1,7 +1,7 @@
 <nz-layout class="game-layout">
     <nz-content>
         <div class="lessons">{{ titulo }}</div>
-        <unity-app ngbAutofocus [path]="playleccion"></unity-app>
+        <unity-app *ngIf="loadGame" ngbAutofocus [path]="playleccion"></unity-app>
         <div class="game-footer">
             <button class="btn-full" nz-button nzType="primary" nzSize="large" nzShape="round" (click)="setFull()">Pantalla Completa</button>
             <button class="btn-exit" nz-button nzType="danger" nzSize="large" nzShape="round" (click)="exit()">Volver</button>

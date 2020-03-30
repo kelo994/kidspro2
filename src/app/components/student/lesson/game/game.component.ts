@@ -36,13 +36,16 @@ export class StudentLessonGameComponent implements OnInit {
   cursoId;
   
   titulo: any;
-  playleccion = 'matematicas/1/1/Build/1.json';
+  playleccion = '';
+
+  loadGame = false;
 
   ngOnInit(): void {
     this.idEstudiante = localStorage.getItem('idEstudiante');
     if (typeof history.state.play !== 'undefined') {
       this.playleccion = history.state.play
       this.titulo = history.state.titulo
+      this.loadGame = true;
     } else {
       this.goBack()
     }
