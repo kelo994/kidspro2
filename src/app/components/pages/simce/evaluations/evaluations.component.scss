@@ -3,8 +3,8 @@
     margin-bottom: 5px;
 }
 
-::ng-deep .ant-card-body {
-    padding: 0px;
+::ng-deep .stat-card > .ant-card-body {
+    padding: 1px;
 }
 
 .vertical-line {

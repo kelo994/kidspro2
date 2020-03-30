@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { SimceService } from '../../../services/simce.service';
-import { NzNotificationService } from 'ng-zorro-antd';
+import { NzModalService, NzNotificationService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,6 +12,7 @@ export class StudentEvaluationComponent implements OnInit {
 
   constructor(
     private simceService: SimceService,
+    private modalService: NzModalService,
     private notification: NzNotificationService,
     public router: Router) { }
 
@@ -20,13 +21,13 @@ export class StudentEvaluationComponent implements OnInit {
     if (window.innerWidth <= 860) {
       this.siderWidth = 80;
     } else {
-      this.siderWidth = 200;
+      this.siderWidth = 180;
     }
   }
 
   idEstudiante = localStorage.getItem('idEstudiante');
 
-  siderWidth = 200;
+  siderWidth = 180;
   isCollapsed;
 
   evaluation: any;
@@ -39,7 +40,7 @@ export class StudentEvaluationComponent implements OnInit {
     if (window.innerWidth <= 860) {
       this.siderWidth = 80;
     } else {
-      this.siderWidth = 200;
+      this.siderWidth = 180;
     }
   }
 
@@ -67,6 +68,24 @@ export class StudentEvaluationComponent implements OnInit {
       this.notification.success(data, '');
     }, (error) => {
       if (error.status == 401) this.router.navigate(['/auth/login']);
+    })
+  }
+
+  confirm() {
+    this.modalService.confirm({
+      nzTitle: '¿Estas seguro de finalizar la evaluación?',
+      nzContent: '<b>Esta acción no se puede deshacer</b>',
+      nzCancelText: 'Cancelar',
+      nzOkText: 'Finalizar',
+      nzClassName: 'modal-confirm',
+      nzOnOk: () => this.finalizarPrueba()
+    });
+  }
+
+  finalizarPrueba () {
+    this.simceService.finalizarPruebaEstudiante(this.evaluation.prueba_id, this.idEstudiante).subscribe((data: any) => { // Success
+      this.notification.success('Evaluación SIMCE', 'Evaluación Finalizada');
+      this.router.navigate(['/auth/login']);
     })
   }
 

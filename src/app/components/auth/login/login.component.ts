@@ -12,6 +12,8 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 })
 export class LoginComponent implements OnInit {
 
+  passwordVisible = false;
+  
   formaLogin: FormGroup;
   loginIcon = 'login';
 

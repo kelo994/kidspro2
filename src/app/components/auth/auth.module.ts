@@ -10,6 +10,8 @@ import { CommonModule } from '@angular/common';
 
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 
+import { LoginGuardService } from '../../services/auth-guard/login-guard.service';
+
 @NgModule({
     imports: [
         AUTH_ROUTES,
@@ -21,6 +23,7 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
     declarations: [
         AuthComponent, LoginComponent, ValidateComponent, RegisterComponent
     ],
+    providers: [LoginGuardService],
     entryComponents: [ ]
 })
 export class AuthModule { }

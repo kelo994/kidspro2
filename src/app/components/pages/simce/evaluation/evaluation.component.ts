@@ -20,11 +20,11 @@ export class SimceEvaluationComponent implements OnInit {
     if (window.innerWidth <= 860) {
       this.siderWidth = 80;
     } else {
-      this.siderWidth = 200;
+      this.siderWidth = 170;
     }
   }
 
-  siderWidth = 200;
+  siderWidth = 170;
 
   evaluation: any;
   questions = [];
@@ -37,7 +37,7 @@ export class SimceEvaluationComponent implements OnInit {
     if (window.innerWidth <= 860) {
       this.siderWidth = 80;
     } else {
-      this.siderWidth = 200;
+      this.siderWidth = 170;
     }
   }
 
@@ -61,12 +61,12 @@ export class SimceEvaluationComponent implements OnInit {
   }
 
   next () {
-    this.questionIndex = this.questionIndex - 1
+    this.questionIndex = this.questionIndex + 1
     this.question = this.questions[this.questionIndex]
   }
   
   prev () {
-    this.questionIndex = this.questionIndex + 1
+    this.questionIndex = this.questionIndex - 1
     this.question = this.questions[this.questionIndex]
   }
 

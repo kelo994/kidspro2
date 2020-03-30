@@ -11,7 +11,7 @@
                 <th>Apellido</th>
                 <th>RUT</th>
                 <th>Correo electrónico</th>
-                <!--<th>Acciones</th>-->
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -21,10 +21,10 @@
                 <td>{{ data.persona_apellido }}</td>
                 <td>{{ data.persona_rut }}</td>
                 <td>{{ data.persona_email }}</td>
-                <!--<td>
-                    <i class="action" nz-icon nzType="unlock" nzTheme="outline"></i>
-                    <i class="action" nz-icon nzType="delete" nzTheme="outline"></i>
-                </td>-->
+                <td>
+                    <i class="action" nz-icon nzType="edit" nzTheme="outline" (click)="setUser(data)"></i>
+                    <!--<i class="action" nz-icon nzType="delete" nzTheme="outline"></i>-->
+                </td>
             </tr>
         </tbody>
         <ng-template #tableFooter>
@@ -49,3 +49,90 @@
     </ng-template>
     
 </nz-layout>
+
+<nz-modal [(nzVisible)]="userModal" nzWrapClassName="vertical-center-modal" nzTitle="Editar Profesor" nzOkText="Editar"
+    nzCancelText="Cancelar" [nzContent]="modalContent" [nzFooter]="modalFooter" nzWidth="600"
+    (nzOnCancel)="closeModal()">
+    <ng-template #modalContent>
+        <form [formGroup]="userForm" autocomplete="off">
+            <div class="modal-container">
+                <div nz-row>
+                    <div nz-col nzMd="8">
+                        <label class="form-label">RUT</label>
+                    </div>
+                    <div nz-col nzMd="16">
+                        <input nz-input formControlName="rut" placeholder="RUT" (keyup)="formateaRut()" />
+                    </div>
+                </div>
+                <div nz-row>
+                    <div nz-col nzMd="8">
+                        <label class="form-label">Nombres</label>
+                    </div>
+                    <div nz-col nzMd="16">
+                        <input nz-input formControlName="nombre" placeholder="Nombres" />
+                    </div>
+                </div>
+                <div nz-row>
+                    <div nz-col nzMd="8">
+                        <label class="form-label">Apellidos</label>
+                    </div>
+                    <div nz-col nzMd="16">
+                        <input nz-input formControlName="apellido" placeholder="Apellidos" />
+                    </div>
+                </div>
+                <div nz-row>
+                    <div nz-col nzMd="8">
+                        <label class="form-label">Género</label>
+                    </div>
+                    <div nz-col nzMd="16">
+                        <nz-select formControlName="genero" class="w-100" nzAllowClear nzPlaceHolder="Generos">
+                            <nz-option *ngFor="let genero of generos; let i = index" [nzValue]="genero.id"
+                                [nzLabel]="genero.descripcion">
+                            </nz-option>
+                        </nz-select>
+                    </div>
+                </div>
+                <div nz-row>
+                    <div nz-col nzMd="8">
+                        <label class="form-label">Email</label>
+                    </div>
+                    <div nz-col nzMd="16">
+                        <input nz-input formControlName="email" placeholder="Email" />
+                    </div>
+                </div>
+                <div nz-row>
+                    <div nz-col nzMd="8">
+                        <label class="form-label">Teléfono</label>
+                    </div>
+                    <div nz-col nzMd="16">
+                        <input nz-input formControlName="telefono" placeholder="Teléfono" />
+                    </div>
+                </div>
+                <div nz-row>
+                    <div nz-col nzMd="8">
+                        <label class="form-label">Dirección</label>
+                    </div>
+                    <div nz-col nzMd="16">
+                        <input nz-input formControlName="direccion" placeholder="Dirección" />
+                    </div>
+                </div>
+                <div nz-row>
+                    <div nz-col nzMd="8">
+                        <label class="form-label">Nacionalidad</label>
+                    </div>
+                    <div nz-col nzMd="16">
+                        <input nz-input formControlName="nacionalidad" placeholder="Nacionalidad" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </ng-template>
+    <ng-template #modalFooter>
+        <button nz-button nzSize="large" style="background-color: #e8e8e8;"
+            (click)="closeModal()">Cancelar</button>
+        <button nz-button nzSize="large" style="background-color: #e8e8e8;" (click)="clearForm()">Limpiar</button>
+        <button nz-button nzSize="large" nzType="primary" (click)="saveUser()" [disabled]="userForm.invalid">
+            Editar
+        </button>
+    </ng-template>
+</nz-modal>

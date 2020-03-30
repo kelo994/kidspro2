@@ -65,6 +65,10 @@ export class FuncionarioService {
     return this.http.put(`${this.url}/funcionarios/${id}`, data, this.getToken())
   }
 
+  updateProfesor(id: any, data: any) {
+    return this.http.put(`${this.url}/profesores/${id}`, data, this.getToken())
+  }
+
   delete(id: any) {
     return this.http.delete(`${this.url}/funcionarios/${id}`, this.getToken())
       .pipe(

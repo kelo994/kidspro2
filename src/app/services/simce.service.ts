@@ -137,6 +137,10 @@ export class SimceService {
     return this.http.put(`${this.url}/simce/actualizar/${idPrueba}/${idEstado}`, idPrueba , this.getToken())
   }
 
+  finalizarPruebaEstudiante(idPrueba, idEstudiante) {
+    return this.http.put(`${this.url}/simce/pruebas/${idPrueba}/estudiantes/${idEstudiante}`, idPrueba , this.getTokenStudent())
+  }
+
   guardarRepuesta (idPrueba, idEstudiante, idPregunta, data: any) {
     return this.http.put(`${this.url}/simce/${idPrueba}/${idEstudiante}/${idPregunta}`, data, this.getTokenStudent()).pipe(timeout(5000),
       retry(3),
