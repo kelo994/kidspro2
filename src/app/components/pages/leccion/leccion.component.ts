@@ -19,6 +19,7 @@ export class LeccionComponent implements OnInit {
     leccion_titulo: '',
     bloque_imagen: '',
     ruta_actividad: '',
+    unidad_id: '',
     lecciones: {
       leccion_titulo: ''
     },
@@ -98,6 +99,8 @@ export class LeccionComponent implements OnInit {
     ];
     archivoElminado;
     loading = false;
+    unidadNombre;
+    nombreAsignatura;
 
   constructor(public router: Router, private route: ActivatedRoute,
               private embedService: EmbedVideoService,
@@ -115,18 +118,19 @@ export class LeccionComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+        console.log(params);
+        this.leccionId = params.leccion;
+    });
     this.funcionarioId  = localStorage.getItem('idFuncionario');
-    //this.route.params.subscribe(params => {
-      // console.log(params);
-      // console.log(history.state);
-      this.leccionId = localStorage.getItem('leccionId');
-      this.cursoId = localStorage.getItem('cursoId');
-      this.asignaturaId = localStorage.getItem('AsignaturaId');
-      this.grupoId = localStorage.getItem('unidadId');
-      this.loadContent();
-      this.obtenerBloques();
-      this.getRepositoriosBloque();
-   // });
+    this.cursoId = localStorage.getItem('cursoId');
+    this.asignaturaId = localStorage.getItem('AsignaturaId');
+    this.grupoId = localStorage.getItem('unidadId');
+    this.unidadNombre = localStorage.getItem('unidadNombre');
+    this.nombreAsignatura = localStorage.getItem('nombreAsignatura');
+    this.loadContent();
+    this.obtenerBloques();
+    this.getRepositoriosBloque();
   }
 
   goToLeccion(leccionId): void {
@@ -160,8 +164,6 @@ export class LeccionComponent implements OnInit {
   }
 
   reloadLeccion(item) {
-    localStorage.setItem('leccionId', item.bloque_id);
-    this.leccionId = localStorage.getItem('leccionId');
     this.cursoId = localStorage.getItem('cursoId');
     this.asignaturaId = localStorage.getItem('AsignaturaId');
     this.grupoId = localStorage.getItem('unidadId');
@@ -196,7 +198,7 @@ export class LeccionComponent implements OnInit {
             formData.append('tipo_repositorio_id', this.repositorioForm.controls.tipoArchivo.value);
             formData.append('usuario_repositorio_id', '1');
             formData.append('funcionario_id', this.funcionarioId);
-            formData.append('bloque_id', '1');
+            formData.append('bloque_id', this.leccionId);
             this.closeModal('crearRepositorio');
             this.notification.info('Repositorio', 'Estamos procesando su solicitud');
             console.log(formData);
@@ -232,7 +234,7 @@ export class LeccionComponent implements OnInit {
     }
 
     getRepositoriosBloque() {
-        this.repositorioService.getRepositoriosBloque(this.funcionarioId, 1).subscribe( (data: any) => { // Success
+        this.repositorioService.getRepositoriosBloque(this.funcionarioId, this.leccionId).subscribe( (data: any) => { // Success
             this.repositorios = data;
         }, (error) => {
             if (error.status === 401) { this.router.navigate(['/auth/login']); }
@@ -309,5 +311,7 @@ export class LeccionComponent implements OnInit {
         });
     }
 
-
+    goToUnidad(): void {
+        this.router.navigateByUrl('pages/cursos/unidades/' + this.leccion.unidad_id);
+    }
 }

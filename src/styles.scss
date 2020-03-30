@@ -42,6 +42,7 @@ $mobile-style: 860px;
 @import './assets/scss/sider.component.scss';
 @import './assets/scss/card.component.scss';
 
+.pointer { cursor : pointer }
 .ant-tabs-nav div {
     width: 100%;
 }

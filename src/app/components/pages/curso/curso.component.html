@@ -32,14 +32,14 @@
                     <span class="text-subheader bd-invisible"><strong>{{ nombreAsignaturaSeleccionada }}</strong></span>
                     <span class="px-3">Sección</span>
                 </div>
-                <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12" nzXl="4" nzXXl="4" class="my-2" *ngIf="step > 2">
+                <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12" nzXl="6" nzXXl="6" class="my-2" *ngIf="step > 2">
                     <nz-select  class="w-100 pl-4 pr-4" [(ngModel)]="selectCurso" (ngModelChange)="selectCursoEvent($event)" nzAllowClear>
                         <nz-option *ngFor="let curso of cursos; let i = index" [nzValue]="curso"
                                    [nzLabel]="'Sección ' + curso.seccion_nombre" nzPlaceHolder="Secciones">
                         </nz-option>
                     </nz-select>
                 </div>
-                <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="14" nzXXl="14" class=" my-2" *ngIf="unidades?.length > 0" style="text-align: center">
+                <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="12" nzXXl="12" class=" my-2" *ngIf="unidades?.length > 0" style="text-align: center">
                     <button class="btn btn-unidad mr-3" (click)="editarUnidades()">
                         <i class="fas fa-cog bd-invisible pr-1"></i>
                         <span class="pl-1" *ngIf="!editUnidades">Editar Unidades</span>
@@ -67,7 +67,7 @@
                                             <span style="font-size: 10px">{{ b.bloque_titulo }}</span>
                                         </div>
                                         <div class="col-2 p-0 d-block my-auto">
-                                            <nz-switch disabled nzSize="small" [ngModel]="b.estado"></nz-switch>
+                                            <nz-switch nzSize="small" [ngModel]="b.estado" (click)="cambiarEstadoBloqueGrupo(b, u.grupo_id)"></nz-switch>
                                         </div>
                                     </div>
                                 </li>

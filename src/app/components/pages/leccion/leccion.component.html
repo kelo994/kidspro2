@@ -15,7 +15,7 @@
     nzTheme="light"
     style="background-color:  rgba(0, 0, 0, 0.04); padding-top: 40px; margin-top: 0px !important;"
   >
-    <p class="cursiva pl-4 pb-3">Unidad 1</p>
+    <p class="cursiva pl-4 pb-3">{{ unidadNombre }}</p>
     <ul nz-menu  nzMode="inline" [nzInlineCollapsed]="isCollapsed" style="background-color: transparent">
       <li nz-menu-item *ngFor="let leccion of lecciones; let i = index">
         <a (click)="reloadLeccion(leccion)">
@@ -25,6 +25,9 @@
           </div>
         </a>
       </li>
+      <button style="color: rgba(0,0,0,0.5); " nz-button nzType="link" nzSize="small" (click)="goToUnidad()">
+        <i nz-icon nzType="left"></i> Salir
+      </button>
     </ul>
   </nz-sider>
   <nz-layout>
@@ -33,12 +36,21 @@
         <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="17" nzXXl="18" style="padding-left: 20px; padding-right: 20px; " >
           <div class="video" [innerHtml]="iframeHtml" ></div>
           <div class="datos-bloque">
-            <h5 class="pb-2">{{leccion.bloque_titulo}}</h5>
+            <div nz-row>
+              <div nz-col nzSpan="8">
+                <h5 class="pb-2">{{leccion.bloque_titulo}} </h5>
+              </div>
+
+              <div nz-col nzSpan="8">
+                <h6 class="m-0" style="color: rgba(0, 0, 0, 0.3)">{{nombreAsignatura}} <i nz-icon nzType="arrow-right" nzTheme="outline"></i> {{unidadNombre}}</h6>
+              </div>
+            </div>
+
             <div class="datos-lecciones pl-2">
               <p class="negrita pb-2 pt-2">Lecciones</p>
               <ul>
                 <li *ngFor="let leccion of leccion.lecciones; let i = index">
-                  <p class="descripcion-documento pl-1">{{leccion.leccion_titulo}}</p>
+                  <p class="descripcion-documento pl-1"><span style="color:#004d40; font-size: 14px">* </span> {{leccion.leccion_titulo}}</p>
                 </li>
               </ul>
             </div>
@@ -68,7 +80,7 @@
             <img alt="image" [src]="leccion.bloque_imagen" />
           </div>
           <div class="border-bottom padding-title" >
-            <p class="negrita">Repositorio del Sistema</p>
+            <p class="negrita">Repositorio</p>
           </div>
           <div class="lista-repositorio-sistema" >
             <ul>
@@ -139,15 +151,6 @@
               <input id="fileInput" hidden type="file" #fileInput (change)="procesarArchivo($event)">
             </form>
           </div>
-      <!--    <div nz-col nzMd="8">
-            <label class="form-label">Archivo:</label>
-          </div>
-          <div nz-col nzMd="16">
-            <input
-            type="file"
-            accept="image/*;capture=camera"
-            (change)="procesarArchivo($event)">
-          </div>-->
         </div>
       </div>
     </form>

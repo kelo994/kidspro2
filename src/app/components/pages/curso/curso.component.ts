@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-// import { DashService } from '../../services/dash.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NzFormatEmitEvent, NzNotificationService } from 'ng-zorro-antd';
 import { CursoService } from 'src/app/services/cursos.service';
@@ -211,6 +210,7 @@ export class CursoComponent implements OnInit {
     this.selectCurso = null;
     this.cursos = null;
     this.unidades = [];
+    localStorage.setItem('nombreAsignatura', value.materia_descripcion);
     this.getCursos(this.nivelSelected, value.asignatura_id);
     this.nombreAsignaturaSeleccionada = value.materia_descripcion;
     this.step = 3;
@@ -221,5 +221,23 @@ export class CursoComponent implements OnInit {
     localStorage.setItem('letterSeccion', value.seccion_nombre);
     this.getUnidades( localStorage.getItem('idFuncionario'), this.selecAsignatura.asignatura_id, value.curso_id);
     this.step = 4;
+  }
+
+  cambiarEstadoBloqueGrupo(data, grupo_id) {
+    console.log(data);
+    data.bloque_id = data.id;
+    data.grupo_id = grupo_id;
+    this.bloqService.cambiarEstadoBloqueGrupo(data, data.id).subscribe(
+        (response: any) => { // Success
+          data.estado = !data.estado;
+
+        },
+        (error) => {
+          if (error.status === 401) {
+            this.router.navigate(['/auth/login']);
+          } else if (error.status === 500) {
+            // this.toast.showToast('danger', 'Error Inesperado', 'Por favor vuelva a intentarlo mas tarde');
+          }
+        });
   }
 }

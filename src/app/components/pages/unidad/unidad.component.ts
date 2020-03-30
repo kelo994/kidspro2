@@ -71,11 +71,6 @@ export class UnidadComponent implements OnInit {
     this.bloqueService.cambiarEstadoBloqueGrupo(data, data.bloque_id).subscribe(
         (response: any) => { // Success
           data.estado = !data.estado;
-          if (data.estado) {
-           // this.toast.showToast('success', 'Lección Activada', '');
-          } else {
-          // this.toast.showToast('success', 'Lección Desactivada', '');
-          }
 
         },
         (error) => {
