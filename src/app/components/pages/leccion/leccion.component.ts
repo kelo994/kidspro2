@@ -164,6 +164,7 @@ export class LeccionComponent implements OnInit {
   }
 
   reloadLeccion(item) {
+    this.leccionId = item.bloque_id;
     this.cursoId = localStorage.getItem('cursoId');
     this.asignaturaId = localStorage.getItem('AsignaturaId');
     this.grupoId = localStorage.getItem('unidadId');
