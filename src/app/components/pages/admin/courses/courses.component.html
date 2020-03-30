@@ -1,6 +1,11 @@
 <nz-page-header >
   <nz-page-header-title>Administración de cursos</nz-page-header-title>
   <nz-page-header-extra >
+    <button style="font-size: 12px; font-weight: bold; background-color: #009dee; color: white" nz-button (click)="changeFlagEliminarCurso()">
+      <i nz-icon nzType="delete"></i>
+      <nz-divider [nzType]="'vertical'" style="margin-left: 0px"></nz-divider>
+      Eliminar Curso
+    </button>
     <button style="font-size: 12px; font-weight: bold; background-color: #009dee; color: white" nz-button (click)="openModal('create')">
       <i nz-icon nzType="plus"></i>
       <nz-divider [nzType]="'vertical'" style="margin-left: 0px"></nz-divider>
@@ -25,7 +30,8 @@
       <thead>
       <tr>
         <th>Asignaturas / Secciones</th>
-        <th class="content-celda" *ngFor="let curso of nivel.cursos; let i = index">{{ curso.seccion_nombre }}</th>
+        <th class="content-celda" *ngFor="let curso of nivel.cursos; let i = index">
+          {{ curso.seccion_nombre }} <i nz-icon nzType="delete" nzTheme="twotone" [nzTwotoneColor]="'#009dee'" *ngIf="flagEliminarCurso" (click)="delete(curso.curso_id)" style="cursor: pointer"></i> </th>
       </tr>
       </thead>
       <tbody >

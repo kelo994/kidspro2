@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { NzFormatEmitEvent, NzNotificationService } from 'ng-zorro-antd';
+import { NzFormatEmitEvent, NzNotificationService, NzModalService } from 'ng-zorro-antd';
 import {CoursesService} from '../../../../services/courses.service';
 
 @Component({
@@ -13,6 +13,7 @@ export class CoursesAdminComponent implements OnInit {
 
   loading = false;
   panelOpenState = false;
+  flagEliminarCurso = false;
   curso: {
     nivel_id: any,
     cantidad_secciones: any,
@@ -40,10 +41,12 @@ export class CoursesAdminComponent implements OnInit {
   establecimientoId;
   modalCrearCurso = false;
   cursoForm: FormGroup;
+  cursoEliminado;
 
   constructor(
     private notification: NzNotificationService,
     private router: Router,
+    private modalService: NzModalService,
     private route: ActivatedRoute,
     public coursesService: CoursesService) {
     this.cursoForm = new FormGroup({
@@ -120,5 +123,39 @@ export class CoursesAdminComponent implements OnInit {
         this.notification.warning('Curso', 'Por favor ingrese una la cantidad de secciones');
       }
     }
+  }
+
+  changeFlagEliminarCurso() {
+    if (this.flagEliminarCurso) {
+      this.flagEliminarCurso = false;
+    } else {
+      this.flagEliminarCurso = true;
+    }
+  }
+
+  delete(cursoId) {
+    this.cursoEliminado = cursoId;
+    this.modalService.confirm({
+      nzTitle: '<i>¿Estas seguro de realizar esta acción?</i>',
+      nzContent: '<b>Esta acción no se puede deshacer</b>',
+      nzCancelText: 'Cancelar',
+      nzOkText: 'Eliminar',
+      nzClassName: 'modal-confirm-delete',
+      nzOnOk: () => this.confirmDelete()
+    });
+  }
+
+  confirmDelete() {
+    this.coursesService.deleteCurso(this.cursoEliminado).subscribe((data: any) => {
+      this.obtenerNivelesEstablecimiento();
+      this.notification.success('Curso', 'El curso fue eliminado con exito');
+    }, (error) => {
+      console.log(error);
+      if (error.status === 401) {
+        this.router.navigate(['/auth/login']);
+      } else if (error.status === 400 || error.status === 500) {
+        this.notification.error('Error al Eliminar curso', error.error.message);
+      }
+    });
   }
 }

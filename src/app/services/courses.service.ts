@@ -185,6 +185,17 @@ export class CoursesService {
                 finalize(() => { /*console.log('finilize')*/ }));
     }
 
+    deleteCurso(cursoId) {
+        return this.http.delete(`${this.url}/curso/${cursoId}`, this.getToken())
+            .pipe(
+                catchError((error, c) => {
+                    this.errorTime();
+                    return throwError(error)
+                }),
+                switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+                finalize(() => { /*console.log('finilize')*/ }));
+    }
+
 
 
     errorTime() {

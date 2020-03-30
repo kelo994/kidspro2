@@ -89,9 +89,17 @@
                 </div>
             </div>
 
-            <div *ngIf="step < 4" class="container">
-                <div class="w80 row m-0 mx-auto justify-content-center">
-                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 ">
+            <div *ngIf="step < 4" class="pl-5">
+               <!-- <div class="px-5">
+                    <nz-steps [nzCurrent]="step - 1 ">
+                        <nz-step nzTitle="Elige un Curso" ></nz-step>
+                        <nz-step nzTitle="Elige una asignatura" > </nz-step>
+                        <nz-step nzTitle="Elige una sección" ></nz-step>
+                    </nz-steps>
+                </div> -->
+
+                <div class="row m-0 ml-3 justify-content-center">
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                         <div class="row m-0 mx-2" *ngIf="resolucion > 768 || (resolucion < 768 && step == 1)">
                             <div class="col-2 px-0 text-right col-step">
                                 <p class="active" *ngIf="step == 1">1</p>
@@ -117,7 +125,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 ">
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                         <div class="row m-0 mx-1" *ngIf="resolucion > 768 || (resolucion < 768 && step == 3)">
                             <div class="col-2 px-0 text-right col-step">
                                 <p class="desactive"  *ngIf="step < 3">3</p>
