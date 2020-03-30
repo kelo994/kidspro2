@@ -78,14 +78,14 @@ export class StudentLessonComponent implements OnInit {
       this.lecciones = data.data;
       this.leccion = data.data[0];
       if (this.leccion != null) {
-        localStorage.setItem('fastBloque', this.leccion.bloque_id)
+        localStorage.setItem('fastBloque', this.leccion.bloque_id);
         this.playleccion = this.leccion.ruta_actividad;
-        console.log(this.playleccion)
+        console.log(this.playleccion);
         this.loadVideo(this.leccion.recursos[0].url);
       } else {
         this.notification.warning('No hay lecciones activadas', '');
       }
-      this.loading = false
+      this.loading = false;
     }, (error) => {
       if (error.status === 500) this.notification.error('Error', error.error);
       if (error.status == 401) {
@@ -108,7 +108,7 @@ export class StudentLessonComponent implements OnInit {
     this.leccion = lesson;
     this.playleccion = this.leccion.ruta_actividad;
     this.visibleDrawer = false;
-    localStorage.setItem('fastBloque', this.leccion.bloque_id)
+    localStorage.setItem('fastBloque', this.leccion.bloque_id);
     this.loadVideo(lesson.recursos[0].url);
   }
 
