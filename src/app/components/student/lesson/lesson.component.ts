@@ -58,6 +58,8 @@ export class StudentLessonComponent implements OnInit {
   playleccion = 'matematicas/1/1/Build/1.json';
   iframeHtml: any;
 
+  loading = true;
+
   ngOnInit(): void {
     this.idEstudiante = localStorage.getItem('idEstudiante');
     this.loadContent()
@@ -80,6 +82,7 @@ export class StudentLessonComponent implements OnInit {
       } else {
         this.notification.warning('No hay lecciones activadas', '');
       }
+      this.loading = false
     }, (error) => {
       if (error.status === 500) this.notification.error('Error', error.error);
       if (error.status == 401) {

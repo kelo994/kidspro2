@@ -1,4 +1,4 @@
-<nz-layout *ngIf="evaluation != null" style="height: 100vh; padding-top: 64px;">
+<nz-layout *ngIf="evaluation != null && loading == false" style="height: 100vh; padding-top: 64px;">
     <nz-sider class="lesson-sidebar" [nzWidth]="siderWidth" nzTheme="light">
         <nz-card class="sidebar-evaluation-title">
             Preg<ng-template [ngIf]="siderWidth === 180">untas</ng-template>
@@ -100,6 +100,6 @@
         </nz-content>
     </nz-layout>
 </nz-layout>
-<nz-layout *ngIf="evaluation == null" style="height: 100vh; padding-top: 64px;">
+<nz-layout *ngIf="evaluation == null && loading == false" style="height: 100vh; padding-top: 64px;">
         <div class="evaluation-not-found"></div>
 </nz-layout>
