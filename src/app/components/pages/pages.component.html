@@ -2,7 +2,7 @@
 <button *ngIf="isDrawer" id="btnCollapse" nz-button nzType="primary" (click)="toggleDrawer()" class="d-none">
     <i nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
 </button>
-<nz-layout class="app-layout" style="height: 100vh;">
+<nz-layout class="app-layout">
     <nz-sider *ngIf="!isDrawer" class="menu-sidebar border-right" nzWidth="181px" nzBreakpoint="md" [nzTrigger]="null">
         <ul nz-menu nzMode="inline">
             <li nz-menu-group nzTitle="Módulos"></li>
