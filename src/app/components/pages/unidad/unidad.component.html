@@ -30,8 +30,8 @@
             </div>
           </nz-card>
           <ng-template #coverTemplate class="contenedor">
-            <div (click)="goToLeccion(bloque)">
-              <img alt="example" [src]="bloque.bloque_imagen" style="cursor: pointer" />
+            <div (click)="goToLeccion(bloque)" class="imagen-wrapper">
+              <img alt="example" [src]="bloque.bloque_imagen" style="cursor: pointer; height: 56.25%; width: 100%;" />
               <button class="btn btnPlay-leccion">
                 <i class="far fa-play-circle"></i>
               </button>

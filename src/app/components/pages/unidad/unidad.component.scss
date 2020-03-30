@@ -84,3 +84,16 @@ h6 {
 ::ng-deep app-unidad .ant-layout{
   min-height: 80% !important;
 }
+
+
+.image-wrapper {
+  position: relative;
+  padding-bottom: 56.2%;
+}
+
+.image-wrapper img {
+  position: absolute;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}

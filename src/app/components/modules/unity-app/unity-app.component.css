@@ -1,13 +1,13 @@
 #gamecontainer {
     width: 1000px; 
-    height: 562px; 
+    height: 562px;
     margin: auto;
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
 }
 
 #footer {
-    width: 1000px; 
-    height: 50px; 
+    width: 1000px;
+    height: 50px;
     margin: auto;
 }
