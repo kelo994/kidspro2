@@ -41,6 +41,32 @@ export class StudentLessonService {
                 finalize(() => { /*console.log('finilize')*/ }));
     }
 
+    getRepositoriosBloque(bloqueId) {
+        return this.http.
+        get(`${this.url}/estudiantes/bloques/${bloqueId}/repositorios`, this.getTokenStudent())
+            .pipe(timeout(5000),
+                retry(1),
+                catchError((error, c) => {
+                    this.errorTime();
+                    return throwError(error);
+                }),
+                switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+                finalize(() => { /*console.log('finilize')*/ }));
+    }
+
+    descargarArchivo(nombre) {
+        return this.http.
+        get(`${this.url}/downloads/multimedias/${nombre}`, this.getTokenStudent())
+            .pipe(timeout(5000),
+                retry(1),
+                catchError((error, c) => {
+                    this.errorTime();
+                    return throwError(error);
+                }),
+                switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+                finalize(() => { /*console.log('finilize')*/ }));
+    }
+
     errorTime() {
         // this.toast.eternalToast('danger', 'Error Inesperado', 'Lo sentimos, no se ha podido realizar la solicitud, intentelo más tarde');
     }

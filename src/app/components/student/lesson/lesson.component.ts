@@ -65,7 +65,7 @@ export class StudentLessonComponent implements OnInit {
   ngOnInit(): void {
     this.idEstudiante = localStorage.getItem('idEstudiante');
     this.loadContent();
-    this.getRepositoriosBloque();
+
     if (window.innerWidth >= 576) {
       this.innerWidth = window.innerWidth / 2;
     } else {
@@ -79,6 +79,7 @@ export class StudentLessonComponent implements OnInit {
       this.leccion = data.data[0];
       if (this.leccion != null) {
         localStorage.setItem('fastBloque', this.leccion.bloque_id);
+        this.getRepositoriosBloque(this.leccion.bloque_id);
         this.playleccion = this.leccion.ruta_actividad;
         console.log(this.playleccion);
         this.loadVideo(this.leccion.recursos[0].url);
@@ -116,8 +117,8 @@ export class StudentLessonComponent implements OnInit {
     this.router.navigate(['/student/lesson/game'], { state: { play: this.playleccion, titulo: this.leccion.bloque_titulo } })
   }
 
-  getRepositoriosBloque() {
-    this.repositorioService.getRepositoriosBloque(this.leccionId).subscribe( (data: any) => { // Success
+  getRepositoriosBloque(bloqueId) {
+    this.lessonService.getRepositoriosBloque(bloqueId).subscribe( (data: any) => { // Success
       this.repositorios = data;
     }, (error) => {
       if (error.status === 401) { this.router.navigate(['/auth/login']); }
@@ -126,7 +127,8 @@ export class StudentLessonComponent implements OnInit {
 
   descargarArchivo(nombreArchivo) {
     var ruta = nombreArchivo.split('/');
-    this.repositorioService.descargarArchivo(ruta[5]).subscribe( (data: any) => { // Success
+    console.log(nombreArchivo);
+    this.lessonService.descargarArchivo(ruta[5]).subscribe( (data: any) => { // Success
       this.notification.info('Repositorio', 'Descarga exitosa');
     }, (error) => {
       if (error.status === 401) { this.router.navigate(['/auth/login']); }
