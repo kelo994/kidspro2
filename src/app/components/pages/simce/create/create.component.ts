@@ -44,8 +44,8 @@ export class SimceCreateComponent implements OnInit {
     public router: Router
   ) {
     this.createForm = new FormGroup({
-      'tipo': new FormControl('', [Validators.required]),
-      'curso': new FormControl('', [Validators.required]),
+      'tipo': new FormControl(null, [Validators.required]),
+      'curso': new FormControl(null, [Validators.required]),
       'nota_minima': new FormControl(1, [Validators.required]),
       'exigencia': new FormControl(50, [Validators.required])
     })
