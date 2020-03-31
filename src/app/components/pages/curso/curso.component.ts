@@ -43,14 +43,14 @@ export class CursoComponent implements OnInit {
   private parametersObservable: any;
 
   constructor(private routeActive: ActivatedRoute,
-              private notification: NzNotificationService, private router: Router, public cService: CursoService,
-              public coursesService: CoursesService, public bloqService: BloqueService) {
+    private notification: NzNotificationService, private router: Router, public cService: CursoService,
+    public coursesService: CoursesService, public bloqService: BloqueService) {
   }
 
   ngOnInit(): void {
     this.resolucion = window.screen.width;
     this.routeActive.params.subscribe(params => {
-      if ( params.idCurso == 0) {
+      if (params.idCurso == 0) {
         this.step = 1;
         this.asignaturas = null;
         this.selecAsignatura = null;
@@ -77,13 +77,13 @@ export class CursoComponent implements OnInit {
 
   openAsignatura(element) {
     localStorage.setItem('AsignaturaId', this.asignaturas[Number(element)].asignatura_id);
-   // localStorage.setItem('AsignaturaNombre', item.asignatura_nombre);
+    // localStorage.setItem('AsignaturaNombre', item.asignatura_nombre);
     // this.selectAsginatura = item.asignatura_nombre;
     // this.getUnidades();
   }
 
-  getUnidades(funcionarioId, asignaturaId, cursoId ) {
-    this.bloqService.getGrupos( funcionarioId, asignaturaId, cursoId)
+  getUnidades(funcionarioId, asignaturaId, cursoId) {
+    this.bloqService.getGrupos(funcionarioId, asignaturaId, cursoId)
       .subscribe(
         (data: any) => { // Success
           this.unidades = data;
@@ -186,23 +186,23 @@ export class CursoComponent implements OnInit {
   getAsignaturas(nivelId) {
 
     this.cService
-        .obtenerAsignaturasPorEstablecimientoFuncionarioNivel(localStorage.getItem('idEstablecimiento')
-            , localStorage.getItem('idFuncionario'), nivelId)
-        .subscribe((data: any) => { // Success
-          this.asignaturas = data;
-        }, (error) => {
-          if (error.status === 401) { this.router.navigate(['/auth/login']); }
-        });
+      .obtenerAsignaturasPorEstablecimientoFuncionarioNivel(localStorage.getItem('idEstablecimiento')
+        , localStorage.getItem('idFuncionario'), nivelId)
+      .subscribe((data: any) => { // Success
+        this.asignaturas = data;
+      }, (error) => {
+        if (error.status === 401) { this.router.navigate(['/auth/login']); }
+      });
   }
   getCursos(nivelId, asignaturaId) {
     this.cService
-        .obtenerCursosPorEstablecimientoFuncionarioNivelAsignatura(localStorage.getItem('idEstablecimiento')
-            , localStorage.getItem('idFuncionario'), nivelId, asignaturaId)
-        .subscribe((data: any) => { // Success
-          this.cursos = data;
-        }, (error) => {
-          if (error.status === 401) { this.router.navigate(['/auth/login']); }
-        });
+      .obtenerCursosPorEstablecimientoFuncionarioNivelAsignatura(localStorage.getItem('idEstablecimiento')
+        , localStorage.getItem('idFuncionario'), nivelId, asignaturaId)
+      .subscribe((data: any) => { // Success
+        this.cursos = data;
+      }, (error) => {
+        if (error.status === 401) { this.router.navigate(['/auth/login']); }
+      });
   }
 
   selectAsignatura(value) {
@@ -219,7 +219,7 @@ export class CursoComponent implements OnInit {
   selectCursoEvent(value) {
     this.cursoIdSeleccionado = value.curso_id;
     localStorage.setItem('letterSeccion', value.seccion_nombre);
-    this.getUnidades( localStorage.getItem('idFuncionario'), this.selecAsignatura.asignatura_id, value.curso_id);
+    this.getUnidades(localStorage.getItem('idFuncionario'), this.selecAsignatura.asignatura_id, value.curso_id);
     this.step = 4;
   }
 
@@ -228,16 +228,16 @@ export class CursoComponent implements OnInit {
     data.bloque_id = data.id;
     data.grupo_id = grupo_id;
     this.bloqService.cambiarEstadoBloqueGrupo(data, data.id).subscribe(
-        (response: any) => { // Success
-          data.estado = !data.estado;
+      (response: any) => { // Success
+        data.estado = !data.estado;
 
-        },
-        (error) => {
-          if (error.status === 401) {
-            this.router.navigate(['/auth/login']);
-          } else if (error.status === 500) {
-            // this.toast.showToast('danger', 'Error Inesperado', 'Por favor vuelva a intentarlo mas tarde');
-          }
-        });
+      },
+      (error) => {
+        if (error.status === 401) {
+          this.router.navigate(['/auth/login']);
+        } else if (error.status === 500) {
+          // this.toast.showToast('danger', 'Error Inesperado', 'Por favor vuelva a intentarlo mas tarde');
+        }
+      });
   }
 }

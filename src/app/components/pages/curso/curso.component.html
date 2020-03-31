@@ -29,10 +29,10 @@
                     </nz-select>
                 </div>
                 <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12" nzXl="6" nzXXl="6" class="my-2" *ngIf="step > 2" style="text-align: center">
-                    <h5 class="text-subheader bd-invisible truncar-texto" >{{ nombreAsignaturaSeleccionada }}</h5>
+                    <h5 class="text-subheader bd-invisible truncar-texto m-0" style="line-height: 1.5;">{{ nombreAsignaturaSeleccionada }}</h5>
                 </div>
                 <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12" nzXl="6" nzXXl="6" class="my-2" *ngIf="step > 2">
-                    <nz-select  class="w-100 pl-4 pr-4" [(ngModel)]="selectCurso" (ngModelChange)="selectCursoEvent($event)" nzAllowClear>
+                    <nz-select  class="w-100 pl-4 pr-4" [(ngModel)]="selectCurso" (ngModelChange)="selectCursoEvent($event)" nzAllowClear nzPlaceHolder="Seleccione sección">
                         <nz-option *ngFor="let curso of cursos; let i = index" [nzValue]="curso"
                                    [nzLabel]="'Sección ' + curso.seccion_nombre" nzPlaceHolder="Secciones">
                         </nz-option>
