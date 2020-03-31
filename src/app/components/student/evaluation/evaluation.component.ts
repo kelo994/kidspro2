@@ -54,7 +54,6 @@ export class StudentEvaluationComponent implements OnInit {
       this.questionIndex = 0
       this.loading = false
     }, (error) => {
-      console.log(error)
       if (error.status === 500) this.notification.error('Error', error.error);
       if (error.status == 401) {
         localStorage.clear();
@@ -71,7 +70,6 @@ export class StudentEvaluationComponent implements OnInit {
     }
     this.simceService.guardarRepuesta(this.evaluation.prueba_id, this.idEstudiante, idPregunta, data).subscribe((data: any) => { // Success
       this.notification.success(data, '');
-
       $('#question' + this.questionIndex).removeClass('check-slider').addClass('check-slider-active');
     }, (error) => {
       if (error.status == 401) this.router.navigate(['/auth/login']);
@@ -104,7 +102,6 @@ export class StudentEvaluationComponent implements OnInit {
   next () {
     this.questionIndex = this.questionIndex + 1
     this.question = this.questions[this.questionIndex]
-    console.log(this.question.respuesta_id);
   }
   
   prev () {
