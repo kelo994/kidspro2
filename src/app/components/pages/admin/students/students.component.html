@@ -60,7 +60,7 @@
             <th>Matrícula</th>
             <th class="content-celda">Nombre</th>
             <th class="content-celda">Apellido</th>
-            <th class="content-celda">Acciones</th>
+            <th class="content-celda text-center">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -68,7 +68,7 @@
             <td>{{estudiante.matricula}}</td>
             <td class="content-celda">{{estudiante.persona_nombre}}</td>
             <td class="content-celda">{{estudiante.persona_apellido}}</td>
-            <td class="content-celda">
+            <td class="content-celda text-center">
               <i nz-icon nzType="delete" nzTheme="outline" class="pointer"
                 (click)="delete(estudiante.estudiante_id)"></i>
             </td>
@@ -83,7 +83,7 @@
           <div class="modal-container">
             <div nz-row class="mb-3">
               <div nz-col nzSpan="8">
-                <label class="form-label">Matrícula</label>
+                <label class="form-label title-form-label m-0">Matrícula</label>
               </div>
               <div nz-col nzSpan="16">
                 <input nz-input formControlName="matricula" placeholder="Matrícula" />
@@ -91,7 +91,7 @@
             </div>
             <div nz-row class="mb-3">
               <div nz-col nzSpan="8">
-                <label class="form-label">RUT</label>
+                <label class="form-label title-form-label m-0">RUT</label>
               </div>
               <div nz-col nzSpan="16">
                 <input nz-input formControlName="rut" placeholder="RUT" (keyup)="formateaRut()" />
@@ -99,7 +99,7 @@
             </div>
             <div nz-row class="mb-3">
               <div nz-col nzSpan="8">
-                <label class="form-label">Nombres</label>
+                <label class="form-label title-form-label m-0">Nombres</label>
               </div>
               <div nz-col nzSpan="16">
                 <input nz-input formControlName="nombre" placeholder="Nombres" />
@@ -107,7 +107,7 @@
             </div>
             <div nz-row class="mb-3">
               <div nz-col nzSpan="8">
-                <label class="form-label">Apellidos</label>
+                <label class="form-label title-form-label m-0">Apellidos</label>
               </div>
               <div nz-col nzSpan="16">
                 <input nz-input formControlName="apellido" placeholder="Apellidos" />
@@ -115,10 +115,10 @@
             </div>
             <div nz-row class="mb-3">
               <div nz-col nzSpan="8">
-                <label class="form-label">Género</label>
+                <label class="form-label title-form-label m-0">Género</label>
               </div>
               <div nz-col nzSpan="16">
-                <nz-select formControlName="genero" class="w-100" nzAllowClear nzPlaceHolder="Generos">
+                <nz-select formControlName="genero" class="w-100" nzAllowClear nzPlaceHolder="Seleccione Género">
                   <nz-option *ngFor="let genero of generos; let i = index" [nzValue]="genero.id"
                     [nzLabel]="genero.descripcion">
                   </nz-option>
@@ -127,7 +127,7 @@
             </div>
             <div nz-row class="mb-3">
               <div nz-col nzSpan="8">
-                <label class="form-label">Teléfono</label>
+                <label class="form-label title-form-label m-0">Teléfono</label>
               </div>
               <div nz-col nzSpan="16">
                 <input nz-input formControlName="telefono" placeholder="Teléfono" />
@@ -135,7 +135,7 @@
             </div>
             <div nz-row class="mb-3">
               <div nz-col nzSpan="8">
-                <label class="form-label">Dirección</label>
+                <label class="form-label title-form-label m-0">Dirección</label>
               </div>
               <div nz-col nzSpan="16">
                 <input nz-input formControlName="direccion" placeholder="Dirección" />
@@ -143,7 +143,7 @@
             </div>
             <div nz-row class="mb-3">
               <div nz-col nzSpan="8">
-                <label class="form-label">Nacionalidad</label>
+                <label class="form-label title-form-label m-0">Nacionalidad</label>
               </div>
               <div nz-col nzSpan="16">
                 <input nz-input formControlName="nacionalidad" placeholder="Nacionalidad" />
@@ -156,7 +156,7 @@
           <button nz-button nzSize="large" style="background-color: #e8e8e8;" (click)="changeStep(1)">Cancelar</button>
           <button nz-button nzSize="large" style="background-color: #e8e8e8;" (click)="clearForm()">Limpiar</button>
           <button nz-button nzSize="large" nzType="primary" (click)="guardarEstudiante()"
-            [disabled]="estudianteForm.invalid">
+            >
             Guardar
           </button>
         </div>

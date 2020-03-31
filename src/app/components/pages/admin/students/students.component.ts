@@ -58,7 +58,7 @@ export class StudentsAdminComponent implements OnInit {
       telefono: new FormControl(''),
       direccion: new FormControl(''),
       nacionalidad: new FormControl(''),
-      genero: new FormControl('', [Validators.required, Validators.minLength(1)]),
+      genero: new FormControl(null, [Validators.required, Validators.minLength(1)]),
     });
   }
 
@@ -178,28 +178,29 @@ export class StudentsAdminComponent implements OnInit {
     this.estudianteForm.controls.genero.setValue(null);
     this.estudianteForm.reset();
   }
+
   validarForma() {
     if (this.estudianteForm.controls.rut.status !== 'VALID') {
       if (this.estudianteForm.controls.rut.value == null) {
-        this.notification.warning('Usuario', 'Por favor ingrese rut del nuevo funcionario.');
+        this.notification.warning('Estudiante', 'Por favor ingrese rut del nuevo estudiante.');
       } else if (this.estudianteForm.controls.rut.errors.validaRut) {
-        this.notification.warning('Usuario', 'Por favor ingrese un rut válido.');
+        this.notification.warning('Estudiante', 'Por favor ingrese un rut válido.');
       }
     } else if (this.estudianteForm.controls.nombre.status !== 'VALID') {
       if (this.estudianteForm.controls.nombre.value == null) {
-        this.notification.warning('Usuario', 'Por favor ingrese nombre del nuevo funcionario.');
+        this.notification.warning('Estudiante', 'Por favor ingrese nombre para el nuevo estudiante.');
       } else if (this.estudianteForm.controls.nombre.value.length < 3) {
-        this.notification.warning('Usuario', 'Por favor ingrese un nombre válido, de mínimo 3 carácteres');
+        this.notification.warning('Estudiante', 'Por favor ingrese un nombre válido, de mínimo 3 carácteres');
       }
     } else if (this.estudianteForm.controls.apellido.status !== 'VALID') {
       if (this.estudianteForm.controls.apellido.value == null) {
-        this.notification.warning('Usuario', 'Por favor ingrese apellido del nuevo funcionario.');
+        this.notification.warning('Estudiante', 'Por favor ingrese apellido del nuevo estudiante.');
       } else if (this.estudianteForm.controls.apellido.value.length < 3) {
-        this.notification.warning('Usuario', 'Por favor ingrese un apellido válido, de mínimo 3 carácteres');
+        this.notification.warning('Estudiante', 'Por favor ingrese un apellido válido, de mínimo 3 carácteres');
       }
     } else if (this.estudianteForm.controls.genero.status !== 'VALID') {
       if (this.estudianteForm.controls.genero.value == null) {
-        this.notification.warning('Usuario', 'Por favor seleccione genero del funcionario');
+        this.notification.warning('Estudiante', 'Por favor seleccione género del nuevo estudiante');
       }
     }
   }
@@ -207,7 +208,7 @@ export class StudentsAdminComponent implements OnInit {
   delete(estudianteId) {
     this.estudianteElminado = estudianteId;
     this.modalService.confirm({
-      nzTitle: '<i>¿Estas seguro de realizar esta acción?</i>',
+      nzTitle: '<i>¿Estás seguro de realizar esta acción?</i>',
       nzContent: '<b>Esta acción no se puede deshacer</b>',
       nzCancelText: 'Cancelar',
       nzOkText: 'Eliminar',
