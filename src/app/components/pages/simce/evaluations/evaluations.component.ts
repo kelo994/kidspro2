@@ -117,7 +117,7 @@ export class SimceEvaluationsComponent implements OnInit {
       className = 'modal-confirm-finalizar'
     }
     this.modalService.confirm({
-      nzTitle: '<i>¿Estas seguro de realizar esta acción?</i>',
+      nzTitle: '<i>¿Estás seguro de realizar esta acción?</i>',
       nzContent: '<b>Esta acción no se puede deshacer</b>',
       nzCancelText: 'Cancelar',
       nzOkText: okText,
