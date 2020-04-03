@@ -32,14 +32,13 @@
                                 style="color: rgba(255, 101, 91, 0.911);" (click)="showConfirm('finalizar', data)"></i>
                             <i nz-icon nzType="file-search" class="pointer vertical-line"
                                 (click)="verPrueba(data, 'ver')"></i>
-                            <i nz-icon nzType="unlock" nz-popover nzPopoverTrigger="click"
+                            <i nz-icon nzType="lock" nz-popover nzPopoverTrigger="click" nzPopoverPlacement="bottom"
                                 [nzPopoverContent]="codeTemplate" nzTheme="outline" class="pointer"
-                                style="color: rgba(202, 175, 18, 0.89)" (click)="setCode(data.codigo)"></i>
+                                style="color: #f2c94c" (click)="setCode(data.codigo)"></i>
                             <ng-template #codeTemplate>
-                                <div class="text-center">
-                                    <i nz-icon nzType="unlock" nzTheme="outline"
-                                        style="color: rgba(202, 175, 18, 0.89)"></i>
-                                    <span id="code">{{ evaluationCode }}</span>
+                                <div class="text-center bb-yellow bb-radius-4 px-3 py-2">
+                                    <i nz-icon nzType="lock" nzTheme="outline" class="lock-icon"></i>
+                                    <span class="code"> {{ evaluationCode }}</span>
                                 </div>
                             </ng-template>
                             <!--<i nz-icon nzType="delete" nzTheme="outline"></i>-->
@@ -51,7 +50,8 @@
                 <div class="offset-6 col-6 pt-3">
                     <div class="input-group input-group-sm mb-3">
                         <label class="pr-3 m-0 py-2"><strong>Buscar</strong></label>
-                        <input type="text" class="form-control" [(ngModel)]="searchEvaluaciones" placeholder="Buscar...">
+                        <input type="text" class="form-control" [(ngModel)]="searchEvaluaciones"
+                            placeholder="Buscar...">
                     </div>
                 </div>
             </ng-template>
@@ -60,7 +60,7 @@
             <nz-card class="stat-card" style="min-height: 234px; text-align: center;">
                 <div #chartActivas></div>
             </nz-card>
-            <nz-card  class="stat-card card-evaluations">
+            <nz-card class="stat-card card-evaluations">
                 <div nz-row>
                     <div nz-col nzXs="6" nzSm="6" nzMd="24" nzLg="6">
                         <i nz-icon nzType="file" nzTheme="outline" class="icon-file"></i>
@@ -89,7 +89,8 @@
         <h5>Historial de resultados</h5>
         <div nz-col nzMd="24" nzLg="17" nzXl="18">
             <nz-table class="content-table" #pruebasFinalizadasTable [nzTitle]="searchTemplateFinalizadas"
-                [nzData]="pruebasFinalizadas" nzPageSize="9" [nzLoading]="pruebasFinalizadasLoading" style="min-height: 520px;">
+                [nzData]="pruebasFinalizadas" nzPageSize="9" [nzLoading]="pruebasFinalizadasLoading"
+                style="min-height: 520px;">
                 <thead>
                     <tr>
                         <th>ID</th>

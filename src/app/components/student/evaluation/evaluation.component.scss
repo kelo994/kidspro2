@@ -54,6 +54,7 @@
 @media only screen and (min-width: 600px) {
     .question {
         padding-left: 40px;
+        padding-right: 40px;
     }
     .question-container {
         margin: 30px;
@@ -98,14 +99,12 @@
 
 .btn-previous {
     position: absolute;
-    font-size: 15px;
-    left: 30px;
+    left: 50px;
 }
 
 .btn-next {
     position: absolute;
-    font-size: 15px;
-    right: 0px;
+    right: 20px;
 }
 
 .btn-finalizar {

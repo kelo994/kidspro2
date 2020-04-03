@@ -4,7 +4,8 @@
             Preg<ng-template [ngIf]="siderWidth === 180">untas</ng-template>
         </nz-card>
         <ul nz-menu nzMode="inline" class="sider-menu" *ngFor="let q of questions; let i = index">
-            <li class="li-question" nz-menu-item [nzSelected]="q === question ? true : false" (click)="setQuestion(q, i)">
+            <li class="li-question" nz-menu-item [nzSelected]="q === question ? true : false"
+                (click)="setQuestion(q, i)">
                 <ng-template [ngIf]="siderWidth === 180">
                     <div class="vertical-slider-container">
 
@@ -17,9 +18,11 @@
 
                         <div *ngIf="i != questions.length - 1" [ngClass]="{'vertical-slider-bottom-active': questionIndex > i,
                                         'vertical-slider-bottom': questionIndex <= i}">
-                            <div [id]="'question' + questionIndex" [ngClass]="(q.respuesta_id != null)? 'check-slider-active':'check-slider'" class=""></div>
+                            <div [id]="'question' + questionIndex"
+                                [ngClass]="(q.respuesta_id != null)? 'check-slider-active':'check-slider'" class="">
+                            </div>
                         </div>
-<!-- 
+                        <!-- 
                         <div *ngIf="questionIndex > i && i != questions.length - 1"
                             class="vertical-slider-bottom-active">
                             <div [name]="'question' + questionIndex" class="check-slider-active"></div>
@@ -32,7 +35,9 @@
                         </div> -->
 
                         <div *ngIf="i == questions.length - 1" class="vertical-slider-first">
-                            <div [id]="'question' + questionIndex" [ngClass]="(q.respuesta_id != null)? 'check-slider-active':'check-slider'" class=""></div>
+                            <div [id]="'question' + questionIndex"
+                                [ngClass]="(q.respuesta_id != null)? 'check-slider-active':'check-slider'" class="">
+                            </div>
                         </div>
                     </div>
                     <div style="display: inline-block; margin-right: 5px;">Pregunta </div>
@@ -78,8 +83,8 @@
                             [disabled]="questionIndex === (questions.length - 1)" (click)="next()">Siguiente</button>
                     </div>
                 </div>
-                <div *ngIf="question.multimedia == ''" class="question" nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24"
-                    nzXl="24" nzXXl="24">
+                <div *ngIf="question.multimedia == ''" class="question" nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="13"
+                    nzXl="13" nzXXl="12">
                     <p class="bold">{{ question.primer_parrafo }}</p>
                     <p class="bold">{{ question.segundo_parrafo }}</p>
                     <p class="bold">{{ question.tercer_parrafo }}</p>

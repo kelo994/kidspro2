@@ -41,6 +41,7 @@ $mobile-style: 860px;
 @import './assets/scss/background.component.scss';
 @import './assets/scss/sider.component.scss';
 @import './assets/scss/card.component.scss';
+@import './assets/scss/icon.component.scss';
 
 .pointer { cursor : pointer }
 .ant-tabs-nav div {
@@ -185,5 +186,8 @@ th {
   }
 
   .ant-menu-inline .ant-menu-item, .ant-menu-inline .ant-menu-submenu-title {
-      width: calc(100%);
+    width: calc(100%);
+  }
+  .ant-popover-inner-content {
+    padding: 0;
   }
