@@ -4,6 +4,7 @@ import { NzNotificationService } from 'ng-zorro-antd';
 import { EmbedVideoService } from 'ngx-embed-video';
 import { Router } from '@angular/router';
 import {RepositorioService} from '../../../services/repositorio.service';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-student-lesson',
@@ -28,7 +29,7 @@ export class StudentLessonComponent implements OnInit {
       this.innerWidth = window.innerWidth;
     }
   }
-
+  url = `${environment.apiBaseUrl}`;
   innerWidth;
   isCollapsed;
   visibleDrawer = false;
@@ -59,7 +60,6 @@ export class StudentLessonComponent implements OnInit {
   showSection = 0;
   playleccion = 'matematicas/1/1/Build/1.json';
   iframeHtml: any;
-  repositorios;
   loading = true;
   repositoriosProfesor: [
       {
@@ -68,7 +68,8 @@ export class StudentLessonComponent implements OnInit {
         repositorio_name: '',
         tipo_repositorio_name: '',
         tipo_repositorio_icono: '',
-        tipo_repositorio_color: ''
+        tipo_repositorio_color: '',
+        nombre_descarga: '',
       }
   ];
   repositoriosSistema: [
@@ -78,7 +79,19 @@ export class StudentLessonComponent implements OnInit {
         repositorio_name: '',
         tipo_repositorio_name: '',
         tipo_repositorio_icono: '',
-        tipo_repositorio_color: ''
+        tipo_repositorio_color: '',
+        nombre_descarga: ''
+      }
+  ];
+  repositorios: [
+      {
+        repositorio_id: '',
+        repositorio_ruta: '',
+        repositorio_name: '',
+        tipo_repositorio_name: '',
+        tipo_repositorio_icono: '',
+        tipo_repositorio_color: '',
+        nombre_descarga: ''
       }
   ];
 

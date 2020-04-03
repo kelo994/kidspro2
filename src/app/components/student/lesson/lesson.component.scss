@@ -77,58 +77,58 @@
     padding-left: 40px;
     padding-top: 30px;
   }
-  
+
   nz-header {
     background: #fff;
     padding: 0;
   }
-  
+
   nz-content {
     margin-bottom: 40px;
   }
-  
+
   .inner-content {
     margin: 40px 15px 0 15px ;
   }
-  
+
   nz-footer {
     text-align: center;
   }
-  
+
   .inner-content-right{
     background-color: #fff;
     padding-top: 10px;
   }
-  
-  
+
+
   .negrita{
     font-weight: bold;
   }
-  
-  
+
+
   p {
     margin: 0;
   }
-  
+
   .border-full {
     border: rgba(0,0,0,0.3) 0.4px solid;
   }
-  
+
   .border-bottom {
     border-bottom: rgba(0,0,0,0.3) 0.4px solid;
   }
-  
+
   .layout-right-title{
     margin-top: 0px;
     margin-bottom: 15px;
     font-size: 16px;
     font-weight: 600;
   }
-  
+
   .vista-previa-image{
     padding: 30px 40px;
   }
-  
+
   .layout-right-content{
     padding: 10px 20px;
   }
@@ -141,38 +141,38 @@
   .button-play {
     cursor: pointer;
   }
-  
+
   .descripcion-documento{
     font-size: 10px;
   }
-  
+
   #cardVideo { height: 90%; max-height: 538px;}
   .pointer { cursor: pointer !important; }
-  
+
   .video{
     width: 100%;
     margin-right: 10px;
     margin-left: 10px;
   }
-  
+
   @media only screen and (min-width: 200px) {
     .video{
       height: 250px;
     }
   }
-  
+
   @media only screen and (min-width: 400px) {
     .video{
       height: 280px;
     }
   }
-  
+
   @media only screen and (min-width: 600px) {
     .video{
       height: 400px;
     }
   }
-  
+
   @media only screen and (min-width: 800px) {
     .video{
       height: 370px;
@@ -182,13 +182,13 @@
       padding-right: 35px;
     }
   }
-  
+
   @media only screen and (min-width: 993px) {
     .video{
       height: 350px;
     }
   }
-  
+
   @media only screen and (min-width: 1201px) {
     .video{
       height: 350px;
@@ -206,7 +206,7 @@
       height: 400px;
     }
   }
-  
+
   @media only screen and (min-width: 1401px) {
     .video{
       height: 440px;
@@ -221,7 +221,7 @@
       padding-left: 50px;
     }
   }
-  
+
   @media only screen and (min-width: 1601px) {
     .video{
       height: 560px;
@@ -233,7 +233,7 @@
       height: 600px;
     }
   }
-  
+
   @media only screen and (min-width: 1901px) {
     .video{
       height: 700px;
@@ -244,24 +244,24 @@
       height: 850px;
     }
   }
-  
+
   ::ng-deep ul li .ant-menu-item.ant-menu-item-selected {
     color: red;
   }
-  
+
   li .ant-menu-item{
     margin: 0;
   }
   .ant-menu-item{
     margin:0;
   }
-  
+
   .truncar-texto {
     overflow:hidden;
     white-space:nowrap;
     text-overflow: ellipsis;
   }
-  
+
   .btnPlay-leccion {
     transform: translate(-50%, -50%) !important;
     -ms-transform: translate(-50%, -50%) !important;
@@ -294,3 +294,14 @@
     background-color: black;
     background-position: 50% 50%;
 }
+  .truncar-texto {
+    overflow:hidden;white-space:nowrap;; text-overflow: ellipsis;
+  }
+
+  .card{
+    box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 5px 10px 1px rgba(0,0,0,.14), 0 3px 10px 2px rgba(0,0,0,.12);
+  }
+
+  .text-right{
+    text-align: right;
+  }
