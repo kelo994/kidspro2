@@ -25,7 +25,7 @@ export class CursoComponent implements OnInit {
   selectSeccion;
   asignaturas = [];
   nombreAsignaturaSeleccionada = 'Asignatura';
-  nombreNivelSeleccionado = 'Curso';
+  nombreNivelSeleccionado = localStorage.getItem('CursoName');
   // Codigo
   modalGetCode = false;
   codigo = '';
@@ -83,18 +83,15 @@ export class CursoComponent implements OnInit {
   }
 
   getUnidades(funcionarioId, asignaturaId, cursoId) {
-    this.bloqService.getGrupos(funcionarioId, asignaturaId, cursoId)
-      .subscribe(
-        (data: any) => { // Success
-          this.unidades = data;
-          if (this.unidades.length > 0) { this.flagUnidades = 2; }
-        },
-        (error) => {
-          if (error.status == 401) {
-            this.router.navigate(['/auth/login']);
-          }
-        }
-      );
+    this.bloqService.getGrupos(funcionarioId, asignaturaId, cursoId).subscribe((data: any) => { // Success
+      this.unidades = data;
+      if (this.unidades.length > 0) { this.flagUnidades = 2; }
+    }, (error) => {
+      if (error.status == 401) {
+        this.router.navigate(['/auth/login']);
+      }
+    });
+    this.getCode(asignaturaId, cursoId);
   }
 
 
@@ -163,12 +160,10 @@ export class CursoComponent implements OnInit {
       });
   }
 
-  showModal(): void {
-    const idAsignatura = this.selecAsignatura.asignatura_id;
-    const idCurso = this.cursoIdSeleccionado;
+  getCode(idAsignatura, idCurso): void {
     this.cService.obtenerCodigoCursoAsignatura(idCurso, idAsignatura).subscribe((data: any) => { // Success
       this.codigo = data.codigo;
-      this.modalGetCode = true;
+      //this.modalGetCode = true;
     }, (error) => {
       if (error.status === 401) { this.router.navigate(['/pages/login']); }
     });

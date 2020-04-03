@@ -1,8 +1,11 @@
 .game-layout {
     padding-top: 64px;
     height: 100vh;
-    background-image: url('../../../../../assets/images/student/fondo.png');
-    background-color: chocolate;
+}
+
+.game-content {
+    background-image: url('../../../../../assets/images/student/fondo.png')!important;
+    background-color: chocolate!important;
 }
 
 .game-footer {
@@ -13,6 +16,36 @@
     text-align: center;
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
+}
+
+@media screen and (max-width: 1200px) {
+    .game-footer {
+        width: 889px;
+    }
+}
+
+@media screen and (max-width: 890px) {
+    .game-footer {
+        width: 768px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .game-footer {
+        width: 651px;
+    }
+}
+
+@media screen and (max-width: 651px) {
+    .game-footer {
+        width: 500px; 
+    }
+}
+
+@media screen and (max-width: 501px) {
+    .game-footer {
+        width: 375px; 
+    }
 }
 
 .btn-full {

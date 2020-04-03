@@ -109,8 +109,13 @@ nz-input-group {
             font-size: 16px;
         }
     }
+}
 
-  }
+@media screen and (max-width: $mobile-style) {
+    .arrow-right {
+        display: none;
+    }
+}
 
 .bd-top {
     border-top: 1px solid gray;
@@ -169,4 +174,8 @@ nz-input-group {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+.arrow-right {
+    margin: 0px 16px;
 }

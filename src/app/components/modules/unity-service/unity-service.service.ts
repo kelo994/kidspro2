@@ -78,4 +78,11 @@ export class UnityService implements OnInit {
       //this.gameInstance.SendMessage();
       this.gameInstance.SendMessageUnity('VariablesController', 'obtenerValores', mensajeString);
   }
+
+
+  public alertMobile( messageValueJson ) {
+    
+    var mensajeString = JSON.stringify(messageValueJson);
+    this.gameInstance.SendMessageUnity('VariablesController', 'obtenerValores', mensajeString);
+  }
 }

@@ -4158,4 +4158,19 @@ footer .footer-links p {
   box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 5px 10px 1px rgba(0,0,0,.14), 0 3px 10px 2px rgba(0,0,0,.12);
 }
 
+.list-group-item:first-child {
+  border-top-left-radius: 0!important;
+  border-top-right-radius: 0!important;
+}
+
+.list-group-item:last-child {
+  border-bottom-right-radius: 0!important;
+  border-bottom-left-radius: 0!important;
+}
+
+.list-group-item {
+  border: 0px!important;
+  border-top: 1px solid rgba(0, 0, 0, 0.125)!important;
+}
+
 /*.back-to-top:hover{opacity:0.8;}*/

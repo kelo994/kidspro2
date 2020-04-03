@@ -15,7 +15,7 @@
 .submenu-sidebar-asignatura {
   position: relative !important;
   z-index: 10 !important;
-  min-height: 100vh !important;
+  min-height: calc(100vh - 48px);
   box-shadow: 2px 0 6px rgba(0, 21, 41, .35) !important;
   background-color: #ffffff;
   margin-top: 48px;
@@ -30,7 +30,7 @@
   .ant-menu-inline .ant-menu-item {
     height: 30px !important;
     line-height: 20px !important;
-    font-size: 10px !important;
+    font-size: 11px !important;
     margin-top: 0px !important;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -85,7 +85,7 @@
 .ant-menu-inline .ant-menu-item {
   height: 30px !important;
   line-height: 30px !important;
-  font-size: 10px !important;
+  font-size: 10.5px !important;
   margin-top: 0px !important;
 }
 
