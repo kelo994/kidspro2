@@ -38,9 +38,18 @@ export class RepositorioService {
         };
     }
 
-    getRepositorios(usuarioRepositorioId, funcionarioId, bloqueId) {
+    getToken3() {
+        return {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/pdf',
+                Authorization: localStorage.getItem('token'),
+            })
+        };
+    }
+
+    getRepositorios(usuarioRepositorioId, bloqueId) {
         return this.http.
-        get(`${this.url}/usuarios/${usuarioRepositorioId}/funcionarios/${funcionarioId}/bloques/${bloqueId}/repositorios`, this.getToken())
+        get(`${this.url}/usuarios/${usuarioRepositorioId}/bloques/${bloqueId}/repositorios`, this.getToken())
             .pipe(timeout(5000),
                 retry(1),
                 catchError((error, c) => {
@@ -66,7 +75,7 @@ export class RepositorioService {
 
     descargarArchivo(nombre) {
         return this.http.
-        get(`${this.url}/downloads/multimedias/${nombre}`, this.getToken())
+        get(`${this.url}/downloads/multimedias/${nombre}`, this.getToken3())
             .pipe(timeout(5000),
                 retry(1),
                 catchError((error, c) => {

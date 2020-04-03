@@ -40,7 +40,7 @@ p {
 }
 
 .border-full {
-  border: rgba(0,0,0,0.3) 0.4px solid;
+  border: #C4C4C4 0.4px solid;
 }
 
 .border-bottom {
@@ -56,7 +56,7 @@ p {
 }
 
 .lista-repositorio-sistema{
-  padding: 20px 10px 0 35px;
+  padding: 20px 25px 0 35px;
 }
 
 .descripcion-documento{
@@ -176,9 +176,9 @@ li .ant-menu-item{
   box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 5px 10px 1px rgba(0,0,0,.14), 0 3px 10px 2px rgba(0,0,0,.12);
 }
 .repositorio-content{
-background-color: #f4f4f4;
+background-color: #F2F2F2;
   margin-bottom: 20px;
-  margin-right: 20px;
+  margin-right: 5px;
   cursor: pointer;
   border: rgba(0, 0, 0, 0.1) 1px dashed;
   border-radius: 5px 5px 5px 5px;
@@ -201,4 +201,8 @@ background-color: #f4f4f4;
   cursor: pointer;
   background-color: #9ecbec !important;
   opacity: 0.8;
+}
+
+.submenu-sidebar{
+  background-color:  #ececec; padding-top: 40px; margin-top: 0px !important; border-right: #c3c3c3 1px solid
 }

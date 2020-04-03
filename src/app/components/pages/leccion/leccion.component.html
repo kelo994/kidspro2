@@ -13,25 +13,25 @@
     [nzBreakpoint]="'lg'"
     [nzCollapsedWidth]="0"
     nzTheme="light"
-    style="background-color:  rgba(0, 0, 0, 0.04); padding-top: 40px; margin-top: 0px !important;"
+    style="background-color:  #ececec; padding-top: 40px; margin-top: 0px !important; border-right: #c3c3c3 1px solid"
   >
-    <p class="cursiva pl-4 pb-3">{{ unidadNombre }}</p>
+    <p class="cursiva pl-3 pb-3">{{ unidadNombre }}</p>
     <ul nz-menu  nzMode="inline" [nzInlineCollapsed]="isCollapsed" style="background-color: transparent">
-      <li nz-menu-item *ngFor="let leccion of lecciones; let i = index">
+      <li class="pl-2" nz-menu-item *ngFor="let leccion of lecciones; let i = index">
         <a (click)="reloadLeccion(leccion)">
           <div nz-row nzAlign="middle">
             <div nz-col nzSpan="5"><i class="far fa-play-circle" style="font-size: 18px"></i></div>
-            <div nz-col nzSpan="19"><p class="truncar-texto" style="font-size: 10px">{{leccion.bloque_titulo}}</p></div>
+            <div nz-col nzSpan="19"><p class="truncar-texto" >{{leccion.bloque_titulo}}</p></div>
           </div>
         </a>
       </li>
-      <button style="color: rgba(0,0,0,0.5); " nz-button nzType="link" nzSize="small" (click)="goToUnidad()">
-        <i nz-icon nzType="left"></i> Salir
+      <button class="pl-3" style="color: rgb(48,48,48); font-size: 12px" nz-button nzType="link" nzSize="small" (click)="goToUnidad()">
+        <i class="fas fa-arrow-left"></i> <span class="negrita pl-2" > Salir</span>
       </button>
     </ul>
   </nz-sider>
   <nz-layout>
-    <nz-content>
+    <nz-content style="margin-right: 15px">
       <div  class="right-layout pt-3" nz-row >
         <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="17" nzXXl="18" style="padding-left: 20px; padding-right: 20px; " >
           <div class="video" [innerHtml]="iframeHtml" ></div>
@@ -85,19 +85,22 @@
           </div>
           <div class="lista-repositorio-sistema" >
             <ul>
-              <li *ngFor="let repositorio of repositorios; let i = index">
+              <li *ngFor="let repositorio of repositorios; let i = index" class="mb-3">
                 <div nz-row nzType="flex" nzJustify="space-between" nzAlign="middle">
                   <div nz-col nzSpan="6">
-                    <nz-avatar [nzSize]="64" [nzIcon]="repositorio.tipo_repositorio_icono" [style]="'background-color: transparent; color: ' + repositorio.tipo_repositorio_color "></nz-avatar>
+                    <i nz-icon [nzType]="repositorio.tipo_repositorio_icono" nzTheme="fill" [style]="'font-size: 32px;color: ' + repositorio.tipo_repositorio_color"></i>
                   </div>
                   <div nz-col nzSpan="15">
                     <p class="negrita">{{ repositorio.repositorio_name }}</p>
-                    <p class="descripcion-documento">{{ repositorio.tipo_repositorio_name }}</p>
+                   <!-- <p class="descripcion-documento">{{ repositorio.tipo_repositorio_name }}</p> -->
                   </div>
                   <div nz-col nzSpan="3">
-                    <button  style="color: blue; float: right; " nz-button nzType="link" nzSize="large" (click)="descargarArchivo(repositorio.repositorio_ruta)">
-                      <i nz-icon nzType="vertical-align-bottom" nzTheme="outline"></i>
-                    </button>
+                    <a [href]="url + '/downloads/multimedias/' +  repositorio.nombre_descarga"  style="color: #56CCF2; float: right;">
+                      <i class="fas fa-download" ></i>
+                    </a>
+             <!--       <button  style="color: #56CCF2; float: right; " nz-button nzType="link" nzSize="large" (click)="descargarArchivo(repositorio.repositorio_ruta)">
+                      <i class="fas fa-download"></i>
+                    </button> -->
                   </div>
                 </div>
               </li>
@@ -105,7 +108,7 @@
             <button nz-button nzType="link" (click)="openModal('repositorio')">Ver más...</button>
             <div nz-row class="repositorio-content p-4 mt-3" (click)="openModal('crearRepositorio')">
               <div nz-col nzSpan="24" class="text-center mb-2">
-                <i style="font-size: 32px" nz-icon nzType="file-add" nzTheme="twotone"></i>
+                <i style="font-size: 32px; color: #56CCF2" class="fas fa-cloud-upload-alt"></i>
               </div>
               <div nz-col nzSpan="24" class="text-center">
                 <span class="negrita">Haga clic para cargar los archivos</span>

@@ -4,7 +4,9 @@
         <unity-app *ngIf="loadGame" ngbAutofocus [path]="playleccion"></unity-app>
         <div class="game-footer">
             <button class="btn-full" nz-button nzType="primary" nzSize="large" nzShape="round" (click)="setFull()">Pantalla Completa</button>
+            <button class="" nz-button nzType="danger" nzShape="circle" (click)="reproducir('7.wav')" ><i nz-icon nzType="sound"></i></button>
             <button class="btn-exit" nz-button nzType="danger" nzSize="large" nzShape="round" (click)="exit()">Volver</button>
+            <button class="" nz-button nzType="danger" nzShape="circle" (click)="reproducir('8.wav')" ><i nz-icon nzType="sound"></i></button>
         </div>
     </nz-content>
 </nz-layout>

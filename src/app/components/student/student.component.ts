@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class StudentComponent {
   constructor(private router: Router) { }
-  
+
   isDrawer = false;
   drawerState = false;
 
@@ -31,8 +31,13 @@ export class StudentComponent {
     this.drawerState = !this.drawerState;
   }
 
-  logout () {
+  logout() {
     localStorage.clear();
     this.router.navigate(['/auth/login']);
+  }
+
+  reproducir(nombre) {
+    const audio = new Audio('../../../../assets/audios/' + nombre);
+    audio.play();
   }
 }

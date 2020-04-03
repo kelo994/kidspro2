@@ -32,7 +32,7 @@ export class StudentLessonComponent implements OnInit {
   innerWidth;
   isCollapsed;
   visibleDrawer = false;
-
+  modalRepositorio = false;
   idEstudiante;
   leccionId;
   leccion = {
@@ -61,6 +61,26 @@ export class StudentLessonComponent implements OnInit {
   iframeHtml: any;
   repositorios;
   loading = true;
+  repositoriosProfesor: [
+      {
+        repositorio_id: '',
+        repositorio_ruta: '',
+        repositorio_name: '',
+        tipo_repositorio_name: '',
+        tipo_repositorio_icono: '',
+        tipo_repositorio_color: ''
+      }
+  ];
+  repositoriosSistema: [
+      {
+        repositorio_id: '',
+        repositorio_ruta: '',
+        repositorio_name: '',
+        tipo_repositorio_name: '',
+        tipo_repositorio_icono: '',
+        tipo_repositorio_color: ''
+      }
+  ];
 
   ngOnInit(): void {
     this.idEstudiante = localStorage.getItem('idEstudiante');
@@ -135,4 +155,40 @@ export class StudentLessonComponent implements OnInit {
     });
   }
 
+  reproducir(nombre) {
+    const audio = new Audio('../../../../assets/audios/'+ nombre);
+    audio.play();
+  }
+
+  closeModal(modal) {
+    if (modal === 'repositorio') {
+      this.modalRepositorio = false;
+    } else if (modal === 'crearRepositorio') {
+    }
+  }
+
+  openModal(modal) {
+    if (modal === 'repositorio') {
+      this.getRepositoriosProfesor();
+      this.getRepositoriosSistema();
+      this.modalRepositorio = true;
+    } else if (modal === 'crearRepositorio') {
+    }
+  }
+
+  getRepositoriosProfesor() {
+    this.lessonService.getRepositorios(1, this.leccion.bloque_id).subscribe( (data: any) => { // Success
+      this.repositoriosProfesor = data;
+    }, (error) => {
+      if (error.status === 401) { this.router.navigate(['/auth/login']); }
+    });
+  }
+
+  getRepositoriosSistema() {
+    this.lessonService.getRepositorios(2, this.leccion.bloque_id).subscribe( (data: any) => { // Success
+      this.repositoriosSistema = data;
+    }, (error) => {
+      if (error.status === 401) { this.router.navigate(['/auth/login']); }
+    });
+  }
 }
