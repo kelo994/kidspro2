@@ -206,7 +206,7 @@
               </button>
             </div>
             <div class="content-icono text-center pt-3 pb-3" nz-col nzSpan="24">
-              <i style="font-size: 40px" nz-icon [nzType]="repositorio.tipo_repositorio_icono" nzTheme="twotone" [nzTwotoneColor]="repositorio.tipo_repositorio_color"></i>
+              <i nz-icon [nzType]="repositorio.tipo_repositorio_icono" nzTheme="fill" [style]="'font-size: 40px;color: ' + repositorio.tipo_repositorio_color"></i>
             </div>
             <div class="text-center" nz-col nzSpan="24">
               <p class="negrita truncar-texto " style="font-size: 11px">{{ repositorio.repositorio_name }}</p>
