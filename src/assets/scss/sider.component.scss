@@ -15,7 +15,7 @@
 .submenu-sidebar-asignatura {
   position: relative !important;
   z-index: 10 !important;
-  min-height: 100vh !important;
+  min-height: calc(100vh - 48px);
   box-shadow: 2px 0 6px rgba(0, 21, 41, .35) !important;
   background-color: #ffffff;
   margin-top: 48px;

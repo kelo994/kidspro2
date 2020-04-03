@@ -25,7 +25,7 @@ export class CursoComponent implements OnInit {
   selectSeccion;
   asignaturas = [];
   nombreAsignaturaSeleccionada = 'Asignatura';
-  nombreNivelSeleccionado = 'Curso';
+  nombreNivelSeleccionado = localStorage.getItem('CursoName');
   // Codigo
   modalGetCode = false;
   codigo = '';
