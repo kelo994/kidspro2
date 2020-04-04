@@ -6,6 +6,7 @@ import {NzFormatEmitEvent, NzModalService, NzNotificationService} from 'ng-zorro
 import { BloqueService } from '../../../services/bloque.service';
 import { RepositorioService } from '../../../services/repositorio.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-leccion',
@@ -13,6 +14,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./leccion.component.scss']
 })
 export class LeccionComponent implements OnInit {
+  url = `${environment.apiBaseUrl}`;
   leccionId;
   leccion = {
     bloque_titulo: '',
@@ -74,7 +76,8 @@ export class LeccionComponent implements OnInit {
             repositorio_name: '',
             tipo_repositorio_name: '',
             tipo_repositorio_icono: '',
-            tipo_repositorio_color: ''
+            tipo_repositorio_color: '',
+            nombre_descarga: ''
         }
         ];
     repositoriosSistema: [
@@ -84,7 +87,8 @@ export class LeccionComponent implements OnInit {
             repositorio_name: '',
             tipo_repositorio_name: '',
             tipo_repositorio_icono: '',
-            tipo_repositorio_color: ''
+            tipo_repositorio_color: '',
+            nombre_descarga: ''
         }
         ];
     repositorios: [
@@ -94,7 +98,8 @@ export class LeccionComponent implements OnInit {
             repositorio_name: '',
             tipo_repositorio_name: '',
             tipo_repositorio_icono: '',
-            tipo_repositorio_color: ''
+            tipo_repositorio_color: '',
+            nombre_descarga: ''
         }
     ];
     archivoElminado;
@@ -170,6 +175,7 @@ export class LeccionComponent implements OnInit {
     this.grupoId = localStorage.getItem('unidadId');
     this.loadContent();
     this.obtenerBloques();
+    this.getRepositoriosBloque();
   }
 
   obtenerBloques() {
@@ -219,7 +225,7 @@ export class LeccionComponent implements OnInit {
     }
 
     getRepositoriosProfesor() {
-        this.repositorioService.getRepositorios(1, this.funcionarioId, this.leccionId).subscribe( (data: any) => { // Success
+        this.repositorioService.getRepositorios(1, this.leccionId).subscribe( (data: any) => { // Success
             this.repositoriosProfesor = data;
         }, (error) => {
             if (error.status === 401) { this.router.navigate(['/auth/login']); }
@@ -227,7 +233,7 @@ export class LeccionComponent implements OnInit {
     }
 
     getRepositoriosSistema() {
-        this.repositorioService.getRepositorios(2, this.funcionarioId, this.leccionId).subscribe( (data: any) => { // Success
+        this.repositorioService.getRepositorios(2, this.leccionId).subscribe( (data: any) => { // Success
             this.repositoriosSistema = data;
         }, (error) => {
             if (error.status === 401) { this.router.navigate(['/auth/login']); }

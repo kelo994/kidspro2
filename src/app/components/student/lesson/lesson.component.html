@@ -1,7 +1,10 @@
 <nz-layout *ngIf="leccion != null && loading == false" style="height: 100vh;">
     <nz-sider class="lesson-sidebar" nzWidth="310px" [(nzCollapsed)]="isCollapsed" [nzBreakpoint]="'md'"
         [nzCollapsedWidth]="0" nzTheme="light">
-        <div class="lessons">Lecciones</div>
+        <div nz-row>
+            <div nz-col nzSpan="20" class="lessons" (click)="reproducir('6.wav')">Lecciones</div>
+            <div nz-col nzSpan="4"><button nz-button nzType="primary" nzShape="circle" (click)="reproducir('6.wav')"><i nz-icon nzType="sound"></i></button></div>
+        </div>
         <div nz-row nzAlign="middle" *ngFor="let lesson of lecciones; let i = index" class="container-lessons-videos">
             <nz-card [nzCover]="coverTemplate" style="margin-bottom: 18px" class="nz-card-lesson-title">
                 <p class="truncar-texto" style="margin-top: 5px;">{{ lesson.bloque_titulo }} </p>
@@ -27,7 +30,8 @@
             <div nz-row>
                 <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="18" nzXXl="18" style="margin-top: 80px;">
                     <div class="video" [innerHtml]="iframeHtml"></div>
-                    <h3 *ngIf="leccion != null" class="lesson-title">{{leccion.bloque_titulo}}</h3>
+                    <h3 *ngIf="leccion != null" class="lesson-title">{{leccion.bloque_titulo}} </h3>
+                  <!--  <button nz-button nzType="primary" nzShape="circle" (click)="reproducir()"><i nz-icon nzType="sound"></i></button> -->
                 </div>
                 <div class="inner-content-right border-full" nz-col nzXs="24" nzSm="12" nzMd="24" nzLg="24" nzXl="6"
                     nzXXl="6">
@@ -35,46 +39,37 @@
                         <div class="border-bottom" nz-col nzXs="24" nzSm="24" nzMd="14" nzLg="15" nzXl="24">
                             <div class="layout-right-title text-center">
                                 Material de apoyo
+                                <button nz-button nzType="primary" nzShape="circle" (click)="reproducir('2.wav')"><i nz-icon nzType="sound"></i></button>
                             </div>
                             <div class="layout-right-content">
                                 <ul>
-                                    <li *ngFor="let repositorio of repositorios; let i = index">
+                                    <li *ngFor="let repositorio of repositorios; let i = index" class="mb-3">
                                         <div nz-row nzType="flex" nzJustify="space-between" nzAlign="middle">
                                             <div nz-col nzSpan="6">
-                                                <nz-avatar [nzSize]="64" [nzIcon]="repositorio.tipo_repositorio_icono" [style]="'background-color: transparent; color: ' + repositorio.tipo_repositorio_color "></nz-avatar>
+                                                <i nz-icon [nzType]="repositorio.tipo_repositorio_icono" nzTheme="fill" [style]="'font-size: 32px;color: ' + repositorio.tipo_repositorio_color"></i>
                                             </div>
                                             <div nz-col nzSpan="15">
                                                 <p class="negrita">{{ repositorio.repositorio_name }}</p>
-                                                <p class="descripcion-documento">{{ repositorio.tipo_repositorio_name }}</p>
+                                                <!-- <p class="descripcion-documento">{{ repositorio.tipo_repositorio_name }}</p> -->
                                             </div>
                                             <div nz-col nzSpan="3">
-                                                <button  style="color: blue; float: right; " nz-button nzType="link" nzSize="large" (click)="descargarArchivo(repositorio.repositorio_ruta)">
-                                                    <i nz-icon nzType="vertical-align-bottom" nzTheme="outline"></i>
-                                                </button>
+                                                <a [href]="url + '/downloads/multimedias/' +  repositorio.nombre_descarga"  style="color: #56CCF2; float: right;">
+                                                    <i class="fas fa-download" ></i>
+                                                </a>
+                                                <!--       <button  style="color: #56CCF2; float: right; " nz-button nzType="link" nzSize="large" (click)="descargarArchivo(repositorio.repositorio_ruta)">
+                                                         <i class="fas fa-download"></i>
+                                                       </button> -->
                                             </div>
                                         </div>
                                     </li>
-                                       <!-- <div nz-row nzType="flex" nzJustify="space-between" nzAlign="middle">
-                                            <div nz-col nzSpan="4">
-                                                <i class="fas fa-file-pdf" style="color: red; font-size: 32px"></i>
-                                            </div>
-                                            <div nz-col nzSpan="16">
-                                                <p class="negrita">Nombre del documento</p>
-                                                <p class="descripcion-documento">Archivo del sistema</p>
-                                            </div>
-                                            <div nz-col nzSpan="3">
-                                                <button style="color: blue; float: right; " nz-button nzType="link"
-                                                    nzSize="large">
-                                                    <i nz-icon nzType="vertical-align-bottom" nzTheme="outline"></i>
-                                                </button>
-                                            </div>
-                                        </div> -->
                                 </ul>
+                                <button nz-button nzType="link" (click)="openModal('repositorio')" style="float: right">Ver más...</button>
                             </div>
                         </div>
                         <div class="layout-play" nz-col nzXs="24" nzSm="24" nzMd="10" nzLg="9" nzXl="24">
                             <img class="button-play" src="../../../../../assets/images/student/boton-jugar.png" alt=""
                                 (click)="goToGame()">
+                            <button nz-button nzType="primary" nzShape="circle" (click)="reproducir('9.wav')" style="float: right"><i nz-icon nzType="sound"></i></button>
                         </div>
                     </div>
                 </div>
@@ -106,3 +101,58 @@
         </div>
     </nz-drawer>
 </ng-template>
+
+
+<nz-modal [(nzVisible)]="modalRepositorio" nzWrapClassName="vertical-center-modal" nzTitle="Repositorio"
+          nzCancelText="Cancelar" [nzContent]="modalContentRepositorio" nzWidth="1200"
+          (nzOnCancel)="closeModal('repositorio')" [nzFooter]=null>
+    <ng-template #modalContentRepositorio style="background-color: #f2f2f2;">
+        <span class="negrita">Repositorio del sistema <button nz-button nzType="primary" nzShape="circle" (click)="reproducir('4.wav')"><i nz-icon nzType="sound"></i></button></span>
+        <div class="content-sistema mt-3 px-5" nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 24, xl: 24, xxl: 24 }">
+            <div class="mr-auto" nz-col nzXs="12" nzSm="12" nzMd="6" nzLg="6" nzXl="4" nzXXl="4"
+                 *ngFor="let repositorio of repositoriosSistema; let i = index">
+                <nz-card  class="mr-auto p-0 card" style="padding: 0">
+                    <div class="pt-2" nz-row >
+                        <div class="content-icono text-center  pb-3" nz-col nzSpan="24">
+                            <i nz-icon [nzType]="repositorio.tipo_repositorio_icono" nzTheme="fill" [style]="'font-size: 40px;color: ' + repositorio.tipo_repositorio_color"></i>
+                        </div>
+                        <div class="text-center" nz-col nzSpan="24">
+                            <p class="negrita truncar-texto " style="font-size: 11px">{{ repositorio.repositorio_name }}</p>
+                        </div>
+                        <div class="text-right pb-2 px-2" nz-col nzSpan="24">
+                            <a [href]="url + '/downloads/multimedias/' +  repositorio.nombre_descarga"  style="color: #56CCF2;">
+                                <span style="font-size: 10px">Descargar </span> <i class="fas fa-download" ></i>
+                            </a>
+                        </div>
+                    </div>
+                </nz-card>
+            </div>
+        </div>
+        <span class="negrita">Repositorio del profesor <button nz-button nzType="primary" nzShape="circle" (click)="reproducir('5.wav')"><i nz-icon nzType="sound"></i></button></span>
+        <div class="content-profesor mt-3 px-5" nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 24, xl: 24, xxl: 24 }">
+            <div class="mr-auto content-repositorio-profesor" nz-col nzXs="12" nzSm="12" nzMd="6" nzLg="6" nzXl="4" nzXXl="4"
+                 *ngFor="let repositorio of repositoriosProfesor; let i = index">
+                <nz-card  class="mr-auto p-0 card" style="padding: 0">
+                    <div class="pt-2" nz-row >
+                        <div class="content-icono text-center  pb-3" nz-col nzSpan="24">
+                            <i nz-icon [nzType]="repositorio.tipo_repositorio_icono" nzTheme="fill" [style]="'font-size: 40px;color: ' + repositorio.tipo_repositorio_color"></i>
+                        </div>
+                        <div class="text-center" nz-col nzSpan="24">
+                            <p class="negrita truncar-texto " style="font-size: 11px">{{ repositorio.repositorio_name }}</p>
+                        </div>
+                        <div class="text-right pb-2 px-2" nz-col nzSpan="24">
+                            <a [href]="url + '/downloads/multimedias/' +  repositorio.nombre_descarga"  style="color: #56CCF2;">
+                                <span style="font-size: 10px">Descargar </span> <i class="fas fa-download" ></i>
+                            </a>
+                        </div>
+                    </div>
+                </nz-card>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #modalFooterRepositorio style="border-bottom: 4px solid #009dee;">
+        <button nz-button nzSize="large" style="background-color: #e8e8e8;"
+                (click)="closeModal('repositorio')">Cancelar</button>
+
+    </ng-template>
+</nz-modal>

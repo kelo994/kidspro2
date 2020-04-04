@@ -34,7 +34,7 @@ export class StudentLessonGameComponent implements OnInit {
   leccionId;
   asignaturaId;
   cursoId;
-  
+
   titulo: any;
   playleccion = '';
 
@@ -61,5 +61,10 @@ export class StudentLessonGameComponent implements OnInit {
 
   exit () {
     window.location.reload();
+  }
+
+  reproducir(nombre) {
+    const audio = new Audio('../../../../assets/audios/' + nombre);
+    audio.play();
   }
 }

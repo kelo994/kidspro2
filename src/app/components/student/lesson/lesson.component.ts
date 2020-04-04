@@ -4,6 +4,7 @@ import { NzNotificationService } from 'ng-zorro-antd';
 import { EmbedVideoService } from 'ngx-embed-video';
 import { Router } from '@angular/router';
 import {RepositorioService} from '../../../services/repositorio.service';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-student-lesson',
@@ -28,11 +29,11 @@ export class StudentLessonComponent implements OnInit {
       this.innerWidth = window.innerWidth;
     }
   }
-
+  url = `${environment.apiBaseUrl}`;
   innerWidth;
   isCollapsed;
   visibleDrawer = false;
-
+  modalRepositorio = false;
   idEstudiante;
   leccionId;
   leccion = {
@@ -59,8 +60,40 @@ export class StudentLessonComponent implements OnInit {
   showSection = 0;
   playleccion = 'matematicas/1/1/Build/1.json';
   iframeHtml: any;
-  repositorios;
   loading = true;
+  repositoriosProfesor: [
+      {
+        repositorio_id: '',
+        repositorio_ruta: '',
+        repositorio_name: '',
+        tipo_repositorio_name: '',
+        tipo_repositorio_icono: '',
+        tipo_repositorio_color: '',
+        nombre_descarga: '',
+      }
+  ];
+  repositoriosSistema: [
+      {
+        repositorio_id: '',
+        repositorio_ruta: '',
+        repositorio_name: '',
+        tipo_repositorio_name: '',
+        tipo_repositorio_icono: '',
+        tipo_repositorio_color: '',
+        nombre_descarga: ''
+      }
+  ];
+  repositorios: [
+      {
+        repositorio_id: '',
+        repositorio_ruta: '',
+        repositorio_name: '',
+        tipo_repositorio_name: '',
+        tipo_repositorio_icono: '',
+        tipo_repositorio_color: '',
+        nombre_descarga: ''
+      }
+  ];
 
   ngOnInit(): void {
     this.idEstudiante = localStorage.getItem('idEstudiante');
@@ -135,4 +168,40 @@ export class StudentLessonComponent implements OnInit {
     });
   }
 
+  reproducir(nombre) {
+    const audio = new Audio('../../../../assets/audios/'+ nombre);
+    audio.play();
+  }
+
+  closeModal(modal) {
+    if (modal === 'repositorio') {
+      this.modalRepositorio = false;
+    } else if (modal === 'crearRepositorio') {
+    }
+  }
+
+  openModal(modal) {
+    if (modal === 'repositorio') {
+      this.getRepositoriosProfesor();
+      this.getRepositoriosSistema();
+      this.modalRepositorio = true;
+    } else if (modal === 'crearRepositorio') {
+    }
+  }
+
+  getRepositoriosProfesor() {
+    this.lessonService.getRepositorios(1, this.leccion.bloque_id).subscribe( (data: any) => { // Success
+      this.repositoriosProfesor = data;
+    }, (error) => {
+      if (error.status === 401) { this.router.navigate(['/auth/login']); }
+    });
+  }
+
+  getRepositoriosSistema() {
+    this.lessonService.getRepositorios(2, this.leccion.bloque_id).subscribe( (data: any) => { // Success
+      this.repositoriosSistema = data;
+    }, (error) => {
+      if (error.status === 401) { this.router.navigate(['/auth/login']); }
+    });
+  }
 }
