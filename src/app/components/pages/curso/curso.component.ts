@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NzFormatEmitEvent, NzNotificationService } from 'ng-zorro-antd';
 import { CursoService } from 'src/app/services/cursos.service';
@@ -13,6 +13,14 @@ import { CoursesService } from 'src/app/services/courses.service';
   styleUrls: ['./curso.component.scss']
 })
 export class CursoComponent implements OnInit {
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.resolucion = window.screen.width;
+  }
+
+  siderWidth = 180;
+
   resolucion;
   step = 1;
   selecAsignatura;
@@ -25,7 +33,7 @@ export class CursoComponent implements OnInit {
   selectSeccion;
   asignaturas = [];
   nombreAsignaturaSeleccionada = 'Asignatura';
-  nombreNivelSeleccionado = localStorage.getItem('CursoName');
+  nombreNivelSeleccionado;
   // Codigo
   modalGetCode = false;
   codigo = '';
@@ -208,6 +216,7 @@ export class CursoComponent implements OnInit {
     localStorage.setItem('nombreAsignatura', value.materia_descripcion);
     this.getCursos(this.nivelSelected, value.asignatura_id);
     this.nombreAsignaturaSeleccionada = value.materia_descripcion;
+    this.nombreNivelSeleccionado = localStorage.getItem('CursoName');
     this.step = 3;
   }
 

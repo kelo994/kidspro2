@@ -154,6 +154,68 @@ input[type=button], input[type=submit], input[type=reset]  {
     }
   }
 
+  @media (max-width: 500px) {
+    .content{
+      width: 400px;
+    }
+    .nav-pills{
+      width: 400px;
+    }
+    .tab-content{
+      width: 400px;
+    }
+  }
+
+  @media (max-width: 426px) {
+    .content{
+      width: 375px;
+    }
+    .nav-pills{
+      width: 375px;
+    }
+    .tab-content{
+      width: 375px;
+      padding-left: 2px;
+      padding-right: 2px;
+    }
+  }
+
+  @media (max-width: 376px) {
+    .content{
+      width: 320px;
+    }
+    .nav-pills{
+      width: 320px;
+    }
+    .tab-content{
+      width: 320px;
+      padding-left: 2px;
+      padding-right: 2px;
+    }
+    .icon-login {
+      display: none!important;
+    }
+    .button-login {
+      padding-left: 7px;
+    }
+  }
+
+  @media (max-width: 321px) {
+    .content{
+      width: 310px;
+      height: auto;
+      margin: 0 auto;
+    }
+    .nav-pills{
+      width: 310px;
+    }
+    .tab-content{
+      width: 310px;
+      padding-left: 2px;
+      padding-right: 2px;
+    }
+  }
+
   label {
     padding-top: 10px;
   }

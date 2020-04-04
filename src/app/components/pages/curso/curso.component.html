@@ -1,6 +1,6 @@
 <!--<a id="changeRoute" class="d-none" (click)="destruir()"> a</a>-->
 <nz-layout class="left-layout">
-    <nz-sider class="submenu-sidebar-asignatura mt-0" [nzWidth]="180" *ngIf="resolucion > 768">
+    <nz-sider class="submenu-sidebar-asignatura mt-0" [nzWidth]="siderWidth" *ngIf="resolucion > 768">
         <nz-input-group [nzSuffix]="suffixIcon" class="p-0">
             <input type="text" class="p-0" nz-input placeholder="Buscar Asignatura" [(ngModel)]="searchValue" />
         </nz-input-group>
@@ -21,8 +21,8 @@
         <div class="header bg-subheader pt-3 pb-1">
             <div nz-row class="m-0 pl-4">
                 <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="4" nzXXl="4" class="my-2"
-                    *ngIf="step > 1 && resolucion < 768">
-                    <nz-select class="w-100 pl-4 pr-4" [(ngModel)]="selecAsignatura"
+                    *ngIf="step > 1 && resolucion <= 768">
+                    <nz-select class="w-100 pl-2 pr-4" [(ngModel)]="selecAsignatura"
                         (ngModelChange)="selectAsignatura($event)" nzAllowClear nzPlaceHolder="Asignaturas">
                         <nz-option *ngFor="let asignatura of asignaturas; let i = index" [nzValue]="asignatura"
                             [nzLabel]="asignatura.materia_descripcion">

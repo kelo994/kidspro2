@@ -35,18 +35,22 @@ export class ValidateComponent implements OnInit {
 
   verifiedAccount() {
     if (this.activeAccountForm.valid) {
-      this.authService.activeAccount(this.activeAccountForm.getRawValue(), this.token).subscribe(data => {
-        this.notification.success('Cuenta Activada', data);
-        this.router.navigate(['/auth/login']);
-      }, (error) => {
-        this.activeAccountForm.controls['password1'].setValue('');
-        this.activeAccountForm.controls['password2'].setValue('');
-        if (error.status == 401 || error == 'Unauthorized') {
-          this.notification.error('Error en Acceso', 'Credenciales Inválidas');
-        } else {
-          this.notification.error('Error de Conexión', 'Ocurrió un error inesperado, intentelo más tarde');
-        }
-      })
+      if (this.activeAccountForm.controls['password1'].value == this.activeAccountForm.controls['password2'].value) {
+        this.authService.activeAccount(this.activeAccountForm.getRawValue(), this.token).subscribe(data => {
+          this.notification.success('Cuenta Activada', data);
+          this.router.navigate(['/auth/login']);
+        }, (error) => {
+          this.activeAccountForm.controls['password1'].setValue('');
+          this.activeAccountForm.controls['password2'].setValue('');
+          if (error.status == 401 || error == 'Unauthorized') {
+            this.notification.error('Error en Acceso', 'Credenciales Inválidas');
+          } else {
+            this.notification.error('Error de Conexión', 'Ocurrió un error inesperado, intentelo más tarde');
+          }
+        })
+      } else {
+        this.notification.error('Error', 'Las contraseñas no coinciden');
+      }
     } else {
       this.notification.error('Error', 'La contraseña debe tener un mínimo de 6 caracteres');
     }

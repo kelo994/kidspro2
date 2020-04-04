@@ -27,13 +27,13 @@
                 </div>
                 <div class="row" style="margin: 0px 10px">
                     <div class="col-6">
-                        <button class="w-100" type="submit" nz-button nzSize="large" nzType="primary">
+                        <button class="w-100 button-login" type="submit" nz-button nzSize="large" nzType="primary">
                             <i class="icon-login" nz-icon [nzType]="loginIcon" nzTheme="outline"></i>
                             Iniciar Sesión
                         </button>
                     </div>
                     <div class="col-6 d-block my-auto">
-                        <a class="underlineHover" href="#">¿Olvidaste tu Contraseña?</a>
+                        <a class="underlineHover" href="/auth/reset/password">¿Olvidaste tu Contraseña?</a>
                     </div>
                 </div>
             </form>
@@ -46,7 +46,7 @@
                         (keyup)="setUpperCase($event)" />
                 </div>
                 <div class="row">
-                    <div class="offset-6 col-6 text-right">
+                    <div class="offset-5 col-6 text-right">
                         <button class="w-100" type="submit" nz-button nzSize="large" nzType="primary"
                             (click)="loginCode()" [disabled]="formaCode.invalid">
                             Verificar Código
@@ -60,7 +60,7 @@
                     <input type="text" nz-input formControlName="rut" placeholder="RUT" (keyup)="formateaRut(2)" />
                 </div>
                 <div class="row">
-                    <div class="offset-6 col-6 text-right">
+                    <div class="offset-5 col-6 text-right">
                         <button class="w-100" type="submit" nz-button nzSize="large" nzType="primary">
                             <i class="icon-login" nz-icon [nzType]="codeIcon" nzTheme="outline"></i>
                             Iniciar sesión

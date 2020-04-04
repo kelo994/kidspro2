@@ -34,18 +34,24 @@ h2 {
   //justify-content: center;
   width: -webkit-fill-available;
   min-height: -webkit-fill-available;
-  padding: 20px;
+  //padding: 20px;
 }
 
 #loginContent {
   padding: 30px;
   width: 80%;
   max-width: 530px;
-  min-width: 450px;
+  min-width: 320px;
   position: relative;
   padding: 0px;
   text-align: center;
   top: 100px;
+}
+
+@media (max-width: 769px) {
+  #loginContent {
+    width: 100%;
+  }
 }
 
 #formContent {

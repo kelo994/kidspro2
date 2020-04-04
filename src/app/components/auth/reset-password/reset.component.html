@@ -1,0 +1,26 @@
+<div class="content">
+    <div class="panel-content">
+        <form *ngIf="step == 1" nz-form [formGroup]="resetPasswordForm" (ngSubmit)="resetPassword()" autocomplete="off">
+            <div class="inputs">
+                <strong>¿HAS OLVIDADO TU CONTRASEÑA?</strong>
+                <p class="mt-2 mb-3">
+                    Introduce tu RUT para recibir un correo electrónico con las instrucciones para restablecer tu
+                    contraseña.
+                </p>
+                <input type="text" nz-input formControlName="rut" placeholder="RUT" (keyup)="formateaRut()" />
+                <button class="my-2" type="submit" nz-button nzBlock nzSize="large" nzType="primary">
+                    ENVIAR CORREO ELECTRÓNICO
+                </button>
+            </div>
+            <div class="col d-block my-1">
+                ¿Recuerdas tu contraseña?
+                <a class="underlineHover ml-4" href="/auth/login">Iniciar sesión</a>
+            </div>
+        </form>
+        <div *ngIf="step == 2">
+            <strong>¡CORREO ELECTRÓNICO ENVIADO!</strong>
+            <p class="my-2">Se ha enviado un correo a tu dirección de correo electrónico con las instrucciones para restablecer tu
+                contraseña.</p>
+        </div>
+    </div>
+</div>

@@ -5,15 +5,12 @@
                 <label>Contraseña</label>
                 <input type="password" nz-input formControlName="password1" placeholder="Contraseña" />
 
-                <label>Repetir Contraseña</label>
+                <label>Repetir contraseña</label>
                 <input type="password" nz-input formControlName="password2" placeholder="Contraseña" />
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <button type="submit" nz-button nzSize="large" nzType="primary">
-                        Activar Cuenta
-                    </button>
-                </div>
+                <button class="mt-3" type="submit" nzBlock nz-button nzSize="large" nzType="primary"
+                    [disabled]="activeAccountForm.invalid">
+                    ACTIVAR CUENTA
+                </button>
             </div>
         </form>
     </div>
