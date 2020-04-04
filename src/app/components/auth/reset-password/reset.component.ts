@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { RutService } from 'src/app/services/forms/rut.service';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-reset-password',
@@ -14,6 +15,7 @@ export class ResetPasswordComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private rutService: RutService,
+    private notification: NzNotificationService,
     private router: Router
   ) {
     this.resetPasswordForm = new FormGroup({
@@ -38,9 +40,8 @@ export class ResetPasswordComponent implements OnInit {
     let rut = this.resetPasswordForm.controls['rut'].value;
     this.authService.requestPass(rut).subscribe((data: any) => {
       this.step = 2;
-      //this.toast.showToast('success', 'Recuperar Contraseña', data);
     }, (error) => {
-      console.log(error)
+      this.notification.error('Error', error.error);
     });
   }
 
