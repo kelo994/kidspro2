@@ -22,7 +22,7 @@ const authroutes: Routes = [{
       component: ResetPasswordComponent,
     },
     {
-      path: 'reset/password/code',
+      path: 'reset/password/:token',
       component: NewPasswordComponent,
     },
     {

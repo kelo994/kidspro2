@@ -34,16 +34,16 @@ export class NewPasswordComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.token = this.activateRoute.params.pipe(map(p => p.token));
     this.token = this.token.source._value.token;
+    //this.validarCodigo()
   }
 
   validarCodigo () {
-    let code = this.codeForm.controls['codigo'].value;
+    //let code = this.codeForm.controls['codigo'].value;
+    let code = this.token;
     this.authService.requestCodigo(code).subscribe((data: any) => {
       this.credential = data;
-      this.step = 2;
     }, (error) => {
       this.notification.error('Error', error.error);
     });
@@ -55,10 +55,12 @@ export class NewPasswordComponent implements OnInit {
         let data = {
           contrasena: this.newPasswordForm.controls['password1'].value
         }
-        this.authService.requestNewPass(this.credential.id, data).subscribe((data: any) => {
+        this.authService.requestNewPass(this.token, data).subscribe((data: any) => {
           if (data) {
-            this.step = 3;
+            this.step = 2;
           }
+        }, (error) => {
+          this.notification.error('Error', error.error);
         });
       } else {
         this.notification.error('Error', 'Las contraseñas no coinciden');
