@@ -69,17 +69,33 @@ export class StudentEvaluationComponent implements OnInit {
       respuesta_id: idRespuesta
     }
     this.simceService.guardarRepuesta(this.evaluation.prueba_id, this.idEstudiante, idPregunta, data).subscribe((data: any) => { // Success
-      this.notification.success(data, '');
+      //this.notification.success(data, '');
       $('#question' + this.questionIndex).removeClass('check-slider').addClass('check-slider-active');
     }, (error) => {
       if (error.status == 401) this.router.navigate(['/auth/login']);
     })
   }
 
+  preguntasFaltantes () {
+    let q = this.questions.filter(e => e.respuesta_id === null)
+    let string = '';
+    q.forEach(e => {
+      string = string + e.pregunta_numero + ', ';
+    });
+    string = string.substr(0, string.length - 2);
+    return string;
+  }
+
   confirm() {
+    let nzContent;
+    if (this.preguntasFaltantes().length > 0) {
+      nzContent = 'Aun te falta por responder las siguientes preguntas: <b>' + this.preguntasFaltantes() + '</b>';
+    } else {
+      nzContent = '<b>Esta acción no se puede deshacer</b>';
+    }
     this.modalService.confirm({
-      nzTitle: '¿Estás seguro que desea finalizar la evaluación?',
-      nzContent: '<b>Esta acción no se puede deshacer</b>',
+      nzTitle: '¿Estás seguro de finalizar la Evaluación?',
+      nzContent: nzContent,
       nzCancelText: 'Cancelar',
       nzOkText: 'Finalizar',
       nzClassName: 'modal-confirm',
