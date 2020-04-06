@@ -24,7 +24,6 @@ export class GameComponent implements OnInit {
 
   ngOnInit(): void {
     this.routeActive.params.subscribe(params => {
-      this.loadGame = true;
       this.estudianteNombre = params.nombre + ' ' + params.apellido;
       this.asignaturaId = params.asig;
       this.bloqueId = params.bloque;
