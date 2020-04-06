@@ -9,19 +9,15 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
-  innerWidth;
-  idEstudiante;
+  estudianteNombre;
+  estudianteId;
   leccionId;
   asignaturaId;
   cursoId;
-  titulo: any;
   playleccion = '';
+  bloqueId;
   loadGame = false;
 
-
-  asig;
-  bloque;
-  leccion;
 
   constructor(
     private routeActive: ActivatedRoute,
@@ -31,31 +27,22 @@ export class GameComponent implements OnInit {
   // playleccion = 'matematicas/1/1/Build/1.json';
 
   ngOnInit(): void {
-    this.loadGame = true;
     this.routeActive.params.subscribe(params => {
-      this.asig = params.asig;
-      this.bloque = params.bloque;
-      this.leccion = params.leccion;
-      this.idEstudiante = params.idEstudiante;
-      this.playleccion = this.asig + '/' + this.bloque + '/' + this.leccion + '/Build/' + this.leccion + '.json';
+      console.log(params);
+      this.loadGame = true;
+      this.estudianteNombre = params.nombre + ' ' + params.apellido;
+      this.asignaturaId = params.asig;
+      this.bloqueId = params.bloque;
+      this.leccionId = params.leccion;
+      this.estudianteId = params.idEstudiante;
+      this.playleccion = this.asignaturaId + '/' + this.bloqueId + '/' + this.leccionId + '/Build/' + this.leccionId + '.json';
+      this.loadGame = true;
     });
   }
 
-  @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
-    this.unity.exitFullScreen();
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    if (window.innerWidth >= 576) {
-      this.innerWidth = window.innerWidth / 2;
-    } else {
-      this.innerWidth = window.innerWidth;
-    }
-  }
-  setFull(): void {
-    this.unity.send();
-  }
+  // setFull(): void {
+  //   this.unity.send();
+  // }
 
   exit() {
     window.location.reload();
