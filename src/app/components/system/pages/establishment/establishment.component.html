@@ -1,0 +1,139 @@
+<nz-page-header>
+  <nz-page-header-title>Establecimientos</nz-page-header-title>
+  <nz-page-header-extra>
+    <button style="font-size: 12px; font-weight: bold; background-color: #009dee; color: white" type="button" nz-button nzType="primary"  (click)="showModal()">
+      <i nz-icon nzType="plus"></i>
+      <nz-divider [nzType]="'vertical'" style="margin-left: 0px"></nz-divider>
+      Agregar Usuario
+    </button>
+  </nz-page-header-extra>
+</nz-page-header>
+<nz-layout class="inner-layout">
+  <nz-table class="content-table" nzShowPagination="false" #establecimientoTable
+            [nzFooter]="null" [nzData]="establishments" [nzLoading]="loading">
+    <thead>
+    <tr>
+      <th>Avatar</th>
+      <th>Nombre</th>
+      <th>Direccion</th>
+      <th>Comuna</th>
+      <th>Correo electrónico</th>
+      <th>Web</th>
+      <th>Telefono</th>
+      <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of establecimientoTable.data">
+      <td> <nz-avatar nzIcon="user" [nzSrc]="data.establecimiento_logo"></nz-avatar></td>
+      <td>{{ data.establecimiento_nombre }}</td>
+      <td>{{ data.establecimiento_direccion }}</td>
+      <td>{{ data.establecimiento_comuna }}</td>
+      <td>{{ data.establecimiento_email }}</td>
+      <td>{{ data.establecimiento_web }}</td>
+      <td>{{ data.establecimiento_telefono }}</td>
+      <td>
+        <i class="action" nz-icon nzType="edit" nzTheme="outline" ></i>
+        <i class="action" nz-icon nzType="delete" nzTheme="outline" (click)="delete(data.id)"></i>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+
+</nz-layout>
+
+
+<nz-modal [(nzVisible)]="modalAgregarEstablecimiento" nzTitle="Agregar Establecimiento" (nzOnCancel)="handleCancelAgregar()" (nzOnOk)="createEstablishment()">
+  <form nz-form [formGroup]="establishmentForm" >
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="establecimiento_nombre">Nombre</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Error!">
+        <input nz-input formControlName="establecimiento_nombre" id="establecimiento_nombre" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="establecimiento_direccion">Direccion</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Direccion no es valida!">
+        <input nz-input formControlName="establecimiento_direccion" id="establecimiento_direccion" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="establecimiento_comuna">Comuna</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="La comuna no es valida!">
+        <input nz-input formControlName="establecimiento_comuna" id="establecimiento_comuna" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">E-mail</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Error!">
+        <input nz-input formControlName="establecimiento_email" id="establecimiento_email" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="establecimiento_web">Pagina Web</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Error!">
+        <input nz-input formControlName="establecimiento_web" id="establecimiento_web" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="establecimiento_director">Director</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Error!">
+        <input nz-input formControlName="establecimiento_director" id="establecimiento_director" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="establecimiento_sostenedor">Sostenedor</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Error!">
+        <input nz-input formControlName="establecimiento_sostenedor" id="establecimiento_sostenedor" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="establecimiento_rbd">Rbd</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Error!">
+        <input nz-input formControlName="establecimiento_rbd" id="establecimiento_rbd" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="establecimiento_reconocimiento_oficial">Reconocimiento Oficial</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Error!">
+        <input nz-input formControlName="establecimiento_reconocimiento_oficial" id="establecimiento_reconocimiento_oficial" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="establecimiento_dependencia">Dependencia</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Error!">
+        <input nz-input formControlName="establecimiento_dependencia" id="establecimiento_dependencia" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="establecimiento_nivel_ensenanza">Nivel Enseñanza</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Error!">
+        <input nz-input formControlName="establecimiento_nivel_ensenanza" id="establecimiento_nivel_ensenanza" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="establecimiento_alumnos">Cantidad Alumnos</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Error!">
+        <input nz-input formControlName="establecimiento_alumnos" id="establecimiento_alumnos" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="establecimiento_promedio_alumnos">Promedio Alumnos</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Error!">
+        <input nz-input formControlName="establecimiento_promedio_alumnos" id="establecimiento_promedio_alumnos" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="establecimiento_telefono" nzRequired>Telefono</nz-form-label>
+      <nz-form-control
+        [nzSm]="14"
+        [nzXs]="24"
+        nzErrorTip="Please input your phone number!"
+      >
+        <nz-input-group >
+          <input formControlName="establecimiento_telefono" id="'establecimiento_telefono'" nz-input />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>
