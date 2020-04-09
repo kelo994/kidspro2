@@ -25,6 +25,7 @@ import { ChartsModule } from 'ng2-charts';
 import { ChartModule } from 'angular-highcharts';
 import { HighchartsService } from './services/highcharts.service';
 import { GameComponent } from './components/game/game.component';
+import { DarkComponent } from './components/game/dark/dark.component';
 registerLocaleData(es);
 
 // Configuraciones sglobales ngZorro
@@ -37,7 +38,8 @@ const ngZorroConfig: NzConfig = {
     AppComponent,
     LandingComponent,
     DialogDataExampleDialog,
-    GameComponent
+    GameComponent,
+    DarkComponent
   ],
   imports: [
     BrowserModule,

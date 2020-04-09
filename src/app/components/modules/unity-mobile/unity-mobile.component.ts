@@ -9,19 +9,17 @@ import { UnityService } from '../unity-service/unity-service.service';
 })
 export class UnityMobileComponent implements OnInit {
   @Input() path: string;
-  constructor(private _unityService: UnityService) {
+  @Input() studentName: string;
+  @Input() idEstudiante: string;
+  @Input() idBloque: string;
+  constructor(private _unityService : UnityService) {
   }
 
   ngOnInit() {
     this._unityService.load('mobilegamecontainer', this.path);
   }
 
-  fullscreen () {
-    this._unityService.send();
-  }
-
   alert() {
-    this._unityService.alert();
+    this._unityService.alertMobile(this.studentName, this.idEstudiante, this.idBloque);
   }
-
 }
