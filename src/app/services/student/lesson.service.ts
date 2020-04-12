@@ -80,6 +80,11 @@ export class StudentLessonService {
                 finalize(() => { /*console.log('finilize')*/ }));
     }
 
+    sendActivityData (data) {
+        console.log(data)
+        return this.http.post(`${this.url}/ejercicios`, data);
+    }
+
     errorTime() {
         // this.toast.eternalToast('danger', 'Error Inesperado', 'Lo sentimos, no se ha podido realizar la solicitud, intentelo más tarde');
     }

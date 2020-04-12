@@ -1,0 +1,57 @@
+.game-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-top: 20px;
+}
+#gameContainer {
+    text-align: center;
+    overflow: hidden;
+    margin: auto;
+    width: 1204px;
+    height: 576px;
+}
+
+#gameContainer > canvas {
+    margin: auto!important;
+}
+
+@media screen and (max-width: 1200px) {
+    #gameContainer {
+        text-align: center;
+        overflow: hidden;
+        margin: auto;
+        width: 854px;
+        height: 480px;
+    }
+}
+
+@media screen and (max-width: 890px) {
+    #gameContainer {
+        text-align: center;
+        overflow: hidden;
+        margin: auto;
+        width: 768px;
+        height: 432px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #gameContainer {
+        text-align: center;
+        overflow: hidden;
+        margin: auto;
+        width: 640px;
+        height: 400px;
+    }
+}
+
+@media screen and (max-width: 651px) {
+    #gameContainer {
+        text-align: center;
+        overflow: hidden;
+        margin: auto;
+        width: 426px;
+        height: 300px;
+    }
+}

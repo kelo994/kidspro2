@@ -1,0 +1,47 @@
+<nz-page-header>
+  <nz-page-header-title>Actitud</nz-page-header-title>
+  <nz-page-header-extra>
+    <button style="font-size: 12px; font-weight: bold; background-color: #F2C94C; color: white" type="button" nz-button nzType="success"  (click)="goBack()">
+      <i nz-icon nzType="arrow-left"></i>
+      <nz-divider [nzType]="'vertical'" style="margin-left: 0px"></nz-divider>
+      Volver a Unidad
+    </button>
+    <button style="font-size: 12px; font-weight: bold; background-color: #009dee; color: white" type="button" nz-button nzType="primary"  (click)="showModal()">
+      <i nz-icon nzType="plus"></i>
+      <nz-divider [nzType]="'vertical'" style="margin-left: 0px"></nz-divider>
+      Agregar Actitud
+    </button>
+  </nz-page-header-extra>
+</nz-page-header>
+<nz-layout class="inner-layout">
+  <nz-table class="content-table"  #attitudeTable [nzData]="attitudes" [nzLoading]="loading">
+    <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of attitudeTable.data">
+      <td> {{ data.actitud_nombre }}</td>
+      <td>
+        <button class="mx-2" nz-button nzType="primary" nzShape="circle"><i nz-icon nzType="edit"></i></button>
+        <button class="mx-2" nz-button nzType="danger" nzShape="circle" (click)="delete(data.actitud_id)"><i nz-icon nzType="delete"></i></button>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+
+</nz-layout>
+
+
+<nz-modal [(nzVisible)]="modalAgregarActitud" nzTitle="Agregar Bloque" (nzOnCancel)="handleCancelAgregar()" (nzOnOk)="createAttitude()">
+  <form nz-form [formGroup]="attitudeForm" >
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="actitud_nombre">Nombre</nz-form-label>
+      <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Error!">
+        <input nz-input formControlName="actitud_nombre" id="actitud_nombre" />
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>

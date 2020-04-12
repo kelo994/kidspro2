@@ -16,6 +16,7 @@ import { AuthModule } from './components/auth/auth.module';
 import { PagesModule } from './components/pages/pages.module';
 import { StudentModule } from './components/student/student.module';
 import { SystemModule } from './components/system/system.module';
+
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { EmbedVideo } from 'ngx-embed-video';
 import { UnityLinkerModule } from './components/modules/unity-linker/unity-linker.module';
@@ -25,6 +26,7 @@ import { ChartsModule } from 'ng2-charts';
 import { ChartModule } from 'angular-highcharts';
 import { HighchartsService } from './services/highcharts.service';
 import { GameComponent } from './components/game/game.component';
+import { DarkComponent } from './components/game/dark/dark.component';
 registerLocaleData(es);
 
 // Configuraciones sglobales ngZorro
@@ -37,7 +39,8 @@ const ngZorroConfig: NzConfig = {
     AppComponent,
     LandingComponent,
     DialogDataExampleDialog,
-    GameComponent
+    GameComponent,
+    DarkComponent
   ],
   imports: [
     BrowserModule,

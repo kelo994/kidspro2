@@ -7,6 +7,8 @@ import { StudentLessonComponent } from './lesson/lesson.component';
 import { StudentLessonGameComponent } from './lesson/game/game.component';
 import { StudentEvaluationComponent } from './evaluation/evaluation.component';
 
+import { PhaserGameComponent } from '../phaser/game/game.component'
+
 const routes: Routes = [{
   path: 'student',
   component: StudentComponent,
@@ -23,6 +25,10 @@ const routes: Routes = [{
     {
       path: 'evaluation',
       component: StudentEvaluationComponent,
+    },
+    {
+      path: 'game',
+      component: PhaserGameComponent,
     }
   ],
 }];

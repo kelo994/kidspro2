@@ -53,6 +53,12 @@
     height: 35px;
 }
 
+@media screen and (max-width: 374px) {
+    .user-picture {
+        display: none!important;
+    }
+}
+
 .user-picture.initials {
 
     display: -webkit-box;

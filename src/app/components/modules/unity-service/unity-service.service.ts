@@ -80,8 +80,16 @@ export class UnityService implements OnInit {
   }
 
 
-  public alertMobile( messageValueJson ) {
-    
+  public alertMobile( studentName, idEstudiante, idBloque ) {
+    var messageValueJson =
+      {
+        "nombre": studentName,
+        "estudiante_id": idEstudiante,
+        "sexoEstudiante": "?",
+        "bloque_id": idBloque,
+        "rutaApi": this.url
+      };
+
     var mensajeString = JSON.stringify(messageValueJson);
     this.gameInstance.SendMessageUnity('VariablesController', 'obtenerValores', mensajeString);
   }

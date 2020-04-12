@@ -7,12 +7,24 @@ import {Ng2SearchPipeModule} from 'ng2-search-filter';
 import { EstablishmentComponent } from './establishment/establishment.component';
 import { SYSTEM_PAGES_ROUTES } from './pages.routes';
 import {PagesComponent} from "./pages.component";
+import { SubjectComponent } from './subject/subject.component';
+import { UnitComponent } from './unit/unit.component';
+import { BlockComponent } from './block/block.component';
+import { ObjectivesComponent } from './objectives/objectives.component';
+import { SkillComponent } from './skill/skill.component';
+import { AttitudesComponent } from './attitudes/attitudes.component';
 
 
 @NgModule({
   declarations: [
       EstablishmentComponent,
     PagesComponent,
+    SubjectComponent,
+    UnitComponent,
+    BlockComponent,
+    ObjectivesComponent,
+    SkillComponent,
+    AttitudesComponent,
 
   ],
   imports: [

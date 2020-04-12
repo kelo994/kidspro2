@@ -1,5 +1,12 @@
 <div class="d-flex justify-content-center align-items-center mobilecontainer">
 
-    <unity-mobile ngbAutofocus [path]="playleccion"></unity-mobile>
+    <unity-mobile
+        [studentName] = "estudianteNombre"
+        [idEstudiante] = "estudianteId"
+        [idBloque]="bloqueId"
+        [path]="playleccion" 
+        ngbAutofocus  
+        >
+    </unity-mobile>
 
 </div>    

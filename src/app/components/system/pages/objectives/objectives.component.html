@@ -1,0 +1,56 @@
+<nz-page-header>
+  <nz-page-header-title>Objetivos</nz-page-header-title>
+  <nz-page-header-extra>
+    <button style="font-size: 12px; font-weight: bold; background-color: #F2C94C; color: white" type="button" nz-button nzType="success"  (click)="goToSubjects()">
+      <i nz-icon nzType="arrow-left"></i>
+      <nz-divider [nzType]="'vertical'" style="margin-left: 0px"></nz-divider>
+      Volver a Asignaturas
+    </button>
+    <button style="font-size: 12px; font-weight: bold; background-color: #009dee; color: white" type="button" nz-button nzType="primary"  (click)="showModal()">
+      <i nz-icon nzType="plus"></i>
+      <nz-divider [nzType]="'vertical'" style="margin-left: 0px"></nz-divider>
+      Agregar Objetivo
+    </button>
+  </nz-page-header-extra>
+</nz-page-header>
+<nz-layout class="inner-layout">
+  <nz-table class="content-table" #objetivoTable
+            [nzFooter]="null" [nzData]="objectives" [nzLoading]="loading">
+    <thead>
+    <tr>
+      <th>OA</th>
+      <th>Nombre</th>
+      <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of objetivoTable.data">
+      <td>{{ data.objetivo_codigo }} </td>
+      <td> {{ data.objetivo_descripcion }}</td>
+      <td>
+        <button class="mx-2" nz-button nzType="primary" nzShape="circle"><i nz-icon nzType="edit"></i></button>
+        <button class="mx-2" nz-button nzType="danger" nzShape="circle" (click)="delete(data.objetivo_id)"><i nz-icon nzType="delete"></i></button>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+
+</nz-layout>
+
+
+<nz-modal [(nzVisible)]="modalAgregarObjetivo" nzTitle="Agregar Objetivo" (nzOnCancel)="handleCancelAgregar()" (nzOnOk)="createUnit()">
+  <form nz-form [formGroup]="objectiveForm" >
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="objetivo_codigo">OA</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Error!">
+        <input nz-input formControlName="objetivo_codigo" id="objetivo_codigo" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="objetivo_descripcion">Nombre</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Nombre no es valida!">
+        <input nz-input formControlName="objetivo_descripcion" id="objetivo_descripcion" />
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>

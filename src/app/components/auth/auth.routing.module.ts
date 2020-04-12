@@ -5,7 +5,8 @@ import { LoginGuardService as LoginGuard } from '../../services/auth-guard/login
 import { AuthComponent } from './auth.component';
 import { LoginComponent } from './login/login.component';
 import { ValidateComponent } from './validate/validate.component';
-import { RegisterComponent } from './register/register.component';
+import { ResetPasswordComponent } from './reset-password/reset.component';
+import { NewPasswordComponent } from './reset-password/new-password/newpassword.component';
 
 const authroutes: Routes = [{
   path: 'auth',
@@ -17,8 +18,12 @@ const authroutes: Routes = [{
       component: LoginComponent,
     },
     {
-      path: 'register',
-      component: RegisterComponent,
+      path: 'reset/password',
+      component: ResetPasswordComponent,
+    },
+    {
+      path: 'reset/password/:token',
+      component: NewPasswordComponent,
     },
     {
       path: 'activate-account/:token',
