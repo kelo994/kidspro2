@@ -128,4 +128,8 @@ export class EstablishmentComponent implements OnInit {
         });
     }
 
+    goToOfficial(establishmentId) {
+        this.router.navigateByUrl('system/pages/establishments/' + establishmentId + '/official');
+    }
+
 }

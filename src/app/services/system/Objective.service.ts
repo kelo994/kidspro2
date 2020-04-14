@@ -44,6 +44,56 @@ export class ObjectiveService {
                 finalize(() => { /*console.log('finilize')*/ }));
     }
 
+    getObjetivesPerBlocks(blockId) {
+        return this.http.
+        get(`${this.url}/admin/blocks/${blockId}/objectives`)
+            .pipe(timeout(5000),
+                retry(1),
+                catchError((error, c) => {
+                    this.errorTime();
+                    return throwError(error);
+                }),
+                // tslint:disable-next-line:arrow-return-shorthand
+                switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f); }),
+                finalize(() => { /*console.log('finilize')*/ }));
+    }
+
+    getObjetivesMissing(blockId, subjectId) {
+        return this.http.
+        get(`${this.url}/admin/blocks/${blockId}/subject/${subjectId}/objectives`)
+            .pipe(timeout(5000),
+                retry(1),
+                catchError((error, c) => {
+                    this.errorTime();
+                    return throwError(error);
+                }),
+                // tslint:disable-next-line:arrow-return-shorthand
+                switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f); }),
+                finalize(() => { /*console.log('finilize')*/ }));
+    }
+
+    saveBlocksObjetives(data: any) {
+        return this.http.post(`${this.url}/admin/blocks/objectives`, data)
+            .pipe(
+                catchError((error, c) => {
+                    this.errorTime();
+                    return throwError(error);
+                }),
+                switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+                finalize(() => { /*console.log('finilize')*/ }));
+    }
+
+    deleteBlockObjetive(blockId, objectiveId) {
+        return this.http.delete(`${this.url}/admin/blocks/${blockId}/objectives/${objectiveId}`)
+            .pipe(
+                catchError((error, c) => {
+                    this.errorTime();
+                    return throwError(error)
+                }),
+                switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+                finalize(() => { /*console.log('finilize')*/ }));
+    }
+
     save(data: any) {
         return this.http.post(`${this.url}/admin/objectives`, data)
             .pipe(

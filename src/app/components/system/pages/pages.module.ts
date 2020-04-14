@@ -13,6 +13,9 @@ import { BlockComponent } from './block/block.component';
 import { ObjectivesComponent } from './objectives/objectives.component';
 import { SkillComponent } from './skill/skill.component';
 import { AttitudesComponent } from './attitudes/attitudes.component';
+import { RepositoryComponent } from './repository/repository.component';
+import { LinkobjetivesComponent } from './linkobjetives/linkobjetives.component';
+import { OfficialComponent } from './official/official.component';
 
 
 @NgModule({
@@ -25,6 +28,9 @@ import { AttitudesComponent } from './attitudes/attitudes.component';
     ObjectivesComponent,
     SkillComponent,
     AttitudesComponent,
+    RepositoryComponent,
+    LinkobjetivesComponent,
+    OfficialComponent,
 
   ],
   imports: [

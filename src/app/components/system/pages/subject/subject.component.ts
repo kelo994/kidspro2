@@ -117,6 +117,7 @@ export class SubjectComponent implements OnInit {
     });
   }
   goToUnit(asignaturaId) {
+    localStorage.setItem('subjectId', asignaturaId);
     this.router.navigateByUrl('system/pages/subjects/' + asignaturaId + '/units' );
   }
 

@@ -4,7 +4,7 @@
     <button style="font-size: 12px; font-weight: bold; background-color: #009dee; color: white" type="button" nz-button nzType="primary"  (click)="showModal()">
       <i nz-icon nzType="plus"></i>
       <nz-divider [nzType]="'vertical'" style="margin-left: 0px"></nz-divider>
-      Agregar Usuario
+      Agregar Establecimiento
     </button>
   </nz-page-header-extra>
 </nz-page-header>
@@ -33,6 +33,7 @@
       <td>{{ data.establecimiento_web }}</td>
       <td>{{ data.establecimiento_telefono }}</td>
       <td>
+        <i class="action" nz-icon nzType="eye" nzTheme="outline" (click)="goToOfficial(data.id)"></i>
         <i class="action" nz-icon nzType="edit" nzTheme="outline" ></i>
         <i class="action" nz-icon nzType="delete" nzTheme="outline" (click)="delete(data.id)"></i>
       </td>

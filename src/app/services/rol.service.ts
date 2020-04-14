@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 })
 export class RolService {
 
-  private url = `${environment.apiBaseUrl}/roles`;
+  private url = `${environment.apiBaseUrl}`;
 
   constructor(private http: HttpClient, public router: Router) { }
 
@@ -30,7 +30,7 @@ export class RolService {
   }
 
   query() {
-    return this.http.get(`${this.url}`, this.getToken())
+    return this.http.get(`${this.url}/roles`, this.getToken())
       .pipe(timeout(5000),
         retry(1),
         catchError((error, c) => {
@@ -39,6 +39,18 @@ export class RolService {
         }),
         switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
         finalize(() => { /*console.log('finilize')*/ }));
+  }
+
+  getRolesAdmin() {
+    return this.http.get(`${this.url}/admin/roles`)
+        .pipe(timeout(5000),
+            retry(1),
+            catchError((error, c) => {
+              this.errorTime();
+              return throwError(error);
+            }),
+            switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+            finalize(() => { /*console.log('finilize')*/ }));
   }
 
   errorTime() {

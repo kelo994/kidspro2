@@ -7,6 +7,8 @@ import {BlockComponent} from './block/block.component';
 import {ObjectivesComponent} from './objectives/objectives.component';
 import {SkillComponent} from './skill/skill.component';
 import {AttitudesComponent} from './attitudes/attitudes.component';
+import {LinkobjetivesComponent} from './linkobjetives/linkobjetives.component';
+import {OfficialComponent} from './official/official.component';
 
 
 const systempagesroutes: Routes = [
@@ -17,6 +19,10 @@ const systempagesroutes: Routes = [
             {
                 path: 'establishment',
                 component: EstablishmentComponent,
+            },
+            {
+                path: 'establishments/:establishment/official',
+                component: OfficialComponent,
             },
             {
                 path: 'subject',
@@ -41,6 +47,10 @@ const systempagesroutes: Routes = [
             {
                 path: 'subjects/units/:unit/attitudes',
                 component: AttitudesComponent,
+            },
+            {
+                path: 'subjects/units/blocks/:block/objectives',
+                component: LinkobjetivesComponent,
             }
         ]
     },
