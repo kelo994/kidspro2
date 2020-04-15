@@ -9,6 +9,7 @@ import {SkillComponent} from './skill/skill.component';
 import {AttitudesComponent} from './attitudes/attitudes.component';
 import {LinkobjetivesComponent} from './linkobjetives/linkobjetives.component';
 import {OfficialComponent} from './official/official.component';
+import {RepositoryComponent} from './repository/repository.component';
 
 
 const systempagesroutes: Routes = [
@@ -51,6 +52,10 @@ const systempagesroutes: Routes = [
             {
                 path: 'subjects/units/blocks/:block/objectives',
                 component: LinkobjetivesComponent,
+            },
+            {
+                path: 'subjects/units/blocks/:block/repositories',
+                component: RepositoryComponent,
             }
         ]
     },

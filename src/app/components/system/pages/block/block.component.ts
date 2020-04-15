@@ -123,6 +123,10 @@ export class BlockComponent implements OnInit {
     this.router.navigateByUrl('system/pages/subjects/units/blocks/' + blockId + '/objectives' );
   }
 
+  goToLinkRepository(blockId) {
+    this.router.navigateByUrl('system/pages/subjects/units/blocks/' + blockId + '/repositories' );
+  }
+
   goBack() {
     this.location.back();
   }

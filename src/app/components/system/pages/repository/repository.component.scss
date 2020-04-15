@@ -1,0 +1,261 @@
+
+.form-label {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.search-label {
+  width: 25%;
+  font-weight: 600;
+}
+
+.search-input {
+  width: 75%;
+}
+
+[nz-row] {
+  margin-bottom: 15px;
+}
+
+::ng-deep .ant-modal-body {
+  padding-bottom: 15px;
+}
+
+::ng-deep .ant-modal {
+  top: 60px;
+}
+
+.action {
+  font-size: 15px;
+  padding-left: 5px;
+  padding-right: 5px;
+  cursor: pointer;
+}
+
+::ng-deep .modal-confirm-delete > .ant-modal-content > .ant-modal-body > .ant-modal-confirm-body-wrapper > .ant-modal-confirm-btns > .ant-btn-primary {
+  background-color: #ff655b;
+  border-color: #ff655b;
+}
+
+
+.content-table{
+  padding-bottom: 10px;
+  background-color: white;
+  border-bottom: 4px solid #009dee;
+  border-left: 1px solid rgba(0,0,0,0.3);
+  border-top: 1px solid rgba(0,0,0,0.3);
+  border-right: 1px solid rgba(0,0,0,0.3);
+  border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 5px 10px 1px rgba(0,0,0,.14), 0 3px 10px 2px rgba(0,0,0,.12);
+}
+.layout {
+  height: 100vh;
+}
+
+.logo {
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px;
+}
+
+nz-header {
+  background: #fff;
+  padding: 0;
+}
+
+nz-content {
+  margin-bottom: 40px;
+}
+
+.inner-content {
+  margin: 40px 15px 0 15px ;
+}
+
+nz-footer {
+  text-align: center;
+}
+
+.inner-content-right{
+  background-color: #fff;
+}
+
+
+.negrita{
+  font-weight: bold;
+}
+
+
+p {
+  margin: 0;
+}
+
+.border-full {
+  border: #C4C4C4 0.4px solid;
+}
+
+.border-bottom {
+  border-bottom: rgba(0,0,0,0.3) 0.4px solid;
+}
+
+.padding-title{
+  padding: 10px 30px;
+}
+
+.vista-previa-image{
+  padding: 30px 40px;
+}
+
+.lista-repositorio-sistema{
+  padding: 20px 25px 0 35px;
+}
+
+.descripcion-documento{
+  font-size: 10px;
+}
+
+#cardVideo { height: 90%; max-height: 538px;}
+.pointer { cursor: pointer !important; }
+
+.video{
+  height: 450px;
+}
+
+@media only screen and (min-width: 200px) {
+  .video{
+    height: 450px;
+  }
+}
+
+@media only screen and (min-width: 400px) {
+  .video{
+    height: 450px;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .video{
+    height: 450px;
+  }
+}
+
+@media only screen and (min-width: 800px) {
+  .video{
+    height: 450px;
+  }
+}
+
+@media only screen and (min-width: 1001px) {
+  .video{
+    height: 450px;
+  }
+}
+
+@media only screen and (min-width: 1201px) {
+  .video{
+    height: 300px;
+  }
+}
+
+@media only screen and (min-width: 1401px) {
+  .video{
+    height: 370px;
+  }
+}
+
+@media only screen and (min-width: 1601px) {
+  .video{
+    height: 400px;
+  }
+}
+
+@media only screen and (min-width: 1901px) {
+  .video{
+    height: 500px;
+  }
+}
+@media only screen and (min-width: 2101px) {
+  .video{
+    height: 600px;
+  }
+}
+
+.datos-bloque{
+  padding-top: 40px;
+}
+
+.cursiva{
+  font-style: italic;
+}
+
+
+::ng-deep ul li .ant-menu-item.ant-menu-item-selected {
+  color: red;
+}
+
+li .ant-menu-item{
+  margin: 0;
+}
+.ant-menu-item{
+  margin:0;
+}
+
+
+.truncar-texto {
+  overflow:hidden;white-space:nowrap;; text-overflow: ellipsis;
+}
+
+
+.text-center{
+  text-align: center;
+}
+.text-right{
+  text-align: right;
+}
+
+::ng-deep .card .ant-card-body {
+  padding: 0px;
+}
+
+::ng-deep .ant-modal-body{
+  background-color: #e8e8e8;
+}
+.content-profesor{
+
+}
+.card{
+  box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 5px 10px 1px rgba(0,0,0,.14), 0 3px 10px 2px rgba(0,0,0,.12);
+}
+.repositorio-content{
+  background-color: #F2F2F2;
+  margin-bottom: 20px;
+  margin-right: 5px;
+  cursor: pointer;
+  border: rgba(0, 0, 0, 0.1) 1px dashed;
+  border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+}
+.uploadfilecontainer {
+  background-image: url('../../../../../assets/images/upload.png');
+  background-repeat: no-repeat;
+  background-size: 100px;
+  background-position: center;
+  height: 200px;
+  width: 80%;
+  margin: 20px auto;
+  border: 2px dashed #1C8ADB;
+  border-radius: 10px;
+}
+
+.uploadfilecontainer:hover {
+  cursor: pointer;
+  background-color: #9ecbec !important;
+  opacity: 0.8;
+}
+
+.submenu-sidebar{
+  background-color:  #ececec; padding-top: 40px; margin-top: 0px !important; border-right: #c3c3c3 1px solid
+}
