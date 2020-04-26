@@ -17,6 +17,7 @@ import { StudentEvaluationComponent } from './evaluation/evaluation.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { StudentAuthGuardService } from '../../services/auth-guard/student-auth-guard.service';
+import { PivotComponent } from './pivot/pivot.component';
 
 @NgModule({
     imports: [
@@ -33,6 +34,7 @@ import { StudentAuthGuardService } from '../../services/auth-guard/student-auth-
         StudentLessonComponent,
         StudentLessonGameComponent,
         StudentEvaluationComponent,
+        PivotComponent,
     ],
     providers: [{ provide: NZ_I18N, useValue: es_ES }, NzI18nService, StudentAuthGuardService],
     entryComponents: []

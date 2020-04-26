@@ -37,12 +37,12 @@
           <div class="video" [innerHtml]="iframeHtml" ></div>
           <div class="datos-bloque">
             <div nz-row>
-              <div nz-col nzSpan="8">
-                <h5 class="pb-2">{{leccion.bloque_titulo}} </h5>
+              <div nz-col nzSpan="12">
+                <h5 class="pb-2">{{unidadNombre}}: {{leccion.bloque_titulo}} </h5>
               </div>
 
               <div nz-col nzSpan="8">
-                <h6 class="m-0" style="color: rgba(0, 0, 0, 0.3)">{{nombreAsignatura}} <i nz-icon nzType="arrow-right" nzTheme="outline"></i> {{unidadNombre}}</h6>
+                <h6 class="m-0" style="color: rgba(0, 0, 0, 0.3)">{{nombreAsignatura}}  </h6>
               </div>
             </div>
 
@@ -58,7 +58,7 @@
               <p class="negrita pb-2">Objetivos de Aprendizaje</p>
               <ul>
                 <li *ngFor="let objetivo of leccion.objetivos; let i = index">
-                  <p class="descripcion-documento pl-1">{{objetivo.objetivo_descripcion}}</p>
+                  <p class="descripcion-documento pl-1"><span style="color:#004d40; font-size: 14px">* </span>{{objetivo.objetivo_descripcion}}</p>
                 </li>
               </ul>
             </div>
@@ -66,7 +66,7 @@
               <p class="negrita pb-2">Habilidades</p>
               <ul>
                 <li *ngFor="let habilidad of leccion.habilidades; let i = index">
-                  <p class="descripcion-documento pl-1">{{habilidad.habilidad_nombre}}</p>
+                  <p class="descripcion-documento pl-1"><span style="color:#004d40; font-size: 14px">* </span>{{habilidad.habilidad_nombre}}</p>
                 </li>
               </ul>
             </div>
@@ -177,7 +177,7 @@
     <div class="content-sistema mt-3 px-5" nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 24, xl: 24, xxl: 24 }">
       <div class="mr-auto" nz-col nzXs="12" nzSm="12" nzMd="6" nzLg="6" nzXl="4" nzXXl="4"
            *ngFor="let repositorio of repositoriosSistema; let i = index">
-        <nz-card  class="mr-auto p-0 card" style="padding: 0">
+        <nz-card  class="mr-auto p-0 " style="padding: 0">
           <div class="" nz-row >
             <div class="content-icono text-center  pb-3" nz-col nzSpan="24">
               <i nz-icon [nzType]="repositorio.tipo_repositorio_icono" nzTheme="fill" [style]="'font-size: 40px;color: ' + repositorio.tipo_repositorio_color"></i>
@@ -185,7 +185,7 @@
             <div class="text-center" nz-col nzSpan="24">
               <p class="negrita truncar-texto " style="font-size: 11px">{{ repositorio.repositorio_name }}</p>
             </div>
-            <div class="text-right pb-2 px-2" nz-col nzSpan="24">
+            <div class="text-right  px-2" nz-col nzSpan="24">
               <a [href]="url + '/downloads/multimedias/' +  repositorio.nombre_descarga"  style="color: #56CCF2;">
                 <span style="font-size: 10px">Descargar </span> <i class="fas fa-download" ></i>
               </a>
@@ -194,11 +194,11 @@
         </nz-card>
       </div>
     </div>
-    <span class="negrita">Repositorio del profesor</span>
-    <div class="content-profesor mt-3 px-5" nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 24, xl: 24, xxl: 24 }">
-      <div class="mr-auto content-repositorio-profesor" nz-col nzXs="12" nzSm="12" nzMd="6" nzLg="6" nzXl="4" nzXXl="4"
+    <span class="negrita pt-3">Repositorio del profesor</span>
+    <div class="content-profesor px-5" nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 24, xl: 24, xxl: 24 }">
+      <div class="mr-auto content-repositorio-profesor mt-3" nz-col nzXs="12" nzSm="12" nzMd="6" nzLg="6" nzXl="4" nzXXl="4"
            *ngFor="let repositorio of repositoriosProfesor; let i = index">
-        <nz-card  class="mr-auto p-0 card" style="padding: 0">
+        <nz-card  class="mr-auto p-0 " style="padding: 0;">
           <div class="" nz-row >
             <div class="text-right " nz-col nzSpan="24">
               <button  style="color: #56CCF2; float: right; " nz-button nzType="link"  (click)="delete(repositorio.repositorio_id)">
@@ -211,7 +211,7 @@
             <div class="text-center" nz-col nzSpan="24">
               <p class="negrita truncar-texto " style="font-size: 11px">{{ repositorio.repositorio_name }}</p>
             </div>
-            <div class="text-right pb-2 px-2" nz-col nzSpan="24">
+            <div class="text-right  px-2" nz-col nzSpan="24">
               <a [href]="url + '/downloads/multimedias/' +  repositorio.nombre_descarga"  style="color: #56CCF2;">
                 <span style="font-size: 10px">Descargar </span> <i class="fas fa-download" ></i>
               </a>

@@ -35,7 +35,7 @@
 </nz-layout>
 
 
-<nz-modal [(nzVisible)]="modalAgregarActitud" nzTitle="Agregar Bloque" (nzOnCancel)="handleCancelAgregar()" (nzOnOk)="createAttitude()">
+<nz-modal [(nzVisible)]="modalAgregarActitud" nzTitle="Agregar Actitud" (nzOnCancel)="handleCancelAgregar()" (nzOnOk)="createAttitude()">
   <form nz-form [formGroup]="attitudeForm" >
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="actitud_nombre">Nombre</nz-form-label>

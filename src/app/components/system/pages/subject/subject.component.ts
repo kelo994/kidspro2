@@ -3,6 +3,8 @@ import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {SubjectService} from '../../../../services/system/subject.service';
 import {NzModalService, NzNotificationService} from 'ng-zorro-antd';
 import {Router} from '@angular/router';
+import {MattersService} from '../../../../services/system/matters.service';
+import {LevelService} from '../../../../services/system/level.service';
 
 @Component({
   selector: 'app-subject',
@@ -23,28 +25,21 @@ export class SubjectComponent implements OnInit {
       }
   ];
   modalAgregarAsignatura = false;
+  modalEditarAsignatura = false;
   establishmentForm  = new FormGroup({
-    establecimiento_nombre: new FormControl(''),
-    establecimiento_direccion: new FormControl(''),
-    establecimiento_comuna: new FormControl(''),
-    establecimiento_email: new FormControl(''),
-    establecimiento_web: new FormControl(''),
-    establecimiento_director: new FormControl(''),
-    establecimiento_rbd: new FormControl(''),
-    establecimiento_reconocimiento_oficial: new FormControl(''),
-    establecimiento_dependencia: new FormControl(''),
-    establecimiento_nivel_ensenanza: new FormControl(''),
-    establecimiento_alumnos: new FormControl(''),
-    establecimiento_promedio_alumnos: new FormControl(''),
-    establecimiento_telefono: new FormControl(''),
-    establecimiento_logo: new FormControl(''),
-    establecimiento_mapa: new FormControl(''),
-    establecimiento_sostenedor: new FormControl(''),
+    nivel_id: new FormControl(''),
+    materia_id: new FormControl(''),
+    asignatura_estado: new FormControl('')
   });
   asignaturaElminada;
+  levels;
+  matters;
+  subjectEditId;
 
   constructor(
       private subjectService: SubjectService,
+      private mattersService: MattersService,
+      private levelService: LevelService,
       private modalService: NzModalService,
       private notification: NzNotificationService,
       private router: Router,
@@ -53,11 +48,41 @@ export class SubjectComponent implements OnInit {
 
   ngOnInit(): void {
     this.getSubjects();
+    this.getMatters();
+    this.getLevels();
   }
 
   getSubjects() {
     this.subjectService.getSubjects().subscribe((data: any) => {
       this.subjects = data;
+      this.loading = false;
+    }, (error) => {
+      if (error.status === 401) {
+        this.router.navigate(['/auth/login']);
+      } else if (error.status === 400) {
+        this.router.navigate(['/auth/login']);
+        this.notification.error('Error Inesperado', 'Por favor vuelve a iniciar Sesión');
+      }
+    });
+  }
+
+  getMatters() {
+    this.mattersService.getmatters().subscribe((data: any) => {
+      this.matters = data;
+      this.loading = false;
+    }, (error) => {
+      if (error.status === 401) {
+        this.router.navigate(['/auth/login']);
+      } else if (error.status === 400) {
+        this.router.navigate(['/auth/login']);
+        this.notification.error('Error Inesperado', 'Por favor vuelve a iniciar Sesión');
+      }
+    });
+  }
+
+  getLevels() {
+    this.levelService.getlevels().subscribe((data: any) => {
+      this.levels = data;
       this.loading = false;
     }, (error) => {
       if (error.status === 401) {
@@ -78,12 +103,40 @@ export class SubjectComponent implements OnInit {
     this.modalAgregarAsignatura = false;
   }
 
+  showModalUpdate(data): void {
+    console.log(data);
+    this.subjectEditId = data.id;
+    this.establishmentForm.controls.nivel_id.setValue(data.nivel_id);
+    this.establishmentForm.controls.materia_id.setValue(data.materia_id);
+    this.establishmentForm.controls.asignatura_estado.setValue(data.asignatura_estado);
+    this.modalEditarAsignatura = true;
+  }
+
+  handleCancelUpdate(): void {
+    console.log('Button cancel clicked!');
+    this.modalEditarAsignatura = false;
+  }
+
   createSubject() {
     const data = this.establishmentForm.value;
     this.subjectService.save(data).subscribe((response: any) => {
       this.subjects = response;
       this.modalAgregarAsignatura = false;
       this.notification.success('Asignatura', 'Asignatura Creado con Éxito');
+    }, (error) => {
+      if (error.status === 401) {
+        this.router.navigate(['/auth/login']);
+      }
+    });
+  }
+
+  updateSubject() {
+    console.log(this.establishmentForm.value);
+    const data = this.establishmentForm.value;
+    this.subjectService.update(this.subjectEditId , data).subscribe((response: any) => {
+      this.subjects = response;
+      this.modalEditarAsignatura = false;
+      this.notification.success('Asignatura', 'Asignatura Actualizada con Éxito');
     }, (error) => {
       if (error.status === 401) {
         this.router.navigate(['/auth/login']);

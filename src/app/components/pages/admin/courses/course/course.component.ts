@@ -130,10 +130,9 @@ export class CourseComponent implements OnInit {
       funcionario_id: this.funcionarioSeleccionado
     };
     this.coursesService.agregarFuncionarioCurso(data).subscribe((response: any) => {
-      this.profesores = response.data;
+      this.profesores = response;
       this.modalProfesor = false;
       this.funcionarioSeleccionado = '';
-      this.tipoProfesorSeleccionado =  '';
       this.nombreTipoProfesorSeleccionado = '';
       this.nombreFuncionarioSeleccionado = '';
       this.apellidoFuncionarioSeleccionado = '';
@@ -153,7 +152,15 @@ export class CourseComponent implements OnInit {
   }
 
   next(): void {
-    this.current += 1;
+    if  (this.current === 1) {
+      if (this.tipoProfesorSeleccionado !== undefined) {
+        this.current += 1;
+      } else {
+        this.notification.error('Seleccione un tipo de profesor', 'Seleccione un tipo de profesor');
+      }
+    } else {
+      this.current += 1;
+    }
   }
 
   done(): void {
@@ -170,6 +177,7 @@ export class CourseComponent implements OnInit {
     this.current += 1;
   }
   seleccionarTipoProfesor(value) {
+    console.log(value);
     this.selectedValue = value;
     this.tipoProfesorSeleccionado = value.id;
     this.nombreTipoProfesorSeleccionado = value.tipo;

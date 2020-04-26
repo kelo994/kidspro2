@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 @Injectable({
     providedIn: 'root',
 })
-export class SubjectService {
+export class MattersService {
 
     private url = `${environment.apiBaseUrl}`;
 
@@ -30,23 +30,9 @@ export class SubjectService {
     }
 
 
-    getSubjects() {
+    getmatters() {
         return this.http.
-        get(`${this.url}/admin/subjects`)
-            .pipe(timeout(5000),
-                retry(1),
-                catchError((error, c) => {
-                    this.errorTime();
-                    return throwError(error);
-                }),
-                // tslint:disable-next-line:arrow-return-shorthand
-                switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f); }),
-                finalize(() => { /*console.log('finilize')*/ }));
-    }
-
-    getLevels() {
-        return this.http.
-        get(`${this.url}/admin/levels`)
+        get(`${this.url}/admin/matters`)
             .pipe(timeout(5000),
                 retry(1),
                 catchError((error, c) => {
@@ -59,7 +45,7 @@ export class SubjectService {
     }
 
     save(data: any) {
-        return this.http.post(`${this.url}/admin/subjects`, data)
+        return this.http.post(`${this.url}/admin/attitudes`, data)
             .pipe(
                 catchError((error, c) => {
                     this.errorTime();
@@ -70,7 +56,7 @@ export class SubjectService {
     }
 
     delete(id: any) {
-        return this.http.delete(`${this.url}/admin/subjects/${id}`)
+        return this.http.delete(`${this.url}/admin/attitudes/${id}`)
             .pipe(
                 catchError((error, c) => {
                     this.errorTime();
@@ -81,9 +67,7 @@ export class SubjectService {
     }
 
 
-    update(id: any, data: any) {
-        return this.http.put(`${this.url}/admin/subjects/${id}`, data);
-    }
+
     errorTime() {
         // this.toast.eternalToast('danger', 'Error Inesperado', 'Lo sentimos, no se ha podido realizar la solicitud, intentelo más tarde');
     }

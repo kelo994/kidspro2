@@ -2,7 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { StudentLessonService } from '../../../services/student/lesson.service';
 import { NzNotificationService } from 'ng-zorro-antd';
 import { EmbedVideoService } from 'ngx-embed-video';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {RepositorioService} from '../../../services/repositorio.service';
 import {environment} from '../../../../environments/environment';
 
@@ -16,6 +16,7 @@ export class StudentLessonComponent implements OnInit {
   constructor(
     private lessonService: StudentLessonService,
     public repositorioService: RepositorioService,
+    private route: ActivatedRoute,
     private notification: NzNotificationService,
     private embedService: EmbedVideoService,
     public router: Router
@@ -94,8 +95,14 @@ export class StudentLessonComponent implements OnInit {
         nombre_descarga: ''
       }
   ];
+  cursoId;
+  asignaturaId;
 
   ngOnInit(): void {
+      this.route.params.subscribe(params => {
+          this.cursoId = params.course;
+          this.asignaturaId = params.subject;
+      });
     this.idEstudiante = localStorage.getItem('idEstudiante');
     this.loadContent();
 
@@ -107,7 +114,7 @@ export class StudentLessonComponent implements OnInit {
   }
 
   loadContent() {
-    this.lessonService.getBloqueAlumno(this.idEstudiante).subscribe((data: any) => {
+    this.lessonService.getBloqueAlumno(this.cursoId, this.asignaturaId).subscribe((data: any) => {
       this.lecciones = data.data;
       this.leccion = data.data[0];
       if (this.leccion != null) {
@@ -169,7 +176,7 @@ export class StudentLessonComponent implements OnInit {
   }
 
   reproducir(nombre) {
-    const audio = new Audio('../../../../assets/audios/'+ nombre);
+    const audio = new Audio('../../../../assets/audios/' + nombre);
     audio.play();
   }
 

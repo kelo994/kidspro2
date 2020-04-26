@@ -3,7 +3,7 @@
         [nzCollapsedWidth]="0" nzTheme="light">
         <div nz-row>
             <div nz-col nzSpan="20" class="lessons" (click)="reproducir('6.wav')">Lecciones</div>
-            <div nz-col nzSpan="4"><button nz-button nzType="primary" nzShape="circle" (click)="reproducir('6.wav')"><i nz-icon nzType="sound"></i></button></div>
+            <div nz-col nzSpan="4"><button nz-button  nzShape="circle" (click)="reproducir('6.wav')" style="backgound-color: gray"><i nz-icon nzType="sound"></i></button></div>
         </div>
         <div nz-row nzAlign="middle" *ngFor="let lesson of lecciones; let i = index" class="container-lessons-videos">
             <nz-card [nzCover]="coverTemplate" style="margin-bottom: 18px" class="nz-card-lesson-title">
@@ -11,7 +11,7 @@
             </nz-card>
             <ng-template #coverTemplate class="contenedor">
                 <div (click)="goToLesson(lesson)">
-                    <img alt="example" [src]="lesson.bloque_imagen" style="cursor: pointer" />
+                    <img alt="example" [src]="lesson.bloque_imagen" style=" cursor: pointer" />
                     <button class="btn btnPlay-leccion">
                         <i class="far fa-play-circle"></i>
                     </button>
@@ -39,7 +39,7 @@
                         <div class="border-bottom" nz-col nzXs="24" nzSm="24" nzMd="14" nzLg="15" nzXl="24">
                             <div class="layout-right-title text-center">
                                 Material de apoyo
-                                <button nz-button nzType="primary" nzShape="circle" (click)="reproducir('2.wav')"><i nz-icon nzType="sound"></i></button>
+                                <button nz-button style="backgound-color: gray" nzShape="circle" (click)="reproducir('2.wav')"><i nz-icon nzType="sound"></i></button>
                             </div>
                             <div class="layout-right-content">
                                 <ul>
@@ -66,11 +66,11 @@
                                 <button nz-button nzType="link" (click)="openModal('repositorio')" style="float: right">Ver más...</button>
                             </div>
                         </div>
-                        <div class="layout-play" nz-col nzXs="24" nzSm="24" nzMd="10" nzLg="9" nzXl="24">
+                      <!--  <div class="layout-play" nz-col nzXs="24" nzSm="24" nzMd="10" nzLg="9" nzXl="24">
                             <img class="button-play" src="../../../../../assets/images/student/boton-jugar.png" alt=""
                                 (click)="goToGame()">
                             <button nz-button nzType="primary" nzShape="circle" (click)="reproducir('9.wav')" style="float: right"><i nz-icon nzType="sound"></i></button>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -107,7 +107,7 @@
           nzCancelText="Cancelar" [nzContent]="modalContentRepositorio" nzWidth="1200"
           (nzOnCancel)="closeModal('repositorio')" [nzFooter]=null>
     <ng-template #modalContentRepositorio style="background-color: #f2f2f2;">
-        <span class="negrita">Repositorio del sistema <button nz-button nzType="primary" nzShape="circle" (click)="reproducir('4.wav')"><i nz-icon nzType="sound"></i></button></span>
+        <span class="negrita">Repositorio del sistema <button nz-button style="backgound-color: gray" nzShape="circle" (click)="reproducir('4.wav')"><i nz-icon nzType="sound"></i></button></span>
         <div class="content-sistema mt-3 px-5" nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 24, xl: 24, xxl: 24 }">
             <div class="mr-auto" nz-col nzXs="12" nzSm="12" nzMd="6" nzLg="6" nzXl="4" nzXXl="4"
                  *ngFor="let repositorio of repositoriosSistema; let i = index">
@@ -128,7 +128,7 @@
                 </nz-card>
             </div>
         </div>
-        <span class="negrita">Repositorio del profesor <button nz-button nzType="primary" nzShape="circle" (click)="reproducir('5.wav')"><i nz-icon nzType="sound"></i></button></span>
+        <span class="negrita">Repositorio del profesor <button nz-button style="backgound-color: gray" nzShape="circle" (click)="reproducir('5.wav')"><i nz-icon nzType="sound"></i></button></span>
         <div class="content-profesor mt-3 px-5" nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 24, xl: 24, xxl: 24 }">
             <div class="mr-auto content-repositorio-profesor" nz-col nzXs="12" nzSm="12" nzMd="6" nzLg="6" nzXl="4" nzXXl="4"
                  *ngFor="let repositorio of repositoriosProfesor; let i = index">

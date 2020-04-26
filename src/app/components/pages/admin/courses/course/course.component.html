@@ -104,8 +104,7 @@
   </div>
   <div class="steps-content" *ngIf="current == 1">
     <nz-select  class="w-100" [(ngModel)]="selectedValue" (ngModelChange)="seleccionarTipoProfesor($event)" nzAllowClear>
-      <nz-option *ngFor="let tipo of tipoProfesores; let i = index" [nzValue]="tipo"
-                 [nzLabel]="tipo.tipo">
+      <nz-option *ngFor="let tipo of tipoProfesores; let i = index" [nzValue]="tipo" [nzLabel]="tipo.tipo">
       </nz-option>
     </nz-select>
   </div>

@@ -42,6 +42,7 @@ export class CoursesAdminComponent implements OnInit {
   modalCrearCurso = false;
   cursoForm: FormGroup;
   cursoEliminado;
+  nombreEliminarCurso = 'Eliminar Curso'
 
   constructor(
     private notification: NzNotificationService,
@@ -128,8 +129,10 @@ export class CoursesAdminComponent implements OnInit {
   changeFlagEliminarCurso() {
     if (this.flagEliminarCurso) {
       this.flagEliminarCurso = false;
+      this.nombreEliminarCurso = 'Eliminar Curso';
     } else {
       this.flagEliminarCurso = true;
+      this.nombreEliminarCurso = 'Cancelar';
     }
   }
 
@@ -148,6 +151,7 @@ export class CoursesAdminComponent implements OnInit {
   confirmDelete() {
     this.coursesService.deleteCurso(this.cursoEliminado).subscribe((data: any) => {
       this.obtenerNivelesEstablecimiento();
+      this.flagEliminarCurso = false;
       this.notification.success('Curso', 'El curso fue eliminado con exito');
     }, (error) => {
       console.log(error);
