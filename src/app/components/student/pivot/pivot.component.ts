@@ -18,12 +18,8 @@ export class PivotComponent implements OnInit {
     nivel_id: '',
     curso_id: ''
   };
-<<<<<<< HEAD
   step = 'lecciones';
-=======
-  step = 'pivot';
   playleccion = '1/Build/1.json';
->>>>>>> 6ed38eb09d77acb016ad0cc5b26bebea5772d6da
   constructor(public router: Router,
               private notification: NzNotificationService,
               public lessonService: StudentLessonService,

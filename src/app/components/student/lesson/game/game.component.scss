@@ -18,6 +18,24 @@
     border-bottom-right-radius: 25px;
 }
 
+@media screen and (max-width: 1900px) {
+    .game-footer {
+        width: 1600px;
+    }
+}
+
+@media screen and (max-width: 1700px) {
+    .game-footer {
+        width: 1400px;
+    }
+}
+
+@media screen and (max-width: 1500px) {
+    .game-footer {
+        width: 1000px;
+    }
+}
+
 @media screen and (max-width: 1200px) {
     .game-footer {
         width: 889px;
