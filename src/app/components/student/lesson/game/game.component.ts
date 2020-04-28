@@ -34,8 +34,6 @@ export class StudentLessonGameComponent implements OnInit {
   leccionId;
   asignaturaId;
   cursoId;
-
-  titulo: any;
   playleccion = '';
 
   loadGame = false;
@@ -44,7 +42,6 @@ export class StudentLessonGameComponent implements OnInit {
     this.idEstudiante = localStorage.getItem('idEstudiante');
     if (typeof history.state.play !== 'undefined') {
       this.playleccion = history.state.play
-      this.titulo = history.state.titulo
       this.loadGame = true;
     } else {
       this.goBack()
@@ -52,7 +49,7 @@ export class StudentLessonGameComponent implements OnInit {
   }
 
   goBack () {
-    this.router.navigate(['/student/lesson'])
+    this.router.navigate(['/student/pivot'])
   }
 
   setFull(): void {

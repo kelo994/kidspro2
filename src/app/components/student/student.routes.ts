@@ -32,7 +32,7 @@ const routes: Routes = [{
       component: PhaserGameComponent,
     },
     {
-      path: 'pivot/:code',
+      path: 'pivot',
       component: PivotComponent,
     }
   ],
