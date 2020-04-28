@@ -17,10 +17,10 @@
 </div>
 
 <div class="fondo-lecciones" *ngIf="step == 'lecciones' ">
-  <div class="titulo-lecciones estilo-letra">Asignaturas<button nz-button nzType="primary" style="float:right" (click)="goPivot()"><i nz-icon nzType="left" class="pt-1"></i>Volver</button></div>
+  <div class="titulo-lecciones estilo-letra">Asignaturas </div>
   <div nz-row >
-    <div class="pt-4" *ngFor="let asignatura of data.asignaturas; let i = index" nz-col nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="8" nzXl="8">
-      <div class="p-4 bloque" [style]="'background-color: #' + asignatura.materia_color" (click)="goToLesson(asignatura.asignatura_id)">
+    <div class="pt-4" *ngFor="let asignatura of data.asignaturas; let i = index" nz-col nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12">
+      <div class="p-4 bloque" [style]="'background-color: ' + asignatura.materia_color" (click)="goToLesson(asignatura.asignatura_id)">
         <div class="materia estilo-letra alineado">{{asignatura.materia_descripcion}}</div>
       </div>
 

@@ -17,7 +17,7 @@ export class PivotComponent implements OnInit {
     nivel_descripcion: '',
     curso_id: ''
   };
-  step = 'pivot';
+  step = 'lecciones';
   constructor(public router: Router,
               private notification: NzNotificationService,
               public lessonService: StudentLessonService,
