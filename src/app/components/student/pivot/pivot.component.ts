@@ -33,7 +33,7 @@ export class PivotComponent implements OnInit {
   getDataByCode() {
     this.lessonService.getDataByCode(this.codigoId).subscribe((data: any) => {
       this.data = data;
-      this.playleccion = data.nivel_id + '/Build/' + data.nivel_id + '.json'
+      this.playleccion = data.nivel_id + '/Build/' + data.nivel_id + '.json';
     }, (error) => {
       if (error.status === 500) { this.notification.error('Error', error.error); }
       if (error.status === 401) {
@@ -48,7 +48,7 @@ export class PivotComponent implements OnInit {
   }
 
   goToGame() {
-    this.router.navigate(['/student/lesson/game'], { state: { play: this.playleccion } })
+    this.router.navigate(['/student/lesson/game'], { state: { play: this.playleccion } });
   }
 
   goPivot() {
