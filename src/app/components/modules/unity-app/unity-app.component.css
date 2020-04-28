@@ -1,7 +1,21 @@
 #gamecontainer {
-    width: 1000px; 
-    height: 563px;
+    width: 1600px; 
+    height: 900px;
     margin: auto;
+}
+
+@media screen and (max-width: 1700px) {
+    .game-footer {
+        width: 1400px;
+        height: 787px;
+    }
+}
+
+@media screen and (max-width: 1500px) {
+    #gamecontainer {
+        width: 1000px; 
+        height: 563px;
+    }
 }
 
 @media screen and (max-width: 1200px) {

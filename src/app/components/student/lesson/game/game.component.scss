@@ -10,18 +10,12 @@
 
 .game-footer {
     background-color: #20aac8!important;
-    width: 1000px;
+    width: 1600px;
     height: 46px;
     margin: auto;
     text-align: center;
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
-}
-
-@media screen and (max-width: 1900px) {
-    .game-footer {
-        width: 1600px;
-    }
 }
 
 @media screen and (max-width: 1700px) {
