@@ -18,6 +18,7 @@ export class BlockComponent implements OnInit {
         bloque_titulo: '',
         bloque_estado: '',
         bloque_imagen: '',
+        bloque_video: '',
         bloque_orden: '',
         bloque_cantidad_ejercicios: '',
         estado_juego: ''
@@ -28,6 +29,7 @@ export class BlockComponent implements OnInit {
     bloque_titulo: new FormControl(''),
     bloque_estado: new FormControl(''),
     bloque_imagen: new FormControl(''),
+    bloque_video: new FormControl(''),
     bloque_orden: new FormControl(''),
     bloque_cantidad_ejercicios: new FormControl(''),
     estado_juego: new FormControl(''),

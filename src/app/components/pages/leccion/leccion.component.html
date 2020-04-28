@@ -47,18 +47,18 @@
             </div>
 
             <div class="datos-lecciones pl-2">
+              <div class="datos-objetivos pl-2 pt-2">
+                <p class="negrita pb-2">Objetivos de Aprendizaje</p>
+                <ul>
+                  <li *ngFor="let objetivo of leccion.objetivos; let i = index">
+                    <p class="descripcion-documento pl-1"><span style="color:#004d40; font-size: 14px">* </span>{{objetivo.objetivo_descripcion}}</p>
+                  </li>
+                </ul>
+              </div>
               <p class="negrita pb-2 pt-2">Actitudes</p>
               <ul>
                 <li *ngFor="let actitud of leccion.actitudes; let i = index">
                   <p class="descripcion-documento pl-1"><span style="color:#004d40; font-size: 14px">* </span> {{actitud.actitud_nombre}}</p>
-                </li>
-              </ul>
-            </div>
-            <div class="datos-objetivos pl-2 pt-2">
-              <p class="negrita pb-2">Objetivos de Aprendizaje</p>
-              <ul>
-                <li *ngFor="let objetivo of leccion.objetivos; let i = index">
-                  <p class="descripcion-documento pl-1"><span style="color:#004d40; font-size: 14px">* </span>{{objetivo.objetivo_descripcion}}</p>
                 </li>
               </ul>
             </div>

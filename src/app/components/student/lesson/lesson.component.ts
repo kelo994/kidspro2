@@ -42,6 +42,7 @@ export class StudentLessonComponent implements OnInit {
     bloque_titulo: '',
     leccion_titulo: '',
     bloque_imagen: '',
+    bloque_video: '',
     ruta_actividad: '',
     lecciones: {
       leccion_titulo: ''
@@ -95,8 +96,8 @@ export class StudentLessonComponent implements OnInit {
         nombre_descarga: ''
       }
   ];
-  cursoId;
-  asignaturaId;
+  // cursoId;
+  // asignaturaId;
 
   ngOnInit(): void {
       this.route.params.subscribe(params => {
@@ -122,7 +123,7 @@ export class StudentLessonComponent implements OnInit {
         this.getRepositoriosBloque(this.leccion.bloque_id);
         this.playleccion = this.leccion.ruta_actividad;
         console.log(this.playleccion);
-        this.loadVideo(this.leccion.recursos[0].url);
+        this.loadVideo(this.leccion.bloque_video);
       } else {
         this.notification.warning('No hay lecciones activadas', '');
       }

@@ -20,6 +20,7 @@
       <th></th>
       <th>Orden</th>
       <th>Titulo</th>
+      <th>Ruta video</th>
       <th>Estado bloque</th>
       <th>Cantidad Ejercicios</th>
       <th>Estado del juego</th>
@@ -34,6 +35,7 @@
       </td>
       <td> {{ data.bloque_orden }}</td>
       <td>{{ data.bloque_titulo }} </td>
+      <td>{{ data.bloque_video }} </td>
       <td><nz-switch [(ngModel)]="data.bloque_estado"></nz-switch></td>
       <td> {{ data.bloque_cantidad_ejercicios }}</td>
       <td> <nz-switch [(ngModel)]="data.estado_juego"></nz-switch></td>
@@ -76,6 +78,12 @@
       <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired nzFor="bloque_imagen">Imagen</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Error!">
         <input nz-input formControlName="bloque_imagen" id="bloque_imagen" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired nzFor="bloque_video">Video</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Error!">
+        <input nz-input formControlName="bloque_video" id="bloque_video" />
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
