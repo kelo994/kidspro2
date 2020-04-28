@@ -47,6 +47,14 @@ export class RepositorioService {
         };
     }
 
+    getToken4() {
+        return {
+            headers: new HttpHeaders({
+                'Accept': 'application/json',
+            })
+        };
+    }
+
     getRepositorios(usuarioRepositorioId, bloqueId) {
         return this.http.
         get(`${this.url}/usuarios/${usuarioRepositorioId}/bloques/${bloqueId}/repositorios`, this.getToken())
@@ -104,6 +112,42 @@ export class RepositorioService {
                 catchError((error, c) => {
                     this.errorTime();
                     return throwError(error)
+                }),
+                switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+                finalize(() => { /*console.log('finilize')*/ }));
+    }
+
+    crearRepositorioAdmin(data) {
+        return this.http.post(`${this.url}/admin/repositories`, data, this.getToken4())
+            .pipe(timeout(10000),
+                catchError((error, c) => {
+                    this.errorTime();
+                    return throwError(error);
+                }),
+                switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+                finalize(() => { /*console.log('finilize')*/ }));
+    }
+
+
+    deleteRepositoriosAdmin(repositorioId) {
+        return this.http.delete(`${this.url}/admin/repositories/${repositorioId}`)
+            .pipe(
+                catchError((error, c) => {
+                    this.errorTime();
+                    return throwError(error)
+                }),
+                switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+                finalize(() => { /*console.log('finilize')*/ }));
+    }
+
+    getRepositoriosBlocks(typeId, blockId) {
+        return this.http.
+        get(`${this.url}/admin/users/${typeId}/blocks/${blockId}/repositories`)
+            .pipe(timeout(5000),
+                retry(1),
+                catchError((error, c) => {
+                    this.errorTime();
+                    return throwError(error);
                 }),
                 switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
                 finalize(() => { /*console.log('finilize')*/ }));

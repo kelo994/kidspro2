@@ -1,0 +1,62 @@
+<nz-page-header>
+  <nz-page-header-title>Unidades</nz-page-header-title>
+  <nz-page-header-extra>
+    <button style="font-size: 12px; font-weight: bold; background-color: #F2C94C; color: white" type="button" nz-button nzType="success"  (click)="goToSubjects()">
+      <i nz-icon nzType="arrow-left"></i>
+      <nz-divider [nzType]="'vertical'" style="margin-left: 0px"></nz-divider>
+      Volver a Asignaturas
+    </button>
+    <button style="font-size: 12px; font-weight: bold; background-color: #009dee; color: white" type="button" nz-button nzType="primary"  (click)="showModal()">
+      <i nz-icon nzType="plus"></i>
+      <nz-divider [nzType]="'vertical'" style="margin-left: 0px"></nz-divider>
+      Agregar Unidad
+    </button>
+  </nz-page-header-extra>
+</nz-page-header>
+<nz-layout class="inner-layout">
+  <nz-table class="content-table" #unidadTable
+            [nzFooter]="null" [nzData]="units" [nzLoading]="loading">
+    <thead>
+    <tr>
+      <th>Unidad</th>
+      <th>Nombre</th>
+      <th>Recursos</th>
+      <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of unidadTable.data">
+      <td>{{ data.unidad_nombre }} </td>
+      <td> {{ data.unidad_descripcion }}</td>
+      <td>
+        <button class="mx-2" nz-button nzType="primary" nzShape="" (click)="goToSkills(data.unidad_id)">Habilidades</button>
+        <button class="mx-2" nz-button nzType="primary" nzShape="" (click)="goToAttitudes(data.unidad_id)">Actitudes</button>
+        <button class="mx-2" nz-button nzType="primary" nzShape="" (click)="goToBlocks(data.unidad_id)">Lecciones</button>
+      </td>
+      <td>
+        <button class="mx-2" nz-button nzType="primary" nzShape="circle"><i nz-icon nzType="edit"></i></button>
+        <button class="mx-2" nz-button nzType="danger" nzShape="circle" (click)="delete(data.unidad_id)"><i nz-icon nzType="delete"></i></button>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+
+</nz-layout>
+
+
+<nz-modal [(nzVisible)]="modalAgregarUnidad" nzTitle="Agregar Unidad" (nzOnCancel)="handleCancelAgregar()" (nzOnOk)="createUnit()">
+  <form nz-form [formGroup]="unitForm" >
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="unidad_nombre">Unidad</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Error!">
+        <input nz-input formControlName="unidad_nombre" id="unidad_nombre" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="unidad_descripcion">Nombre</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Nombre no es valida!">
+        <input nz-input formControlName="unidad_descripcion" id="unidad_descripcion" />
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>

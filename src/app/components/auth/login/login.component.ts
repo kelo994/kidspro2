@@ -13,13 +13,13 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 export class LoginComponent implements OnInit {
 
   passwordVisible = false;
-  
+
   formaLogin: FormGroup;
   loginIcon = 'login';
 
   formaCode: FormGroup;
   codeIcon = 'login';
-  
+
   validCodeForm: FormGroup;
 
   validCode = false;
@@ -128,7 +128,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  validateStudentRut () {
+  validateStudentRut() {
     if (this.validCodeForm.controls.rut.status != 'VALID') {
       this.notification.error('Por favor ingrese un rut válido', '');
     } else {
@@ -146,26 +146,26 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('studentName', first_name[0] + ' ' + last_name[0]);
         localStorage.setItem('tokenStudent', this.studentToken);
         if (this.studentCode.tipo_codigo_id == 1) {
-          this.router.navigate(['/student/lesson']);
+          this.router.navigate(['/student/pivot/' + this.studentCode.codigo_id]);
         } else {
           this.router.navigate(['/student/evaluation']);
         }
         this.notification.success('Bienvenido', 'Has Iniciado Sesión Satisfactoriamente');
       }
     }
-    
-    
+
+
   }
 
   openLeccion(idEstudiante, type) {
     localStorage.setItem('idEstudiante', idEstudiante);
     this.estudiantes.forEach(element => {
-      if (element.id == idEstudiante) {
-        localStorage.setItem('alumnoFast', element.persona_nombre + " " + element.persona_apellido);
+      if (element.id === idEstudiante) {
+        localStorage.setItem('alumnoFast', element.persona_nombre + ' ' + element.persona_apellido);
         localStorage.setItem('tokenStudent', this.studentToken);
         this.notification.success('Inicio de Sesión Exitoso', '');
         if (type === 'Leccion') {
-          this.router.navigate(['/student/lesson']);
+          this.router.navigate(['/student/pivot']);
         }
         if (type === 'Evaluacion') {
           this.router.navigate(['/student/evaluation']);
@@ -183,7 +183,7 @@ export class LoginComponent implements OnInit {
       let rutFormat = this.rutService.formateaRut(this.validCodeForm.controls['rut'].value);
       this.validCodeForm.controls['rut'].setValue(rutFormat);
     }
-    
+
   }
 
   setUpperCase(event: any) {

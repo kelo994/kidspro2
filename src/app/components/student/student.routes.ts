@@ -7,7 +7,8 @@ import { StudentLessonComponent } from './lesson/lesson.component';
 import { StudentLessonGameComponent } from './lesson/game/game.component';
 import { StudentEvaluationComponent } from './evaluation/evaluation.component';
 
-import { PhaserGameComponent } from '../phaser/game/game.component'
+import { PhaserGameComponent } from '../phaser/game/game.component';
+import {PivotComponent} from './pivot/pivot.component';
 
 const routes: Routes = [{
   path: 'student',
@@ -15,7 +16,7 @@ const routes: Routes = [{
   canActivate: [AuthGuard],
   children: [
     {
-      path: 'lesson',
+      path: 'courses/:course/subjects/:subject/lesson',
       component: StudentLessonComponent,
     },
     {
@@ -29,6 +30,10 @@ const routes: Routes = [{
     {
       path: 'game',
       component: PhaserGameComponent,
+    },
+    {
+      path: 'pivot/:code',
+      component: PivotComponent,
     }
   ],
 }];

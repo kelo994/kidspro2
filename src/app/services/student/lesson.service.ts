@@ -29,8 +29,20 @@ export class StudentLessonService {
         };
     }
 
-    getBloqueAlumno(idEstudiante: any) {
-        return this.http.get(`${this.url}/detalleBloqueAlumno/${idEstudiante}`, this.getTokenStudent())
+    getBloqueAlumno(courseId, subjectId) {
+        return this.http.get(`${this.url}/courses/${courseId}/subjects/${subjectId}/lessons`, this.getTokenStudent())
+            .pipe(timeout(5000),
+                retry(3),
+                catchError((error, c) => {
+                    this.errorTime();
+                    return throwError(error)
+                }),
+                switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+                finalize(() => { /*console.log('finilize')*/ }));
+    }
+
+    getDataByCode(codeID) {
+        return this.http.get(`${this.url}/datos/codigos/${codeID}`, this.getTokenStudent())
             .pipe(timeout(5000),
                 retry(3),
                 catchError((error, c) => {

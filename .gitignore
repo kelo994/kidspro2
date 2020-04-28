@@ -47,3 +47,4 @@ Thumbs.db
 
 # games
 /src/assets/activities
+!/src/app/components/pages/admin/students/students.component.ts

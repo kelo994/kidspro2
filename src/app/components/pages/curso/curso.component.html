@@ -10,7 +10,7 @@
         <ul nz-menu nzMode="inline" class="bd-top">
             <li class="item-submenu d-block my-auto" nz-menu-item nzMatchRouter
                 *ngFor="let asign of asignaturas | filter:searchValue" (click)="selectAsignatura(asign)">
-                <p class="m-0 truncar-texto">{{ asign.materia_descripcion }}</p>
+                <p class="m-0 truncar-texto">{{ asign.materia_codigo }}</p>
             </li>
             <li *ngIf="!asignaturas" class="py-2 bg-gray">
                 <p class="m-0 py-2 text-center" style="line-height: 15px;">No hay asignaturas</p>

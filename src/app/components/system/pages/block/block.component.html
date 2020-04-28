@@ -1,0 +1,94 @@
+<nz-page-header>
+  <nz-page-header-title>Bloques</nz-page-header-title>
+  <nz-page-header-extra>
+    <button style="font-size: 12px; font-weight: bold; background-color: #F2C94C; color: white" type="button" nz-button nzType="success"  (click)="goBack()">
+      <i nz-icon nzType="arrow-left"></i>
+      <nz-divider [nzType]="'vertical'" style="margin-left: 0px"></nz-divider>
+      Volver a Unidad
+    </button>
+    <button style="font-size: 12px; font-weight: bold; background-color: #009dee; color: white" type="button" nz-button nzType="primary"  (click)="showModal()">
+      <i nz-icon nzType="plus"></i>
+      <nz-divider [nzType]="'vertical'" style="margin-left: 0px"></nz-divider>
+      Agregar Bloque
+    </button>
+  </nz-page-header-extra>
+</nz-page-header>
+<nz-layout class="inner-layout">
+  <nz-table class="content-table"  #bloqueTable [nzData]="blocks" [nzLoading]="loading">
+    <thead>
+    <tr>
+      <th></th>
+      <th>Orden</th>
+      <th>Titulo</th>
+      <th>Estado bloque</th>
+      <th>Cantidad Ejercicios</th>
+      <th>Estado del juego</th>
+      <th>Recursos</th>
+      <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of bloqueTable.data">
+      <td>
+        <nz-avatar nzIcon="user" [nzSrc]="data.bloque_imagen"></nz-avatar>
+      </td>
+      <td> {{ data.bloque_orden }}</td>
+      <td>{{ data.bloque_titulo }} </td>
+      <td><nz-switch [(ngModel)]="data.bloque_estado"></nz-switch></td>
+      <td> {{ data.bloque_cantidad_ejercicios }}</td>
+      <td> <nz-switch [(ngModel)]="data.estado_juego"></nz-switch></td>
+      <td>
+        <button class="mx-2" nz-button nzType="primary" nzShape="" (click)="goToLinkObjective(data.bloque_id)">Objetivos</button>
+        <button class="mx-2" nz-button nzType="primary" nzShape="" (click)="goToLinkRepository(data.bloque_id)">Repositorios</button>
+      </td>
+      <td>
+        <button class="mx-2" nz-button nzType="primary" nzShape="circle"><i nz-icon nzType="edit"></i></button>
+        <button class="mx-2" nz-button nzType="danger" nzShape="circle" (click)="delete(data.bloque_id)"><i nz-icon nzType="delete"></i></button>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+
+</nz-layout>
+
+
+<nz-modal [(nzVisible)]="modalAgregarBloque" nzTitle="Agregar Bloque" (nzOnCancel)="handleCancelAgregar()" (nzOnOk)="createBlock()">
+  <form nz-form [formGroup]="blockForm" >
+    <nz-form-item>
+      <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired nzFor="bloque_titulo">Titulo</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Error!">
+        <input nz-input formControlName="bloque_titulo" id="bloque_titulo" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired nzFor="bloque_estado">Estado del Bloque </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Nombre no es valida!">
+        <nz-switch  formControlName="bloque_estado" id="bloque_estado"></nz-switch>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired nzFor="bloque_orden">Orden</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Error!">
+        <nz-input-number formControlName="bloque_orden" id="bloque_orden"  [nzMin]="1" [nzStep]="1"></nz-input-number>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired nzFor="bloque_imagen">Imagen</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Error!">
+        <input nz-input formControlName="bloque_imagen" id="bloque_imagen" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired nzFor="bloque_cantidad_ejercicios">Cantidad ejercicios</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Error!">
+        <nz-input-number formControlName="bloque_cantidad_ejercicios" id="bloque_cantidad_ejercicios"  [nzMin]="1" [nzStep]="1"></nz-input-number>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired nzFor="estado_juego">Estado del juego </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Nombre no es valida!">
+        <nz-switch  formControlName="estado_juego" id="estado_juego"></nz-switch>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>

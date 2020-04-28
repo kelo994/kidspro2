@@ -22,8 +22,8 @@ export class LeccionComponent implements OnInit {
     bloque_imagen: '',
     ruta_actividad: '',
     unidad_id: '',
-    lecciones: {
-      leccion_titulo: ''
+    actitudes: {
+      actitud_nombre: ''
     },
     objetivos: {
       objetivo_descripcion: ''
@@ -35,6 +35,7 @@ export class LeccionComponent implements OnInit {
   objetivos: { objetivo_descripcion: '' };
   habilidades: { habilidad_nombre: '' };
   lecciones = [];
+  actitudes: [];
   isCollapsed = false;
   asignaturaId;
   cursoId;

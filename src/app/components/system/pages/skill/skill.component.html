@@ -1,0 +1,48 @@
+<nz-page-header>
+  <nz-page-header-title>Habilidades</nz-page-header-title>
+  <nz-page-header-extra>
+    <button style="font-size: 12px; font-weight: bold; background-color: #F2C94C; color: white" type="button" nz-button nzType="success"  (click)="goBack()">
+      <i nz-icon nzType="arrow-left"></i>
+      <nz-divider [nzType]="'vertical'" style="margin-left: 0px"></nz-divider>
+      Volver a Unidad
+    </button>
+    <button style="font-size: 12px; font-weight: bold; background-color: #009dee; color: white" type="button" nz-button nzType="primary"  (click)="showModal()">
+      <i nz-icon nzType="plus"></i>
+      <nz-divider [nzType]="'vertical'" style="margin-left: 0px"></nz-divider>
+      Agregar Habilidad
+    </button>
+  </nz-page-header-extra>
+</nz-page-header>
+<nz-layout class="inner-layout">
+  <nz-table class="content-table" #habilidadTable
+            [nzFooter]="null" [nzData]="skills" [nzLoading]="loading">
+    <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of habilidadTable.data">
+      <td>{{ data.habilidad_nombre }} </td>
+      <td>
+        <button class="mx-2" nz-button nzType="primary" nzShape="circle"><i nz-icon nzType="edit"></i></button>
+        <button class="mx-2" nz-button nzType="danger" nzShape="circle" (click)="delete(data.habilidad_id)"><i nz-icon nzType="delete"></i></button>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+
+</nz-layout>
+
+
+<nz-modal [(nzVisible)]="modalAgregarHabilidades" nzTitle="Agregar habilidad" (nzOnCancel)="handleCancelAgregar()" (nzOnOk)="createUnit()">
+  <form nz-form [formGroup]="hablidadForm" >
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="habilidad_nombre">Nombre</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Nombre no es valida!">
+        <input nz-input formControlName="habilidad_nombre" id="habilidad_nombre" />
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>

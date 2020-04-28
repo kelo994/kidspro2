@@ -1,0 +1,103 @@
+<nz-page-header>
+  <nz-page-header-title>Asignaturas</nz-page-header-title>
+  <nz-page-header-extra>
+    <button style="font-size: 12px; font-weight: bold; background-color: #009dee; color: white" type="button" nz-button nzType="primary"  (click)="showModal()">
+      <i nz-icon nzType="plus"></i>
+      <nz-divider [nzType]="'vertical'" style="margin-left: 0px"></nz-divider>
+      Agregar Asignatura
+    </button>
+  </nz-page-header-extra>
+</nz-page-header>
+<nz-layout class="inner-layout">
+  <nz-table class="content-table" nzShowPagination="false" #asignaturaTable
+            [nzFooter]="null" [nzData]="subjects" [nzLoading]="loading">
+    <thead>
+    <tr>
+      <th>Materia</th>
+      <th>Nivel</th>
+      <th>Estado</th>
+      <th>Recursos</th>
+      <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of asignaturaTable.data">
+      <td>{{ data.materia_descripcion }} </td>
+      <td> {{ data.nivel_descripcion }}</td>
+      <td> <nz-switch [(ngModel)]="data.asignatura_estado"></nz-switch></td>
+      <td>
+        <button class="mx-2" nz-button nzType="primary" nzShape="" (click)="goToUnit(data.id)">Unidad</button>
+        <button class="mx-2" nz-button nzType="primary" nzShape="" (click)="goToObjective(data.id)">Objetivos</button>
+      </td>
+      <td>
+        <button class="mx-2" nz-button nzType="primary" nzShape="circle" (click)="showModalUpdate(data)"><i nz-icon nzType="edit"></i></button>
+        <button class="mx-2" nz-button nzType="danger" nzShape="circle" (click)="delete(data.id)"><i nz-icon nzType="delete"></i></button>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+
+</nz-layout>
+
+
+<nz-modal [(nzVisible)]="modalAgregarAsignatura" nzTitle="Agregar Asignatura" (nzOnCancel)="handleCancelAgregar()" (nzOnOk)="createSubject()">
+  <form nz-form [formGroup]="establishmentForm" >
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="nivel_id">Nivel</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Error!">
+        <nz-select formControlName="nivel_id" class="w-100" nzAllowClear nzPlaceHolder="Seleccione un nivel">
+          <nz-option *ngFor="let level of levels; let i = index" [nzValue]="level.id"
+                     [nzLabel]="level.nivel_descripcion">
+          </nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="materia_id">Materia</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Error!">
+        <nz-select formControlName="materia_id" class="w-100" nzAllowClear nzPlaceHolder="Seleccione un nivel">
+          <nz-option *ngFor="let mater of matters; let i = index" [nzValue]="mater.id"
+                     [nzLabel]="mater.materia_descripcion">
+          </nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="asignatura_estado">Estado</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Error!">
+        <nz-switch  formControlName="asignatura_estado" id="asignatura_estado"></nz-switch>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="modalEditarAsignatura" nzTitle="Actualizar Asignatura" (nzOnCancel)="handleCancelUpdate()" (nzOnOk)="updateSubject()">
+  <form nz-form [formGroup]="establishmentForm" >
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="nivel_id">Nivel</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Error!">
+        <nz-select formControlName="nivel_id" class="w-100" nzAllowClear nzPlaceHolder="Seleccione un nivel">
+          <nz-option *ngFor="let level of levels; let i = index" [nzValue]="level.id"
+                     [nzLabel]="level.nivel_descripcion">
+          </nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="materia_id">Materia</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Error!">
+        <nz-select formControlName="materia_id" class="w-100" nzAllowClear nzPlaceHolder="Seleccione un nivel">
+          <nz-option *ngFor="let mater of matters; let i = index" [nzValue]="mater.id"
+                     [nzLabel]="mater.materia_descripcion">
+          </nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="asignatura_estado">Estado</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Error!">
+        <nz-switch  formControlName="asignatura_estado" id="asignatura_estado"></nz-switch>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>

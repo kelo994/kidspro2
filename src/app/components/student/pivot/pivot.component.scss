@@ -1,0 +1,102 @@
+.fondo{
+  background: url('../../../../assets/images/fondos/fondoPivot.jpeg') no-repeat center center fixed;
+  position: fixed;
+  background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.titulo-acamykids{
+  color: white;
+  font-size: 24px;
+  text-align: center;
+  margin-top: 80px;
+}
+
+.color-letra{
+  color: white;
+}
+
+.alineado{
+  text-align: center;
+}
+
+.size-button{
+  width: 20%;
+  border: none;
+
+}
+
+.nivel{
+  margin-top: 3%;
+  font-size: 48px;
+}
+
+.establecimiento{
+  margin-top: 0.05%;
+  font-size: 18px;
+}
+
+.estudiante{
+  margin-top: 5%;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.estilo-letra{
+  font-family: "Luckiest Guy";
+}
+
+.azul{
+  background-color: rgb(34, 150, 243);
+  color:white;
+}
+.amarillo{
+  background-color: #fdd735;
+  color:white;
+}
+.naranjo{
+  background-color: #fe5722;
+  color:white;
+}
+
+.titulo-lecciones{
+  color: #1476d6;
+  font-size: 24px;
+  text-align: center;
+  margin-top: 80px;
+}
+
+.fondo-lecciones{
+  background: url('../../../../assets/images/fondos/login.jpg') no-repeat center center fixed;
+  position: fixed;
+  background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.materia{
+  color: white;
+  font-size: 24px;
+}
+
+
+.bloque{
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  cursor: pointer;
+}

@@ -1,0 +1,51 @@
+<nz-page-header>
+  <nz-page-header-title>Vincular Objetivos</nz-page-header-title>
+  <nz-page-header-extra>
+  </nz-page-header-extra>
+</nz-page-header>
+<nz-layout class="inner-layout">
+  <h4>Objetivos Lección</h4>
+  <nz-table class="content-table" #objetivoTable
+            [nzFooter]="null" [nzData]="objectivesBlocks" [nzLoading]="loading">
+    <thead>
+    <tr>
+      <th>OA</th>
+      <th>Nombre</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of objetivoTable.data">
+      <td>{{ data.objetivo_codigo }} </td>
+      <td> {{ data.objetivo_descripcion }}</td>
+      <td>
+        <button class="mx-2" nz-button nzType="danger" nzShape="circle" (click)="quitarObjetivo(data.objetivo_id)"><i nz-icon nzType="delete"></i></button>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-layout>
+<nz-layout class="inner-layout">
+  <h4>Objetivos sin asignar</h4>
+  <nz-table class="content-table" #objetivosMissingTable
+            [nzFooter]="null" [nzData]="objectivesMissingBlocks" [nzLoading]="loading">
+    <thead>
+    <tr>
+      <th>OA</th>
+      <th>Nombre</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of objetivosMissingTable.data">
+      <td>{{ data.objetivo_codigo }} </td>
+      <td> {{ data.objetivo_descripcion }}</td>
+      <td>
+        <button class="mx-2" nz-button nzType="success" nzShape="circle" (click)="addObjective(data.objetivo_id)"><i nz-icon nzType="plus"></i></button>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-layout>
+
+

@@ -165,9 +165,16 @@ li .ant-menu-item{
 ::ng-deep .card .ant-card-body {
   padding: 0px;
 }
+::ng-deep  .ant-card-bordered {
+  border: transparent;
+}
+
+.ant-card-bordered {
+  border: transparent;
+}
 
 ::ng-deep .ant-modal-body{
-  background-color: #e8e8e8;
+ // background-color: #e8e8e8;
 }
 .content-profesor{
 
