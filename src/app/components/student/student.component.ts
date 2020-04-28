@@ -33,6 +33,7 @@ export class StudentComponent {
 
   logout() {
     localStorage.clear();
+    window.location.reload();
     this.router.navigate(['/auth/login']);
   }
 
