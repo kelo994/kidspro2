@@ -37,7 +37,6 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "node_modules/phaser/dist/phaser.min.js"
             ]
           },
           "configurations": {

@@ -35,10 +35,10 @@ export class LoginComponent implements OnInit {
   ) {
     // let userEmail = 'pitagoras@yopmail.com';
     // let userEmail = 'jorge@yopmail.com';
-    let userRut = '19.195.225-1';
+    let userRut = '';
     this.formaLogin = new FormGroup({
       'rut': new FormControl(userRut, [Validators.required, Validators.minLength(3), this.rutService.validaRut]),
-      'password': new FormControl('123456', [Validators.required, Validators.minLength(3)])
+      'password': new FormControl('', [Validators.required, Validators.minLength(3)])
     })
     this.formaCode = new FormGroup({
       'codigo': new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]),
@@ -145,8 +145,9 @@ export class LoginComponent implements OnInit {
         let last_name = estudiante.persona_apellido.split(" ");
         localStorage.setItem('studentName', first_name[0] + ' ' + last_name[0]);
         localStorage.setItem('tokenStudent', this.studentToken);
+        localStorage.setItem('currentCode', this.studentCode.codigo_id);
         if (this.studentCode.tipo_codigo_id == 1) {
-          this.router.navigate(['/student/pivot/' + this.studentCode.codigo_id]);
+          this.router.navigate(['/student/pivot']);
         } else {
           this.router.navigate(['/student/evaluation']);
         }

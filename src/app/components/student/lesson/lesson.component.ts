@@ -60,7 +60,7 @@ export class StudentLessonComponent implements OnInit {
   cursoId;
   grupoId;
   showSection = 0;
-  playleccion = 'matematicas/1/1/Build/1.json';
+  playleccion = '1/Build/1.json';
   iframeHtml: any;
   loading = true;
   repositoriosProfesor: [
@@ -96,8 +96,6 @@ export class StudentLessonComponent implements OnInit {
         nombre_descarga: ''
       }
   ];
-  // cursoId;
-  // asignaturaId;
 
   ngOnInit(): void {
       this.route.params.subscribe(params => {
