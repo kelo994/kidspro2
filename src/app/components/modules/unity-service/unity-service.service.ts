@@ -11,8 +11,7 @@ declare let window: any;
 export class UnityService implements OnInit {
   private gameInstance: any;
   public flag = false;
-  // private url = 'http://localhost:8000/api/ejercicios';
-  private url = `${environment.apiBaseUrl}`+ '/ejercicios';
+  private url = `${environment.apiBaseUrl}`;
 
   constructor() { }
 
@@ -71,7 +70,6 @@ export class UnityService implements OnInit {
         "nombre": localStorage.getItem('studentName'),
         "estudiante_id": localStorage.getItem('idEstudiante'),
         "sexoEstudiante": "?",
-        "bloque_id": localStorage.getItem('fastBloque'),
         "rutaApi": this.url
       };
       var mensajeString = JSON.stringify(messageValueJson);
