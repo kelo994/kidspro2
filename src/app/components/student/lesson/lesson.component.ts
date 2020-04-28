@@ -149,7 +149,7 @@ export class StudentLessonComponent implements OnInit {
     this.playleccion = this.leccion.ruta_actividad;
     this.visibleDrawer = false;
     localStorage.setItem('fastBloque', this.leccion.bloque_id);
-    this.loadVideo(lesson.recursos[0].url);
+    this.loadVideo(this.leccion.bloque_video);
   }
 
   goToGame() {
