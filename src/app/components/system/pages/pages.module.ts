@@ -16,6 +16,7 @@ import { AttitudesComponent } from './attitudes/attitudes.component';
 import { RepositoryComponent } from './repository/repository.component';
 import { LinkobjetivesComponent } from './linkobjetives/linkobjetives.component';
 import { OfficialComponent } from './official/official.component';
+import { BlogComponent } from './blog/blog.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { OfficialComponent } from './official/official.component';
     RepositoryComponent,
     LinkobjetivesComponent,
     OfficialComponent,
+    BlogComponent,
 
   ],
   imports: [

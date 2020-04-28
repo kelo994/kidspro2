@@ -158,7 +158,7 @@ export class LeccionComponent implements OnInit {
         this.showSection = 2;
         this.playleccion = this.leccion.ruta_actividad;
         // @ts-ignore
-        this.loadVideo(this.leccion.recursos[0].url);
+        this.loadVideo(this.leccion.bloque_video);
       },
       (error) => {
         this.showSection = 1;
@@ -211,7 +211,8 @@ export class LeccionComponent implements OnInit {
             this.notification.info('Repositorio', 'Estamos procesando su solicitud');
             console.log(formData);
             this.repositorioService.crearRepositorio(formData).subscribe((response: any) => {
-                this.repositorios = response;
+                // this.repositorios = response;
+                this.getRepositoriosBloque();
                 this.notification.success('Repositorio Creado con Éxito', '');
             }, (error) => {
                 if (error.status === 401) {

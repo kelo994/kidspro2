@@ -10,6 +10,7 @@ import {AttitudesComponent} from './attitudes/attitudes.component';
 import {LinkobjetivesComponent} from './linkobjetives/linkobjetives.component';
 import {OfficialComponent} from './official/official.component';
 import {RepositoryComponent} from './repository/repository.component';
+import {BlogComponent} from './blog/blog.component';
 
 
 const systempagesroutes: Routes = [
@@ -56,6 +57,10 @@ const systempagesroutes: Routes = [
             {
                 path: 'subjects/units/blocks/:block/repositories',
                 component: RepositoryComponent,
+            },
+            {
+                path: 'blog',
+                component: BlogComponent,
             }
         ]
     },
