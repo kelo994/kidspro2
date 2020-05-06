@@ -1,0 +1,34 @@
+
+<div class="fondo-lecciones "  >
+  <div class="alineado mb-3" style="margin-top: 80px;font-weight: bold; font-size:calc(1em + 2vw); color: #333333" >
+    <img class="logo-establecimiento" [src]="user.persona_avatar" alt=""
+    >
+  </div>
+  <div class="alineado" style="font-weight: bold; font-size:calc(1em + 1.1vw); color: #333333">Bienvenido Profesor {{user.persona_nombre}} {{user.persona_apellido}}</div>
+  <div class="alineado"  style="font-weight: bold; font-size:calc(1em + 0.8vw); color: #333333">selecciona un establecimiento para iniciar.</div>
+
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-xs-10 col-sm-10 col-md-4 col-lg-4 col-xl-4" *ngFor="let establecimiento of establecimientos; let i = index">
+
+        <div class="bordes bordes-redondeados sombra p-1 pt-3" style="background-color: white">
+          <div nz-row>
+            <div nz-col nzSpan="8" class="alineado">
+              <nz-avatar class="alineado" [nzSize]="80" [nzSrc]="establecimiento.establecimiento_logo"></nz-avatar>
+            </div>
+            <div nz-col nzSpan="16" >
+              <div class="negrita" style="font-size:calc(1em + 0.5vw); font-weight: bold">Colegio {{establecimiento.establecimiento_nombre}}</div>
+            </div>
+          </div>
+          <div class="alineado pt-2 pb-3">
+            <button nz-button nzType="primary" style=" font-weight: bold; font-size:calc(1em + 0.4vw)" (click)="openCollege(establecimiento)">Entrar</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+</div>
+

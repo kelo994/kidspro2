@@ -52,7 +52,7 @@ import { AdminGuardService } from '../../services/auth-guard/admin-guard.service
         UnidadComponent,
         ReportesComponent,
         ObjetivosComponent,
-        ActividadesComponent
+        ActividadesComponent,
     ],
     providers: [{ provide: NZ_I18N, useValue: es_ES }, NzI18nService, AuthGuardService, AdminGuardService],
     entryComponents: [ ]

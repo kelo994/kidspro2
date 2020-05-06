@@ -65,12 +65,20 @@
                 </ul>
             </li>
         </ul>
-        <img src="https://www.camposdeportivos-temuco.cl/wp-content/uploads/2018/01/cabecera_logotipo.png" alt=""
-             style="position: absolute;
-             bottom: 10%;
-             left: 25%;">
+        <div style="transform: translate(-50%, -100%);
+    top: 90%;
+    display: block;
+    left: 50%;
+    text-align: center;
+    position: absolute;
+}">
+            <img [src]="establecimiento.establecimiento_logo" alt=""
+                 style="
+             ">
+        </div>
+
     </nz-sider>
-    <nz-drawer *ngIf="isDrawer" [nzVisible]="drawerState" [nzClosable]="false" nzPlacement="left" nzWidth="180px"
+    <nz-drawer *ngIf="isDrawer" [nzVisible]="drawerState" [nzClosable]="false" nzPlace  ment="left" nzWidth="180px"
         (nzOnClose)="closeDrawer()">
         <ul nz-menu nzMode="inline" class="pages-drawer">
             <li nz-menu-group nzTitle="Módulos"></li>

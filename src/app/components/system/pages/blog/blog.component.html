@@ -9,33 +9,35 @@
   </nz-page-header-extra>
 </nz-page-header>
 <nz-layout class="inner-layout">
-  <nz-table class="content-table"  #attitudeTable [nzData]="attitudes" [nzLoading]="loading">
-    <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>Acciones</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let data of attitudeTable.data">
-      <td> {{ data.actitud_nombre }}</td>
-      <td>
-        <button class="mx-2" nz-button nzType="primary" nzShape="circle"><i nz-icon nzType="edit"></i></button>
-        <button class="mx-2" nz-button nzType="danger" nzShape="circle" (click)="delete(data.actitud_id)"><i nz-icon nzType="delete"></i></button>
-      </td>
-    </tr>
-    </tbody>
-  </nz-table>
-
+  <div *ngFor="let blog of blogs; let i = index">
+    <nz-card nzHoverable [nzCover]="coverTemplate">
+      <nz-card-meta [nzTitle]="blog.blog_titulo" [nzDescription]="blog.blog_descripcion"></nz-card-meta>
+    </nz-card>
+    <ng-template #coverTemplate>
+      <img alt="example" [src]="blog.blog_imagen" />
+    </ng-template>
+  </div>
 </nz-layout>
 
 
-<nz-modal [(nzVisible)]="modalAgregarActitud" nzTitle="Agregar Actitud" (nzOnCancel)="handleCancelAgregar()" (nzOnOk)="createAttitude()">
-  <form nz-form [formGroup]="attitudeForm" >
+<nz-modal [(nzVisible)]="modalAgregarBlog" nzTitle="Agregar Actitud" (nzOnCancel)="handleCancelAgregar()" (nzOnOk)="createAttitude()">
+  <form nz-form [formGroup]="blogForm" >
     <nz-form-item>
-      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="actitud_nombre">Nombre</nz-form-label>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="blog_titulo">Nombre</nz-form-label>
       <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Error!">
-        <input nz-input formControlName="actitud_nombre" id="actitud_nombre" />
+        <input nz-input formControlName="blog_titulo" id="blog_titulo" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="blog_imagen">Imagen</nz-form-label>
+      <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Error!">
+        <input nz-input formControlName="blog_imagen" id="blog_imagen" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="blog_descripcion">Descripcion</nz-form-label>
+      <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Error!">
+        <input nz-input formControlName="blog_descripcion" id="blog_descripcion" />
       </nz-form-control>
     </nz-form-item>
   </form>

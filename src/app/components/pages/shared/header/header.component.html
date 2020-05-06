@@ -30,10 +30,10 @@
                 </div>
 
                 <div class="dropdown-menu">
-                    <a *ngIf="roles.length > 1" class="dropdown-item" (click)="openModal('roles')">Cambiar Rol</a>
-                    <div *ngIf="roles.length > 1" class="dropdown-divider"></div>
-                    <a *ngIf="establecimientos.length > 1" class="dropdown-item" (click)="openModal('establecimientos')">Cambiar Establecimiento</a>
-                    <div *ngIf="establecimientos.length > 1" class="dropdown-divider"></div>
+                    <a *ngIf="cantidadRoles > 1" class="dropdown-item" (click)="openModal('roles')">Cambiar Rol</a>
+                    <div *ngIf="cantidadRoles > 1" class="dropdown-divider"></div>
+                    <a  *ngIf="cantidadEstablecimientos > 1" class="dropdown-item" (click)="cambiarEstablecimiento()">Cambiar Establecimiento</a>
+                    <div *ngIf="cantidadEstablecimientos > 1"  class="dropdown-divider"></div>
                     <a class="dropdown-item" (click)="logout()">Cerrar Sesión</a>
                 </div>
             </div>
@@ -48,7 +48,7 @@
     </nz-radio-group>
 </nz-modal>
 <nz-modal [(nzVisible)]="modalEstablecimientos" nzTitle="Cambiar Establecimiento" nzCancelText="Cancelar" nzOkText="Cambiar"
-    (nzOnCancel)="closeModal('establecimientos')" 
+    (nzOnCancel)="closeModal('establecimientos')"
     (nzOnOk)="cambiarEstablecimiento()">
     <nz-radio-group [(ngModel)]="establecimientoId">
         <label *ngFor="let establecimiento of establecimientos" nz-radio [nzValue]="establecimiento.id">{{ establecimiento.establecimiento_nombre }}</label>
