@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { RutService } from 'src/app/services/forms/rut.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import {FuncionarioService} from "../../../services/funcionario.service";
 
 @Component({
   selector: 'app-login',
@@ -30,6 +31,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private rutService: RutService,
+    public funcionarioService: FuncionarioService,
     private notification: NzNotificationService,
     private router: Router
   ) {
@@ -64,7 +66,7 @@ export class LoginComponent implements OnInit {
           if (data.establecimientos.length == 1) {
             this.openCollege(data.establecimientos[0]);
           } else {
-            //MODAL
+            this.router.navigate(['establecimientos']);
           }
         } else {
           this.notification.warning('Usuario sin Establecimiento', 'Lo sentimos, su usuario no cuenta con ningun establecimiento asociado.');
@@ -91,15 +93,19 @@ export class LoginComponent implements OnInit {
   }
 
   openCollege(establecimiento) {
-    localStorage.setItem('nameEstablecimiento', establecimiento.establecimiento_nombre)
-    this.authService.detalleInicial(establecimiento.id).subscribe((data: any) => { // Success
-      localStorage.setItem('roles', JSON.stringify(data.roles));
-      localStorage.setItem('rolId', data.roles[0].rol_codigo);
-      localStorage.setItem('cursos', JSON.stringify(data.data));
-      localStorage.setItem('idEstablecimiento', establecimiento.id);
+    localStorage.setItem('nameEstablecimiento', establecimiento.establecimiento_nombre);
+    localStorage.setItem('idEstablecimiento', establecimiento.id);
+    localStorage.setItem('establecimiento', JSON.stringify(establecimiento));
+    this.funcionarioService.getRolesFuncionario(localStorage.getItem('idFuncionario'), establecimiento.id).subscribe((data: any) => {
+      localStorage.setItem('rolId', data[0].id);
+      localStorage.setItem('roles', JSON.stringify(data));
       this.router.navigate(['/pages/curso/0']);
     }, (error) => {
-      console.log(error)
+      if (error.status === 500) { this.notification.error('Error', error.error); }
+      if (error.status === 401) {
+        localStorage.clear();
+        this.router.navigate(['/auth/login']);
+      }
     });
   }
 

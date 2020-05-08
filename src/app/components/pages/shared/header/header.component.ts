@@ -19,7 +19,9 @@ export class HeaderComponent implements OnInit {
   userName = localStorage.getItem('nombreCompleto');
 
   roles = JSON.parse(localStorage.getItem('roles'));
-  establecimientos = JSON.parse(localStorage.getItem('establecimientos'));
+  establecimientos;
+  cantidadEstablecimientos;
+  cantidadRoles;
 
   rolId = parseInt(localStorage.getItem('rolId'));
   establecimientoId = parseInt(localStorage.getItem('idEstablecimiento'));
@@ -28,7 +30,11 @@ export class HeaderComponent implements OnInit {
   modalEstablecimientos = false;
 
   ngOnInit(): void {
-    this.siglas = this.getFirstCharacter(this.userName)
+    this.siglas = this.getFirstCharacter(this.userName);
+    this.cantidadEstablecimientos = JSON.parse(localStorage.getItem('establecimientos')).length;
+    this.cantidadRoles = JSON.parse(localStorage.getItem('roles')).length;
+    console.log(this.cantidadEstablecimientos);
+
   }
 
   collapseMenu() {
@@ -71,11 +77,10 @@ export class HeaderComponent implements OnInit {
     this.newSystemChange.emit(this.rolId);
   }
 
-  cambiarEstablecimiento () {
-    localStorage.setItem('idEstablecimiento', this.establecimientoId.toString());
-    this.closeModal('establecimientos');
-    this.notification.success('Su establecimiento ha sido cambiado', '');
-    this.newSystemChange.emit(this.rolId);
+  cambiarEstablecimiento() {
+    localStorage.removeItem('roles');
+    localStorage.removeItem('rolId');
+    this.router.navigate(['establecimientos']);
   }
 
 }

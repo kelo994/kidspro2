@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
-import {AttitudeService} from '../../../../services/system/attitude.service';
+import {BlogService} from '../../../../services/system/blog.service';
 import {NzModalService, NzNotificationService} from 'ng-zorro-antd';
 
 @Component({
@@ -12,31 +12,32 @@ import {NzModalService, NzNotificationService} from 'ng-zorro-antd';
 })
 export class BlogComponent implements OnInit {
   loading = true;
-  attitudes: [];
-  modalAgregarActitud = false;
-  attitudeForm  = new FormGroup({
-    actitud_nombre: new FormControl(''),
+  blogs: [];
+  modalAgregarBlog = false;
+  blogForm  = new FormGroup({
+    blog_titulo: new FormControl(''),
+    blog_imagen: new FormControl(''),
+    blog_descripcion: new FormControl(''),
   });
-  AttitudeDelete;
-  unitId;
+  blogDelete;
 
   constructor(
       private router: Router,
       private location: Location,
       private route: ActivatedRoute,
-      private attitudeService: AttitudeService,
+      private blogService: BlogService,
       private modalService: NzModalService,
       private notification: NzNotificationService,
       private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
-    this.getAttitudesPerUnit();
+    this.getBlogs();
   }
 
-  getAttitudesPerUnit() {
-    this.attitudeService.getAttitudesPerUnit(this.unitId).subscribe((data: any) => {
-      this.attitudes = data;
+  getBlogs() {
+    this.blogService.getBlogs().subscribe((data: any) => {
+      this.blogs = data.data;
       this.loading = false;
     }, (error) => {
       if (error.status === 401) {
@@ -49,21 +50,20 @@ export class BlogComponent implements OnInit {
   }
 
   showModal(): void {
-    this.modalAgregarActitud = true;
+    this.modalAgregarBlog = true;
   }
 
   handleCancelAgregar(): void {
-    this.modalAgregarActitud = false;
+    this.modalAgregarBlog = false;
   }
 
   createAttitude() {
-    const data = this.attitudeForm.value;
-    data.unidad_id = this.unitId;
+    const data = this.blogForm.value;
     console.log(data);
-    this.attitudeService.save(data).subscribe((response: any) => {
-      this.attitudes = response;
-      this.modalAgregarActitud = false;
-      this.notification.success('Actitud', 'Actitud Creado con Éxito');
+    this.blogService.save(data).subscribe((response: any) => {
+      this.blogs = response.data;
+      this.modalAgregarBlog = false;
+      this.notification.success('Articulo', 'Articulo Creado con Éxito');
     }, (error) => {
       if (error.status === 401) {
         this.router.navigate(['/auth/login']);
@@ -71,8 +71,8 @@ export class BlogComponent implements OnInit {
     });
   }
 
-  delete(AttitudeId) {
-    this.AttitudeDelete = AttitudeId;
+  delete(blogId) {
+    this.blogDelete = blogId;
     this.modalService.confirm({
       nzTitle: '<i>¿Estás seguro de realizar esta acción?</i>',
       nzContent: '<b>Esta acción no se puede deshacer</b>',
@@ -84,15 +84,15 @@ export class BlogComponent implements OnInit {
   }
 
   confirmDelete() {
-    this.attitudeService.delete(this.AttitudeDelete).subscribe((data: any) => {
-      this.attitudes = data;
-      this.notification.success('Actitud', 'La actitud fue eliminada con exito');
+    this.blogService.delete(this.blogDelete).subscribe((data: any) => {
+      this.blogs = data.data;
+      this.notification.success('Articulo', 'El articulo fue eliminado con exito');
     }, (error) => {
       console.log(error);
       if (error.status === 401) {
         this.router.navigate(['/auth/login']);
       } else if (error.status === 400 || error.status === 500) {
-        this.notification.error('Error al Eliminar la actitud', error.error.message);
+        this.notification.error('Error al Eliminar el articulo', error.error.message);
       }
     });
   }
