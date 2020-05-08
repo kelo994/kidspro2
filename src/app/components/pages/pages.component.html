@@ -20,7 +20,7 @@
                         style="padding-left: 10px !important;">
                         <a [routerLink]="['curso/' + nivel.nivel_id]">
                             <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
-                            <span>{{ nivel.nivel_descripcion }}</span>
+                            <span style="font-size: 1.2em;">{{ nivel.nivel_descripcion }}</span>
                         </a>
                     </li>
                 </ul>
@@ -32,14 +32,14 @@
                         (click)="gotoReportes('objetivos')">
                         <a [routerLink]="['/pages/reportes/objetivos']">
                             <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
-                            <span>Objetivos de Aprendizaje</span>
+                            <span style="font-size: 1.2em;">Objetivos de Aprendizaje</span>
                         </a>
                     </li>
                     <li nz-menu-item nzMatchRouter style="padding-left: 10px !important;"
                         (click)="gotoReportes('actividades')">
                         <a [routerLink]="['/pages/reportes/actividades']">
                             <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-unfold'"></i>
-                            <span>Actividades</span>
+                            <span style="font-size: 1.2em;">Actividades</span>
                         </a>
                     </li>
                 </ul>
@@ -59,7 +59,7 @@
                         <a [routerLink]="['administrar/' + route.path]" style="padding-left: 20px !important;">
                             <i *ngIf="route.nzIcon" class="trigger" nz-icon [nzType]="route.icon"></i>
                             <i *ngIf="!route.nzIcon" [class]="route.icon" style="margin-right: 10px;"></i>
-                            <span>{{ route.name }}</span>
+                            <span style="font-size: 1.2em;">{{ route.name }}</span>
                         </a>
                     </li>
                 </ul>

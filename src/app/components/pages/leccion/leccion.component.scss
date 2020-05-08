@@ -32,6 +32,7 @@ nz-footer {
 
 .negrita{
   font-weight: bold;
+  font-size: 1.2em;
 }
 
 
@@ -60,7 +61,7 @@ p {
 }
 
 .descripcion-documento{
-  font-size: 10px;
+  font-size: 14px;
 }
 
 #cardVideo { height: 90%; max-height: 538px;}
@@ -151,7 +152,7 @@ li .ant-menu-item{
 
 
 .truncar-texto {
-  overflow:hidden;white-space:nowrap;; text-overflow: ellipsis;
+  overflow:hidden;white-space:nowrap;; text-overflow: ellipsis; font-size: 13px;
 }
 
 
