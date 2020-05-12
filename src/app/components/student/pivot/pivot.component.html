@@ -1,34 +1,38 @@
-<div class="fondo" *ngIf="step == 'pivot'">
-  <div class="titulo-acamykids estilo-letra">ACAMYKIDS</div>
-  <div class="nivel color-letra alineado estilo-letra">{{data.nivel_descripcion}}</div>
-  <div class="establecimiento color-letra alineado estilo-letra">
-    <div>{{data.establecimiento_nombre}}</div>
-  </div>
-  <div class="estudiante color-letra alineado mb-3">Bienvenido, {{nombreEstudiante}}</div>
-  <div class="alineado pb-3">
-    <button  type="button" class="btn-lg azul size-button" (click)="goLecciones()"><i class="fas fa-book pt-1" style="float: left" ></i><strong> Lecciones</strong> </button>
-  </div>
-  <div class="alineado pb-3">
-    <button  type="button" class="btn-lg amarillo size-button" (click)="goToGame()"><i class="fas fa-gamepad pt-1" style="float: left"></i><strong> Juegos</strong> </button>
-  </div>
-  <!--<div class="alineado pb-3">
-    <button  type="button" class="btn-lg naranjo size-button"(click)="goSimce()" ><i class="fas fa-file pt-1" style="float: left"></i><strong> Simce</strong> </button>
-  </div>-->
-</div>
 
-<div class="fondo-lecciones" *ngIf="step == 'lecciones' ">
-  <div class="titulo-lecciones estilo-letra">Asignaturas </div>
-  <div nz-row >
-    <div class="pt-4" *ngFor="let asignatura of data.asignaturas; let i = index" nz-col nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12">
-      <div class="p-4 bloque" [style]="'background-color: ' + asignatura.materia_color" (click)="goToLesson(asignatura.asignatura_id)">
-        <div class="materia estilo-letra alineado">{{asignatura.materia_descripcion}}</div>
+<div class="fondo-lecciones " *ngIf="step == 'lecciones' " >
+  <div class="alineado" style="margin-top: 80px;font-weight: bold; font-size:calc(1em + 2vw); color: #333333" >
+    <img class="logo-establecimiento" src="https://www.camposdeportivos-temuco.cl/wp-content/uploads/2018/01/cabecera_logotipo.png" alt=""
+    >
+    {{data.nivel_descripcion}}
+  </div>
+  <div class="alineado" style="font-weight: bold; font-size:calc(1em + 1.3vw); color: #333333">Bienvenido {{nombreEstudiante}}</div>
+  <div class="alineado"  style="font-weight: bold; font-size:calc(1em + 1vw); color: #333333">selecciona una asignatura para iniciar tu lección</div>
+
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-xs-10 col-sm-10 col-md-5 col-lg-5 col-xl-5" *ngFor="let asignatura of data.asignaturas; let i = index">
+
+        <div class="bordes bordes-redondeados sombra p-1" style="background-color: white">
+          <div class="pt-3 pl-3" style="font-size:calc(1em + 0.6vw)!important; ">{{asignatura.materia_descripcion}}</div>
+          <nz-divider></nz-divider>
+          <div nz-row>
+            <div nz-col nzSpan="10" class="alineado">
+              <nz-avatar class="alineado" [nzSize]="80" nzIcon="user"></nz-avatar>
+            </div>
+            <div nz-col nzSpan="14" >
+              <div class="negrita" style="font-size:calc(1em + 0.7vw); font-weight: bold">{{asignatura.persona_nombre}} {{asignatura.persona_apellido}}</div>
+              <div style="font-size:calc(1em + 0.7vw); color: #818181">Profesor </div>
+            </div>
+          </div>
+          <div class="alineado pt-2 pb-3">
+            <button nz-button nzType="primary" style=" font-weight: bold; font-size:calc(1em + 0.4vw)" (click)="goToLesson(asignatura.asignatura_id)" >Entrar</button>
+          </div>
+        </div>
+
       </div>
-
     </div>
   </div>
-</div>
 
-<div class="fondo" *ngIf="step == 'simce'">
-  simce
 
 </div>
+

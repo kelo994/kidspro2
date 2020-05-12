@@ -133,7 +133,7 @@ export class RepositoryComponent implements OnInit {
       formData.append('file', this.archivo);
       formData.append('repositorio_name', this.repositorioForm.controls.nombre.value);
       formData.append('tipo_repositorio_id', this.repositorioForm.controls.tipoArchivo.value);
-      formData.append('usuario_repositorio_id', '1');
+      formData.append('usuario_repositorio_id', '2');
       formData.append('bloque_id', this.blockId);
       this.closeModal('crearRepositorio');
       this.notification.info('Repositorio', 'Estamos procesando su solicitud');

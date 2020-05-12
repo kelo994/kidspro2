@@ -103,8 +103,20 @@ export class FuncionarioService {
       finalize(() => { /*console.log('finilize')*/ }));
   }
 
-  getRolesFuncionario(idFuncionario: any) {
-    return this.http.get(`${this.url}/funcionarios/roles/${idFuncionario}`, this.getToken())
+
+    getEstablecimientosFuncionario() {
+        return this.http.get(`${this.url}/establecimientos-funcionario`, this.getToken()).pipe(timeout(5000),
+            retry(1),
+            catchError((error, c) => {
+                this.errorTime();
+                return throwError(error)
+            }),
+            switchMap(f => { /*console.log('do something with '+JSON.stringify(f));*/ return of(f) }),
+            finalize(() => { /*console.log('finilize')*/ }));
+    }
+
+  getRolesFuncionario(idFuncionario, establecimientoId) {
+    return this.http.get(`${this.url}/establecimientos/${establecimientoId}/funcionarios/${idFuncionario}/roles`, this.getToken())
       .pipe(catchError((error, c) => {
         this.errorTime();
         return throwError(error)

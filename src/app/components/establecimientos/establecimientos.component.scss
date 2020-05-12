@@ -1,5 +1,5 @@
 .fondo{
-  background: url('../../../../assets/images/fondos/fondoPivot.jpeg') no-repeat center center fixed;
+  background: url('../../../assets/images/fondos/login.jpg') no-repeat center center fixed;
   position: fixed;
   background-size: cover;
   -moz-background-size: cover;
@@ -71,7 +71,7 @@
 }
 
 .fondo-lecciones{
-  background: url('../../../../assets/images/fondos/login.jpg') no-repeat center center fixed;
+  background: url('../../../assets/images/fondos/login.jpg') no-repeat center center fixed;
   position: fixed;
   background-size: cover;
   -moz-background-size: cover;
@@ -132,5 +132,5 @@
 
 .logo-establecimiento{
   height:  calc(1em + 2.5vw);
-  width:  calc(1em + 1.5vw);
+  width:  calc(1em + 2.5vw);
 }

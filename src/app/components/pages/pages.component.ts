@@ -16,10 +16,11 @@ export class PagesComponent implements OnInit {
   drawerState = false;
 
   cursos;
+  establecimiento;
   niveles;
   open = true;
 
-  rolId = parseInt(localStorage.getItem('rolId'));
+  rolId;
 
   admin = [
     { path: 'cursos', name: 'Cursos', icon: 'bank', nzIcon: true },
@@ -61,9 +62,11 @@ export class PagesComponent implements OnInit {
   constructor(public router: Router, public coursesService: CoursesService,  public cursoService: CursoService) { }
 
   ngOnInit(): void {
+    this.rolId = parseInt(localStorage.getItem('rolId'));
     this.onResize();
     this.getCursos();
     this.getNiveles();
+    this.establecimiento = JSON.parse(localStorage.getItem('establecimiento'));
   }
 
   getCursos() {

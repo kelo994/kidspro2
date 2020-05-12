@@ -10,7 +10,7 @@
         <ul nz-menu nzMode="inline" class="bd-top">
             <li class="item-submenu d-block my-auto" nz-menu-item nzMatchRouter
                 *ngFor="let asign of asignaturas | filter:searchValue" (click)="selectAsignatura(asign)">
-                <p class="m-0 truncar-texto">{{ asign.materia_codigo }}</p>
+                <p class="m-0 truncar-texto" style="font-size: 14;">{{ asign.materia_codigo }}</p>
             </li>
             <li *ngIf="!asignaturas" class="py-2 bg-gray">
                 <p class="m-0 py-2 text-center" style="line-height: 15px;">No hay asignaturas</p>
@@ -84,7 +84,7 @@
                                     <div class="row m-0">
                                         <div class="col pl-3 pr-2 t-12"
                                             [ngClass]="{'pointer': editUnidades, 'no-pointer':!editUnidades }">
-                                            <span style="font-size: 10px">{{ b.bloque_titulo }}</span>
+                                            <span style="font-size: 1em;">{{ b.bloque_titulo }}</span>
                                         </div>
                                         <div class="col-2 p-0 d-block my-auto">
                                             <nz-switch nzSize="small" [ngModel]="b.estado"
