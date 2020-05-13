@@ -116,7 +116,7 @@ export class FuncionarioService {
     }
 
   getRolesFuncionario(idFuncionario, establecimientoId) {
-    return this.http.get(`${this.url}/establecimientos/${establecimientoId}/funcionarios/${idFuncionario}/roles`, this.getToken())
+    return this.http.get(`${this.url}/roles/funcionarios/${idFuncionario}/establecimientos/${establecimientoId}`, this.getToken())
       .pipe(catchError((error, c) => {
         this.errorTime();
         return throwError(error)
