@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { EmbedVideoService } from 'ngx-embed-video';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { LeccionService } from '../../../services/leccion.service';
-import {NzFormatEmitEvent, NzModalService, NzNotificationService} from 'ng-zorro-antd';
+import { NzEmptyModule, NzFormatEmitEvent, NzModalService, NzNotificationService} from 'ng-zorro-antd';
 import { BloqueService } from '../../../services/bloque.service';
 import { RepositorioService } from '../../../services/repositorio.service';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormControl, FormGroup, Validators} from '@angular/forms';
 import { environment } from '../../../../environments/environment';
 
 @Component({

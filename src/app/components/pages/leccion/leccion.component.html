@@ -1,7 +1,7 @@
 <nz-content class="loading pt-5" *ngIf="loading === false">
-  <div class="w-100 text-center d-block my-auto" >
+  <div class="w-100 text-center d-block my-auto">
     <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
-    <br>
+    <br />
     <h3 class="c-blue">Cargando ...</h3>
   </div>
 </nz-content>
@@ -13,103 +13,201 @@
     [nzBreakpoint]="'lg'"
     [nzCollapsedWidth]="0"
     nzTheme="light"
-    style="background-color:  #ececec; padding-top: 40px; margin-top: 0px !important; border-right: #c3c3c3 1px solid"
+    style="
+      background-color: #ececec;
+      padding-top: 40px;
+      margin-top: 0px !important;
+      border-right: #c3c3c3 1px solid;
+    "
   >
     <p class="cursiva pl-3 pb-3">{{ unidadNombre }}</p>
-    <ul nz-menu  nzMode="inline" [nzInlineCollapsed]="isCollapsed" style="background-color: transparent">
-      <li class="pl-2" nz-menu-item *ngFor="let leccion of lecciones; let i = index">
+    <ul
+      nz-menu
+      nzMode="inline"
+      [nzInlineCollapsed]="isCollapsed"
+      style="background-color: transparent;"
+    >
+      <li
+        class="pl-2"
+        nz-menu-item
+        *ngFor="let leccion of lecciones; let i = index"
+      >
         <a (click)="reloadLeccion(leccion)">
           <div nz-row nzAlign="middle">
-            <div nz-col nzSpan="5"><i class="far fa-play-circle" style="font-size: 18px"></i></div>
-            <div nz-col nzSpan="19"><p class="truncar-texto" >{{leccion.bloque_titulo}}</p></div>
+            <div nz-col nzSpan="5">
+              <i class="far fa-play-circle" style="font-size: 18px;"></i>
+            </div>
+            <div nz-col nzSpan="19">
+              <p class="truncar-texto">{{ leccion.bloque_titulo }}</p>
+            </div>
           </div>
         </a>
       </li>
-      <button class="pl-3" style="color: rgb(48,48,48); font-size: 12px" nz-button nzType="link" nzSize="small" (click)="goToUnidad()">
-        <i class="fas fa-arrow-left"></i> <span class="negrita pl-2" > Salir</span>
+      <button
+        class="pl-3"
+        style="color: rgb(48, 48, 48); font-size: 12px;"
+        nz-button
+        nzType="link"
+        nzSize="small"
+        (click)="goToUnidad()"
+      >
+        <i class="fas fa-arrow-left"></i>
+        <span class="negrita pl-2"> Salir</span>
       </button>
     </ul>
   </nz-sider>
   <nz-layout>
-    <nz-content style="margin-right: 15px">
-      <div  class="right-layout pt-3" nz-row >
-        <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="17" nzXXl="18" style="padding-left: 20px; padding-right: 20px; " >
-          <div class="video" [innerHtml]="iframeHtml" ></div>
+    <nz-content style="margin-right: 15px;">
+      <div class="right-layout pt-3" nz-row>
+        <div
+          nz-col
+          nzXs="24"
+          nzSm="24"
+          nzMd="24"
+          nzLg="24"
+          nzXl="17"
+          nzXXl="18"
+          style="padding-left: 20px; padding-right: 20px;"
+        >
+          <div class="video" [innerHtml]="iframeHtml"></div>
           <div class="datos-bloque">
             <div nz-row>
               <div nz-col nzSpan="12">
-                <h5 class="pb-2">{{unidadNombre}}: {{leccion.bloque_titulo}} </h5>
+                <h5 class="pb-2">
+                  {{ unidadNombre }}: {{ leccion.bloque_titulo }}
+                </h5>
               </div>
 
               <div nz-col nzSpan="8">
-                <h6 class="m-0" style="color: rgba(0, 0, 0, 0.3)">{{nombreAsignatura}}  </h6>
+                <h6 class="m-0" style="color: rgba(0, 0, 0, 0.3);">
+                  {{ nombreAsignatura }}
+                </h6>
               </div>
             </div>
-            
 
             <div class="datos-lecciones pl-2">
               <div class="datos-objetivos pl-2 pt-2">
                 <p class="negrita pb-2">Objetivos de Aprendizaje</p>
                 <ul>
                   <li *ngFor="let objetivo of leccion.objetivos; let i = index">
-                    <p class="descripcion-documento pl-1"><span style="color:#004d40; font-size: 14px">* </span>{{objetivo.objetivo_descripcion}}</p>
+                    <p class="descripcion-documento pl-1">
+                      <span style="color: #004d40; font-size: 14px;">* </span
+                      >{{ objetivo.objetivo_descripcion }}
+                    </p>
                   </li>
                 </ul>
               </div>
               <p class="negrita pb-2 pt-2">Actitudes</p>
               <ul>
                 <li *ngFor="let actitud of leccion.actitudes; let i = index">
-                  <p class="descripcion-documento pl-1"><span style="color:#004d40; font-size: 14px">* </span> {{actitud.actitud_nombre}}</p>
+                  <p class="descripcion-documento pl-1">
+                    <span style="color: #004d40; font-size: 14px;">* </span>
+                    {{ actitud.actitud_nombre }}
+                  </p>
                 </li>
               </ul>
             </div>
             <div class="datos-habilidades pl-2 pt-2">
               <p class="negrita pb-2">Habilidades</p>
               <ul>
-                <li *ngFor="let habilidad of leccion.habilidades; let i = index">
-                  <p class="descripcion-documento pl-1"><span style="color:#004d40; font-size: 14px">* </span>{{habilidad.habilidad_nombre}}</p>
+                <li
+                  *ngFor="let habilidad of leccion.habilidades; let i = index"
+                >
+                  <p class="descripcion-documento pl-1">
+                    <span style="color: #004d40; font-size: 14px;">* </span
+                    >{{ habilidad.habilidad_nombre }}
+                  </p>
                 </li>
               </ul>
             </div>
           </div>
         </div>
-        <div class="inner-content-right border-full" nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="7" nzXXl="6" >
-          <div class="border-bottom padding-title" >
+        <div
+          class="inner-content-right border-full"
+          nz-col
+          nzXs="24"
+          nzSm="24"
+          nzMd="24"
+          nzLg="24"
+          nzXl="7"
+          nzXXl="6"
+        >
+          <div class="border-bottom padding-title">
             <p class="negrita">Vista previa del juego</p>
           </div>
-          <div class="border-bottom vista-previa-image" >
-            <img *ngIf="asignaturaId >= 1 && asignaturaId <= 4" alt="image" src="../../../../assets/images/lesson/matematicas.PNG">
-            <img *ngIf="asignaturaId >= 5 && asignaturaId <= 8" alt="image" src="../../../../assets/images/lesson/lenguaje.PNG" />
+          <div class="border-bottom vista-previa-image">
+            <img
+              *ngIf="asignaturaId >= 1 && asignaturaId <= 4"
+              alt="image"
+              src="../../../../assets/images/lesson/matematicas.PNG"
+            />
+            <img
+              *ngIf="asignaturaId >= 5 && asignaturaId <= 8"
+              alt="image"
+              src="../../../../assets/images/lesson/lenguaje.PNG"
+            />
           </div>
-          <div class="border-bottom padding-title" >
+          <div class="border-bottom padding-title">
             <p class="negrita">Repositorio</p>
           </div>
-          <div class="lista-repositorio-sistema" >
+          <div class="lista-repositorio-sistema">
             <ul>
-              <li *ngFor="let repositorio of repositorios; let i = index" class="mb-3">
-                <div nz-row nzType="flex" nzJustify="space-between" nzAlign="middle">
+              <li
+                *ngFor="let repositorio of repositorios; let i = index"
+                class="mb-3"
+              >
+                <div
+                  nz-row
+                  nzType="flex"
+                  nzJustify="space-between"
+                  nzAlign="middle"
+                >
                   <div nz-col nzSpan="6">
-                    <i nz-icon [nzType]="repositorio.tipo_repositorio_icono" nzTheme="fill" [style]="'font-size: 32px;color: ' + repositorio.tipo_repositorio_color"></i>
+                    <i
+                      nz-icon
+                      [nzType]="repositorio.tipo_repositorio_icono"
+                      nzTheme="fill"
+                      [style]="
+                        'font-size: 32px;color: ' +
+                        repositorio.tipo_repositorio_color
+                      "
+                    ></i>
                   </div>
                   <div nz-col nzSpan="15">
                     <p class="negrita">{{ repositorio.repositorio_name }}</p>
-                   <!-- <p class="descripcion-documento">{{ repositorio.tipo_repositorio_name }}</p> -->
+                    <!-- <p class="descripcion-documento">{{ repositorio.tipo_repositorio_name }}</p> -->
                   </div>
                   <div nz-col nzSpan="3">
-                    <a [href]="url + '/downloads/multimedias/' +  repositorio.nombre_descarga"  style="color: #56CCF2; float: right;">
-                      <i class="fas fa-download" ></i>
+                    <a
+                      [href]="
+                        url +
+                        '/downloads/multimedias/' +
+                        repositorio.nombre_descarga
+                      "
+                      style="color: #56ccf2; float: right;"
+                    >
+                      <i class="fas fa-download"></i>
                     </a>
-             <!--       <button  style="color: #56CCF2; float: right; " nz-button nzType="link" nzSize="large" (click)="descargarArchivo(repositorio.repositorio_ruta)">
+                    <!--       <button  style="color: #56CCF2; float: right; " nz-button nzType="link" nzSize="large" (click)="descargarArchivo(repositorio.repositorio_ruta)">
                       <i class="fas fa-download"></i>
                     </button> -->
                   </div>
                 </div>
               </li>
             </ul>
-            <button nz-button nzType="link" (click)="openModal('repositorio')">Ver más...</button>
-            <div nz-row class="repositorio-content p-4 mt-3" (click)="openModal('crearRepositorio')">
+            <button nz-button nzType="link" (click)="openModal('repositorio')">
+              Ver más...
+            </button>
+            <div
+              nz-row
+              class="repositorio-content p-4 mt-3"
+              (click)="openModal('crearRepositorio')"
+            >
               <div nz-col nzSpan="24" class="text-center mb-2">
-                <i style="font-size: 32px; color: #56CCF2" class="fas fa-cloud-upload-alt"></i>
+                <i
+                  style="font-size: 32px; color: #56ccf2;"
+                  class="fas fa-cloud-upload-alt"
+                ></i>
               </div>
               <div nz-col nzSpan="24" class="text-center">
                 <span class="negrita">Haga clic para cargar los archivos</span>
@@ -122,9 +220,17 @@
   </nz-layout>
 </nz-layout>
 
-<nz-modal [(nzVisible)]="modalCrearRepositorio" nzWrapClassName="vertical-center-modal" nzTitle="Repositorio" nzOkText="Crear"
-          nzCancelText="Cancelar" [nzContent]="modalContent" [nzFooter]="modalFooter" nzWidth="600"
-          (nzOnCancel)="closeModal('crearRepositorio')" >
+<nz-modal
+  [(nzVisible)]="modalCrearRepositorio"
+  nzWrapClassName="vertical-center-modal"
+  nzTitle="Repositorio"
+  nzOkText="Crear"
+  nzCancelText="Cancelar"
+  [nzContent]="modalContent"
+  [nzFooter]="modalFooter"
+  nzWidth="600"
+  (nzOnCancel)="closeModal('crearRepositorio')"
+>
   <ng-template #modalContent>
     <form [formGroup]="repositorioForm" autocomplete="off">
       <div class="modal-container">
@@ -133,14 +239,22 @@
             <label class="form-label">Tipo de archivo:</label>
           </div>
           <div nz-col nzMd="16">
-            <nz-select formControlName="tipoArchivo" class="w-100" nzAllowClear nzPlaceHolder="Seleccione un tipo de archivo">
-              <nz-option *ngFor="let tipo of tipoArchivo; let i = index" [nzValue]="tipo.tipo_id"
-                         [nzLabel]="tipo.nombre">
+            <nz-select
+              formControlName="tipoArchivo"
+              class="w-100"
+              nzAllowClear
+              nzPlaceHolder="Seleccione un tipo de archivo"
+            >
+              <nz-option
+                *ngFor="let tipo of tipoArchivo; let i = index"
+                [nzValue]="tipo.tipo_id"
+                [nzLabel]="tipo.nombre"
+              >
               </nz-option>
             </nz-select>
           </div>
         </div>
-        <nz-divider ></nz-divider>
+        <nz-divider></nz-divider>
         <div nz-row>
           <div nz-col nzMd="8">
             <label class="form-label">Nombre archivo:</label>
@@ -149,11 +263,21 @@
             <input nz-input formControlName="nombre" placeholder="Nombre" />
           </div>
         </div>
-        <nz-divider ></nz-divider>
+        <nz-divider></nz-divider>
         <div nz-row>
-          <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop >
+          <div
+            class="uploadfilecontainer"
+            (click)="fileInput.click()"
+            appDragDrop
+          >
             <form enctype="multipart/form-data" name="fileForm">
-              <input id="fileInput" hidden type="file" #fileInput (change)="procesarArchivo($event)">
+              <input
+                id="fileInput"
+                hidden
+                type="file"
+                #fileInput
+                (change)="procesarArchivo($event)"
+              />
             </form>
           </div>
         </div>
@@ -161,70 +285,181 @@
     </form>
   </ng-template>
   <ng-template #modalFooter style="border-bottom: 4px solid #009dee;">
-    <button nz-button nzSize="large" style="background-color: #e8e8e8;"
-            (click)="closeModal('crearRepositorio')">Cancelar</button>
-    <button nz-button nzSize="large" nzType="primary" (click)="saveRepositorio()" [disabled]="repositorioForm.invalid">
+    <button
+      nz-button
+      nzSize="large"
+      style="background-color: #e8e8e8;"
+      (click)="closeModal('crearRepositorio')"
+    >
+      Cancelar
+    </button>
+    <button
+      nz-button
+      nzSize="large"
+      nzType="primary"
+      (click)="saveRepositorio()"
+      [disabled]="repositorioForm.invalid"
+    >
       Guardar
     </button>
   </ng-template>
 </nz-modal>
 
-
-<nz-modal [(nzVisible)]="modalRepositorio" nzWrapClassName="vertical-center-modal" nzTitle="Repositorio"
-          nzCancelText="Cancelar" [nzContent]="modalContentRepositorio" nzWidth="1200"
-          (nzOnCancel)="closeModal('repositorio')" [nzFooter]=null>
+<nz-modal
+  [(nzVisible)]="modalRepositorio"
+  nzWrapClassName="vertical-center-modal"
+  nzTitle="Repositorio"
+  nzCancelText="Cancelar"
+  [nzContent]="modalContentRepositorio"
+  nzWidth="1200"
+  (nzOnCancel)="closeModal('repositorio')"
+  [nzFooter]="null"
+>
   <ng-template #modalContentRepositorio style="background-color: #f2f2f2;">
-    <span class="negrita">Repositorio del sistema</span>
-    <div class="content-sistema mt-3 px-5" nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 24, xl: 24, xxl: 24 }">
-      <div class="mr-auto" nz-col nzXs="12" nzSm="12" nzMd="6" nzLg="6" nzXl="4" nzXXl="4"
-           *ngFor="let repositorio of repositoriosSistema; let i = index">
-        <nz-card  class="mr-auto p-0 " style="padding: 0">
-          <div class="" nz-row >
-            <div class="content-icono text-center  pb-3" nz-col nzSpan="24">
-              <i nz-icon [nzType]="repositorio.tipo_repositorio_icono" nzTheme="fill" [style]="'font-size: 40px;color: ' + repositorio.tipo_repositorio_color"></i>
+    <nz-divider
+      nzText="Repositorio del sistema"
+      nzOrientation="left"
+    ></nz-divider>
+    <!--<span class="negrita">Repositorio del sistema</span> -->
+    <div class="" *ngIf="repositoriosSistema.length > 0; else BloqueVacio">
+      <div
+        class="content-sistema mt-3 px-5"
+        nz-row
+        [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 24, xl: 24, xxl: 24 }"
+      >
+        <div
+          class="mr-auto"
+          nz-col
+          nzXs="12"
+          nzSm="12"
+          nzMd="6"
+          nzLg="6"
+          nzXl="4"
+          nzXXl="4"
+          *ngFor="let repositorio of repositoriosSistema; let i = index"
+        >
+          <nz-card class="mr-auto p-0" style="padding: 0;">
+            <div class="" nz-row>
+              <div class="content-icono text-center pb-3" nz-col nzSpan="24">
+                <i
+                  nz-icon
+                  [nzType]="repositorio.tipo_repositorio_icono"
+                  nzTheme="fill"
+                  [style]="
+                    'font-size: 40px;color: ' +
+                    repositorio.tipo_repositorio_color
+                  "
+                ></i>
+              </div>
+              <div class="text-center" nz-col nzSpan="24">
+                <p class="negrita truncar-texto" style="font-size: 11px;">
+                  {{ repositorio.repositorio_name }}
+                </p>
+              </div>
+              <div class="text-right px-2" nz-col nzSpan="24">
+                <a
+                  [href]="
+                    url +
+                    '/downloads/multimedias/' +
+                    repositorio.nombre_descarga
+                  "
+                  style="color: #56ccf2;"
+                >
+                  <span style="font-size: 10px;">Descargar </span>
+                  <i class="fas fa-download"></i>
+                </a>
+              </div>
             </div>
-            <div class="text-center" nz-col nzSpan="24">
-              <p class="negrita truncar-texto " style="font-size: 11px">{{ repositorio.repositorio_name }}</p>
-            </div>
-            <div class="text-right  px-2" nz-col nzSpan="24">
-              <a [href]="url + '/downloads/multimedias/' +  repositorio.nombre_descarga"  style="color: #56CCF2;">
-                <span style="font-size: 10px">Descargar </span> <i class="fas fa-download" ></i>
-              </a>
-            </div>
-          </div>
-        </nz-card>
+          </nz-card>
+        </div>
       </div>
     </div>
-    <span class="negrita pt-3">Repositorio del profesor</span>
-    <div class="content-profesor px-5" nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 24, xl: 24, xxl: 24 }">
-      <div class="mr-auto content-repositorio-profesor mt-3" nz-col nzXs="12" nzSm="12" nzMd="6" nzLg="6" nzXl="4" nzXXl="4"
-           *ngFor="let repositorio of repositoriosProfesor; let i = index">
-        <nz-card  class="mr-auto p-0 " style="padding: 0;">
-          <div class="" nz-row >
-            <div class="text-right " nz-col nzSpan="24">
-              <button  style="color: #56CCF2; float: right; " nz-button nzType="link"  (click)="delete(repositorio.repositorio_id)">
-                <i class="far fa-trash-alt"></i>
-              </button>
+    <ng-template #BloqueVacio>
+      <nz-empty></nz-empty>
+    </ng-template>
+    <nz-divider
+      nzText="Repositorio del profesor"
+      nzOrientation="left"
+    ></nz-divider>
+    <!--<span class="negrita pt-3">Repositorio del profesor</span> -->
+    <div class="" *ngIf="repositoriosProfesor.length > 0; else BloqueVacio">
+      <div
+        class="content-profesor px-5"
+        nz-row
+        [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 24, xl: 24, xxl: 24 }"
+      >
+        <div
+          class="mr-auto content-repositorio-profesor mt-3"
+          nz-col
+          nzXs="12"
+          nzSm="12"
+          nzMd="6"
+          nzLg="6"
+          nzXl="4"
+          nzXXl="4"
+          *ngFor="let repositorio of repositoriosProfesor; let i = index"
+        >
+          <nz-card class="mr-auto p-0" style="padding: 0;">
+            <div class="" nz-row>
+              <div class="text-right" nz-col nzSpan="24">
+                <button
+                  style="color: #56ccf2; float: right;"
+                  nz-button
+                  nzType="link"
+                  (click)="delete(repositorio.repositorio_id)"
+                >
+                  <i class="far fa-trash-alt"></i>
+                </button>
+              </div>
+              <div class="content-icono text-center pb-3" nz-col nzSpan="24">
+                <i
+                  nz-icon
+                  [nzType]="repositorio.tipo_repositorio_icono"
+                  nzTheme="fill"
+                  [style]="
+                    'font-size: 40px;color: ' +
+                    repositorio.tipo_repositorio_color
+                  "
+                ></i>
+              </div>
+              <div class="text-center" nz-col nzSpan="24">
+                <p class="negrita truncar-texto" style="font-size: 11px;">
+                  {{ repositorio.repositorio_name }}
+                </p>
+              </div>
+              <div class="text-right px-2" nz-col nzSpan="24">
+                <a
+                  [href]="
+                    url +
+                    '/downloads/multimedias/' +
+                    repositorio.nombre_descarga
+                  "
+                  style="color: #56ccf2;"
+                >
+                  <span style="font-size: 10px;">Descargar </span>
+                  <i class="fas fa-download"></i>
+                </a>
+              </div>
             </div>
-            <div class="content-icono text-center  pb-3" nz-col nzSpan="24">
-              <i nz-icon [nzType]="repositorio.tipo_repositorio_icono" nzTheme="fill" [style]="'font-size: 40px;color: ' + repositorio.tipo_repositorio_color"></i>
-            </div>
-            <div class="text-center" nz-col nzSpan="24">
-              <p class="negrita truncar-texto " style="font-size: 11px">{{ repositorio.repositorio_name }}</p>
-            </div>
-            <div class="text-right  px-2" nz-col nzSpan="24">
-              <a [href]="url + '/downloads/multimedias/' +  repositorio.nombre_descarga"  style="color: #56CCF2;">
-                <span style="font-size: 10px">Descargar </span> <i class="fas fa-download" ></i>
-              </a>
-            </div>
-          </div>
-        </nz-card>
+          </nz-card>
+        </div>
       </div>
     </div>
+    <ng-template #BloqueVacio>
+      <nz-empty></nz-empty>
+    </ng-template>
   </ng-template>
-  <ng-template #modalFooterRepositorio style="border-bottom: 4px solid #009dee;">
-    <button nz-button nzSize="large" style="background-color: #e8e8e8;"
-            (click)="closeModal('repositorio')">Cancelar</button>
-
+  <ng-template
+    #modalFooterRepositorio
+    style="border-bottom: 4px solid #009dee;"
+  >
+    <button
+      nz-button
+      nzSize="large"
+      style="background-color: #e8e8e8;"
+      (click)="closeModal('repositorio')"
+    >
+      Cancelar
+    </button>
   </ng-template>
 </nz-modal>
