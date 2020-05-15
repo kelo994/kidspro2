@@ -69,11 +69,12 @@ export class UnityService implements OnInit {
       {
         "nombre": localStorage.getItem('studentName'),
         "estudiante_id": localStorage.getItem('idEstudiante'),
-        "sexoEstudiante": "?",
         "rutaApi": this.url
       };
       var mensajeString = JSON.stringify(messageValueJson);
       //this.gameInstance.SendMessage();
+      console.log(messageValueJson);
+      console.log("Enviando datos...");
       this.gameInstance.SendMessageUnity('VariablesController', 'obtenerValores', mensajeString);
   }
 
