@@ -48,6 +48,10 @@ export class StudentLessonGameComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    window.location.reload();
+  }
+
   goBack () {
     this.router.navigate(['/student/pivot'])
   }

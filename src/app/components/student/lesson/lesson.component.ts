@@ -2,9 +2,9 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { StudentLessonService } from '../../../services/student/lesson.service';
 import { NzNotificationService } from 'ng-zorro-antd';
 import { EmbedVideoService } from 'ngx-embed-video';
-import {ActivatedRoute, Router} from '@angular/router';
-import {RepositorioService} from '../../../services/repositorio.service';
-import {environment} from '../../../../environments/environment';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RepositorioService } from '../../../services/repositorio.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-student-lesson',
@@ -64,44 +64,44 @@ export class StudentLessonComponent implements OnInit {
   iframeHtml: any;
   loading = true;
   repositoriosProfesor: [
-      {
-        repositorio_id: '',
-        repositorio_ruta: '',
-        repositorio_name: '',
-        tipo_repositorio_name: '',
-        tipo_repositorio_icono: '',
-        tipo_repositorio_color: '',
-        nombre_descarga: '',
-      }
+    {
+      repositorio_id: '',
+      repositorio_ruta: '',
+      repositorio_name: '',
+      tipo_repositorio_name: '',
+      tipo_repositorio_icono: '',
+      tipo_repositorio_color: '',
+      nombre_descarga: '',
+    }
   ];
   repositoriosSistema: [
-      {
-        repositorio_id: '',
-        repositorio_ruta: '',
-        repositorio_name: '',
-        tipo_repositorio_name: '',
-        tipo_repositorio_icono: '',
-        tipo_repositorio_color: '',
-        nombre_descarga: ''
-      }
+    {
+      repositorio_id: '',
+      repositorio_ruta: '',
+      repositorio_name: '',
+      tipo_repositorio_name: '',
+      tipo_repositorio_icono: '',
+      tipo_repositorio_color: '',
+      nombre_descarga: ''
+    }
   ];
   repositorios: [
-      {
-        repositorio_id: '',
-        repositorio_ruta: '',
-        repositorio_name: '',
-        tipo_repositorio_name: '',
-        tipo_repositorio_icono: '',
-        tipo_repositorio_color: '',
-        nombre_descarga: ''
-      }
+    {
+      repositorio_id: '',
+      repositorio_ruta: '',
+      repositorio_name: '',
+      tipo_repositorio_name: '',
+      tipo_repositorio_icono: '',
+      tipo_repositorio_color: '',
+      nombre_descarga: ''
+    }
   ];
 
   ngOnInit(): void {
-      this.route.params.subscribe(params => {
-          this.cursoId = params.course;
-          this.asignaturaId = params.subject;
-      });
+    this.route.params.subscribe(params => {
+      this.cursoId = params.course;
+      this.asignaturaId = params.subject;
+    });
     this.idEstudiante = localStorage.getItem('idEstudiante');
     this.loadContent();
 
@@ -157,7 +157,7 @@ export class StudentLessonComponent implements OnInit {
   }
 
   getRepositoriosBloque(bloqueId) {
-    this.lessonService.getRepositoriosBloque(bloqueId).subscribe( (data: any) => { // Success
+    this.lessonService.getRepositoriosBloque(bloqueId).subscribe((data: any) => { // Success
       this.repositorios = data;
     }, (error) => {
       if (error.status === 401) { this.router.navigate(['/auth/login']); }
@@ -167,7 +167,7 @@ export class StudentLessonComponent implements OnInit {
   descargarArchivo(nombreArchivo) {
     var ruta = nombreArchivo.split('/');
     console.log(nombreArchivo);
-    this.lessonService.descargarArchivo(ruta[5]).subscribe( (data: any) => { // Success
+    this.lessonService.descargarArchivo(ruta[5]).subscribe((data: any) => { // Success
       this.notification.info('Repositorio', 'Descarga exitosa');
     }, (error) => {
       if (error.status === 401) { this.router.navigate(['/auth/login']); }
@@ -196,7 +196,7 @@ export class StudentLessonComponent implements OnInit {
   }
 
   getRepositoriosProfesor() {
-    this.lessonService.getRepositorios(1, this.leccion.bloque_id).subscribe( (data: any) => { // Success
+    this.lessonService.getRepositorios(1, this.leccion.bloque_id).subscribe((data: any) => { // Success
       this.repositoriosProfesor = data;
     }, (error) => {
       if (error.status === 401) { this.router.navigate(['/auth/login']); }
@@ -204,7 +204,7 @@ export class StudentLessonComponent implements OnInit {
   }
 
   getRepositoriosSistema() {
-    this.lessonService.getRepositorios(2, this.leccion.bloque_id).subscribe( (data: any) => { // Success
+    this.lessonService.getRepositorios(2, this.leccion.bloque_id).subscribe((data: any) => { // Success
       this.repositoriosSistema = data;
     }, (error) => {
       if (error.status === 401) { this.router.navigate(['/auth/login']); }

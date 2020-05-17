@@ -30,7 +30,7 @@ import { DarkComponent } from './components/game/dark/dark.component';
 import { EstablecimientosComponent } from './components/establecimientos/establecimientos.component';
 registerLocaleData(es);
 
-import { ErrorInterceptor } from './helpers/ErrorInterceptor';
+import { ErrorInterceptor } from './helpers/error.interceptor';
 
 // Configuraciones sglobales ngZorro
 const ngZorroConfig: NzConfig = {
