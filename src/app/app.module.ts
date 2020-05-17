@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { IconsProviderModule } from './icons-provider.module';
 import { NgZorroAntdModule, NzConfig, NZ_CONFIG, NZ_I18N, es_ES } from 'ng-zorro-antd';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import es from '@angular/common/locales/es';
@@ -29,6 +29,8 @@ import { GameComponent } from './components/game/game.component';
 import { DarkComponent } from './components/game/dark/dark.component';
 import { EstablecimientosComponent } from './components/establecimientos/establecimientos.component';
 registerLocaleData(es);
+
+import { ErrorInterceptor } from './helpers/ErrorInterceptor';
 
 // Configuraciones sglobales ngZorro
 const ngZorroConfig: NzConfig = {
@@ -65,7 +67,12 @@ const ngZorroConfig: NzConfig = {
   ],
   exports: [Ng2SearchPipeModule],
   entryComponents: [DialogDataExampleDialog],
-  providers: [{ provide: NZ_I18N, useValue: es_ES }, { provide: NZ_CONFIG, useValue: ngZorroConfig }, HighchartsService],
+  providers: [
+    { provide: NZ_I18N, useValue: es_ES },
+    { provide: NZ_CONFIG, useValue: ngZorroConfig },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    HighchartsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

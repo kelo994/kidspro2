@@ -54,7 +54,12 @@ import { AdminGuardService } from '../../services/auth-guard/admin-guard.service
         ObjetivosComponent,
         ActividadesComponent,
     ],
-    providers: [{ provide: NZ_I18N, useValue: es_ES }, NzI18nService, AuthGuardService, AdminGuardService],
+    providers: [
+        { provide: NZ_I18N, useValue: es_ES },
+        NzI18nService,
+        AuthGuardService,
+        AdminGuardService
+    ],
     entryComponents: [ ]
 })
 export class PagesModule { }

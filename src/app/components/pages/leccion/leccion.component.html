@@ -12,15 +12,10 @@
     [(nzCollapsed)]="isCollapsed"
     [nzBreakpoint]="'lg'"
     [nzCollapsedWidth]="0"
+    [nzTrigger]="null"
     nzTheme="light"
-    style="
-      background-color: #ececec;
-      padding-top: 40px;
-      margin-top: 0px !important;
-      border-right: #c3c3c3 1px solid;
-    "
   >
-    <p class="cursiva pl-3 pb-3">{{ unidadNombre }}</p>
+    <p class="cursiva pl-3 pb-3" style="padding-top: 40px;">{{ unidadNombre }}</p>
     <ul
       nz-menu
       nzMode="inline"
@@ -67,7 +62,7 @@
           nzLg="24"
           nzXl="17"
           nzXXl="18"
-          style="padding-left: 20px; padding-right: 20px;"
+          style="padding-left: 20px; padding-right: 20px; max-height: 100vh!important;"
         >
           <div class="video" [innerHtml]="iframeHtml"></div>
           <div class="datos-bloque">

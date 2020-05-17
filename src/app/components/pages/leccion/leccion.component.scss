@@ -1,5 +1,5 @@
 .layout {
-  height: 100vh;
+  max-height: calc(100vh - 48px);
 }
 
 .logo {
@@ -212,7 +212,9 @@ background-color: #F2F2F2;
 }
 
 .submenu-sidebar{
-  background-color:  #ececec; padding-top: 40px; margin-top: 0px !important; border-right: #c3c3c3 1px solid
+  background-color:  #ececec;
+  margin-top: 0px !important;
+  border-right: #c3c3c3 1px solid;
 }
 
 .p-0{
